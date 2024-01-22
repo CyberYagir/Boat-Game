@@ -166,6 +166,11 @@ namespace Content.Scripts.BoatGame
             {
                 var param = item.ParametersData;
 
+                AddParameters(param);
+            }
+
+            public void AddParameters(Character.ParametersData param)
+            {
                 health += param.Health;
                 hunger += param.Hunger;
                 thirsty += param.Thirsty;
