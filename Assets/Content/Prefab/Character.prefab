@@ -77,12 +77,40 @@ MonoBehaviour:
       health: 100
       hunger: 100
       thirsty: 100
+    equipmentData:
+      helmetID: 
+      armorID: 
+      weaponID: 
     skinColorID: 0
     hatID: 0
   appearanceManager:
     renderer: {fileID: 765214527604845024}
     selectedCircle: {fileID: 7658628910745497438}
     hatsHolder: {fileID: 5617556565919673580}
+    bones:
+    - {fileID: 8258262045124321230}
+    - {fileID: 2293230442123776868}
+    - {fileID: 7496467744590421040}
+    - {fileID: 4221958187425828353}
+    - {fileID: 1665961974635115301}
+    - {fileID: 8326103707124701365}
+    - {fileID: 1544602472623965784}
+    - {fileID: 9207037877845372799}
+    - {fileID: 8344871472628277856}
+    - {fileID: 6041411444500026966}
+    - {fileID: 3421136235929240285}
+    - {fileID: 7156797852808114384}
+    - {fileID: 8138014045721818049}
+    - {fileID: 6000579094123435498}
+    - {fileID: 5143215765815163768}
+    - {fileID: 2208213781446596000}
+    - {fileID: 1295649615352550030}
+    - {fileID: 8954821581056075278}
+    - {fileID: 7255743155224757388}
+    - {fileID: 7110015909123423281}
+    - {fileID: 4398567894235862288}
+    - {fileID: 2871763750078756306}
+    - {fileID: 6080177543086641055}
   animationsManager:
     animator: {fileID: 1349104748021026184}
     hoodAnimations: {fileID: 2727952339653336360}
@@ -543,6 +571,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8612479965474170698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6080177543086641055}
+  m_Layer: 6
+  m_Name: BackSword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6080177543086641055
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8612479965474170698}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.012083968, y: -0.0070441575, z: 0.49455982, w: 0.8690311}
+  m_LocalPosition: {x: 0.314, y: 0.524, z: -0.231}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3421136235929240285}
+  m_LocalEulerAnglesHint: {x: -0.804, y: -1.387, z: 59.298}
 --- !u!1001 &3155332906967834918
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -594,6 +653,10 @@ PrefabInstance:
     - target: {fileID: 7309495071529409733, guid: 64f08f7d85a7c4f4994633d5ba35f14e, type: 3}
       propertyPath: m_Name
       value: Hats
+      objectReference: {fileID: 0}
+    - target: {fileID: 7309495071529409733, guid: 64f08f7d85a7c4f4994633d5ba35f14e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1505,6 +1568,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8069032694317455793, guid: 4db6461ca9751294d883c5f922849171, type: 3}
       insertIndex: -1
       addedObject: {fileID: 838932606009399700}
+    - targetCorrespondingSourceObject: {fileID: 7829577706673091268, guid: 4db6461ca9751294d883c5f922849171, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6080177543086641055}
     - targetCorrespondingSourceObject: {fileID: 7208261743932278219, guid: 4db6461ca9751294d883c5f922849171, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5150916663195747667}

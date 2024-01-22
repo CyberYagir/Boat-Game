@@ -1,6 +1,7 @@
 using System;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.BoatGame.UI.UIEquipment;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace Content.Scripts.ItemsSystem
         [SerializeField, PreviewField] private Sprite itemIcon;
         [SerializeField] private Character.ParametersData parametersData;
         [SerializeField, ShowIf("@itemType == EItemType.Armor")] private GameObject prefab;
+        [SerializeField, ShowIf("@itemType == EItemType.Armor")] private UIEquipmentBase.EEquipmentType equipment;
         public Sprite ItemIcon => itemIcon;
 
         public string ItemName => itemName;
@@ -32,6 +34,10 @@ namespace Content.Scripts.ItemsSystem
         public EResourceTypes Type => type;
 
         public EItemType ItemType => itemType;
+
+        public UIEquipmentBase.EEquipmentType Equipment => equipment;
+
+        public GameObject Prefab => prefab;
 
 
         [Button]

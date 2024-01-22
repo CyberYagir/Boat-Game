@@ -211,7 +211,7 @@ namespace Content.Scripts.BoatGame
             return remove;
         }
 
-        public void RemoveFromStorage(ItemObject item)
+        public bool RemoveFromStorage(ItemObject item)
         {
             var storage = GetStorage(item.Type, true);
             var remove = storage.ItemObjects.Find(x => x.Item.ID == item.ID);
@@ -220,7 +220,10 @@ namespace Content.Scripts.BoatGame
             {
                 storage.RemoveItem(item);
                 OnStorageChange?.Invoke(item.Type, storage);
+                return true;
             }
+
+            return false;
         }
 
         public void LoadStorage(SaveDataObject.RaftsData.RaftStorage data, GameDataObject gameData)

@@ -13,8 +13,69 @@ MonoBehaviour:
   m_Name: SaveData
   m_EditorClassIdentifier: 
   charactersData:
-    characters: []
+    characters:
+    - name: Brian
+      uid: 825105ee-3a56-43d9-90af-6ca7faf93d50
+      skillsData:
+        xp: 11
+        scores: 0
+        level: 2
+        skills:
+        - skillID: 3b8443e2-2fef-4110-95aa-d61d78459f6f
+          value: 2
+        - skillID: f3b559d4-e0e2-42ef-b5d1-71101d0e10ca
+          value: 3
+        - skillID: 20b3171e-8a60-4361-bfe4-c12a4b154163
+          value: 1
+        - skillID: bd91198f-eeab-4ae1-acef-2551fa57d4d9
+          value: 1
+      parametersData:
+        health: 100
+        hunger: 67.43614
+        thirsty: 34.872284
+      equipmentData:
+        helmetID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
+        armorID: c41bd4d7-bd75-4f63-8a7e-76f629d9b694
+        weaponID: bcddab5b-dfe3-4642-807d-96e3b0e64c38
+      skinColorID: 0
+      hatID: 2
   raftsData:
-    rafts: []
-    storages: []
+    rafts:
+    - uid: add941ed-a4ce-4855-a546-c6e4ec829803
+      pos: {x: 0, y: 0, z: 0}
+      health: 100
+      raftType: 0
+    - uid: b3933baf-52a4-4b7b-915d-8ed444189828
+      pos: {x: 0, y: 0, z: 1}
+      health: 100
+      raftType: 0
+    - uid: 04856a2b-74e7-41e2-8563-0f09d2fb3bf8
+      pos: {x: 1, y: 0, z: 0}
+      health: 100
+      raftType: 0
+    - uid: c3e7ebf9-bab3-4fc0-aa84-4fc967214c15
+      pos: {x: 1, y: 0, z: 1}
+      health: 100
+      raftType: 1
+    - uid: 64dea2af-51af-4b5d-875f-9e79e2fc4715
+      pos: {x: -1, y: 0, z: 1}
+      health: 100
+      raftType: 3
+    storages:
+    - raftUid: c3e7ebf9-bab3-4fc0-aa84-4fc967214c15
+      storagesData:
+      - resourceType: 0
+        itemList: []
+      - resourceType: 1
+        itemList:
+        - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
+          count: 5
+      - resourceType: 2
+        itemList:
+        - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
+          count: 1
+      - resourceType: 3
+        itemList: []
+      - resourceType: 4
+        itemList: []
     raftsInBuild: []

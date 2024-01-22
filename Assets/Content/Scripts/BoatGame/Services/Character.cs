@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Content.Scripts.BoatGame.UI.UIEquipment;
 using Content.Scripts.ItemsSystem;
 using UnityEngine;
 
@@ -98,20 +99,84 @@ namespace Content.Scripts.BoatGame.Services
             public string ArmorID => armorID;
 
             public string HelmetID => helmetID;
+            public bool IsHaveHelmet => string.IsNullOrEmpty(HelmetID);
 
 
+            [NonSerialized] 
+            public Action OnEquipmentChange;
+            
 
             public void SetHelmet(ItemObject item)
             {
+                if (item == null)
+                {
+                    helmetID = "";
+                    OnEquipmentChange?.Invoke();
+                    return;
+                }
+
                 helmetID = item.ID;
+                
+                OnEquipmentChange?.Invoke();
             }
+
             public void SetArmor(ItemObject item)
             {
+                if (item == null)
+                {
+                    armorID = "";
+                    OnEquipmentChange?.Invoke();
+                    return;
+                }
+
                 armorID = item.ID;
+                
+                OnEquipmentChange?.Invoke();
             }
+
             public void SetWeapon(ItemObject item)
             {
+                if (item == null)
+                {
+                    weaponID = "";
+                    OnEquipmentChange?.Invoke();
+                    return;
+                }
+
                 weaponID = item.ID;
+                
+                OnEquipmentChange?.Invoke();
+            }
+
+            public string GetEquipment(UIEquipmentBase.EEquipmentType eEquipmentType)
+            {
+                switch (eEquipmentType)
+                {
+                    case UIEquipmentBase.EEquipmentType.Helmet:
+                        return HelmetID;
+                    case UIEquipmentBase.EEquipmentType.Armor:
+                        return ArmorID;
+                    case UIEquipmentBase.EEquipmentType.Weapon:
+                        return WeaponID;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(eEquipmentType), eEquipmentType, null);
+                }
+            }
+
+            public void SetEquipment(ItemObject item, UIEquipmentBase.EEquipmentType type)
+            {
+                switch (type)
+                {
+                    case UIEquipmentBase.EEquipmentType.Helmet:
+                        SetHelmet(item);
+                        break;
+                    case UIEquipmentBase.EEquipmentType.Armor:
+                        SetArmor(item);
+                        break;
+                    case UIEquipmentBase.EEquipmentType.Weapon:
+                        SetWeapon(item);
+                        break;
+                }
             }
         }
         

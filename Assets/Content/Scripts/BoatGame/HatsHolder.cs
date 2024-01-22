@@ -17,10 +17,5 @@ namespace Content.Scripts.BoatGame
                 list[i].SetActive(i == id);
             }
         }
-
-        public void Disable()
-        {
-            ShowHat(-1);
-        }
     }
 }

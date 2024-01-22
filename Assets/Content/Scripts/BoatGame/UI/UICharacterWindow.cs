@@ -1,6 +1,10 @@
+using System;
+using System.Collections.Generic;
 using Content.Scripts.BoatGame.Characters.States;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.BoatGame.UI.UIEquipment;
 using Content.Scripts.Global;
+using Content.Scripts.ItemsSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,11 +22,14 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIBar expBar, healthBar, thirstyBar, hungerBar;
         [SerializeField] private UISkillsSubWindow skillsSubWindow;
         [SerializeField] private UIInventorySubWindow inventorySubWindow;
-        
+        [SerializeField] private UITabManager uiTabManager;
+        [SerializeField] private List<UIEquipmentBase> equipmentBases;
+
         private PlayerCharacter selectedCharacter;
         private SelectionService selectionService;
         private TickService tickService;
         private GameDataObject gameDataObject;
+        private RaftBuildService raftBuildService;
 
         public void Init(
             SelectionService selectionService, 
@@ -31,6 +38,7 @@ namespace Content.Scripts.BoatGame.UI
             RaftBuildService raftBuildService,
             UIMessageBoxManager uiMessageBoxManager)
         {
+            this.raftBuildService = raftBuildService;
             this.gameDataObject = gameDataObject;
             this.tickService = tickService;
             this.selectionService = selectionService;
@@ -92,6 +100,11 @@ namespace Content.Scripts.BoatGame.UI
 
             skillsSubWindow.Redraw(selectedCharacter.Character);
             inventorySubWindow.Redraw();
+            
+            for (int i = 0; i < equipmentBases.Count; i++)
+            {
+                equipmentBases[i].Init(selectedCharacter.Character, gameDataObject, this, inventorySubWindow);
+            }
         }
 
 
@@ -105,6 +118,54 @@ namespace Content.Scripts.BoatGame.UI
             {
                 selectedCharacter.NeedManager.OnDeath -= OnDeath;
             }
+        }
+
+        public void ChangeEquipment(ItemObject item, UIEquipmentBase.EEquipmentType type)
+        {
+            if (item != null)
+            {
+                if (item.Type != EResourceTypes.Other) return;
+                if (type != item.Equipment) return;
+            }
+
+            var equipment = gameDataObject.GetItem(selectedCharacter.Character.Equipment.GetEquipment(type));
+
+            selectedCharacter.Character.Equipment.SetEquipment(item, type);
+            RemoveFromStorage(item);
+
+            if (equipment != null)
+            {
+                AddToStorage(equipment);
+            }
+            
+            Redraw();
+        }
+
+        public void RemoveFromStorage(ItemObject item)
+        {
+            if (item == null) return;
+            foreach (var raftStorage in raftBuildService.Storages)
+            {
+                if (raftStorage.RemoveFromStorage(item))
+                {
+                    break;
+                }
+            }
+        }
+        public void AddToStorage(ItemObject item)
+        {
+            foreach (var raftStorage in raftBuildService.Storages)
+            {
+                if (raftStorage.IsEmptyStorage(item, 1))
+                {
+                    raftStorage.AddToStorage(item, 1);
+                }
+            }
+        }
+
+        public void ChangeTabToInventory()
+        {
+            uiTabManager.SelectTab(1);
         }
     }
 }

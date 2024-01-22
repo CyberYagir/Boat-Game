@@ -64,9 +64,9 @@ namespace Content.Scripts.BoatGame
                 animator.SetTrigger(Hood);
                 hoodAnimations.Play(inHood ? "HoodAnimationDisable" : "HoodAnimationApply");
 
-                appearanceManager.SetHatState(inHood);
-                
                 inHood = !inHood;
+                appearanceManager.SetHatState(inHood);
+                appearanceManager.SetInHood(inHood);
             }
 
             public void Update()
