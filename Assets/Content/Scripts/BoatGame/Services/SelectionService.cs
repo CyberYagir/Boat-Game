@@ -1,0 +1,152 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Sirenix.OdinInspector;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using Zenject;
+
+namespace Content.Scripts.BoatGame.Services
+{
+    public class SelectionService : MonoBehaviour
+    {
+        [SerializeField] private new Camera camera;
+        [SerializeField] private UIService uiService;
+        
+        
+        [SerializeField, ReadOnly] private PlayerCharacter selectedCharacter;
+        [SerializeField] private ISelectable selectedObject;
+
+        
+        private Vector3 lastWorldClick;
+        private List<GraphicRaycaster> raycasters;
+        private List<RaycastResult> raycastResults = new List<RaycastResult>(10);
+
+        public Action<ISelectable> OnChangeSelectObject;
+        public Action<PlayerCharacter> OnChangeSelectCharacter;
+        public Action<RaftTapToBuild> OnTapOnBuildingRaft;
+        
+        private GameStateService gameStateService;
+
+        public Camera Camera => camera;
+
+        public Vector3 LastWorldClick => lastWorldClick;
+        public PlayerCharacter SelectedCharacter => selectedCharacter;
+
+        public ISelectable SelectedObject => selectedObject;
+
+        [Inject]
+        private void Construct(GameStateService gameStateService)
+        {
+            this.gameStateService = gameStateService;
+            raycasters = uiService.GetComponentsInChildren<GraphicRaycaster>(true).ToList();
+        }
+
+
+        public void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (CheckUILogic()) return;
+                
+                switch (gameStateService.GameState)
+                {
+                    case GameStateService.EGameState.Normal:
+                        NormalStateSelectionLogic();
+                        break;
+                    case GameStateService.EGameState.Building:
+                        BuildingStateSelectionLogic();
+                        break;
+                }
+            }
+        }
+
+        private void BuildingStateSelectionLogic()
+        {
+            var hit = Camera.MouseRaycast(out bool isHit, Input.mousePosition, Mathf.Infinity, LayerMask.GetMask("Builds"));
+
+            if (isHit)
+            {
+                var build = hit.transform.GetComponent<RaftTapToBuild>();
+                if (build)
+                {
+                    OnTapOnBuildingRaft?.Invoke(build);
+                }
+            }
+        }
+        private void NormalStateSelectionLogic()
+        {
+            var hit = Camera.MouseRaycast(out bool isHit, Input.mousePosition, Mathf.Infinity, LayerMask.GetMask("Default", "Raft", "Builds", "Water"));
+
+            if (isHit)
+            {
+                lastWorldClick = hit.point;
+
+                var character = hit.transform.GetComponent<ICharacter>();
+                if (character != null)
+                {
+                    if ((PlayerCharacter) character != selectedCharacter)
+                    {
+                        ChangeCharacter(character);
+                    }
+                    else
+                    {
+                        character = null;
+                    }
+                }
+
+                if (character == null)
+                {
+                    var selectable = hit.transform.GetComponent<ISelectable>();
+                    if (selectable != null)
+                    {
+                        selectedObject = selectable;
+                        OnChangeSelectObject?.Invoke(selectable);
+                    }
+                }
+            }
+        }
+
+        private bool CheckUILogic()
+        {
+            raycastResults.Clear();
+            var pointer = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+            for (int i = 0; i < raycasters.Count; i++)
+            {
+                raycasters[i].Raycast(pointer, raycastResults);
+
+                if (raycastResults.Count > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        public void ChangeCharacter(ICharacter character)
+        {
+            selectedCharacter?.Select(false);
+            if (character != null)
+            {
+                character.Select(true);
+                selectedCharacter = character as PlayerCharacter;
+            }
+            OnChangeSelectCharacter?.Invoke(selectedCharacter);
+        }
+
+        public void ClearSelectedObject()
+        {
+            if (selectedObject != null)
+            {
+                selectedObject = null;
+                OnChangeSelectObject?.Invoke(null);
+            }
+        }
+    }
+}

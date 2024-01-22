@@ -1,0 +1,87 @@
+using System.Collections.Generic;
+using Content.Scripts.Global;
+using Unity.AI.Navigation;
+using UnityEngine;
+using Zenject;
+
+namespace Content.Scripts.BoatGame.Services
+{
+    public class CharacterService : MonoBehaviour
+    {
+        [SerializeField] private NavMeshSurface _surface;
+        [SerializeField] private PlayerCharacter prefab;
+        
+        [SerializeField] private List<PlayerCharacter> spawnedCharacters;
+        private SelectionService selectionService;
+        private SaveDataObject saveData;
+
+        public List<PlayerCharacter> SpawnedCharacters => spawnedCharacters;
+
+
+        [Inject]
+        private void Construct(
+            SaveDataObject saveData,
+            RaftBuildService raftBuildService,
+            GameDataObject gameDataObject,
+            TickService tickService,
+            WeatherService weatherService,
+            SelectionService selectionService
+        )
+        {
+            this.saveData = saveData;
+            this.selectionService = selectionService;
+            RebuildNavMesh();
+            for (int i = 0; i < saveData.Characters.Count; i++)
+            {
+                var id = i;
+                Instantiate(prefab, Vector3.zero, Quaternion.identity)
+                    .With(x => x.Init(
+                        saveData.Characters.GetCharacter(id),
+                        gameDataObject,
+                        raftBuildService,
+                        weatherService,
+                        tickService,
+                        selectionService
+                    ))
+                    .With(x => SpawnedCharacters.Add(x))
+                    .With(x=>x.NeedManager.OnDeath += OnDeath);
+            }
+
+            raftBuildService.OnChangeRaft += RebuildNavMesh;
+            
+            if (SpawnedCharacters.Count >= 1)
+            {
+                selectionService.ChangeCharacter(SpawnedCharacters[0]);
+            }
+        }
+
+        private void OnDeath(Character target)
+        {
+            SpawnedCharacters.RemoveAll(x => x == null || x.NeedManager.IsDead);
+            if (SpawnedCharacters.Count != 0)
+            {
+                selectionService.ChangeCharacter(SpawnedCharacters[0]);
+            }
+            else
+            {
+                selectionService.ChangeCharacter(null);
+                Debug.LogError("END GAME");
+            }
+
+            saveData.Characters.RemoveCharacter(target.Uid);
+        }
+
+        private void RebuildNavMesh()
+        {
+            _surface.BuildNavMesh();
+        }
+
+        public void SaveCharacters()
+        {
+            foreach (var sp in spawnedCharacters)
+            {
+                sp.Character.SetParameters(sp.NeedManager.GetParameters());
+            }
+        }
+    }
+}
