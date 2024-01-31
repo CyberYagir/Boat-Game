@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using Content.Scripts.Loading;
 using DG.Tweening;
@@ -14,11 +15,13 @@ namespace Loading
         [SerializeField] private RectTransform bar;
         [SerializeField] private Fader fader;
         private SaveDataObject saveData;
+        private ScenesService scenesService;
 
 
         [Inject]
-        public void Construct(SaveDataObject saveData)
+        public void Construct(SaveDataObject saveData, ScenesService scenesService)
         {
+            this.scenesService = scenesService;
             this.saveData = saveData;
             bar.DORotate(new Vector3(0, 0, 360f), 0.5f, RotateMode.WorldAxisAdd).SetLoops(-1, LoopType.Restart).SetLink(bar.gameObject);
             StartCoroutine(LoadingLoop());
@@ -27,18 +30,14 @@ namespace Loading
         IEnumerator LoadingLoop()
         {
             yield return new WaitForSeconds(1f);
-            
-            fader.Fade(delegate
+            if (saveData.Characters.Count == 0)
             {
-                if (saveData.Characters.Count == 0)
-                {
-                    SceneManager.LoadScene("ManCreator");
-                }
-                else
-                {
-                    SceneManager.LoadScene("BoatGame");
-                }
-            });
+                scenesService.FadeScene("ManCreator");
+            }
+            else
+            {
+                scenesService.FadeScene("BoatGame");
+            }
         }
 
         public void Start()

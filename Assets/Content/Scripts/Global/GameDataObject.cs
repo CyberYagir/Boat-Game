@@ -3,6 +3,7 @@ using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.ItemsSystem;
+using Content.Scripts.Map;
 using Content.Scripts.SkillsSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -28,7 +29,7 @@ namespace Content.Scripts.Global
         [SerializeField] private List<CraftObject> crafts;
         [SerializeField] private List<ItemObject> items;
         [SerializeField] private List<int> levelXps;
-
+        [SerializeField] private List<MapPathObject> mapPaths;
 
         public List<Material> SkinColors => skinColors;
 
@@ -39,6 +40,8 @@ namespace Content.Scripts.Global
         public List<CraftObject> Crafts => crafts;
 
         public List<int> LevelXps => levelXps;
+
+        public List<MapPathObject> MapPaths => mapPaths;
 
 
         public ItemObject GetItem(string id)

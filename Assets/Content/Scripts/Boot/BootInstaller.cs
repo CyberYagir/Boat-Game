@@ -1,15 +1,14 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace Boot
+namespace Content.Scripts.Boot
 {
     public class BootInstaller : MonoInstaller
     {
         [SerializeField] private string loadingScene;
         public override void InstallBindings()
         {
-            SceneManager.LoadScene(loadingScene);
+            Container.Resolve<ScenesService>().ChangeScene(loadingScene);
         }
     }
 }

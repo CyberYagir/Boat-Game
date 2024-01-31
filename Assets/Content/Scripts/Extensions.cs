@@ -141,6 +141,11 @@ namespace Content.Scripts
         {
             return Random.Range(0, _array.Count);
         }
+        
+        public static int GetRandomIndex<T>(this List<T> _array, System.Random random)
+        {
+            return random.Next(0, _array.Count);
+        }
 
         public static int GetRandomIndex<T>(this T[] _array)
         {
@@ -150,6 +155,11 @@ namespace Content.Scripts
         public static T GetRandomItem<T>(this List<T> _array)
         {
             return _array[Random.Range(0, _array.Count)];
+        }
+        
+        public static T GetRandomItem<T>(this List<T> _array, System.Random random)
+        {
+            return _array[_array.GetRandomIndex(random)];
         }
 
         public static T GetRandomItem<T>(this T[] _array)
@@ -284,6 +294,17 @@ namespace Content.Scripts
             {
                 T temp = deck[i];
                 int randomIndex = deck.GetRandomIndex();
+                deck[i] = deck[randomIndex];
+                deck[randomIndex] = temp;
+            }
+        }
+        
+        public static void Shuffle<T>(this List<T> deck, System.Random random)
+        {
+            for (int i = 0; i < deck.Count; i++)
+            {
+                T temp = deck[i];
+                int randomIndex = deck.GetRandomIndex(random);
                 deck[i] = deck[randomIndex];
                 deck[randomIndex] = temp;
             }
@@ -698,5 +719,7 @@ namespace Content.Scripts
             rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, value);
         }
         #endregion
+
+
     }
 }

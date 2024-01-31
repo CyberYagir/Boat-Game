@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using Content.Scripts.Loading;
 using Content.Scripts.SkillsSystem;
@@ -67,18 +68,19 @@ namespace Content.Scripts.ManCreator
         
         [SerializeField] private NamePopup namePopup;
         [SerializeField] private SkillsDrawer skillsDrawer;
-        [SerializeField] private Fader fader;
         [SerializeField] private Image skinColorIndicator;
         [SerializeField] private TMP_Text scoresText;
         [SerializeField] private Button applyButton;
         [SerializeField] private Button skillDiceButton;
         private CharacterCustomizationService characterService;
         private GameDataObject gameDataObject;
+        private ScenesService scenesService;
 
 
         [Inject]
-        public void Construct(CharacterCustomizationService characterService, GameDataObject gameDataObject)
+        public void Construct(CharacterCustomizationService characterService, GameDataObject gameDataObject, ScenesService scenesService)
         {
+            this.scenesService = scenesService;
             this.gameDataObject = gameDataObject;
             this.characterService = characterService;
             
@@ -141,11 +143,7 @@ namespace Content.Scripts.ManCreator
         public void Apply()
         {
             characterService.ApplyCharacter();
-            
-            fader.Fade(delegate
-            {
-                SceneManager.LoadScene("BoatGame");
-            });
+            scenesService.FadeScene("BoatGame");
         }
     }
 }

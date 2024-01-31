@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.ManCreator;
+using Content.Scripts.Map;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
+using Range = DG.DemiLib.Range;
 
 namespace Content.Scripts.Global
 {
@@ -188,12 +192,93 @@ namespace Content.Scripts.Global
             }
         }
 
-        [SerializeField] private CharactersData charactersData;
-        [SerializeField] private RaftsData raftsData;
+        [System.Serializable]
+        public class MapData
+        {
+            [System.Serializable]
+            public class IslandData
+            {
+                [SerializeField] private Vector2Int islandPos;
+                [SerializeField] private int islandSeed;
+
+                public IslandData(Vector2Int islandPos, int islandSeed)
+                {
+                    this.islandPos = islandPos;
+                    this.islandSeed = islandSeed;
+                }
+
+                public int IslandSeed => islandSeed;
+
+                public Vector2Int IslandPos => islandPos;
+            }
+            [SerializeField] private int worldSeed = 0;
+            [SerializeField] private List<IslandData> islands;
+
+
+            public bool IsGenerated => WorldSeed != 0;
+            public int WorldSeed => worldSeed;
+
+            public List<IslandData> Islands => islands;
+
+
+            public void SetSeed(GameDataObject gameDataObject)
+            {
+                worldSeed = Random.Range(Int32.MinValue, Int32.MaxValue);
+                if (worldSeed == 0)
+                {
+                    SetSeed(gameDataObject);
+                    return;
+                }
+
+                islands = MapNoiseGenerator.GetIslandPoints(worldSeed, gameDataObject.MapPaths);
+            }
+        }
+        
+        [System.Serializable]
+        public class GlobalData
+        {
+            [System.Serializable]
+            public class RaftDamager
+            {
+                [System.Serializable]
+                public class SpawnedItem
+                {
+                    [SerializeField] private int itemIndex;
+                    [SerializeField] private string raftID;
+                }
+                [SerializeField] private int tickCount, maxTickCount;
+                [SerializeField] private List<SpawnedItem> spawnedItems = new List<SpawnedItem>();
+                
+                
+
+            }
+            [SerializeField] private float totalSecondsInGame;
+            [SerializeField] private RaftDamager damagers = new RaftDamager();
+            
+            public float TotalSecondsInGame => totalSecondsInGame;
+
+            public void SetTimePlayed(float value)
+            {
+                totalSecondsInGame = value;
+            }
+
+            public void AddTime(float value)
+            {
+                totalSecondsInGame += value;
+            }
+        }
+        
+        [SerializeField] private CharactersData charactersData = new CharactersData();
+        [SerializeField] private RaftsData raftsData = new RaftsData();
+        [SerializeField] private MapData mapData = new MapData();
+        [SerializeField] private GlobalData globalData = new GlobalData();
         public CharactersData Characters => charactersData;
 
         public RaftsData Rafts => raftsData;
 
+        public MapData Map => mapData;
+
+        public GlobalData Global => globalData;
 
         public override void InstallBindings()
         {

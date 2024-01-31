@@ -123,6 +123,10 @@ namespace Content.Scripts.ManCreator
         public void ApplyCharacter()
         {
             saveData.Characters.AddCharacter(character);
+            if (!saveData.Map.IsGenerated)
+            {
+                saveData.Map.SetSeed(gameData);
+            }
             saveData.SaveFile();
         }
 

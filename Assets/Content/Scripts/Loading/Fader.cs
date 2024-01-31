@@ -13,10 +13,16 @@ namespace Content.Scripts.Loading
 
         public void Fade(Action action)
         {
-            transform.parent = null;
+            if (!gameObject.active)
+            {
+                gameObject.SetActive(true);
+                
+                image.SetAlpha(0);
+            }
+
+            image.DOKill();
             image.enabled = true;
             image.raycastTarget = true;
-            DontDestroyOnLoad(gameObject);
             image.DOFade(1, 0.5f).onComplete += delegate
             {
                 action?.Invoke();
@@ -26,9 +32,9 @@ namespace Content.Scripts.Loading
 
         public void UnFade()
         {
-            image.DOFade(0, 0.5f).onComplete += delegate
+            image.DOFade(0, 0.5f).SetDelay(0.25f).onComplete += delegate
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             };
         }
     }

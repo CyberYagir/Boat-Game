@@ -41,8 +41,9 @@ namespace Content.Scripts.BoatGame.Services
             {
                 raftsData.AddSpawnedRaft(raftBuildService.SpawnedRafts[i]);
             }
+            saveDataObject.Global.AddTime(TimeService.PlayedTime);
+            TimeService.ClearPlayedTime();
             saveDataObject.SetRaftsData(raftsData);
-            
             saveDataObject.SaveFile();
         }
     }

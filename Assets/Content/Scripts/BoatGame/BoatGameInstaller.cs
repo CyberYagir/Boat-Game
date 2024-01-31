@@ -12,6 +12,7 @@ namespace Content.Scripts.BoatGame
             BindService<WorldGridService>();
             BindService<WeatherService>();
             BindService<RaftBuildService>();
+            BindService<RaftDamagerService>();
             BindService<ResourcesService>();
             BindService<SelectionService>();
             BindService<CharacterService>();
