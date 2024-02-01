@@ -106,7 +106,7 @@ namespace YagirConsole.Scripts.Base.Shell
             {
                 HintMove();
 
-                if (Input.GetKeyDown(KeyCode.Return))
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Tab))
                 {
                     if (input.text.Trim() != "")
                     {

@@ -129,6 +129,11 @@ namespace Content.Scripts.BoatGame
             {
                 return maxCount - Count;
             }
+
+            public void Clear()
+            {
+                itemObjects.Clear();
+            }
         }
 
         [SerializeField] private List<ResourceTypeHolder> items = new List<ResourceTypeHolder>();
@@ -242,6 +247,15 @@ namespace Content.Scripts.BoatGame
                 }
             }
             
+        }
+
+        public void RemoveAllFromStorage()
+        {
+            foreach (var resourceTypeHolder in Items)
+            {
+                resourceTypeHolder.Clear();
+                OnStorageChange?.Invoke(resourceTypeHolder.ResourcesType, resourceTypeHolder);
+            }
         }
     }
 }

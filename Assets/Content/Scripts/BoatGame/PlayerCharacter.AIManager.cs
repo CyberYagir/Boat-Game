@@ -21,8 +21,7 @@ namespace Content.Scripts.BoatGame
             {
                 this.raftBuildService = raftBuildService;
             }
-
-
+            
             public Vector3 WalkToAnyPoint()
             {
                 NavMeshAgent.isStopped = false;
@@ -35,11 +34,26 @@ namespace Content.Scripts.BoatGame
                 return targetRaft.transform.position + new Vector3(GetRandomOffcet(), 0, GetRandomOffcet());
             }
 
-            private static float GetRandomOffcet()
+            private float GetRandomOffcet()
             {
                 return Random.Range(-0.35f, 0.35f);
             }
 
+            private RaycastHit[] raycastResults = new RaycastHit[4];
+            public bool IsOnGround()
+            {
+                var size = Physics.RaycastNonAlloc(NavMeshAgent.transform.position + Vector3.up, -NavMeshAgent.transform.up, raycastResults, 20, LayerMask.GetMask("Raft"), QueryTriggerInteraction.Ignore);
+
+                for (int i = 0; i < size; i++)
+                {
+                    if (raycastResults[i].transform.GetComponent<RaftBase>())
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
 
             public void ExtraRotation()
             {

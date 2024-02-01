@@ -29,6 +29,19 @@ namespace Content.Scripts.BoatGame
                 
                 rb[0].AddForce(Vector3.up * 100, ForceMode.Impulse);
             }
+
+            public void SetUnderWaterRagdoll()
+            {
+                for (int i = 0; i < colliders.Count; i++)
+                {
+                    colliders[i].enabled = false;
+                }
+                for (int i = 0; i < rb.Count; i++)
+                {
+                    rb[i].drag = 4;
+                    rb[i].angularDrag = 2;
+                }
+            }
         }
     }
 }

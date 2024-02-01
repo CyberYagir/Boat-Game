@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.PlayerActions;
@@ -43,6 +44,9 @@ namespace Content.Scripts.BoatGame
 
         public Action OnChangeState;
         private GameDataObject gameData;
+        
+        private TickService tickService;
+        private RaftBuildService raftBuildService;
 
         public void Init(
             Character character, 
@@ -52,6 +56,8 @@ namespace Content.Scripts.BoatGame
             TickService tickService,
             SelectionService selectionService)
         {
+            this.raftBuildService = raftBuildService;
+            this.tickService = tickService;
             this.gameData = gameData;
             this.character = character;
             this.selectionService = selectionService;
@@ -65,6 +71,7 @@ namespace Content.Scripts.BoatGame
             needsManager.Init(character, weatherService, gameData, this.selectionService);
             actionsHolder.Construct(selectionService);
 
+            raftBuildService.OnChangeRaft += CheckGround;
             needsManager.OnDeath += Death;
 
             transform.position =  aiManager.GenerateRandomPos();
@@ -84,6 +91,14 @@ namespace Content.Scripts.BoatGame
             Select(false);
         }
 
+        private void CheckGround()
+        {
+            if (!aiManager.IsOnGround())
+            {
+                needsManager.Death();
+            }
+        }
+
         private void Death(Character target)
         {
             ragdollController.ActiveRagdoll();
@@ -91,15 +106,56 @@ namespace Content.Scripts.BoatGame
             aiManager.NavMeshAgent.enabled = false;
             GetComponent<Collider>().enabled = false;
             appearanceManager.ChangeSelection(false);
+            gameObject.ChangeLayerWithChilds(LayerMask.NameToLayer("PlayerDead"));
+            
+            if (aiManager.IsOnGround())
+            {
+                Destroy(gameObject, 5f);
+            }
+            else
+            {
+                StartCoroutine(UnderWaterDeath());
+            }
 
 
-            Destroy(gameObject, 5f);
+            IEnumerator UnderWaterDeath()
+            {
+                bool isUnderWater = false;
+                float time = 0;
+                while (true)
+                {
+                    yield return new WaitForSeconds(0.1f);
+                    if (isUnderWater == false && appearanceManager.CanChangeLayerOnDeath())
+                    {
+                        gameObject.ChangeLayerWithChilds(LayerMask.NameToLayer("Default"));
+                        ragdollController.SetUnderWaterRagdoll();
+                        isUnderWater = true;
+                    }
+
+                    if (isUnderWater)
+                    {
+                        if (appearanceManager.GetBone(AppearanceManager.EBones.Spine1).position.y <= -10f)
+                        {
+                            Destroy(gameObject);
+                        }
+                    }
+                    else
+                    {
+                        time += 0.1f;
+                        if (time >= 5)
+                        {
+                            Destroy(gameObject);
+                        }
+                    }
+                }
+            }
         }
 
         private void OnTick(float delta)
         {
             if (onlyVisuals) return;
             needsManager.OnTick(delta);
+
         }
 
         private void OnStateMachineStateChanged()
@@ -165,6 +221,13 @@ namespace Content.Scripts.BoatGame
             }
 
            
+        }
+
+
+        private void OnDestroy()
+        {
+            tickService.OnTick -= OnTick;
+            raftBuildService.OnChangeRaft -= CheckGround;
         }
     }
 }

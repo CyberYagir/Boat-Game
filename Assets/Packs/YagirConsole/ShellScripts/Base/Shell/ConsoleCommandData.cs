@@ -38,7 +38,7 @@ namespace YagirConsole.Scripts.Base.Shell
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("Execution error\n   " + e.Message);
+                    Debug.LogError(e);
                 }
             }
         }

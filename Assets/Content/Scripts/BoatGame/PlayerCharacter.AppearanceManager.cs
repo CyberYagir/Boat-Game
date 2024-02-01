@@ -27,7 +27,7 @@ namespace Content.Scripts.BoatGame
             [SerializeField] private Renderer renderer;
             [SerializeField] private GameObject selectedCircle;
             [SerializeField] private HatsHolder hatsHolder;
-
+            [SerializeField] private ParticleSystem inWaterRippleParticlePrefab;
             [SerializeField] private List<Transform> bones;
 
 
@@ -140,6 +140,20 @@ namespace Content.Scripts.BoatGame
             public void SetInHood(bool inHood)
             {
                 this.inHood = inHood;
+            }
+
+            public bool CanChangeLayerOnDeath()
+            {
+                if (bonesMap[EBones.Spine1].position.y < 0f)
+                {
+                    if (bonesMap[EBones.Spine1].gameObject.layer == LayerMask.NameToLayer("PlayerDead"))
+                    {
+                        Instantiate(inWaterRippleParticlePrefab, bonesMap[EBones.Spine1].position, Quaternion.identity).Play(true);
+                        return true;
+                    }
+                }
+
+                return false;
             }
         }
     }

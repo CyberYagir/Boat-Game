@@ -82,14 +82,24 @@ namespace Content.Scripts.BoatGame.Services
 
         private void CreateRandomSituation()
         {
+            var index = damagerItems.GetRandomIndex();
+            CreateSituationByID(index);
+        }
+
+        public RaftDamager CreateSituationByID(int id)
+        {
             var getValidRaft = GetRaftOnSide();
 
             if (getValidRaft)
             {
-                var item = Instantiate(damagerItems.GetRandomItem(), getValidRaft.transform)
+                var item = Instantiate(damagerItems[id], getValidRaft.transform)
                     .With(x => spawnedItems.Add(x))
                     .With(x => x.Init(getValidRaft, this));
+
+                return item;
             }
+
+            return null;
         }
 
         List<RaftBase> tmpRafts = new List<RaftBase>();
@@ -120,7 +130,7 @@ namespace Content.Scripts.BoatGame.Services
 
         public bool IsEmpty(Vector3Int raftCoords, Vector3Int forward)
         {
-            return worldGridService.IsHavePoint(raftCoords + forward);
+            return !worldGridService.IsHavePoint(raftCoords + forward);
         }
     }
 }

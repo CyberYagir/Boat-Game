@@ -124,7 +124,10 @@ namespace Content.Scripts.BoatGame
 
             public void Update()
             {
-                popUp.Update(selectionService);
+                if (!IsDead)
+                {
+                    popUp.Update(selectionService);
+                }
             }
 
             private void RemoveParameters(float delta, float vitalityModify)
@@ -148,9 +151,8 @@ namespace Content.Scripts.BoatGame
 
                     if (Health <= 0)
                     {
-                        isDead = true;
                         popUp.ShowNeedPopup(false, 0, 0);
-                        OnDeath?.Invoke(selfCharacter);
+                        Death();
                     }
                 }
             }
@@ -179,6 +181,15 @@ namespace Content.Scripts.BoatGame
             public Character.ParametersData GetParameters()
             {
                 return new Character.ParametersData(Health, Hunger, Thirsty);
+            }
+
+            public void Death()
+            {
+                isDead = true;
+                health = -100;
+                hunger = 0;
+                thirsty = 0;
+                OnDeath?.Invoke(selfCharacter);
             }
         }
     }

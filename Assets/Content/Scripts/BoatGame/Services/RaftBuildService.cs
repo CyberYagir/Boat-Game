@@ -200,8 +200,20 @@ namespace Content.Scripts.BoatGame.Services
                 actions.InitActions(selectionService);
             }
 
+            rf.OnDeath += OnRaftDeath;
             OnChangeRaft?.Invoke();
             return rf;
+        }
+
+        private void OnRaftDeath(DamageObject obj)
+        {
+            var rf = obj as RaftBase;
+         
+            if (rf != null)
+            {
+                RemoveRaft(rf.Coords);
+                Destroy(rf.gameObject);
+            }
         }
 
         public RaftStorage FindEmptyStorage(ItemObject item, int value)
@@ -270,7 +282,17 @@ namespace Content.Scripts.BoatGame.Services
             {
                 worldGridService.RemovePoint(vector3Int);
                 spawnedRafts.Remove(raft);
+
+                if (raft.RaftType == RaftItem.ERaftType.Storage)
+                {
+                    var storage = raft.GetComponent<RaftStorage>();
+                    storage.RemoveAllFromStorage();
+                    storages.Remove(storage);
+                }
+                raft.gameObject.SetActive(false);
                 Destroy(raft.gameObject);
+                
+                OnChangeRaft?.Invoke();
             }
         }
 
