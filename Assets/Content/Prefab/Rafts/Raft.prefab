@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8321080013828003561}
   - component: {fileID: 4234890953765572702}
-  m_Layer: 0
+  - component: {fileID: 7907226219692392912}
+  - component: {fileID: 5295900696214539996}
+  m_Layer: 6
   m_Name: Raft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,8 +47,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10559cb58766b9048a3c677f43a2b6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coords: {x: 0, y: 0, z: 0}
   maxHealth: 100
+  health: 0
+  coords: {x: 0, y: 0, z: 0}
+  raftType: 0
+  uid: 
+--- !u!65 &7907226219692392912
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5154286413100197582}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.11, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5295900696214539996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5154286413100197582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d451d128fea246d4192c2fc84341fb40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 5547821465848503898, guid: c0827fa8f4f1f85408b7ed7345bcaf4f, type: 3}
 --- !u!1001 &4568939088517835465
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126,37 +165,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fa7bb50c991f31444bd91de4033cadb0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2677432494389989116}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa7bb50c991f31444bd91de4033cadb0, type: 3}
---- !u!1 &3722585960266700696 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fa7bb50c991f31444bd91de4033cadb0, type: 3}
-  m_PrefabInstance: {fileID: 4568939088517835465}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &2677432494389989116
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3722585960266700696}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.021679837, y: 0.021955553, z: 0.0020131206}
-  m_Center: {x: -0.00006445404, y: 0.000053505868, z: -0.00023203502}
 --- !u!4 &4099006396798717218 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fa7bb50c991f31444bd91de4033cadb0, type: 3}

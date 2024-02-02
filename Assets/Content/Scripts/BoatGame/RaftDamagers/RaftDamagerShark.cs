@@ -72,19 +72,19 @@ namespace Content.Scripts.BoatGame.RaftDamagers
             transform.parent = null;
 
             
-            if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.forward))
+            if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.right))
             {
                 RotateShark(Vector3Int.forward);
             }else
-            if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.back))
+            if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.left))
             {
                 RotateShark(Vector3Int.back);
             }else
-            if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.right))
+            if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.back))
             {
                 RotateShark(Vector3Int.right);
             }else
-            if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.left))
+            if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.forward))
             {
                 RotateShark(Vector3Int.left);
             }

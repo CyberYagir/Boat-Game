@@ -1323,6 +1323,7 @@ GameObject:
   - component: {fileID: 3647327643183572109}
   - component: {fileID: 8125236649437565149}
   - component: {fileID: 2323348317814154215}
+  - component: {fileID: 5141883183336733145}
   m_Layer: 6
   m_Name: RaftStorage
   m_TagString: Untagged
@@ -1362,8 +1363,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10559cb58766b9048a3c677f43a2b6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coords: {x: 0, y: 0, z: 0}
   maxHealth: 100
+  health: 0
+  coords: {x: 0, y: 0, z: 0}
   raftType: 1
   uid: 
 --- !u!114 &5533684871657552966
@@ -1479,6 +1481,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.11, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5141883183336733145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5154286413100197582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d451d128fea246d4192c2fc84341fb40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 5547821465848503898, guid: c0827fa8f4f1f85408b7ed7345bcaf4f, type: 3}
 --- !u!1 &5331515383386040709
 GameObject:
   m_ObjectHideFlags: 0

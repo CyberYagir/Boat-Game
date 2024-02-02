@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Characters.States;
 using Content.Scripts.BoatGame.UI;
+using Content.Scripts.Boot;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.Global;
 using UnityEngine;
@@ -20,8 +21,8 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UICraftingTableWindow craftingTableWindow;
         [SerializeField] private UICharacterWindow characterWindow;
         [SerializeField] private UIMessageBoxManager messageBoxManager;
+        [SerializeField] private UIDeathWindow deathWindow;
         [SerializeField] private List<ResourcesCounter> counter;
-        
         
         private PlayerCharacter targetCharacter;
         private TickService tickService;
@@ -37,13 +38,18 @@ namespace Content.Scripts.BoatGame.Services
             GameStateService gameState,
             GameStateService gameStateService,
             CharacterService characterService,
-            RaftBuildService raftBuildService
+            RaftBuildService raftBuildService, 
+            SaveDataObject saveDataObject,
+            ScenesService scenesService
         )
         {
             this._gameState = gameState;
             this.resourcesService = resourcesService;
             this.tickService = tickService;
 
+
+            deathWindow.Init(characterService, saveDataObject, scenesService);
+            
             actionManager.Init(selectionService);
             rewindButton.Init(tickService, gameStateService);
             stopBuildButton.Init(tickService, gameStateService);
@@ -52,7 +58,6 @@ namespace Content.Scripts.BoatGame.Services
             craftsWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
             craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
             characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager);
-                
                 
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Content.Scripts.Global;
 using Unity.AI.Navigation;
@@ -17,6 +18,7 @@ namespace Content.Scripts.BoatGame.Services
 
         public List<PlayerCharacter> SpawnedCharacters => spawnedCharacters;
 
+        public event Action OnCharactersChange;
 
         [Inject]
         private void Construct(
@@ -44,15 +46,18 @@ namespace Content.Scripts.BoatGame.Services
                         selectionService
                     ))
                     .With(x => SpawnedCharacters.Add(x))
-                    .With(x=>x.NeedManager.OnDeath += OnDeath);
+                    .With(x => x.NeedManager.OnDeath += OnDeath);
             }
 
+
             raftBuildService.OnChangeRaft += RebuildNavMesh;
-            
+
             if (SpawnedCharacters.Count >= 1)
             {
                 selectionService.ChangeCharacter(SpawnedCharacters[0]);
             }
+
+            OnCharactersChange?.Invoke();
         }
 
         private void OnDeath(Character target)
@@ -69,6 +74,8 @@ namespace Content.Scripts.BoatGame.Services
             }
 
             saveData.Characters.RemoveCharacter(target.Uid);
+            
+            OnCharactersChange?.Invoke();
         }
 
         private void RebuildNavMesh()

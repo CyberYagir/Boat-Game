@@ -108,14 +108,8 @@ namespace Content.Scripts.BoatGame
             appearanceManager.ChangeSelection(false);
             gameObject.ChangeLayerWithChilds(LayerMask.NameToLayer("PlayerDead"));
             
-            if (aiManager.IsOnGround())
-            {
-                Destroy(gameObject, 5f);
-            }
-            else
-            {
-                StartCoroutine(UnderWaterDeath());
-            }
+            
+            StartCoroutine(UnderWaterDeath());
 
 
             IEnumerator UnderWaterDeath()

@@ -41,7 +41,7 @@ namespace Content.Scripts.BoatGame
         {
             OnDeath?.Invoke(this);
         }
-        [Button()]
+        [Button(), ShowIf(nameof(IsPlaying))]
         public void Kill()
         {
             Damage(1000);

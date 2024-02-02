@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2246919858699279509}
   - component: {fileID: 623634380619670209}
   - component: {fileID: 3957956702598888514}
+  - component: {fileID: 1305508282702208577}
   m_Layer: 7
   m_Name: RaftBuilding
   m_TagString: Untagged
@@ -80,9 +81,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92e458a62d992341945dc2cb87278b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coords: {x: 0, y: 0, z: 0}
   maxHealth: 0
+  health: 0
+  coords: {x: 0, y: 0, z: 0}
   raftType: 2
+  uid: 
   craft: {fileID: 0}
   progress: 0
   actionsHolder: {fileID: 623634380619670209}
@@ -154,6 +157,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: -711957492, guid: 8e87fa800e2f4964f839bfaa91666b12, type: 3}
   state: 5
+--- !u!114 &1305508282702208577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8337442808575380619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d451d128fea246d4192c2fc84341fb40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 5547821465848503898, guid: c0827fa8f4f1f85408b7ed7345bcaf4f, type: 3}
 --- !u!1001 &2721324374174139218
 PrefabInstance:
   m_ObjectHideFlags: 0
