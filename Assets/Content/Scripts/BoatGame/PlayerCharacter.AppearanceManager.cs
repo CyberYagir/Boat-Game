@@ -21,7 +21,8 @@ namespace Content.Scripts.BoatGame
                 LeftShoulder,
                 RightShoulder,
                 RightHand,
-                BackSword
+                BackSword,
+                Hips
             }
 
             [SerializeField] private Renderer renderer;
@@ -36,7 +37,7 @@ namespace Content.Scripts.BoatGame
             private Character character;
             private bool inHood;
             private GameDataObject gameData;
-
+            private bool weaponInHand;
 
             private GameObject spawnedHelmet;
             private GameObject spawnedArmor;
@@ -71,6 +72,7 @@ namespace Content.Scripts.BoatGame
                 spawnedArmor = RespawnItem(spawnedArmor, character.Equipment.ArmorID);
                 spawnedWeapon = RespawnItem(spawnedWeapon, character.Equipment.WeaponID);
 
+                ActiveMeleeWeapon(weaponInHand);
                 
                 SetHatState(inHood, 0);
 
@@ -131,7 +133,6 @@ namespace Content.Scripts.BoatGame
                 return bonesMap[bone];
             }
             
-
             public void ChangeSelection(bool state)
             {
                 selectedCircle.SetActive(state);
@@ -154,6 +155,39 @@ namespace Content.Scripts.BoatGame
                 }
 
                 return false;
+            }
+
+            public void ActiveMeleeWeapon(bool state)
+            {
+                if (spawnedWeapon == null)
+                {
+                    weaponInHand = state;
+                    return;
+                }
+                if (state)
+                {
+                    if (!weaponInHand)
+                    {
+                        ChangeWeaponParent(spawnedWeapon.transform, GetBone(EBones.RightHand));
+                        weaponInHand = true;
+                    }
+                }
+                else
+                {
+                    if (weaponInHand)
+                    {
+                        ChangeWeaponParent(spawnedWeapon.transform, GetBone(EBones.BackSword));
+                        weaponInHand = false;
+                    }
+                }
+            }
+
+            public void ChangeWeaponParent(Transform target, Transform newParent)
+            {
+                target.transform.parent = newParent;
+                target.transform.localPosition = Vector3.zero;;
+                target.transform.localEulerAngles = Vector3.zero;;
+                target.transform.localScale = Vector3.one;;
             }
         }
     }

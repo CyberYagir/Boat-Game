@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 2017369162570185803}
   - component: {fileID: 2542574049417944875}
   - component: {fileID: 3506137984772891433}
+  - component: {fileID: 6868929300847780835}
   - component: {fileID: 303708654671696803}
   - component: {fileID: 4245383191857746893}
   - component: {fileID: 6387675816536107232}
@@ -116,6 +117,7 @@ MonoBehaviour:
     animator: {fileID: 1349104748021026184}
     hoodAnimations: {fileID: 2727952339653336360}
     navMeshAgent: {fileID: 6222630175001778393}
+    animationEvents: {fileID: 7217555821665544754}
     rightHand: {fileID: 7110015909123423281}
     fishPoint: {fileID: 838932606009399700}
   aiManager:
@@ -236,6 +238,8 @@ MonoBehaviour:
     stateAction: {fileID: 2542574049417944875}
   - stateType: 7
     stateAction: {fileID: 3506137984772891433}
+  - stateType: 8
+    stateAction: {fileID: 6868929300847780835}
   startAction: 0
   currentAction: {fileID: 0}
 --- !u!114 &751144816067325089
@@ -382,6 +386,21 @@ MonoBehaviour:
   machine: {fileID: 0}
   buildingSkill: {fileID: 11400000, guid: 3ee480cb53c17da409ddefbdb9b990ea, type: 2}
   hammerItem: {fileID: 281406215129333471, guid: e12ab55e8b93c5e4f86db01243c4f818, type: 3}
+--- !u!114 &6868929300847780835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4325884780641852090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f173b8777a8d84294157964c43cf53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnded: 0
+  machine: {fileID: 0}
+  baseDamage: 15
 --- !u!114 &303708654671696803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1579,6 +1598,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7345215180735349055}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4db6461ca9751294d883c5f922849171, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7217555821665544754}
     - targetCorrespondingSourceObject: {fileID: 7036213049465896255, guid: 4db6461ca9751294d883c5f922849171, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3134909635388605772}
@@ -2477,6 +2499,23 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &5697906641355902280 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4db6461ca9751294d883c5f922849171, type: 3}
+  m_PrefabInstance: {fileID: 4887089728913322009}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7217555821665544754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697906641355902280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a9b949c71631ce4896c872ffd3ba726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5741893669732705065 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 899914987519988528, guid: 4db6461ca9751294d883c5f922849171, type: 3}

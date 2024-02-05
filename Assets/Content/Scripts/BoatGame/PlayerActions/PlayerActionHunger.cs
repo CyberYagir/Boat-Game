@@ -10,7 +10,7 @@ namespace Content.Scripts.BoatGame.PlayerActions
         public override bool IsCanShow()
         {
             // var count = SelectionService.SelectedCharacter.GetCharacterAction<CharActionHunger>().Count;
-            return SelectionService.SelectedCharacter.NavigationManager.FindResource(type) != null;
+            return SelectionService.SelectedCharacter.AIMoveManager.FindResource(type) != null;
         }
 
         public override bool IsCanCancel()

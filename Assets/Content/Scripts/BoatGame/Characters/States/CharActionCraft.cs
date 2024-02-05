@@ -82,7 +82,7 @@ namespace Content.Scripts.BoatGame.Characters.States
                 EndState();
                 return;
             } 
-            if (Machine.NavigationManager.HaveMaterials(targetCraftingTable.CurrentCraft.Ingredients))
+            if (Machine.AIMoveManager.HaveMaterials(targetCraftingTable.CurrentCraft.Ingredients))
             {
                 time += TimeService.DeltaTime;
 
@@ -101,14 +101,14 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         private void AddCraftToStorage()
         {
-            var storage = Machine.NavigationManager.GoToEmptyStorages(targetCraftingTable.CurrentCraft.FinalItem.ResourceName, 1);
+            var storage = Machine.AIMoveManager.GoToEmptyStorages(targetCraftingTable.CurrentCraft.FinalItem.ResourceName, 1);
             if (storage.Count != 0)
             {
                 for (int i = 0; i < targetCraftingTable.CurrentCraft.Ingredients.Count; i++)
                 {
                     for (int j = 0; j < targetCraftingTable.CurrentCraft.Ingredients[i].Count; j++)
                     {
-                        Machine.NavigationManager.RemoveFromAnyStorage(targetCraftingTable.CurrentCraft.Ingredients[i].ResourceName);
+                        Machine.AIMoveManager.RemoveFromAnyStorage(targetCraftingTable.CurrentCraft.Ingredients[i].ResourceName);
                     }
                 }
 

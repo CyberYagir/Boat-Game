@@ -35,7 +35,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             base.StartState();
 
-            targetStorage = Machine.NavigationManager.FindResource(type);
+            targetStorage = Machine.AIMoveManager.FindResource(type);
 
             eatingTime = eatTime.RandomWithin();
             
@@ -45,8 +45,8 @@ namespace Content.Scripts.BoatGame.Characters.States
                 return;
             }
 
-            Machine.NavigationManager.NavMeshAgent.isStopped = false;
-            Machine.NavigationManager.NavMeshAgent.SetDestination(targetStorage.transform.position);
+            Machine.AIMoveManager.NavMeshAgent.isStopped = false;
+            Machine.AIMoveManager.NavMeshAgent.SetDestination(targetStorage.transform.position);
         }
 
         public override void ProcessState()
@@ -67,9 +67,9 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         private void MoveToStorageLogic()
         {
-            if (Machine.NavigationManager.NavMeshAgent.IsArrived())
+            if (Machine.AIMoveManager.NavMeshAgent.IsArrived())
             {
-                Machine.NavigationManager.NavMeshAgent.isStopped = true;
+                Machine.AIMoveManager.NavMeshAgent.isStopped = true;
                 Animation();
 
                 spawnedItem = Instantiate(itemPrefab, Machine.AnimationManager.RightHand);

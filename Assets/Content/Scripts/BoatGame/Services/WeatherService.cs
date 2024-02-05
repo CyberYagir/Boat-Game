@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Weather;
+using Content.Scripts.Global;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -73,7 +74,7 @@ namespace Content.Scripts.BoatGame.Services
         public WeatherModifiers CurrentModifiers => currentModifiers;
 
         [Inject]
-        private void Construct(TickService tickService)
+        private void Construct(TickService tickService, SaveDataObject saveDataObject)
         {
             SetTicksCount();
             tickService.OnTick += OnTick;
@@ -83,6 +84,18 @@ namespace Content.Scripts.BoatGame.Services
                 w.Init();
             }
 
+            if (saveDataObject.Global.WeathersData.MaxTickCount > 0)
+            {
+                currentWeather = saveDataObject.Global.WeathersData.CurrentWeather;
+                ticks = (int)saveDataObject.Global.WeathersData.TickCount;
+                nextWeatherTicks = (int)saveDataObject.Global.WeathersData.MaxTickCount;
+            }
+
+            PlayStartWeather();
+        }
+
+        private void PlayStartWeather()
+        {
             var calm = weathers.Find(x => x.WeatherType == currentWeather);
             calm.IWeatherProvider.ForwardWeather();
             currentModifiers.SetPercents(calm.Hunger, calm.Thirsty);
@@ -138,6 +151,11 @@ namespace Content.Scripts.BoatGame.Services
                 yield return new WaitForSeconds(2f);
                 OnChangeWeather.Invoke(newWeather.WeatherType);
             }
+        }
+
+        public SaveDataObject.GlobalData.WeatherData GetWeatherData()
+        {
+            return new SaveDataObject.GlobalData.WeatherData(ticks, nextWeatherTicks, currentWeather);
         }
     }
 }

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
-using Content.Scripts.BoatGame.RaftDamagers;
+using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.Global;
 using DG.DemiLib;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
+using RaftDamager = Content.Scripts.BoatGame.RaftDamagers.RaftDamager;
 
 namespace Content.Scripts.BoatGame.Services
 {
@@ -21,6 +22,7 @@ namespace Content.Scripts.BoatGame.Services
 
         private RaftBuildService raftBuildService;
         private WorldGridService worldGridService;
+        private SelectionService selectionService;
         private bool isDamagerStarted;
 
 
@@ -29,13 +31,18 @@ namespace Content.Scripts.BoatGame.Services
             TickService tickService,
             RaftBuildService raftBuildService,
             WorldGridService worldGridService,
-            SaveDataObject saveDataObject
+            SaveDataObject saveDataObject,
+            SelectionService selectionService
         )
         {
+            this.selectionService = selectionService;
             this.worldGridService = worldGridService;
             this.raftBuildService = raftBuildService;
+            
             ResetTimer();
             tickService.OnTick += TickServiceOnOnTick;
+
+            LoadDamagers(saveDataObject.Global.DamagersData);
         }
 
         public void ResetTimer()
@@ -92,17 +99,36 @@ namespace Content.Scripts.BoatGame.Services
 
             if (getValidRaft)
             {
-                var item = Instantiate(damagerItems[id], getValidRaft.transform)
-                    .With(x => spawnedItems.Add(x))
-                    .With(x => x.Init(getValidRaft, this));
-
-                return item;
+                return CreateSituationByRaftAndId(id, getValidRaft);
             }
 
             return null;
         }
 
+        private RaftDamager CreateSituationByRaftAndId(int id, RaftBase getValidRaft)
+        {
+            var item = Instantiate(damagerItems[id], getValidRaft.transform)
+                .With(x => spawnedItems.Add(x))
+                .With(x => x.Init(id, getValidRaft, this));
+
+            item.OnEndDamager += RemoveDamager;
+
+            var action = item.GetComponent<ActionsHolder>();
+            if (action)
+            {
+                action.Construct(selectionService);
+            }
+
+            return item;
+        }
+
+        private void RemoveDamager(RaftDamager obj)
+        {
+            spawnedItems.Remove(obj);
+        }
+
         List<RaftBase> tmpRafts = new List<RaftBase>();
+
         private RaftBase GetRaftOnSide()
         {
             tmpRafts.Clear();
@@ -131,6 +157,32 @@ namespace Content.Scripts.BoatGame.Services
         public bool IsEmpty(Vector3Int raftCoords, Vector3Int forward)
         {
             return !worldGridService.IsHavePoint(raftCoords + forward);
+        }
+
+        public SaveDataObject.GlobalData.RaftDamagerData GetDamagersData()
+        {
+            var damagers = new List<SaveDataObject.GlobalData.RaftDamagerData.SpawnedItem>();
+
+            for (int i = 0; i < spawnedItems.Count; i++)
+            {
+                damagers.Add(new SaveDataObject.GlobalData.RaftDamagerData.SpawnedItem(spawnedItems[i].ID, spawnedItems[i].TargetRaft.Uid, spawnedItems[i].GetKeysData()));
+            }
+            
+            SaveDataObject.GlobalData.RaftDamagerData data = new SaveDataObject.GlobalData.RaftDamagerData(currentTicks, targetTicks, damagers);
+            return data;
+        }
+
+        public void LoadDamagers(SaveDataObject.GlobalData.RaftDamagerData damagerData)
+        {
+            for (int i = 0; i < damagerData.SpawnedItems.Count; i++)
+            {
+                var raft = raftBuildService.GetRaftByID(damagerData.SpawnedItems[i].RaftID);
+                if (raft)
+                {
+                    var damager = CreateSituationByRaftAndId(damagerData.SpawnedItems[i].ItemIndex, raft);
+                    damager.SetKeysData(damagerData.SpawnedItems[i].Keys);
+                }
+            }
         }
     }
 }

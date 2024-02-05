@@ -6,7 +6,7 @@ namespace Content.Scripts.BoatGame.PlayerActions
     {
         public override bool IsCanShow()
         {
-            return SelectionService.SelectedCharacter.NavigationManager.FindResource(type) != null;
+            return SelectionService.SelectedCharacter.AIMoveManager.FindResource(type) != null;
         }
     }
 }

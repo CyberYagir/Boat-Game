@@ -10,11 +10,20 @@ namespace Content.Scripts.BoatGame.Services
         private SaveDataObject saveDataObject;
         private CharacterService characterService;
         private RaftBuildService raftBuildService;
+        private RaftDamagerService damagerService;
+        private WeatherService weatherService;
 
 
         [Inject]
-        private void Construct(SaveDataObject saveDataObject, CharacterService characterService, RaftBuildService raftBuildService)
+        private void Construct(
+            SaveDataObject saveDataObject, 
+            CharacterService characterService, 
+            RaftBuildService raftBuildService, 
+            RaftDamagerService damagerService,
+            WeatherService weatherService)
         {
+            this.weatherService = weatherService;
+            this.damagerService = damagerService;
             this.raftBuildService = raftBuildService;
             this.characterService = characterService;
             this.saveDataObject = saveDataObject;
@@ -44,6 +53,8 @@ namespace Content.Scripts.BoatGame.Services
             saveDataObject.Global.AddTime(TimeService.PlayedTime);
             TimeService.ClearPlayedTime();
             saveDataObject.SetRaftsData(raftsData);
+            saveDataObject.Global.SetDamagersData(damagerService.GetDamagersData());
+            saveDataObject.Global.SetWeatherData(weatherService.GetWeatherData());
             saveDataObject.SaveFile();
         }
     }

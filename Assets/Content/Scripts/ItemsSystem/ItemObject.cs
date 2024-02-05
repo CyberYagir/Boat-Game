@@ -13,6 +13,20 @@ namespace Content.Scripts.ItemsSystem
         Item,
         Armor
     }
+
+    public enum EWeaponAnimationType
+    {
+        None = 0,
+        Sword = 1,
+    }
+
+    [System.Serializable]
+    public class ItemsParameters : Character.ParametersData
+    {
+        [SerializeField] private float damage;
+
+        public float Damage => damage;
+    }
     public class ItemObject : ScriptableObject
     {
         [SerializeField, ReadOnly] private string id;
@@ -20,16 +34,17 @@ namespace Content.Scripts.ItemsSystem
         [SerializeField] private EResourceTypes type;
         [SerializeField] private EItemType itemType;
         [SerializeField, PreviewField] private Sprite itemIcon;
-        [SerializeField] private Character.ParametersData parametersData;
+        [SerializeField] private ItemsParameters parametersData;
         [SerializeField, ShowIf("@itemType == EItemType.Armor")] private GameObject prefab;
         [SerializeField, ShowIf("@itemType == EItemType.Armor")] private UIEquipmentBase.EEquipmentType equipment;
+        [SerializeField, ShowIf("@equipment == UIEquipmentBase.EEquipmentType.Weapon")] private EWeaponAnimationType animationType;
         public Sprite ItemIcon => itemIcon;
 
         public string ItemName => itemName;
 
         public string ID => id;
 
-        public Character.ParametersData ParametersData => parametersData;
+        public ItemsParameters ParametersData => parametersData;
 
         public EResourceTypes Type => type;
 
@@ -38,6 +53,8 @@ namespace Content.Scripts.ItemsSystem
         public UIEquipmentBase.EEquipmentType Equipment => equipment;
 
         public GameObject Prefab => prefab;
+
+        public EWeaponAnimationType AnimationType => animationType;
 
 
         [Button]

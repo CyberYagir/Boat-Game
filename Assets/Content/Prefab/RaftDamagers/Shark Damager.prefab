@@ -9623,6 +9623,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4401806049038418119}
   - component: {fileID: 8079916212297084337}
+  - component: {fileID: 192137139835125095}
+  - component: {fileID: 5790894772892707844}
+  - component: {fileID: 3634301492502812625}
+  - component: {fileID: 2069288281279056614}
   m_Layer: 6
   m_Name: Shark Damager
   m_TagString: Untagged
@@ -9666,9 +9670,74 @@ MonoBehaviour:
     dripsParticles: {fileID: 6933903737974031993}
     dripsUpsParticle: {fileID: 5256868810794691173}
     sharkMesh: {fileID: 8522480700963852202}
+    boxCollider: {fileID: 3634301492502812625}
+  damageObject: {fileID: 2069288281279056614}
   damageRange:
     min: 2
     max: 5
+--- !u!114 &192137139835125095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139395495252889880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 5790894772892707844}
+--- !u!114 &5790894772892707844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139395495252889880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcab04373f66ec7459602886d87131f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: -1426298772, guid: 8e87fa800e2f4964f839bfaa91666b12, type: 3}
+  state: 8
+--- !u!65 &3634301492502812625
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139395495252889880}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.69905066, z: 2.4903545}
+  m_Center: {x: 0, y: -0.29202223, z: -1.1251771}
+--- !u!114 &2069288281279056614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139395495252889880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179e89ba152ecf741879aa2f7f8a34d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 50
+  health: 0
 --- !u!1001 &1179382307116350534
 PrefabInstance:
   m_ObjectHideFlags: 0

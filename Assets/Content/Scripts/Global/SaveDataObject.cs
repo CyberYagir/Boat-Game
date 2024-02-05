@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Content.Scripts.BoatGame;
+using Content.Scripts.BoatGame.RaftDamagers;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.ManCreator;
 using Content.Scripts.Map;
@@ -238,24 +239,77 @@ namespace Content.Scripts.Global
         public class GlobalData
         {
             [System.Serializable]
-            public class RaftDamager
+            public class RaftDamagerData
             {
                 [System.Serializable]
                 public class SpawnedItem
                 {
                     [SerializeField] private int itemIndex;
                     [SerializeField] private string raftID;
-                }
-                [SerializeField] private int tickCount, maxTickCount;
-                [SerializeField] private List<SpawnedItem> spawnedItems = new List<SpawnedItem>();
-                
-                
+                    [SerializeField] private List<RaftDamager.RaftDamagerDataKey> keys = new List<BoatGame.RaftDamagers.RaftDamager.RaftDamagerDataKey>(); 
+                    public SpawnedItem(int itemIndex, string raftID, List<RaftDamager.RaftDamagerDataKey> keys)
+                    {
+                        this.itemIndex = itemIndex;
+                        this.raftID = raftID;
+                        this.keys = keys;
+                    }
 
+                    public List<RaftDamager.RaftDamagerDataKey> Keys => keys;
+
+                    public string RaftID => raftID;
+
+                    public int ItemIndex => itemIndex;
+                }
+                
+                
+                [SerializeField] private float tickCount, maxTickCount;
+                [SerializeField] private List<SpawnedItem> spawnedItems = new List<SpawnedItem>();
+
+
+                public RaftDamagerData(float tickCount, float maxTickCount, List<SpawnedItem> spawnedItems)
+                {
+                    this.tickCount = tickCount;
+                    this.maxTickCount = maxTickCount;
+                    this.spawnedItems = spawnedItems;
+                }
+
+                public List<SpawnedItem> SpawnedItems => spawnedItems;
+
+                public float MaxTickCount => maxTickCount;
+
+                public float TickCount => tickCount;
             }
+            
+            [System.Serializable]
+            public class WeatherData
+            {
+                [SerializeField] private float tickCount, maxTickCount;
+                [SerializeField] private WeatherService.EWeatherType currentWeather = WeatherService.EWeatherType.Сalm;
+
+                public WeatherData(float tickCount, float maxTickCount, WeatherService.EWeatherType currentWeather)
+                {
+                    this.tickCount = tickCount;
+                    this.maxTickCount = maxTickCount;
+                    this.currentWeather = currentWeather;
+                }
+
+                public WeatherService.EWeatherType CurrentWeather => currentWeather;
+
+                public float MaxTickCount => maxTickCount;
+
+                public float TickCount => tickCount;
+            }
+            
             [SerializeField] private float totalSecondsInGame;
-            [SerializeField] private RaftDamager damagers = new RaftDamager();
+            [SerializeField] private RaftDamagerData damagersData = new RaftDamagerData(0,0, new List<RaftDamagerData.SpawnedItem>());
+            [SerializeField] private WeatherData weathersData = new WeatherData(0, -1, WeatherService.EWeatherType.Сalm);
+            
             
             public float TotalSecondsInGame => totalSecondsInGame;
+
+            public RaftDamagerData DamagersData => damagersData;
+
+            public WeatherData WeathersData => weathersData;
 
             public void SetTimePlayed(float value)
             {
@@ -265,6 +319,16 @@ namespace Content.Scripts.Global
             public void AddTime(float value)
             {
                 totalSecondsInGame += value;
+            }
+            
+            public void SetDamagersData(RaftDamagerData getDamagersDataData)
+            {
+                damagersData = getDamagersDataData;
+            }
+
+            public void SetWeatherData(WeatherData getWeatherData)
+            {
+                weathersData = getWeatherData;
             }
         }
         
@@ -341,7 +405,7 @@ namespace Content.Scripts.Global
         [Button]
         public void OpenFile()
         {
-            Application.OpenURL(Directory.GetParent(GetFilePath()).FullName);
+            Application.OpenURL(Directory.GetParent(GetFilePath())?.FullName);
         }
 
         public void SetRaftsData(RaftsData newRaftsData)

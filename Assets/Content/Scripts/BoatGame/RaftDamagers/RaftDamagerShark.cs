@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using Content.Scripts.BoatGame.Mobs;
+using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
 using DG.Tweening;
 using UnityEngine;
@@ -17,12 +20,15 @@ namespace Content.Scripts.BoatGame.RaftDamagers
             [SerializeField] private ParticleSystem dripsParticles;
             [SerializeField] private ParticleSystem dripsUpsParticle;
             [SerializeField] private GameObject sharkMesh;
+            [SerializeField] private BoxCollider boxCollider;
 
+            private bool isDieAnimationStarted;
             public event Action OnDamageRaftAnimation;
             
             public void Init()
             {
                 sharkMesh.ChangeLayerWithChilds(LayerMask.NameToLayer("Default"));
+                boxCollider.enabled = false;
                 
                 events.OnChangeLayerToDefault += EventsOnOnChangeLayerToDefault;
                 events.OnChangeLayerToRaft += EventsOnOnChangeLayerToRaft;
@@ -40,6 +46,7 @@ namespace Content.Scripts.BoatGame.RaftDamagers
                 sharkMesh.ChangeLayerWithChilds(LayerMask.NameToLayer("Raft"));
                 dripsParticles.Play(true);
                 dripsUpsParticle.Play(true);
+                boxCollider.enabled = true;
             }
 
             private void EventsOnOnChangeLayerToDefault()
@@ -47,23 +54,39 @@ namespace Content.Scripts.BoatGame.RaftDamagers
                 sharkMesh.ChangeLayerWithChilds(LayerMask.NameToLayer("Default"));
                 dripsParticles.Stop(true);
                 damageParticles.Stop(true);
+                boxCollider.enabled = false;
             }
 
             public void Die()
             {
-                animator.SetTrigger("Die");
-                animator.transform.DOScale(Vector3.zero, 4f);
+                if (!isDieAnimationStarted)
+                {
+                    animator.SetTrigger("Die");
+                    animator.transform.DOScale(Vector3.zero, 4f);
+                    isDieAnimationStarted = false;
+                }
+            }
+
+            public void LoadAnimation()
+            {
+                animator.Play("DamageRaft");
+                EventsOnOnChangeLayerToRaft();
             }
         }
     
         [SerializeField] private DamageSharkAnimator animatorManager;
+        [SerializeField] private Mob_Shark damageObject;
         [SerializeField] private Range damageRange;
-        public override void Init(RaftBase targetRaft, RaftDamagerService raftDamagerService)
+        public override void Init(int id, RaftBase targetRaft, RaftDamagerService raftDamagerService)
         {
-            base.Init(targetRaft, raftDamagerService);
+            base.Init(id, targetRaft, raftDamagerService);
             
             animatorManager.Init();
 
+            damageObject.Init();
+
+            damageObject.OnDeath += TargetRaftOnOnDeath;
+            targetRaft.OnDeath += TargetRaftOnOnDeath;
             animatorManager.OnDamageRaftAnimation += OnDamageRaftAnimation;
             
             transform.parent = targetRaft.transform;
@@ -74,27 +97,34 @@ namespace Content.Scripts.BoatGame.RaftDamagers
             
             if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.right))
             {
-                RotateShark(Vector3Int.forward);
+                RotateShark(Vector3Int.right);
             }else
             if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.left))
             {
-                RotateShark(Vector3Int.back);
+                RotateShark(Vector3Int.left);
             }else
             if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.back))
             {
-                RotateShark(Vector3Int.right);
+                RotateShark(Vector3Int.back);
             }else
             if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.forward))
             {
-                RotateShark(Vector3Int.left);
+                RotateShark(Vector3Int.forward);
             }
             
-            targetRaft.OnDeath += TargetRaftOnOnDeath;
         }
 
         private void TargetRaftOnOnDeath(DamageObject obj)
         {
+            Die();
+        }
+
+        private void Die()
+        {
             animatorManager.Die();
+            TargetRaft.OnDeath -= TargetRaftOnOnDeath;
+            GetComponent<ActionsHolder>().DisableSelection();
+            EndDamager();
             Destroy(gameObject, 4);
         }
 
@@ -106,6 +136,21 @@ namespace Content.Scripts.BoatGame.RaftDamagers
         public void RotateShark(Vector3Int target)
         {
             transform.rotation = Quaternion.LookRotation(TargetRaft.Coords - (TargetRaft.Coords + target));
+        }
+
+
+        public override List<RaftDamagerDataKey> GetKeysData()
+        {
+            return new List<RaftDamagerDataKey>()
+            {
+                new RaftDamagerDataKey("hp", damageObject.Health.ToString())
+            };
+        }
+        public override void SetKeysData(List<RaftDamagerDataKey> data)
+        {
+            damageObject.SetHealth(float.Parse(data.Find(x => x.Key == "hp").Data));
+
+            animatorManager.LoadAnimation();
         }
     }
 }

@@ -15,13 +15,13 @@ namespace Content.Scripts.BoatGame
         public event Action<DamageObject> OnDeath;
         
         public float Health => health;
-        
+        public bool IsDead => health <= 0;
         
         protected void SetHealth()
         {
             health = maxHealth;
         }
-        protected void SetHealth(float value)
+        public void SetHealth(float value)
         {
             health = value;
         }

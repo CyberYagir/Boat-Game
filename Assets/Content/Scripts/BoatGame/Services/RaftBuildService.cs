@@ -20,7 +20,8 @@ namespace Content.Scripts.BoatGame.Services
                 Default,
                 Storage,
                 Building,
-                CraftTable
+                CraftTable,
+                Moored
             }
 
             [SerializeField] private ERaftType raftType;
@@ -308,6 +309,11 @@ namespace Content.Scripts.BoatGame.Services
                 }
             }
             return emptyStoragesArray;
+        }
+
+        public RaftBase GetRaftByID(string raftID)
+        {
+            return spawnedRafts.Find(x => x.Uid == raftID);
         }
     }
 }

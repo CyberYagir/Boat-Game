@@ -11,13 +11,13 @@ namespace Content.Scripts.BoatGame.Characters.States
         public override void StartState()
         {
             base.StartState();
-            MoveToPoint(Machine.NavigationManager.WalkToAnyPoint());
+            MoveToPoint(Machine.AIMoveManager.WalkToAnyPoint());
             timer = idleTime.RandomWithin();
         }
 
         public override void ProcessState()
         {
-            if (Machine.NavigationManager.NavMeshAgent.IsArrived())
+            if (Machine.AIMoveManager.NavMeshAgent.IsArrived())
             {
                 timer -= TimeService.DeltaTime;
 

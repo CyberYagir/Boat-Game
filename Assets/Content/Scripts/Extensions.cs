@@ -702,7 +702,7 @@ namespace Content.Scripts
 
         public static bool IsArrived(this NavMeshAgent agent)
         {
-            return agent.remainingDistance <= agent.stoppingDistance;
+            return agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending;
         }
 
         #endregion

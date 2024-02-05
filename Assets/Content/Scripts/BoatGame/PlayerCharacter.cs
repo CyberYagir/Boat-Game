@@ -5,6 +5,7 @@ using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using Content.Scripts.ItemsSystem;
 using Content.Scripts.ManCreator;
 using DG.Tweening;
 using Sirenix.OdinInspector;
@@ -16,7 +17,6 @@ namespace Content.Scripts.BoatGame
 {
     public partial class PlayerCharacter : MonoBehaviour, ICharacter
     {
-        [SerializeField] private List<PlayerAction> playerActions = new List<PlayerAction>();
         [SerializeField, ReadOnly] private Character character;
         [SerializeField] private AppearanceManager appearanceManager;
         [SerializeField] private AnimationsManager animationsManager;
@@ -33,13 +33,15 @@ namespace Content.Scripts.BoatGame
 
 
         public EStateType CurrentState => stateMachine.CurrentStateType;
-        public AIManager NavigationManager => aiManager;
+        public AIManager AIMoveManager => aiManager;
         public AnimationsManager AnimationManager => animationsManager;
         public SelectionService SelectionService => selectionService;
 
         public Character Character => character;
 
         public NeedsManager NeedManager => needsManager;
+
+        public AppearanceManager AppearanceDataManager => appearanceManager;
 
 
         public Action OnChangeState;
@@ -152,11 +154,6 @@ namespace Content.Scripts.BoatGame
 
         }
 
-        private void OnStateMachineStateChanged()
-        {
-            OnChangeState?.Invoke();
-        }
-
         private void Update()
         {
             if (onlyVisuals) return;
@@ -175,21 +172,7 @@ namespace Content.Scripts.BoatGame
             }
         }
 
-        public void ActiveAction(EStateType state)
-        {
-            stateMachine.StartAction(state);
-        }
-
-        public T GetCharacterAction<T>() where T : StateAction<PlayerCharacter>
-        {
-            return stateMachine.GetStateByType<T>();
-        }
-
-        public void StopAction()
-        {
-            ActiveAction(EStateType.Idle);
-        }
-
+       
         public void ChangeCharacter(Character ch)
         {
             character = ch;
@@ -217,11 +200,22 @@ namespace Content.Scripts.BoatGame
            
         }
 
-
         private void OnDestroy()
         {
-            tickService.OnTick -= OnTick;
-            raftBuildService.OnChangeRaft -= CheckGround;
+            if (tickService)
+            {
+                tickService.OnTick -= OnTick;
+            }
+
+            if (raftBuildService)
+            {
+                raftBuildService.OnChangeRaft -= CheckGround;
+            }
+        }
+
+        public ItemObject GetEquipmentWeapon()
+        {
+            return gameData.GetItem(character.Equipment.WeaponID);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Content.Scripts.BoatGame.Services;
+﻿using Content.Scripts.BoatGame.Characters;
+using Content.Scripts.BoatGame.Services;
+using Content.Scripts.ItemsSystem;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,13 +21,15 @@ namespace Content.Scripts.BoatGame
             private static readonly int TG_Drink = Animator.StringToHash("TG_Drink");
             private static readonly int TG_Building = Animator.StringToHash("TG_Building");
             private static readonly int TG_Crafting = Animator.StringToHash("TG_Crafting");
+            private static readonly int TG_Attack = Animator.StringToHash("TG_Attack");
             private static readonly int HugFish = Animator.StringToHash("HugFish");
 
             
             [SerializeField] private Animator animator;
             [SerializeField] private Animation hoodAnimations;
             [SerializeField] private NavMeshAgent navMeshAgent;
-
+            [SerializeField] private CharAnimationEvents animationEvents;
+            
             [SerializeField] private Transform rightHand;
             [SerializeField] private Transform fishPoint;
             
@@ -35,6 +39,8 @@ namespace Content.Scripts.BoatGame
             public Transform RightHand => rightHand;
 
             public Transform FishPoint => fishPoint;
+
+            public CharAnimationEvents AnimationEvents => animationEvents;
 
             public void Init(WeatherService weatherService, AppearanceManager appearanceManager)
             {
@@ -97,6 +103,10 @@ namespace Content.Scripts.BoatGame
                 animator.ResetTrigger(TG_Eat);
                 animator.ResetTrigger(TG_Building);
                 animator.ResetTrigger(TG_Crafting);
+                animator.ResetTrigger(TG_Attack);
+                
+                
+                isAttackTriggerActived = false;
             }
             public void TriggerHoldFishAnimation(bool state)
             {
@@ -136,6 +146,19 @@ namespace Content.Scripts.BoatGame
             {
                 ResetAllTriggers();
                 animator.SetTrigger(TG_Crafting);
+            }
+
+            private bool isAttackTriggerActived = false;
+            public void SetAttackTarget(EWeaponAnimationType animationType, bool isLegPunch)
+            {
+                if (!isAttackTriggerActived)
+                {
+                    animator.SetTrigger(TG_Attack);
+                    isAttackTriggerActived = true;
+                }
+
+                animator.SetInteger("WeaponType", (int) animationType);
+                animator.SetBool("IsLegAttack", isLegPunch);
             }
         }
     }

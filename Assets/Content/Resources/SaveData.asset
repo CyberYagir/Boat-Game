@@ -13,15 +13,80 @@ MonoBehaviour:
   m_Name: SaveData
   m_EditorClassIdentifier: 
   charactersData:
-    characters: []
+    characters:
+    - name: Bobbie
+      uid: 3848aa9d-b316-4876-873e-6bdc84ee09a6
+      skillsData:
+        xp: 12
+        scores: 0
+        level: 3
+        skills:
+        - skillID: bd91198f-eeab-4ae1-acef-2551fa57d4d9
+          value: 2
+        - skillID: 20b3171e-8a60-4361-bfe4-c12a4b154163
+          value: 2
+        - skillID: 3b8443e2-2fef-4110-95aa-d61d78459f6f
+          value: 1
+        - skillID: f3b559d4-e0e2-42ef-b5d1-71101d0e10ca
+          value: 3
+      parametersData:
+        health: 100
+        hunger: 82.13905
+        thirsty: 69.58505
+      equipmentData:
+        helmetID: 
+        armorID: 
+        weaponID: 
+      skinColorID: 0
+      hatID: 0
   raftsData:
     rafts:
-    - uid: 10dd2a40-cc95-4ec7-905b-d8881045f6f2
-      pos: {x: 1, y: 0, z: 1}
+    - uid: eca2ded9-3b95-4e7e-aefd-3119e2c8675b
+      pos: {x: 0, y: 0, z: 0}
+      health: 79.42138
+      raftType: 0
+    - uid: db50d3bb-0a1d-4958-8c23-826871a59486
+      pos: {x: 0, y: 0, z: 1}
       health: 100
+      raftType: 0
+    - uid: 3cd19ee1-2125-4ee7-9e15-345447004f3d
+      pos: {x: 1, y: 0, z: 0}
+      health: 100
+      raftType: 0
+    - uid: 2171eb6a-22a6-48bb-9742-2ddcf1e4fc2c
+      pos: {x: 1, y: 0, z: 1}
+      health: 76.391045
       raftType: 1
+    - uid: 224eea4e-8661-46a7-8cfa-108a09feee64
+      pos: {x: 2, y: 0, z: 1}
+      health: 70.90062
+      raftType: 1
+    - uid: 84f48aad-f2d0-45dd-898b-3d513238ff09
+      pos: {x: 2, y: 0, z: 0}
+      health: 100
+      raftType: 3
+    - uid: 62b221c4-b473-4473-9469-89df58ee0bec
+      pos: {x: 2, y: 0, z: -1}
+      health: 100
+      raftType: 4
     storages:
-    - raftUid: 10dd2a40-cc95-4ec7-905b-d8881045f6f2
+    - raftUid: 2171eb6a-22a6-48bb-9742-2ddcf1e4fc2c
+      storagesData:
+      - resourceType: 0
+        itemList: []
+      - resourceType: 1
+        itemList:
+        - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
+          count: 9
+      - resourceType: 2
+        itemList:
+        - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
+          count: 1
+      - resourceType: 3
+        itemList: []
+      - resourceType: 4
+        itemList: []
+    - raftUid: 224eea4e-8661-46a7-8cfa-108a09feee64
       storagesData:
       - resourceType: 0
         itemList: []
@@ -35,133 +100,163 @@ MonoBehaviour:
         itemList: []
     raftsInBuild: []
   mapData:
-    worldSeed: 1277785809
+    worldSeed: 1730045326
     islands:
-    - islandPos: {x: 0, y: 88}
-      islandSeed: 1277785897
-    - islandPos: {x: 1, y: 67}
-      islandSeed: 1277785878
-    - islandPos: {x: 1, y: 84}
-      islandSeed: 1277785896
-    - islandPos: {x: 3, y: 160}
-      islandSeed: 1277785975
-    - islandPos: {x: 5, y: 5}
-      islandSeed: 1277785823
-    - islandPos: {x: 6, y: 179}
-      islandSeed: 1277785999
-    - islandPos: {x: 7, y: 184}
-      islandSeed: 1277786006
-    - islandPos: {x: 7, y: 298}
-      islandSeed: 1277786121
-    - islandPos: {x: 8, y: 375}
-      islandSeed: 1277786200
-    - islandPos: {x: 92, y: 286}
-      islandSeed: 1277786196
-    - islandPos: {x: 99, y: 58}
-      islandSeed: 1277785976
-    - islandPos: {x: 99, y: 194}
-      islandSeed: 1277786113
-    - islandPos: {x: 99, y: 206}
-      islandSeed: 1277786126
-    - islandPos: {x: 100, y: 284}
-      islandSeed: 1277786206
-    - islandPos: {x: 103, y: 0}
-      islandSeed: 1277785926
-    - islandPos: {x: 105, y: 381}
-      islandSeed: 1277786310
-    - islandPos: {x: 107, y: 205}
-      islandSeed: 1277786137
-    - islandPos: {x: 110, y: 384}
-      islandSeed: 1277786320
-    - islandPos: {x: 111, y: 101}
-      islandSeed: 1277786039
-    - islandPos: {x: 113, y: 386}
-      islandSeed: 1277786327
-    - islandPos: {x: 114, y: 174}
-      islandSeed: 1277786117
-    - islandPos: {x: 179, y: 92}
-      islandSeed: 1277786101
-    - islandPos: {x: 188, y: 391}
-      islandSeed: 1277786410
-    - islandPos: {x: 190, y: 395}
-      islandSeed: 1277786417
-    - islandPos: {x: 191, y: 182}
-      islandSeed: 1277786206
-    - islandPos: {x: 193, y: 396}
-      islandSeed: 1277786423
-    - islandPos: {x: 195, y: 88}
-      islandSeed: 1277786118
-    - islandPos: {x: 195, y: 364}
-      islandSeed: 1277786395
-    - islandPos: {x: 197, y: 74}
-      islandSeed: 1277786108
-    - islandPos: {x: 199, y: 290}
-      islandSeed: 1277786327
-    - islandPos: {x: 202, y: 99}
-      islandSeed: 1277786140
-    - islandPos: {x: 203, y: 287}
-      islandSeed: 1277786330
-    - islandPos: {x: 206, y: 207}
-      islandSeed: 1277786254
-    - islandPos: {x: 207, y: 95}
-      islandSeed: 1277786144
-    - islandPos: {x: 208, y: 291}
-      islandSeed: 1277786342
-    - islandPos: {x: 225, y: 178}
-      islandSeed: 1277786247
-    - islandPos: {x: 285, y: 375}
-      islandSeed: 1277786505
-    - islandPos: {x: 287, y: 280}
-      islandSeed: 1277786413
-    - islandPos: {x: 291, y: 186}
-      islandSeed: 1277786324
-    - islandPos: {x: 293, y: 106}
-      islandSeed: 1277786247
-    - islandPos: {x: 296, y: 385}
-      islandSeed: 1277786530
-    - islandPos: {x: 297, y: 186}
-      islandSeed: 1277786333
-    - islandPos: {x: 297, y: 390}
-      islandSeed: 1277786538
-    - islandPos: {x: 298, y: 75}
-      islandSeed: 1277786225
-    - islandPos: {x: 299, y: 1}
-      islandSeed: 1277786153
-    - islandPos: {x: 301, y: 2}
-      islandSeed: 1277786157
-    - islandPos: {x: 302, y: 84}
-      islandSeed: 1277786241
-    - islandPos: {x: 303, y: 360}
-      islandSeed: 1277786519
-    - islandPos: {x: 306, y: 82}
-      islandSeed: 1277786245
-    - islandPos: {x: 312, y: 277}
-      islandSeed: 1277786447
-    - islandPos: {x: 316, y: 381}
-      islandSeed: 1277786556
-    - islandPos: {x: 380, y: 293}
-      islandSeed: 1277786533
-    - islandPos: {x: 382, y: 387}
-      islandSeed: 1277786630
-    - islandPos: {x: 387, y: 68}
-      islandSeed: 1277786317
-    - islandPos: {x: 387, y: 285}
-      islandSeed: 1277786535
-    - islandPos: {x: 395, y: 202}
-      islandSeed: 1277786461
-    - islandPos: {x: 396, y: 107}
-      islandSeed: 1277786368
-    - islandPos: {x: 396, y: 188}
-      islandSeed: 1277786450
-    - islandPos: {x: 397, y: 200}
-      islandSeed: 1277786464
-    - islandPos: {x: 398, y: 106}
-      islandSeed: 1277786372
-    - islandPos: {x: 399, y: 198}
-      islandSeed: 1277786466
+    - islandPos: {x: 2, y: 0}
+      islandSeed: 1730045328
+    - islandPos: {x: 7, y: 276}
+      islandSeed: 1730045610
+    - islandPos: {x: 7, y: 290}
+      islandSeed: 1730045625
+    - islandPos: {x: 8, y: 205}
+      islandSeed: 1730045542
+    - islandPos: {x: 17, y: 396}
+      islandSeed: 1730045743
+    - islandPos: {x: 18, y: 250}
+      islandSeed: 1730045599
+    - islandPos: {x: 18, y: 330}
+      islandSeed: 1730045680
+    - islandPos: {x: 22, y: 5}
+      islandSeed: 1730045360
+    - islandPos: {x: 27, y: 5}
+      islandSeed: 1730045366
+    - islandPos: {x: 27, y: 271}
+      islandSeed: 1730045633
+    - islandPos: {x: 32, y: 195}
+      islandSeed: 1730045563
+    - islandPos: {x: 37, y: 301}
+      islandSeed: 1730045675
+    - islandPos: {x: 41, y: 215}
+      islandSeed: 1730045594
+    - islandPos: {x: 42, y: 261}
+      islandSeed: 1730045642
+    - islandPos: {x: 47, y: 281}
+      islandSeed: 1730045668
+    - islandPos: {x: 48, y: 380}
+      islandSeed: 1730045769
+    - islandPos: {x: 77, y: 320}
+      islandSeed: 1730045739
+    - islandPos: {x: 78, y: 150}
+      islandSeed: 1730045571
+    - islandPos: {x: 82, y: 251}
+      islandSeed: 1730045677
+    - islandPos: {x: 82, y: 300}
+      islandSeed: 1730045727
+    - islandPos: {x: 88, y: 391}
+      islandSeed: 1730045825
+    - islandPos: {x: 98, y: 351}
+      islandSeed: 1730045796
+    - islandPos: {x: 107, y: 230}
+      islandSeed: 1730045685
+    - islandPos: {x: 107, y: 290}
+      islandSeed: 1730045746
+    - islandPos: {x: 112, y: 111}
+      islandSeed: 1730045573
+    - islandPos: {x: 113, y: 115}
+      islandSeed: 1730045579
+    - islandPos: {x: 138, y: 281}
+      islandSeed: 1730045771
+    - islandPos: {x: 142, y: 91}
+      islandSeed: 1730045586
+    - islandPos: {x: 147, y: 256}
+      islandSeed: 1730045757
+    - islandPos: {x: 157, y: 191}
+      islandSeed: 1730045703
+    - islandPos: {x: 163, y: 30}
+      islandSeed: 1730045549
+    - islandPos: {x: 167, y: 286}
+      islandSeed: 1730045810
+    - islandPos: {x: 168, y: 26}
+      islandSeed: 1730045552
+    - islandPos: {x: 172, y: 296}
+      islandSeed: 1730045827
+    - islandPos: {x: 177, y: 11}
+      islandSeed: 1730045548
+    - islandPos: {x: 177, y: 36}
+      islandSeed: 1730045574
+    - islandPos: {x: 197, y: 140}
+      islandSeed: 1730045699
+    - islandPos: {x: 197, y: 261}
+      islandSeed: 1730045821
+    - islandPos: {x: 203, y: 385}
+      islandSeed: 1730045952
+    - islandPos: {x: 207, y: 186}
+      islandSeed: 1730045758
+    - islandPos: {x: 207, y: 205}
+      islandSeed: 1730045778
+    - islandPos: {x: 208, y: 191}
+      islandSeed: 1730045766
+    - islandPos: {x: 228, y: 160}
+      islandSeed: 1730045756
+    - islandPos: {x: 228, y: 231}
+      islandSeed: 1730045828
+    - islandPos: {x: 232, y: 370}
+      islandSeed: 1730045972
+    - islandPos: {x: 253, y: 65}
+      islandSeed: 1730045689
+    - islandPos: {x: 253, y: 235}
+      islandSeed: 1730045860
+    - islandPos: {x: 257, y: 305}
+      islandSeed: 1730045935
+    - islandPos: {x: 258, y: 0}
+      islandSeed: 1730045632
+    - islandPos: {x: 262, y: 60}
+      islandSeed: 1730045697
+    - islandPos: {x: 268, y: 36}
+      islandSeed: 1730045680
+    - islandPos: {x: 268, y: 241}
+      islandSeed: 1730045886
+    - islandPos: {x: 272, y: 70}
+      islandSeed: 1730045720
+    - islandPos: {x: 272, y: 350}
+      islandSeed: 1730046001
+    - islandPos: {x: 278, y: 320}
+      islandSeed: 1730045978
+    - islandPos: {x: 283, y: 255}
+      islandSeed: 1730045919
+    - islandPos: {x: 288, y: 321}
+      islandSeed: 1730045991
+    - islandPos: {x: 293, y: 96}
+      islandSeed: 1730045772
+    - islandPos: {x: 317, y: 60}
+      islandSeed: 1730045761
+    - islandPos: {x: 323, y: 211}
+      islandSeed: 1730045919
+    - islandPos: {x: 327, y: 206}
+      islandSeed: 1730045919
+    - islandPos: {x: 328, y: 0}
+      islandSeed: 1730045715
+    - islandPos: {x: 337, y: 100}
+      islandSeed: 1730045825
+    - islandPos: {x: 343, y: 50}
+      islandSeed: 1730045782
+    - islandPos: {x: 343, y: 225}
+      islandSeed: 1730045958
+    - islandPos: {x: 347, y: 326}
+      islandSeed: 1730046064
+    - islandPos: {x: 353, y: 66}
+      islandSeed: 1730045811
+    - islandPos: {x: 353, y: 85}
+      islandSeed: 1730045831
+    - islandPos: {x: 357, y: 261}
+      islandSeed: 1730046012
+    - islandPos: {x: 358, y: 255}
+      islandSeed: 1730046008
+    - islandPos: {x: 358, y: 281}
+      islandSeed: 1730046035
+    - islandPos: {x: 377, y: 381}
+      islandSeed: 1730046155
+    - islandPos: {x: 392, y: 171}
+      islandSeed: 1730045961
+    - islandPos: {x: 397, y: 241}
+      islandSeed: 1730046037
   globalData:
-    totalSecondsInGame: 144.21399
-    damagers:
-      tickCount: 0
-      maxTickCount: 0
+    totalSecondsInGame: 2289.4229
+    damagersData:
+      tickCount: 171
+      maxTickCount: 6744.5996
       spawnedItems: []
+    weathersData:
+      tickCount: 590
+      maxTickCount: 2136
+      currentWeather: 2

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using UnityEngine;
@@ -11,14 +12,31 @@ namespace Content.Scripts.BoatGame.PlayerActions
         public Transform Transform => transform;
 
         [SerializeField] private List<PlayerAction> playerActions = new List<PlayerAction>();
+        private SelectionService selectionService;
 
 
         [Inject]
         public void Construct(SelectionService selectionService)
         {
+            this.selectionService = selectionService;
             foreach (var ac in playerActions)
             {
                 ac.Init(selectionService);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            DisableSelection();
+        }
+
+        public void DisableSelection()
+        {
+            if (selectionService == null) return;
+            if (selectionService.SelectedObject == null) return;
+            if ((ActionsHolder) selectionService.SelectedObject == this)
+            {
+                selectionService.ClearSelectedObject();
             }
         }
     }

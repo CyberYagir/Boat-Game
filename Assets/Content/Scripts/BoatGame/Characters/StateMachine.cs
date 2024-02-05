@@ -15,7 +15,8 @@ namespace Content.Scripts.BoatGame.Characters
         Drinkings,
         Building,
         ViewInfo,
-        Crafting
+        Crafting,
+        Attack
     }
 
     
