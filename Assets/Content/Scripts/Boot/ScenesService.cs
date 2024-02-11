@@ -6,23 +6,34 @@ using UnityEngine.SceneManagement;
 
 namespace Content.Scripts.Boot
 {
+    public enum ESceneName
+    {
+        Boot,
+        Loading,
+        ManCreator,
+        BoatGame,
+        Map
+    }
+
     public class ScenesService : MonoBehaviour
     {
         [SerializeField] private Fader fader;
 
-        private List<string> overlayLoadedScenes = new List<string>();
+        private List<ESceneName> overlayLoadedScenes = new List<ESceneName>();
 
-        public void ChangeScene(string name)
+        public event Action<ESceneName> OnChangeActiveScene;
+        
+        public void ChangeScene(ESceneName name)
         {
-            SceneManager.LoadScene(name);
+            SceneManager.LoadScene(name.ToString());
         }
 
-        public AsyncOperation ChangeSceneAsync(string name)
+        public AsyncOperation ChangeSceneAsync(ESceneName name)
         {
-            return SceneManager.LoadSceneAsync(name);
+            return SceneManager.LoadSceneAsync(name.ToString());
         }
 
-        public void FadeScene(string name)
+        public void FadeScene(ESceneName name)
         {
             fader.Fade(delegate
             {
@@ -30,21 +41,21 @@ namespace Content.Scripts.Boot
             });
         }
 
-        public AsyncOperation AddScene(string name)
+        public AsyncOperation AddScene(ESceneName name)
         {
             if (!overlayLoadedScenes.Contains(name))
             {
                 overlayLoadedScenes.Add(name);
-                return SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive);
+                return SceneManager.LoadSceneAsync(name.ToString(), LoadSceneMode.Additive);
             }
             return null;
         }
 
-        public void UnloadScene(string name)
+        public void UnloadScene(ESceneName name)
         {
             if (overlayLoadedScenes.Contains(name))
             {
-                SceneManager.UnloadSceneAsync(name);
+                SceneManager.UnloadSceneAsync(name.ToString());
                 overlayLoadedScenes.Remove(name);
             }
         }
@@ -53,6 +64,22 @@ namespace Content.Scripts.Boot
         public void Fade(Action action)
         {
             fader.Fade(action);
+        }
+
+
+        public void ChangeActiveScene(ESceneName sceneName)
+        {
+            if (GetActiveScene() != sceneName)
+            {
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName.ToString()));
+                OnChangeActiveScene?.Invoke(sceneName);
+                Debug.Log("[Scene Change] Scene changed to " + sceneName);
+            }
+        }
+
+        public ESceneName GetActiveScene()
+        {
+            return Enum.Parse<ESceneName>(SceneManager.GetActiveScene().name);
         }
     }
 }

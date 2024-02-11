@@ -29,7 +29,7 @@ namespace Content.Scripts.BoatGame
                     parent = needPopup.parent;
                     needPopupPoint = needPopup.localPosition;
                 
-                    needPopup.transform.parent = null;
+                    needPopup.transform.SetParent(null);
                     needPopup.gameObject.SetActive(false);
                 }
 

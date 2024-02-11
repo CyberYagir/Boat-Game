@@ -46,6 +46,7 @@ namespace Content.Scripts.BoatGame
             {
                 this.appearanceManager = appearanceManager;
                 weatherService.OnChangeWeather += ApplyHood;
+                ApplyHood(weatherService.CurrentWeather);
             }
 
             private void ApplyHood(WeatherService.EWeatherType type)

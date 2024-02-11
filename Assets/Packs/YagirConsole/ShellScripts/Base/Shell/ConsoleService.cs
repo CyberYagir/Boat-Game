@@ -15,6 +15,8 @@ namespace YagirConsole.Scripts.Base.Shell
     {
         private static ConsoleService Instance;
 
+        private static List<string> commandsHistory = new List<string>(10);
+
         [System.Serializable]
         public class LogsColors
         {
@@ -37,11 +39,16 @@ namespace YagirConsole.Scripts.Base.Shell
         [SerializeField] private TMP_Text outputText, hitText;
         [SerializeField] private List<LogsColors> colors;
         
-        
-        
+        [Space]
+        [SerializeField] private Color consoleColor;
+        [SerializeField] private List<Image> backgrounds;
+
+        [Space]
         [SerializeField] private GameObject hintsHolder;
         [SerializeField] private List<ConsoleHintItem> hintsList;
-
+        
+        
+        [Space]
         [SerializeField] private string commandsFullNamePath = "YagirConsole.Scripts.Base.Shell";
         [SerializeField] private KeyCode consoleKey = KeyCode.F2;
         private int selectedHint;
@@ -53,6 +60,8 @@ namespace YagirConsole.Scripts.Base.Shell
         private RectTransform rectTransform;
         private bool isOpened;
 
+        private int historyIndex;
+        
 
         private List<ICommandExecutable> commands = new List<ICommandExecutable>(100);
 
@@ -70,6 +79,13 @@ namespace YagirConsole.Scripts.Base.Shell
                 hintsHolder.gameObject.SetActive(false);
                 transform.parent = null;
                 DontDestroyOnLoad(gameObject);
+                
+                
+                for (int i = 0; i < backgrounds.Count; i++)
+                {
+                    backgrounds[i].color = consoleColor;
+                }
+                
             }
 
             foreach (var color in colors)
@@ -104,22 +120,16 @@ namespace YagirConsole.Scripts.Base.Shell
             OpenClose();
             if (isOpened)
             {
-                HintMove();
+                UpdateHitsLines();
 
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Tab))
                 {
                     if (input.text.Trim() != "")
                     {
-                        if (selectedHint != -1)
-                        {
-                            if (!input.text.Contains(hintsList[selectedHint].GetText()))
-                            {
-                                input.text = hintsList[selectedHint].GetText() + " ";
-                                input.caretPosition = input.text.Length;
-                                return;
-                            }
-                        }
-
+                        SelectFirstItemIfEmpty();
+                        if (IsHitSelected()) return;
+                        ViewCommandsHistory();
+                        
                         ShowText(input.text, LogType.Log);
                         CalculateText(input.text);
                         input.text = "";
@@ -128,46 +138,101 @@ namespace YagirConsole.Scripts.Base.Shell
             }
         }
 
-        public void HintMove()
+        private void SelectFirstItemIfEmpty()
         {
-            if (input.text.Length != 0)
+            if (input.text.Trim() == "/" && selectedHint == -1)
             {
-                if (Input.GetKeyDown(KeyCode.UpArrow))
+                selectedHint = 0;
+            }
+        }
+
+        private void ViewCommandsHistory()
+        {
+            if (commandsHistory.Count != 0 && input.text != commandsHistory[0])
+            {
+                commandsHistory.Insert(0, input.text);
+            }
+            else if (commandsHistory.Count == 0)
+            {
+                commandsHistory.Add(input.text);
+            }
+
+            historyIndex = 0;
+        }
+
+        private bool IsHitSelected()
+        {
+            if (selectedHint != -1)
+            {
+                if (!input.text.Contains(hintsList[selectedHint].GetText()))
                 {
-                    selectedHint--;
-                }
-
-                if (Input.GetKeyDown(KeyCode.DownArrow))
-                {
-                    selectedHint++;
-                }
-
-                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
-                {
-                    if (selectedHint < -1)
-                    {
-                        selectedHint = -1;
-                    }
-
-                    if (selectedHint != -1)
-                    {
-                        if (selectedHint >= hintsList.Count || hintsList[selectedHint].gameObject.active == false)
-                        {
-                            selectedHint = 0;
-                        }
-                    }
-
-                    for (int i = 0; i < hintsList.Count; i++)
-                    {
-                        if (i == selectedHint)
-                            hintsList[i].Select();
-                        else
-                            hintsList[i].Deselect();
-                    }
-
-                    SetHintText();
+                    input.text = hintsList[selectedHint].GetText() + " ";
+                    input.caretPosition = input.text.Length;
+                    return true;
                 }
             }
+
+            return false;
+        }
+
+        public void UpdateHitsLines()
+        {
+            if (input.text.Length == 0) return;
+
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                selectedHint--;
+
+                if (IsCanSetHistoryText()) return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                selectedHint++;
+            }
+
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (selectedHint < -1)
+                {
+                    selectedHint = -1;
+                }
+
+                if (selectedHint != -1)
+                {
+                    if (selectedHint >= hintsList.Count || hintsList[selectedHint].gameObject.active == false)
+                    {
+                        selectedHint = 0;
+                        historyIndex = 0;
+                    }
+                }
+
+                for (int i = 0; i < hintsList.Count; i++)
+                {
+                    if (i == selectedHint)
+                        hintsList[i].Select();
+                    else
+                        hintsList[i].Deselect();
+                }
+
+                SetHintText();
+            }
+        }
+
+        private bool IsCanSetHistoryText()
+        {
+            if (selectedHint < -1)
+            {
+                if (historyIndex < commandsHistory.Count)
+                {
+                    input.text = commandsHistory[historyIndex];
+                    input.caretPosition = input.text.Length;
+                    historyIndex++;
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         List<string> normalCommands = new List<string>(10);

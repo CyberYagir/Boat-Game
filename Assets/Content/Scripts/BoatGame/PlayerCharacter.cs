@@ -1,12 +1,10 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
-using Content.Scripts.ManCreator;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;

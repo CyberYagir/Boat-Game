@@ -32,11 +32,11 @@ namespace Loading
             yield return new WaitForSeconds(1f);
             if (saveData.Characters.Count == 0)
             {
-                scenesService.FadeScene("ManCreator");
+                scenesService.FadeScene(ESceneName.ManCreator);
             }
             else
             {
-                scenesService.FadeScene("BoatGame");
+                scenesService.FadeScene(ESceneName.BoatGame);
             }
         }
 

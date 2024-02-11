@@ -315,5 +315,18 @@ namespace Content.Scripts.BoatGame.Services
         {
             return spawnedRafts.Find(x => x.Uid == raftID);
         }
+
+        public bool IsCanMoored()
+        {
+            foreach (var spawnedRaft in SpawnedRafts)
+            {
+                if (spawnedRaft.RaftType == RaftBuildService.RaftItem.ERaftType.Moored)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

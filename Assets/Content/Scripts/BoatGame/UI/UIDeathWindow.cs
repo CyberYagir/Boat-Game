@@ -49,7 +49,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public void NextButton()
         {
-            scenesService.FadeScene("Boot");
+            scenesService.FadeScene(ESceneName.Boot);
         }
     }
 }

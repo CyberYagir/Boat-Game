@@ -8,6 +8,8 @@ namespace Content.Scripts.Map
         {
             BindService<MapSpawnerService>();
             BindService<MapMoverService>();
+            BindService<MapIslandCollector>();
+            BindService<MapSelectionService>();
         }
     }
 }

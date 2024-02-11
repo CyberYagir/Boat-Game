@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Content.Scripts.Boot;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -28,6 +29,7 @@ namespace Content.Scripts.BoatGame.Services
         public Action<RaftTapToBuild> OnTapOnBuildingRaft;
         
         private GameStateService gameStateService;
+        private ScenesService scenesService;
 
         public Camera Camera => camera;
 
@@ -37,10 +39,17 @@ namespace Content.Scripts.BoatGame.Services
         public ISelectable SelectedObject => selectedObject;
 
         [Inject]
-        private void Construct(GameStateService gameStateService)
+        private void Construct(GameStateService gameStateService, ScenesService scenesService)
         {
+            this.scenesService = scenesService;
             this.gameStateService = gameStateService;
             raycasters = uiService.GetComponentsInChildren<GraphicRaycaster>(true).ToList();
+            scenesService.OnChangeActiveScene += ScenesServiceOnOnChangeActiveScene;
+        }
+
+        private void ScenesServiceOnOnChangeActiveScene(ESceneName obj)
+        {
+            ClearSelectedObject();
         }
 
 
@@ -48,6 +57,8 @@ namespace Content.Scripts.BoatGame.Services
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
+                if (scenesService.GetActiveScene() != ESceneName.BoatGame) return;
+                
                 if (CheckUILogic()) return;
                 
                 switch (gameStateService.GameState)

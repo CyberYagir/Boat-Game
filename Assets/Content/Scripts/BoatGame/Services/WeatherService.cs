@@ -73,6 +73,8 @@ namespace Content.Scripts.BoatGame.Services
 
         public WeatherModifiers CurrentModifiers => currentModifiers;
 
+        public EWeatherType CurrentWeather => currentWeather;
+
         [Inject]
         private void Construct(TickService tickService, SaveDataObject saveDataObject)
         {
@@ -96,9 +98,10 @@ namespace Content.Scripts.BoatGame.Services
 
         private void PlayStartWeather()
         {
-            var calm = weathers.Find(x => x.WeatherType == currentWeather);
+            var calm = weathers.Find(x => x.WeatherType == CurrentWeather);
             calm.IWeatherProvider.ForwardWeather();
             currentModifiers.SetPercents(calm.Hunger, calm.Thirsty);
+            OnChangeWeather?.Invoke(CurrentWeather);
         }
 
         private void SetTicksCount()
@@ -119,10 +122,10 @@ namespace Content.Scripts.BoatGame.Services
 
         IEnumerator MoveWeather()
         {
-            var oldWeather = weathers.Find(x=>x.WeatherType == currentWeather);
+            var oldWeather = weathers.Find(x=>x.WeatherType == CurrentWeather);
             currentWeather = Extensions.GetRandomEnum<EWeatherType>();
             
-            var newWeather = weathers.Find(x=>x.WeatherType == currentWeather);
+            var newWeather = weathers.Find(x=>x.WeatherType == CurrentWeather);
 
 
             if (oldWeather.WeatherType != newWeather.WeatherType)
@@ -155,7 +158,7 @@ namespace Content.Scripts.BoatGame.Services
 
         public SaveDataObject.GlobalData.WeatherData GetWeatherData()
         {
-            return new SaveDataObject.GlobalData.WeatherData(ticks, nextWeatherTicks, currentWeather);
+            return new SaveDataObject.GlobalData.WeatherData(ticks, nextWeatherTicks, CurrentWeather);
         }
     }
 }

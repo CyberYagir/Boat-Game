@@ -23,6 +23,7 @@ namespace Content.Scripts.BoatGame.Services
                 float delta = 1f / (float) TimeService.TickRate;
                 yield return new WaitForSeconds(delta);
                 OnTick?.Invoke(delta);
+                
             }
         }
 
