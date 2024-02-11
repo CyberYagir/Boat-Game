@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using OmniSARTechnologies.LiteFPSCounter;
+using Packs.YagirConsole.ShellScripts.Base.Shell;
 using UnityEngine;
-using YagirConsole.Scripts.Base.Shell;
 
 namespace Packs.YagirConsole.ShellScripts.Base.Commands
 {

@@ -4,41 +4,46 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace YagirConsole.Scripts.Base.Shell
+namespace Packs.YagirConsole.ShellScripts.Base.Shell
 {
-    public class ConsoleHintItem : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
+    public class ConsoleHintItem : MonoBehaviour
     {
         [SerializeField] private TMP_Text text;
         [SerializeField] private Image background;
 
-        [SerializeField] private bool selected;
 
-        public bool Selected => selected;
+        private Color defaultTextColor, defaultBackgroundColor;
+        private Color activeTextColor, activeBackgroundColor;
+        
+        public void Init(Color consoleVisualsSelectedColor, Color consoleVisualsSelectedColorText)
+        {
+            defaultTextColor = text.color;
+            defaultBackgroundColor = background.color;
+
+            activeTextColor = consoleVisualsSelectedColorText;
+            activeBackgroundColor = consoleVisualsSelectedColor;
+        }
+        
+        [SerializeField] private bool selected;
 
         public void Select()
         {
-            text.DOColor(Color.gray, 0.2f);
-            background.DOColor(Color.white, 0.2f);
-            CursorManager.SetCursor(CursorManager.CursorState.Hand);
-            selected = true;
+            if (!selected)
+            {
+                text.DOColor(activeTextColor, 0.2f).SetLink(gameObject);
+                background.DOColor(activeBackgroundColor, 0.2f).SetLink(gameObject);
+                selected = true;
+            }
         }
 
         public void Deselect()
         {
-            text.DOColor(Color.white, 0.2f);
-            background.DOColor(Color.clear, 0.2f);
-            CursorManager.SetCursor(CursorManager.CursorState.Pointer);
-            selected = false;
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            Select();
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            Deselect();
+            if (selected)
+            {
+                text.DOColor(defaultTextColor, 0.2f).SetLink(gameObject);
+                background.DOColor(defaultBackgroundColor, 0.2f).SetLink(gameObject);
+                selected = false;
+            }
         }
 
         public void SetText(string text)
@@ -50,5 +55,7 @@ namespace YagirConsole.Scripts.Base.Shell
         {
             return text.text;
         }
+
+   
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace YagirConsole.Scripts.Base.Shell
+namespace Packs.YagirConsole.ShellScripts.Base.Shell
 {
     public class ArgumentsShell
     {

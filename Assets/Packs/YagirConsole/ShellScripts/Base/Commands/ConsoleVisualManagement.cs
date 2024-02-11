@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using Packs.YagirConsole.ShellScripts.Base.Shell;
 using UnityEngine;
-using YagirConsole.Scripts.Base.Shell;
 
 namespace Packs.YagirConsole.ShellScripts.Base.Commands
 {
@@ -10,6 +10,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
         {
             ClearCommand();
             HelpCommand();
+            CommandTest();
         }
 
         private void HelpCommand()
@@ -39,6 +40,18 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
                 }
             });
 
+            commands.Add(command);
+        }
+
+
+        private void CommandTest()
+        {
+            var command = new ConsoleCommandData("/test", new List<Argument>()
+            {
+                new Argument("int", ArgumentType.Number),
+                new Argument("string", ArgumentType.String),
+                new Argument("bool", ArgumentType.Bool)
+            });
             commands.Add(command);
         }
 

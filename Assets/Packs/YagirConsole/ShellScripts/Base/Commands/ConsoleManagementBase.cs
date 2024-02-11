@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using YagirConsole.Scripts.Base.Shell;
+using Packs.YagirConsole.ShellScripts.Base.Shell;
 
 namespace Packs.YagirConsole.ShellScripts.Base.Commands
 {

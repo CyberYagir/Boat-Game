@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace YagirConsole.Scripts.Base.Shell
+namespace Packs.YagirConsole.ShellScripts.Base.Shell
 {
     public class ConsoleCommandData
     {
@@ -60,7 +60,7 @@ namespace YagirConsole.Scripts.Base.Shell
                     if (this.arguments[i] != args[i])
                     {
                         isCan = false;
-                        Debug.LogError("Argument types do not match");
+                        ConsoleLogger.Log("Argument types do not match", ELogType.CommandExeption);
                         break;
                     }
                     else
@@ -76,7 +76,7 @@ namespace YagirConsole.Scripts.Base.Shell
             }
             else
             {
-                Debug.LogError("Invalid number of arguments");
+                ConsoleLogger.Log("Invalid number of arguments", ELogType.CommandExeption);
             }
             isCan = false;
             return args;
