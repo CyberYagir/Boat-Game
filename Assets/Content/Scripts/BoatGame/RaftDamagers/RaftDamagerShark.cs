@@ -62,7 +62,7 @@ namespace Content.Scripts.BoatGame.RaftDamagers
                 if (!isDieAnimationStarted)
                 {
                     animator.SetTrigger("Die");
-                    animator.transform.DOScale(Vector3.zero, 4f);
+                    animator.transform.DOScale(Vector3.zero, 4f).SetLink(animator.gameObject);
                     isDieAnimationStarted = false;
                 }
             }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,8 +10,9 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
     {
         private static ConsoleService Instance;
 
+        [SerializeField] private KeyCode consoleKey = KeyCode.F2;
 
-        [SerializeField] private ConsoleCommands consoleCommands;
+        [SerializeField, HideInInspector] private ConsoleCommands consoleCommands;
         [SerializeField] private ConsoleVisuals consoleVisuals;
         [SerializeField] private ConsoleHintsVisuals consoleHintsVisuals;
         [SerializeField] private ConsoleHistory consoleHistory;
@@ -20,8 +22,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
         private HintsSolver hintsSolver = new HintsSolver();
         private ConsoleInput consoleInput = new ConsoleInput();
 
-        [Space]
-        [SerializeField] private KeyCode consoleKey = KeyCode.F2;
+    
 
         private bool cursorVisible;
         private CursorLockMode cursorMode;
@@ -64,8 +65,9 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             
             hintsSolver.HideHints();
         }
-        
-        public static List<ICommandExecutable> GetCommands() => Instance.consoleCommands.Commands;
+
+        public static ConsoleCommands GetCommandsStatic() => Instance.GetCommands();
+        public ConsoleCommands GetCommands() => consoleCommands;
         private void OnSubmit(string text) => consoleVisuals.Input.ActivateInputField();
 
         private void OnChangeText(string text)
@@ -169,7 +171,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                     }
                 }
 
-                ConsoleLogger.Log("Command not found", ELogType.CommandExeption);
+                ConsoleLogger.Log("Command not found", ELogType.CmdException);
             }
         }
         

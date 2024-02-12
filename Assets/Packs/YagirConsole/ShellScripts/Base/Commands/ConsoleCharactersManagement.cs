@@ -15,9 +15,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
 
         public void HealAllCharacters()
         {
-            var command = new ConsoleCommandData("/ch_heal", new List<Argument>());
-            
-            command.Action.AddListener(delegate(ArgumentsShell arg0)
+            AddCommand("/ch_heal", new List<Argument>(), delegate(ArgumentsShell shell)
             {
                 var charactersService = Object.FindObjectOfType<CharacterService>();
 
@@ -34,8 +32,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
                 
                 Debug.Log("All characters have been restored.");
             });
-            
-            commands.Add(command);
+          
         }
     }
 }

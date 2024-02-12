@@ -34,7 +34,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             public void LogText(string message, ELogType type)
             {
                 var text = ConsoleLogger.GetLog(message,  type);
-                outputText.text += text;
+                outputText.text += text;    
                 lastMessage = text;
             }
 

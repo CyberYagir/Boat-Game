@@ -16,60 +16,53 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
 
         public void ShowFPS()
         {
-            var command = new ConsoleCommandData("/showfps", new List<Argument>()
-            {
-                new Argument("state", ArgumentType.Bool)
-            });
-
-
-
-            command.Action.AddListener(delegate(ArgumentsShell arg0)
-            {
-                var counter = Object.FindObjectOfType<LiteFPSCounter>(true);
-
-                if (counter == null)
+            AddCommand("/showfps", new List<Argument>()
                 {
-                    Debug.LogWarning("FPSCounter not finded");
-                    return;
-                }
+                    new Argument("state", ArgumentType.Bool)
+                },
+                delegate(ArgumentsShell shell)
+                {
+                    var counter = Object.FindObjectOfType<LiteFPSCounter>(true);
+                    if (counter == null)
+                    {
+                        Debug.LogWarning("FPSCounter not finded");
+                        return;
+                    }
 
-                counter.gameObject.SetActive(arg0.GetBool("state"));
-            });
-
-            commands.Add(command);
+                    counter.gameObject.SetActive(shell.GetBool("state"));
+                });
         }
 
         public void SpawnDamager()
         {
-            var command = new ConsoleCommandData("/summon", new List<Argument>()
-            {
-                new Argument("damager_id", ArgumentType.Number)
-            });
-            
-            command.Action.AddListener(delegate(ArgumentsShell arg0)
-            {
-                var damager = Object.FindObjectOfType<RaftDamagerService>();
-
-                if (damager == null)
+            AddCommand("/summon",
+                new List<Argument>()
                 {
-                    Debug.LogWarning("RaftDamagerService not finded");
-                    return;
-                }
-
-
-                var item = damager.CreateSituationByID((int) arg0.GetInteger("damager_id"));
-
-                if (item)
+                    new Argument("damager_id", ArgumentType.Number)
+                },
+                delegate(ArgumentsShell shell)
                 {
-                    Debug.Log("Summon " + item.transform.name);
+                    var damager = Object.FindObjectOfType<RaftDamagerService>();
+
+                    if (damager == null)
+                    {
+                        Debug.LogWarning("RaftDamagerService not finded");
+                        return;
+                    }
+
+
+                    var item = damager.CreateSituationByID((int) shell.GetInteger("damager_id"));
+
+                    if (item)
+                    {
+                        Debug.Log("Summon " + item.transform.name);
+                    }
+                    else
+                    {
+                        Debug.Log("Cant find raft to summon");
+                    }
                 }
-                else
-                {
-                    Debug.Log("Cant find raft to summon");
-                }
-            });
-            
-            commands.Add(command);
+            );
         }
     }
 }

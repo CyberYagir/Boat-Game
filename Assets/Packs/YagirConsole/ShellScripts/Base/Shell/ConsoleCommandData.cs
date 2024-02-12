@@ -9,14 +9,13 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
     {
         private string commandBase;
         private List<Argument> arguments = new List<Argument>();
-        private UnityEvent<ArgumentsShell> action = new UnityEvent<ArgumentsShell>();
+        public Action<ArgumentsShell> Action;
 
 
         public List<Argument> Arguments => arguments;
 
         public string CommandBase => commandBase;
-
-        public UnityEvent<ArgumentsShell> Action => action;
+        
 
         public ConsoleCommandData(string commandBase, List<Argument> arguments)
         {
@@ -60,7 +59,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                     if (this.arguments[i] != args[i])
                     {
                         isCan = false;
-                        ConsoleLogger.Log("Argument types do not match", ELogType.CommandExeption);
+                        ConsoleLogger.Log("Argument types do not match", ELogType.CmdException);
                         break;
                     }
                     else
@@ -76,7 +75,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             }
             else
             {
-                ConsoleLogger.Log("Invalid number of arguments", ELogType.CommandExeption);
+                ConsoleLogger.Log("Invalid number of arguments", ELogType.CmdException);
             }
             isCan = false;
             return args;

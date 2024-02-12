@@ -54,7 +54,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                 case ELogType.Exception:
                     Debug.LogException(new Exception(message));
                     break;
-                case ELogType.CommandExeption:
+                case ELogType.CmdException:
                     Debug.Log(notFormattingFlag + GetLog(message, type));
                     break;
                 default:

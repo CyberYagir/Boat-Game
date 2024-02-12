@@ -11,28 +11,49 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
         [System.Serializable]
         public class ConsoleCommands
         {
-            [SerializeField] private string commandsFullNamePath = "YagirConsole.Scripts.Base.Shell";
-            
+            [SerializeField] private List<string> commandsFullNamePath = new List<string>(10);
+
             private List<ICommandExecutable> commands = new List<ICommandExecutable>(100);
             public List<ICommandExecutable> Commands => commands;
 
+            public List<string> CommandsFullNamePath => commandsFullNamePath;
+
             public void ReloadShellCommands()
             {
-                
-                var q = from t in Assembly.GetExecutingAssembly().GetTypes()
-                    where t.IsClass && t.Namespace == commandsFullNamePath && t.GetInterface(nameof(ICommandExecutable)) == typeof(ICommandExecutable)
-                    select t;
 
                 Commands.Clear();
-
-                foreach (var type in q)
+                var types = Assembly.GetExecutingAssembly().GetTypes();
+                for (int i = 0; i < CommandsFullNamePath.Count; i++)
                 {
-                    var item = (ICommandExecutable) Activator.CreateInstance(type);
-                    if (item != null)
+                    var id = i;
+                    var q = from t in types
+                        where t.IsClass && t.Namespace == CommandsFullNamePath[id] && t.GetInterface(nameof(ICommandExecutable)) == typeof(ICommandExecutable)
+                        select t;
+
+
+                    foreach (var type in q)
                     {
-                        Commands.Add(item);
+                        var item = (ICommandExecutable) Activator.CreateInstance(type);
+                        if (item != null)
+                        {
+                            Commands.Add(item);
+                        }
                     }
                 }
+            }
+
+
+            public void AddCommandsNames(string name)
+            {
+                if (!CommandsFullNamePath.Contains(name))
+                {
+                    CommandsFullNamePath.Add(name);
+                }
+            }
+
+            public void RemoveCommandsNames(string name)
+            {
+                CommandsFullNamePath.Remove(name);
             }
         }
     }
