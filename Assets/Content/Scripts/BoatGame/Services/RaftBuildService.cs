@@ -53,6 +53,8 @@ namespace Content.Scripts.BoatGame.Services
         public List<RaftBase> SpawnedRafts => spawnedRafts;
         public List<RaftStorage> Storages => storages;
 
+        public Transform Holder => holder;
+
         [Inject]
         private void Construct(
             WorldGridService worldGridService, 
@@ -181,7 +183,7 @@ namespace Content.Scripts.BoatGame.Services
 
         private RaftBase SpawnRaftPrefab(Vector3Int cords, RaftItem.ERaftType type, RaftBase raft)
         {
-            var rf = Instantiate(raft, cords, Quaternion.identity, holder)
+            var rf = Instantiate(raft, cords, Quaternion.identity, Holder)
                 .With(x => x.Init())
                 .With(x => x.SetCoords(cords))
                 .With(x => SpawnedRafts.Add(x));
@@ -249,7 +251,7 @@ namespace Content.Scripts.BoatGame.Services
             for (int i = 0; i < coords.Count; i++)
             {
                 var id = i;
-                Instantiate(tapToBuildRaftPrefab, coords[i], Quaternion.identity, holder)
+                Instantiate(tapToBuildRaftPrefab, coords[i], Quaternion.identity, Holder)
                     .With(x => spawnedTapBuildRafts.Add(x))
                     .With(x=>x.SetCoords(coords[id]));
             }

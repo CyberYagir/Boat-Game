@@ -46,7 +46,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             
             consoleLogger.Init();
             
-            consoleVisuals.Init();
+            consoleVisuals.Init(this);
             consoleVisuals.Input.onSubmit.AddListener(OnSubmit);
             consoleVisuals.Input.onValueChanged.AddListener(OnChangeText);
             
@@ -96,6 +96,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                     {
                         consoleInput.SetText(targetHistoryItem);
                         hintsSolver.UpdateSolver();
+                        hintsSolver.HideHints(true);
                     }
                     break;
                 case ConsoleInput.ESelectionState.Up:
@@ -159,7 +160,6 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
 
             if (items.Length >= 1)
             {
-
                 var commandsClass = consoleCommands.Commands.Find(x => x.CommandsList.Find(y => y.CommandBase == items[0]) != null);
                 if (commandsClass != null)
                 {

@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158ea5aa8d974a38b8db2ac5b37884c4, type: 3}
+  m_Name: Normal Stones
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 5340862968163142038, guid: 812945f460072b04cbfe3fcf9262d883, type: 3}
+  - {fileID: 7704762738501631932, guid: 4a0916f8a86fdbf479448cc09992a154, type: 3}
+  - {fileID: 130454829317236979, guid: 45ca84498f32de040898312bc34c0d6b, type: 3}
+  - {fileID: 7153689170117844437, guid: abe577f0f1c480242a2f28f5773af6fd, type: 3}
+  - {fileID: 71600728626603725, guid: 620671726b3e3f64baf73bde56c1c430, type: 3}
+  - {fileID: 2225175983684001612, guid: ff6558340e99beb4893ba13ebb48358e, type: 3}
+  - {fileID: 2936281304606968481, guid: 99e0e96e98c864045a060921d951fa93, type: 3}
+  activeLayers:
+  - {fileID: 8574412962073106934, guid: 9900121e85ffe6844b406557758d03bc, type: 2}
+  - {fileID: 8574412962073106934, guid: 60f92a00750767b4cbcab5ac916a57b0, type: 2}
+  - {fileID: 8574412962073106934, guid: 34e0bb1e605ca8b458854eaba6cdd227, type: 2}
+  - {fileID: 8574412962073106934, guid: c3c581171dd08754ba772ff1a336e549, type: 2}
+  scaleRange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.06483335
+      outSlope: 0.06483335
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.5714294
+    - serializedVersion: 3
+      time: 0.77221525
+      value: 1.0537995
+      inSlope: 0.017463468
+      outSlope: 0.017463468
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.29694226
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.83781695
+      value: 1.1922352
+      inSlope: 0.43368092
+      outSlope: 0.43368092
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1.2
+      inSlope: 0.12766038
+      outSlope: 0.12766038
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.4234233
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scalePower: 1
+  maxAngle: 80
+  noise:
+    mapWidth: 1024
+    mapHeight: 1024
+    scale: 0.17
+    octaves: 1
+    persistance: 1
+    lacunarity: 1
+    offset: {x: 14, y: 88}
+    clamp:
+      min: 0.86
+      max: 1
+    texture: {fileID: 0}

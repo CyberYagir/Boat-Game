@@ -8,7 +8,8 @@
         private float numberValue = 0;
         private string stringValue = "";
         private bool logicValue = false;
-
+        
+        private bool isRecuired;
 
         public bool LogicValue => logicValue;
 
@@ -19,8 +20,16 @@
         public ArgumentType Type => type;
         public string ArgumentName => argumentName;
 
-        public Argument(string argumentName, ArgumentType type)
+        public bool IsRecuired => isRecuired;
+
+        public Argument(string argumentName, ArgumentType type, bool isRecuired = true, float defaultNumber = 0f, string defaultString = "", bool defaultBool = false)
         {
+            numberValue = defaultNumber;
+            stringValue = defaultString;
+            logicValue = defaultBool;
+
+            this.isRecuired = isRecuired; 
+            
             this.argumentName = argumentName;
             this.type = type;
         }

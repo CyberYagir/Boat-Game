@@ -37,21 +37,25 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             public void UpdateSolver()
             {
                 UpdateCommandsList();
-                
-                if (normalCommands.Count != 0 && !consoleInput.IsText(string.Empty))
+                var isSecondWordNotStarted = consoleInput.GetText().Split(' ').Length == 1;
+                if (normalCommands.Count != 0 && !consoleInput.IsText(string.Empty) && isSecondWordNotStarted)
                 {
                     ShowHints();
                     UpdateSelectedVisuals?.Invoke();
                 }
                 else
                 {
-                    HideHints();
+                    HideHints(!isSecondWordNotStarted);
                 }
             }
-            
-            public void HideHints()
+
+            public void HideHints(bool hintsOnly = false)
             {
-                OnRecalculatePlaceholder?.Invoke("");
+                if (!hintsOnly)
+                {
+                    OnRecalculatePlaceholder?.Invoke("");
+                }
+
                 OnHideHints?.Invoke();
             }
 

@@ -1,7 +1,6 @@
-using DG.Tweening;
+using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Packs.YagirConsole.ShellScripts.Base.Shell
@@ -14,6 +13,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
 
         private Color defaultTextColor, defaultBackgroundColor;
         private Color activeTextColor, activeBackgroundColor;
+        private bool selected;
         
         public void Init(Color consoleVisualsSelectedColor, Color consoleVisualsSelectedColorText)
         {
@@ -24,24 +24,55 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             activeBackgroundColor = consoleVisualsSelectedColor;
         }
         
-        [SerializeField] private bool selected;
 
         public void Select()
         {
             if (!selected)
             {
-                text.DOColor(activeTextColor, 0.2f).SetLink(gameObject);
-                background.DOColor(activeBackgroundColor, 0.2f).SetLink(gameObject);
+                StopAllCoroutines();
+                StartCoroutine(LerpColor(activeTextColor, activeBackgroundColor));
                 selected = true;
             }
+        }
+
+        IEnumerator LerpColor(Color textColor, Color backgroundColor)
+        {
+            float time = 0;
+            float targetTime = 0.2f;
+
+            Color startText = text.color;
+            Color startBackground = background.color;
+
+            while (time <= targetTime)
+            {
+                yield return null;
+
+                text.color = Color.Lerp(startText, textColor, time / targetTime);
+                background.color = Color.Lerp(startBackground, backgroundColor, time / targetTime);
+
+
+                time += Time.unscaledDeltaTime;
+            }
+
+            text.color = textColor;
+            background.color = backgroundColor;
         }
 
         public void Deselect()
         {
             if (selected)
             {
-                text.DOColor(defaultTextColor, 0.2f).SetLink(gameObject);
-                background.DOColor(defaultBackgroundColor, 0.2f).SetLink(gameObject);
+                StopAllCoroutines();
+                if (gameObject.active)
+                {
+                    StartCoroutine(LerpColor(defaultTextColor, defaultBackgroundColor));
+                }
+                else
+                {
+                    text.color = defaultTextColor;
+                    background.color = defaultBackgroundColor;
+                }
+
                 selected = false;
             }
         }
@@ -55,7 +86,5 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
         {
             return text.text;
         }
-
-   
     }
 }

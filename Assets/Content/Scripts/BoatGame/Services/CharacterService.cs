@@ -9,10 +9,10 @@ namespace Content.Scripts.BoatGame.Services
 {
     public class CharacterService : MonoBehaviour
     {
-        [SerializeField] private NavMeshSurface _surface;
         [SerializeField] private PlayerCharacter prefab;
-        
         [SerializeField] private List<PlayerCharacter> spawnedCharacters;
+        
+        private NavMeshSurface surface;
         private SelectionService selectionService;
         private SaveDataObject saveData;
 
@@ -32,6 +32,8 @@ namespace Content.Scripts.BoatGame.Services
         {
             this.saveData = saveData;
             this.selectionService = selectionService;
+            surface = raftBuildService.Holder.GetComponent<NavMeshSurface>();
+            
             RebuildNavMesh();
             for (int i = 0; i < saveData.Characters.Count; i++)
             {
@@ -80,7 +82,7 @@ namespace Content.Scripts.BoatGame.Services
 
         private void RebuildNavMesh()
         {
-            _surface.BuildNavMesh();
+            surface.BuildNavMesh();
         }
 
         public void SaveCharacters()

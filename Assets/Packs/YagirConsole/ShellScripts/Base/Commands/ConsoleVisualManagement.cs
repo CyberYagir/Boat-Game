@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Packs.YagirConsole.ShellScripts.Base.Commands;
 using Packs.YagirConsole.ShellScripts.Base.Shell;
 using UnityEngine;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Commands
+namespace Base.Shell.Visual
 {
     public class ConsoleVisualManagement : ConsoleManagementBase
     {
@@ -15,10 +16,13 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
         private void HelpCommand()
         {
             var command = AddCommand("/help", new List<Argument>(), null);
+            
             command.Action += delegate(ArgumentsShell shell)
             {
                 var commands = ConsoleService.GetCommandsStatic().Commands;
-                Debug.Log("Commands List:");
+
+                var fullResult = "Commands List:";
+
                 for (int i = 0; i < commands.Count; i++)
                 {
                     for (int j = 0; j < commands[i].CommandsList.Count; j++)
@@ -33,19 +37,18 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
                             str += $" <u>({commands[i].CommandsList[j].Arguments[k].Type.ToString()})`{commands[i].CommandsList[j].Arguments[k].ArgumentName}`</u>";
                         }
 
-                        Debug.Log(str);
+                        fullResult += "\n    " + str;
                     }
                 }
+
+                Debug.Log(fullResult);
             };
         }
 
 
-        private void ClearCommand()
+        public void ClearCommand()
         {
-            AddCommand("/clear", new List<Argument>(), delegate(ArgumentsShell shell)
-            {
-                ConsoleService.ClearText();
-            });
+            AddCommand("/clear", new List<Argument>(), delegate(ArgumentsShell shell) { ConsoleService.ClearText(); });
         }
     }
 }

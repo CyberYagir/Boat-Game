@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Packs.YagirConsole.ShellScripts.Base.Shell
@@ -18,8 +19,9 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
 
         public static string GetLog(string message, ELogType type)
         {
-            if (message.Contains(notFormattingFlag)) return message.Replace(notFormattingFlag, "");
-            
+            if (message.Length == 0) return "Empty String";
+            if (message.Last() == notFormattingFlag) return message.Replace(notFormattingFlag.ToString(), "");
+
             var color = Instance.loggerData.GetHex(type);
             var spaces = Instance.loggerData.MaxLogNameLength - type.ToString().Length;
             var str = $"<color={color}>[{type.ToString()}]";
@@ -33,7 +35,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             return str;
         }
 
-        private const string notFormattingFlag = "-0/_";
+        private const char notFormattingFlag = '	';
         
         public static void Log(string message, ELogType type)
         {
@@ -55,7 +57,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                     Debug.LogException(new Exception(message));
                     break;
                 case ELogType.CmdException:
-                    Debug.Log(notFormattingFlag + GetLog(message, type));
+                    Debug.Log(GetLog(message, type) + notFormattingFlag);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

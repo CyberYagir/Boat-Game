@@ -30,6 +30,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                 for (int i = 0; i < hintsList.Count; i++)
                 {
                     hintsList[i].Init(consoleVisuals.SelectedColor, consoleVisuals.SelectedColorText);
+                    hintsList[i].transform.SetSiblingIndex(i);
                 }
                 
                 hintsSolver.OnRecalculatePlaceholder += UpdatePlaceholderVisuals;
@@ -47,7 +48,10 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                 {
                     if (consoleInput.GetText().Trim().Contains(hintsList[0].GetText()) || consoleInput.GetText().Trim().Split(' ').Length > 1)
                     {
-                        hintsList[0].gameObject.SetActive(false);
+                        for (int i = 0; i < hintsList.Count; i++)
+                        {
+                            hintsList[i].gameObject.SetActive(false);
+                        }
                         return;
                     }
                 }

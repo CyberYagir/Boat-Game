@@ -33,7 +33,14 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                 var shell = new ArgumentsShell(args);
                 try
                 {
-                    Action.Invoke(shell);
+                    if (Action != null)
+                    {
+                        Action?.Invoke(shell);
+                    }
+                    else
+                    {
+                        ConsoleLogger.Log("Command without action", ELogType.CmdException);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -52,19 +59,36 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                 args.Add(new Argument(arguments[i]));
             }
 
-            if (args.Count == this.arguments.Count)
+            if (args.Count <= this.arguments.Count)
             {
+
                 for (int i = 0; i < this.arguments.Count; i++)
                 {
-                    if (this.arguments[i] != args[i])
+                    if (i < args.Count)
                     {
-                        isCan = false;
-                        ConsoleLogger.Log("Argument types do not match", ELogType.CmdException);
-                        break;
+                        if (this.arguments[i] != args[i])
+                        {
+                            isCan = false;
+                            ConsoleLogger.Log("Argument types do not match", ELogType.CmdException);
+                            break;
+                        }
+                        else
+                        {
+                            args[i].SetName(this.arguments[i].ArgumentName);
+                        }
                     }
                     else
                     {
-                        args[i].SetName(this.arguments[i].ArgumentName);
+                        if (this.arguments[i].IsRecuired)
+                        {
+                            isCan = false;
+                            ConsoleLogger.Log("Invalid number of arguments", ELogType.CmdException);
+                            break;
+                        }
+                        else
+                        {
+                            args.Add(new Argument(this.arguments[i].ArgumentName, this.arguments[i].Type, this.arguments[i].IsRecuired, this.arguments[i].NumberValue, this.arguments[i].StringValue, this.arguments[i].LogicValue));
+                        }
                     }
                 }
 

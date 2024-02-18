@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &96176496879785268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2574670846185432514}
+  - component: {fileID: 8941495069564146599}
+  m_Layer: 0
+  m_Name: RaftsHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2574670846185432514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96176496879785268}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4763026782654091202}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8941495069564146599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96176496879785268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.083333336
+  m_MinRegionArea: 0.1
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
+--- !u!1 &5026342705821927271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4763026782654091202}
+  - component: {fileID: 5154668724961126156}
+  m_Layer: 0
+  m_Name: RaftBuildService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4763026782654091202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026342705821927271}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2574670846185432514}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5154668724961126156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026342705821927271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d441bd0d29c4d04998e27656a0840a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rafts:
+  - raftType: 0
+    raft: {fileID: 4234890953765572702, guid: 99554e191fbbf3d44a9d4fc3d34d1f3b, type: 3}
+    craftObject: {fileID: 11400000, guid: 23d548270f2a36a4c875c793b0a34732, type: 2}
+  - raftType: 1
+    raft: {fileID: 3330522577478596383, guid: 7f18f5c12d56bde4cb4aae7998efb187, type: 3}
+    craftObject: {fileID: 11400000, guid: 606a1ce085483c248b7a9d6d31ca1eb4, type: 2}
+  - raftType: 2
+    raft: {fileID: 7582172032458093213, guid: 2e6711aa1ee6fab45b4f673d74edd253, type: 3}
+    craftObject: {fileID: 0}
+  - raftType: 3
+    raft: {fileID: 156765734894499018, guid: 706ae2f07cec24a4dad1ed7d2c1250dc, type: 3}
+    craftObject: {fileID: 11400000, guid: 6597deff19a02434aaced58ff584b6ac, type: 2}
+  - raftType: 4
+    raft: {fileID: 3019904550329728780, guid: b1ca63b2f735da84a82f4c69df65527f, type: 3}
+    craftObject: {fileID: 11400000, guid: f7ab7be430b8ffe429a4ed3cf1be1499, type: 2}
+  spawnedRafts: []
+  holder: {fileID: 2574670846185432514}
+  tapToBuildRaftPrefab: {fileID: 7058613748815179466, guid: bf29d1054e3901649892ae89ab611578, type: 3}
+  storages: []
