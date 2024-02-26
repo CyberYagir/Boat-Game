@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17013895bb6d4e2facdcb36e0ac5b0f9, type: 3}
+  m_Name: Normal Sand Details
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 8543215162198129389, guid: d3f3975966ebd6f4a937a756d5422c7d, type: 3}
+  - {fileID: 4205105048058478347, guid: 91f59e2049aaf4b40b74f4f4e6f114d8, type: 3}
+  - {fileID: 3062401166911388754, guid: 43d44bf9691c7d748bbb25307cd92fc5, type: 3}
+  activeLayers:
+  - {fileID: 8574412962073106934, guid: c3c581171dd08754ba772ff1a336e549, type: 2}
+  - {fileID: 8574412962073106934, guid: 022cdb4905f3c1743999e4e0ad6bbf5e, type: 2}
+  scaleRange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.8
+      inSlope: 0.40000004
+      outSlope: 0.40000004
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1.2
+      inSlope: 0.40000004
+      outSlope: 0.40000004
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scalePower: 1
+  maxAngle: 50
+  density:
+  - 0.25
+  - 0.1
+  - 0.1

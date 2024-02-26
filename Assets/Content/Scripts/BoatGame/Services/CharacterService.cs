@@ -38,7 +38,7 @@ namespace Content.Scripts.BoatGame.Services
             for (int i = 0; i < saveData.Characters.Count; i++)
             {
                 var id = i;
-                Instantiate(prefab, Vector3.zero, Quaternion.identity)
+                Instantiate(prefab, Vector3.zero, Quaternion.identity, raftBuildService.Holder)
                     .With(x => x.Init(
                         saveData.Characters.GetCharacter(id),
                         gameDataObject,
@@ -50,7 +50,8 @@ namespace Content.Scripts.BoatGame.Services
                     .With(x => SpawnedCharacters.Add(x))
                     .With(x => x.NeedManager.OnDeath += OnDeath);
             }
-
+            
+            
 
             raftBuildService.OnChangeRaft += RebuildNavMesh;
 
@@ -59,7 +60,9 @@ namespace Content.Scripts.BoatGame.Services
                 selectionService.ChangeCharacter(SpawnedCharacters[0]);
             }
 
-            OnCharactersChange?.Invoke();
+            OnCharactersChange?.Invoke();            
+            print("execute " + transform.name);
+
         }
 
         private void OnDeath(Character target)
@@ -82,7 +85,8 @@ namespace Content.Scripts.BoatGame.Services
 
         private void RebuildNavMesh()
         {
-            surface.BuildNavMesh();
+            if (surface.enabled)
+                surface.BuildNavMesh();
         }
 
         public void SaveCharacters()

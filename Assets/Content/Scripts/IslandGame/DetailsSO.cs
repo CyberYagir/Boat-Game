@@ -9,8 +9,10 @@ namespace Content.Scripts.IslandGame
     [System.Serializable]
     public class DetailsSO : ObjectsSO
     {
-        [SerializeField] private List<float> density;
+        [SerializeField] protected List<float> density;
+        [SerializeField] private int densityScale = 1024;
 
+        public int DensityScale => densityScale;
 
         public List<DetailPrototype> GetDetailPrototypes(Random rnd)
         {

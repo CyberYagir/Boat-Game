@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -59,11 +60,18 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             consoleHintsVisuals.Init(hintsSolver, consoleInput, consoleVisuals);
             
             consoleOutput.Init(consoleVisuals.OutputText);
+            
+            Application.logMessageReceived -= consoleOutput.OnReceivedUnityMessage;
             Application.logMessageReceived += consoleOutput.OnReceivedUnityMessage;
             
             consoleCommands.ReloadShellCommands();
             
             hintsSolver.HideHints();
+        }
+
+        private void OnDisable()
+        {
+            Application.logMessageReceived -= consoleOutput.OnReceivedUnityMessage;
         }
 
         public static ConsoleCommands GetCommandsStatic() => Instance.GetCommands();

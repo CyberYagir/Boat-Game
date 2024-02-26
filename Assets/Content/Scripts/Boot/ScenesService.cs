@@ -12,7 +12,8 @@ namespace Content.Scripts.Boot
         Loading,
         ManCreator,
         BoatGame,
-        Map
+        Map,
+        IslandGame
     }
 
     public class ScenesService : MonoBehaviour

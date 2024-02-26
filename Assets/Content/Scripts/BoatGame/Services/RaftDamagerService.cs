@@ -42,7 +42,8 @@ namespace Content.Scripts.BoatGame.Services
             ResetTimer();
             tickService.OnTick += TickServiceOnOnTick;
 
-            LoadDamagers(saveDataObject.Global.DamagersData);
+            LoadDamagers(saveDataObject.Global.DamagersData);  
+            print("execute " + transform.name);
         }
 
         public void ResetTimer()

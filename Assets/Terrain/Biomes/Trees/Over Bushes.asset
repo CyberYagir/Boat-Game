@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158ea5aa8d974a38b8db2ac5b37884c4, type: 3}
+  m_Name: Over Bushes
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 8075722608749565515, guid: 1826df3b423985a4fb85588a6ffa9375, type: 3}
+  - {fileID: 750348235382540562, guid: ba6e1b71d501e1c4ab487a8d28eea5f9, type: 3}
+  - {fileID: 6875380684206444352, guid: ccdc10c51a5f9f7428fd56f12a13573e, type: 3}
+  - {fileID: 6865657747046245590, guid: e75550586d6b5fd40b95ce5071e46096, type: 3}
+  activeLayers:
+  - {fileID: 8574412962073106934, guid: a28af33e7a12c224f94e34c4dee01cba, type: 2}
+  scaleRange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.2
+      inSlope: 3.0958219
+      outSlope: 3.0958219
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.1027778
+    - serializedVersion: 3
+      time: 1
+      value: 10
+      inSlope: 0.44526914
+      outSlope: 0.44526914
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.40833336
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scalePower: 1
+  maxAngle: 50
+  treesDensity: 0.25
+  noise:
+    mapWidth: 256
+    mapHeight: 256
+    scale: 25
+    octaves: 1
+    persistance: 1
+    lacunarity: 1
+    offset: {x: 1488, y: 1488}
+    clamp:
+      min: 0.85
+      max: 1
+    texture: {fileID: 0}

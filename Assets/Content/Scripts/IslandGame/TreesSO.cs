@@ -7,8 +7,8 @@ namespace Content.Scripts.IslandGame
     [System.Serializable]
     public class TreesSO : ObjectsSO
     {
+        [SerializeField] private float treesDensity = 1;
         [SerializeField] private NoiseGenerator noise;
-
         public NoiseGenerator Noise => noise;
 
         public List<TreePrototype> GetTreePrototypes()
@@ -26,6 +26,17 @@ namespace Content.Scripts.IslandGame
             }
 
             return prototypes;
+        }
+
+        public bool IsDensityOk(System.Random rnd)
+        {
+            if (treesDensity == 1) return true;
+            return rnd.NextDouble() <= treesDensity;
+        }
+
+        public GameObject GetObjectByID(int targetBiomeItem)
+        {
+            return prefabs[targetBiomeItem];
         }
     }
 }

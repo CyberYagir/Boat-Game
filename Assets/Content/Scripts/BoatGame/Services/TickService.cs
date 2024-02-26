@@ -12,7 +12,8 @@ namespace Content.Scripts.BoatGame.Services
         [Inject]
         private void Construct()
         {
-            StartCoroutine(Loop());
+            StartCoroutine(Loop());  
+            print("execute " + transform.name);
         }
 
 

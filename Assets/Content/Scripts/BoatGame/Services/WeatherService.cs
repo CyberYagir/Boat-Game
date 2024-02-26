@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Weather;
+using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -76,7 +77,7 @@ namespace Content.Scripts.BoatGame.Services
         public EWeatherType CurrentWeather => currentWeather;
 
         [Inject]
-        private void Construct(TickService tickService, SaveDataObject saveDataObject)
+        private void Construct(TickService tickService, SaveDataObject saveDataObject, ScenesService scenesService)
         {
             SetTicksCount();
             tickService.OnTick += OnTick;
@@ -93,7 +94,14 @@ namespace Content.Scripts.BoatGame.Services
                 nextWeatherTicks = (int)saveDataObject.Global.WeathersData.MaxTickCount;
             }
 
-            PlayStartWeather();
+            if (scenesService.GetActiveScene() == ESceneName.IslandGame)
+            {
+                currentWeather = EWeatherType.Сalm;
+                tickService.OnTick -= OnTick;
+            }
+
+            PlayStartWeather();  
+            print("execute " + transform.name);
         }
 
         private void PlayStartWeather()

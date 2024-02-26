@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Boot;
 using UnityEngine;
 using Zenject;
 
@@ -32,8 +33,10 @@ namespace Content.Scripts.BoatGame
 
 
         [Inject]
-        private void Construct(TickService tickService, SelectionService selectionService)
+        private void Construct(TickService tickService, SelectionService selectionService, ScenesService scenesService)
         {
+            if (scenesService.GetActiveScene() == ESceneName.IslandGame) return;
+            
             this.selectionService = selectionService;
             tickService.OnTick += OnTick;
         }

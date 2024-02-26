@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158ea5aa8d974a38b8db2ac5b37884c4, type: 3}
+  m_Name: Over Trees
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 7659529291565243796, guid: 9345c176c7106ed4993461bd4a92e42f, type: 3}
+  - {fileID: 2005653562167937708, guid: 91e0fbada8702284fb5de99e53960d85, type: 3}
+  - {fileID: 6571056799604355547, guid: 5d31a16dd2606b74098e2b7a708e1a36, type: 3}
+  - {fileID: 6190567507744028986, guid: e74829fb06d01fa47934ad0159fe0e4f, type: 3}
+  activeLayers:
+  - {fileID: 8574412962073106934, guid: 60f92a00750767b4cbcab5ac916a57b0, type: 2}
+  - {fileID: 8574412962073106934, guid: a28af33e7a12c224f94e34c4dee01cba, type: 2}
+  scaleRange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1.5
+      inSlope: 3.0958219
+      outSlope: 3.0958219
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.1027778
+    - serializedVersion: 3
+      time: 1
+      value: 3
+      inSlope: 0.44526914
+      outSlope: 0.44526914
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.40833336
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scalePower: 1
+  maxAngle: 50
+  treesDensity: 1
+  noise:
+    mapWidth: 1024
+    mapHeight: 1024
+    scale: 0.17
+    octaves: 1
+    persistance: 1
+    lacunarity: 1
+    offset: {x: 0, y: 0}
+    clamp:
+      min: 0.89
+      max: 1
+    texture: {fileID: 0}

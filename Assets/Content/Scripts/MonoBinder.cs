@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using UnityEngine;
+using Zenject;
 
 namespace Content.Scripts.Game
 {
@@ -8,7 +9,7 @@ namespace Content.Scripts.Game
         {
             var service = GetComponentInChildren<T>();
             print(typeof(T).Name + " service <b>binded</b>");
-            Container.Bind<T>().FromInstance(service).AsSingle();
+            Container.Bind<T>().FromInstance(service).AsSingle().NonLazy();
             
         }
     }

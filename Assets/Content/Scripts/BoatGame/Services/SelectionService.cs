@@ -44,7 +44,8 @@ namespace Content.Scripts.BoatGame.Services
             this.scenesService = scenesService;
             this.gameStateService = gameStateService;
             raycasters = uiService.GetComponentsInChildren<GraphicRaycaster>(true).ToList();
-            scenesService.OnChangeActiveScene += ScenesServiceOnOnChangeActiveScene;
+            scenesService.OnChangeActiveScene += ScenesServiceOnOnChangeActiveScene;  
+            print("execute " + transform.name);
         }
 
         private void ScenesServiceOnOnChangeActiveScene(ESceneName obj)
@@ -55,9 +56,9 @@ namespace Content.Scripts.BoatGame.Services
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (InputService.IsLMBDown)
             {
-                if (scenesService.GetActiveScene() != ESceneName.BoatGame) return;
+                if (scenesService.GetActiveScene() == ESceneName.Map) return;
                 
                 if (CheckUILogic()) return;
                 

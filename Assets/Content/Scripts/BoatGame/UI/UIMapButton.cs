@@ -20,6 +20,12 @@ namespace Content.Scripts.BoatGame.UI
 
         private void RaftBuildServiceOnOnChangeRaft()
         {
+            if (scenesService.GetActiveScene() == ESceneName.IslandGame)
+            {
+                gameObject.SetActive(false);
+                return;
+            };
+            
             var state = raftBuildService.IsCanMoored();
             gameObject.SetActive(state);
 

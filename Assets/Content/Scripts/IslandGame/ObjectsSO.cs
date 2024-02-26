@@ -17,7 +17,7 @@ namespace Content.Scripts.IslandGame
         public int Count => prefabs.Count;
 
 
-        public bool IsCanPlace(TerrainLayer textureLayer)
+        public virtual bool IsCanPlace(TerrainLayer textureLayer)
         {
             return activeLayers.Contains(textureLayer);
         }

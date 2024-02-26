@@ -74,14 +74,7 @@ namespace Content.Scripts.BoatGame
             raftBuildService.OnChangeRaft += CheckGround;
             needsManager.OnDeath += Death;
 
-            transform.position =  aiManager.GenerateRandomPos();
-            if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, Mathf.Infinity, ~0))
-            {
-                transform.position = hit.position;
-            }
-
-            transform.SetYEulerAngles(Random.value * 360);
-            
+            SetCharacterRaftPosition();
             
             stateMachine.Init(this);
             stateMachine.OnChangeState += OnStateMachineStateChanged;
@@ -89,6 +82,17 @@ namespace Content.Scripts.BoatGame
             tickService.OnTick += OnTick;
             
             Select(false);
+        }
+
+        public void SetCharacterRaftPosition()
+        {
+            transform.position = aiManager.GenerateRandomPos();
+            if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, Mathf.Infinity, ~0))
+            {
+                transform.position = hit.position;
+            }
+
+            transform.SetYEulerAngles(Random.value * 360);
         }
 
         private void CheckGround()

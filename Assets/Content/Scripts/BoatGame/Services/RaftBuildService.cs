@@ -48,7 +48,7 @@ namespace Content.Scripts.BoatGame.Services
         private CraftObject lastSelectedCraftItem;
         
         public event Action OnChangeRaft;
-        
+        public event Action OnPreRaftGenerated;
 
         public List<RaftBase> SpawnedRafts => spawnedRafts;
         public List<RaftStorage> Storages => storages;
@@ -68,6 +68,8 @@ namespace Content.Scripts.BoatGame.Services
             this.saveData = saveData;
             this.worldGridService = worldGridService;
 
+            OnPreRaftGenerated?.Invoke();
+            
             if (saveData.Rafts.RaftsCount == 0)
             {
                 SpawnStartRaft();
@@ -76,7 +78,8 @@ namespace Content.Scripts.BoatGame.Services
             {
                 LoadPlayerRaft(saveData, selectionService, gamedata);
             }
-            gameStateService.OnChangeEState += GameStateServiceOnOnChangeEState;
+            gameStateService.OnChangeEState += GameStateServiceOnOnChangeEState;  
+            print("execute " + transform.name);
         }
 
         private void LoadPlayerRaft(SaveDataObject saveData, SelectionService selectionService, GameDataObject gamedata)
@@ -183,11 +186,11 @@ namespace Content.Scripts.BoatGame.Services
 
         private RaftBase SpawnRaftPrefab(Vector3Int cords, RaftItem.ERaftType type, RaftBase raft)
         {
-            var rf = Instantiate(raft, cords, Quaternion.identity, Holder)
+            var rf = Instantiate(raft, Vector3.zero, Quaternion.identity, Holder)
                 .With(x => x.Init())
                 .With(x => x.SetCoords(cords))
                 .With(x => SpawnedRafts.Add(x));
-            
+            rf.transform.localPosition = cords;
             if (type == RaftItem.ERaftType.Storage)
             {
                 var storage = rf.GetComponent<RaftStorage>();
