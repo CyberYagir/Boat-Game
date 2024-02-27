@@ -1,5 +1,6 @@
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Global;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame
@@ -8,9 +9,9 @@ namespace Content.Scripts.BoatGame
     {
         [SerializeField] private ActionsHolder actionsHolder;
 
-        public void InitActions(SelectionService selectionService)
+        public void InitActions(SelectionService selectionService, GameDataObject gameDataObject)
         {
-            actionsHolder.Construct(selectionService);
+            actionsHolder.Construct(selectionService,gameDataObject);
         } 
     }
 }

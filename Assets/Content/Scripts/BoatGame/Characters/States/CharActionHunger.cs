@@ -16,6 +16,9 @@ namespace Content.Scripts.BoatGame.Characters.States
         [SerializeField] private EResourceTypes type;
         [SerializeField] private Range eatTime;
         [SerializeField] private GameObject itemPrefab;
+        [SerializeField] private bool moveToStorage = true;
+        
+        
         private EHungerState state;
         private float timer;
         private RaftStorage targetStorage;
@@ -38,15 +41,22 @@ namespace Content.Scripts.BoatGame.Characters.States
             targetStorage = Machine.AIMoveManager.FindResource(type);
 
             eatingTime = eatTime.RandomWithin();
-            
+
             if (targetStorage == null)
             {
                 EndState();
                 return;
             }
 
-            Machine.AIMoveManager.NavMeshAgent.isStopped = false;
-            Machine.AIMoveManager.NavMeshAgent.SetDestination(targetStorage.transform.position);
+            if (moveToStorage)
+            {
+                Machine.AIMoveManager.NavMeshAgent.isStopped = false;
+                Machine.AIMoveManager.NavMeshAgent.SetDestination(targetStorage.transform.position);
+            }
+            else
+            {
+                state = EHungerState.Eating;
+            }
         }
 
         public override void ProcessState()
@@ -59,8 +69,6 @@ namespace Content.Scripts.BoatGame.Characters.States
                 case EHungerState.Eating:
                     EatingLogic();
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
            
         }

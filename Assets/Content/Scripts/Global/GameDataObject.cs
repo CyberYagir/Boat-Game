@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Content.Scripts.BoatGame;
+using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.ItemsSystem;
@@ -19,10 +20,11 @@ namespace Content.Scripts.Global
         public override void InstallBindings()
         {
             Container.Bind<GameDataObject>().FromInstance(this).AsSingle();
+            ActionsData.Init();
         }
 
 
-
+        [SerializeField] private ActionsDataSO actionsData;
         [SerializeField] private List<string> namesList;
         [SerializeField] private List<SkillObject> skillsList;
         [SerializeField] private List<Material> skinColors;
@@ -42,6 +44,8 @@ namespace Content.Scripts.Global
         public List<int> LevelXps => levelXps;
 
         public List<MapPathObject> MapPaths => mapPaths;
+
+        public ActionsDataSO ActionsData => actionsData;
 
 
         public ItemObject GetItem(string id)

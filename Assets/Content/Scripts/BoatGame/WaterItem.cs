@@ -1,6 +1,7 @@
 using System.Collections;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using DG.Tweening;
 using StylizedWater2;
@@ -39,12 +40,12 @@ namespace Content.Scripts.BoatGame
         public bool IsOnDeath => isOnDeath;
 
 
-        public void Init(Vector3 dir, SelectionService selectionService)
+        public void Init(Vector3 dir, SelectionService selectionService, GameDataObject gameDataObject)
         {
             startVelocity = dir.normalized * Random.Range(0.5f, 2f);
             rb.AddForce(startVelocity, ForceMode.VelocityChange);
             rig.SetYLocalEulerAngles(Random.Range(0, 360));
-            GetComponent<ActionsHolder>().Construct(selectionService);
+            GetComponent<ActionsHolder>().Construct(selectionService, gameDataObject);
             floatingTransform = GetComponent<FloatingTransform>();
             StartCoroutine(Loop());
         }

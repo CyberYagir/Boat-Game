@@ -69,7 +69,7 @@ namespace Content.Scripts.BoatGame
             aiManager.Init(raftBuildService);
             animationsManager.Init(weatherService, appearanceManager);
             needsManager.Init(character, weatherService, gameData, this.selectionService);
-            actionsHolder.Construct(selectionService);
+            actionsHolder.Construct(selectionService, gameData);
 
             raftBuildService.OnChangeRaft += CheckGround;
             needsManager.OnDeath += Death;
@@ -90,6 +90,11 @@ namespace Content.Scripts.BoatGame
             if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, Mathf.Infinity, ~0))
             {
                 transform.position = hit.position;
+            }
+            else
+            {
+                DOVirtual.DelayedCall(0.1f, SetCharacterRaftPosition);
+                return;
             }
 
             transform.SetYEulerAngles(Random.value * 360);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Boot;
+using Content.Scripts.Global;
 using UnityEngine;
 using Zenject;
 
@@ -30,11 +31,13 @@ namespace Content.Scripts.BoatGame
 
         private List<WaterItem> spawnedItems = new List<WaterItem>();
         private SelectionService selectionService;
+        private GameDataObject gameDataObject;
 
 
         [Inject]
-        private void Construct(TickService tickService, SelectionService selectionService, ScenesService scenesService)
+        private void Construct(TickService tickService, SelectionService selectionService, ScenesService scenesService, GameDataObject gameDataObject)
         {
+            this.gameDataObject = gameDataObject;
             if (scenesService.GetActiveScene() == ESceneName.IslandGame) return;
             
             this.selectionService = selectionService;
@@ -58,7 +61,7 @@ namespace Content.Scripts.BoatGame
 
                 var spawned = Instantiate(itemsList[item].Item, start, Quaternion.identity);
                 
-                spawned.Init(end - start, selectionService);
+                spawned.Init(end - start, selectionService, gameDataObject);
                 
                 
                 spawnedItems.Add(spawned);

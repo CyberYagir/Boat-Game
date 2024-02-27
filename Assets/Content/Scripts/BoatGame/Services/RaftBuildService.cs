@@ -63,6 +63,7 @@ namespace Content.Scripts.BoatGame.Services
             SelectionService selectionService,
             GameDataObject gamedata)
         {
+            this.gamedata = gamedata;
             this.gameStateService = gameStateService;
             this.selectionService = selectionService;
             this.saveData = saveData;
@@ -145,7 +146,7 @@ namespace Content.Scripts.BoatGame.Services
         private void OnTapOnBuildingRaft(RaftTapToBuild targetRaft)
         {
             var raft = AddRaft(targetRaft.Coords, RaftItem.ERaftType.Building);
-            raft.GetComponent<RaftBuild>().SetCraft(lastSelectedCraftItem, selectionService, this);
+            raft.GetComponent<RaftBuild>().SetCraft(lastSelectedCraftItem, selectionService, this, gamedata);
             gameStateService.ChangeGameState(GameStateService.EGameState.Normal);
 
             foreach (var ing in lastSelectedCraftItem.Ingredients)
@@ -203,7 +204,7 @@ namespace Content.Scripts.BoatGame.Services
             var actions = rf.GetComponent<RaftWithAction>();
             if (actions)
             {
-                actions.InitActions(selectionService);
+                actions.InitActions(selectionService, gamedata);
             }
 
             rf.OnDeath += OnRaftDeath;
@@ -303,6 +304,8 @@ namespace Content.Scripts.BoatGame.Services
         }
 
         private List<RaftStorage> emptyStoragesArray = new List<RaftStorage>(10);
+        private GameDataObject gamedata;
+
         public List<RaftStorage> FindEmptyStorages(ItemObject item, int value)
         {
             emptyStoragesArray.Clear();

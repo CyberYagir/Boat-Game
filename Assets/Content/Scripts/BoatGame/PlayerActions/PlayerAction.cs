@@ -1,16 +1,17 @@
 ﻿using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Global;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.PlayerActions
 {
     
-    public abstract class PlayerAction : MonoBehaviour
+    public class PlayerAction : MonoBehaviour
     {
-        [SerializeField] private Sprite icon;
         [SerializeField] private EStateType state;
         
         
+        private Sprite icon;
         private SelectionService selectionService;
 
 
@@ -22,8 +23,9 @@ namespace Content.Scripts.BoatGame.PlayerActions
         
         public SelectionService SelectionService => selectionService;
 
-        public void Init(SelectionService selectionService)
+        public void Init(SelectionService selectionService, GameDataObject gameDataObject)
         {
+            icon = gameDataObject.ActionsData.GetActionIcon(state);
             this.selectionService = selectionService;
         }
 

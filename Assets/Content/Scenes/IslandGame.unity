@@ -420,6 +420,8 @@ GameObject:
   - component: {fileID: 68074386}
   - component: {fileID: 68074385}
   - component: {fileID: 68074387}
+  - component: {fileID: 68074389}
+  - component: {fileID: 68074388}
   m_Layer: 0
   m_Name: Terrain13
   m_TagString: Untagged
@@ -525,6 +527,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 1973804606}
   - point: {fileID: 274040479}
     ladderPoint: {fileID: 1165071262}
+--- !u!114 &68074388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68074383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &68074389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68074383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &71406108
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,11 +1728,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379296136701591964, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 521.28406
+      value: 1002.57635
       objectReference: {fileID: 0}
     - target: {fileID: 1379296136701591964, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 260.64203
+      value: 501.28818
       objectReference: {fileID: 0}
     - target: {fileID: 1379296136993171072, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1945,6 +1974,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6109461790759577614, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 839338543770585755, guid: 71e4e276b26a4004a818de0db8e02993, type: 3}
     - target: {fileID: 6289756244438697198, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2859,6 +2892,8 @@ GameObject:
   - component: {fileID: 503815240}
   - component: {fileID: 503815239}
   - component: {fileID: 503815241}
+  - component: {fileID: 503815243}
+  - component: {fileID: 503815242}
   m_Layer: 0
   m_Name: Terrain9
   m_TagString: Untagged
@@ -2964,6 +2999,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 1134560924}
   - point: {fileID: 937876609}
     ladderPoint: {fileID: 1543858394}
+--- !u!114 &503815242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503815237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &503815243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503815237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &509507102
 GameObject:
   m_ObjectHideFlags: 0
@@ -3481,6 +3543,8 @@ GameObject:
   - component: {fileID: 730534038}
   - component: {fileID: 730534037}
   - component: {fileID: 730534039}
+  - component: {fileID: 730534041}
+  - component: {fileID: 730534040}
   m_Layer: 0
   m_Name: Terrain11
   m_TagString: Untagged
@@ -3586,6 +3650,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 422307937}
   - point: {fileID: 469624197}
     ladderPoint: {fileID: 243600530}
+--- !u!114 &730534040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730534035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &730534041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730534035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &737076389
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,6 +3815,8 @@ GameObject:
   - component: {fileID: 785207985}
   - component: {fileID: 785207984}
   - component: {fileID: 785207986}
+  - component: {fileID: 785207988}
+  - component: {fileID: 785207987}
   m_Layer: 0
   m_Name: Terrain6
   m_TagString: Untagged
@@ -3833,6 +3926,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 118544626}
   - point: {fileID: 929715095}
     ladderPoint: {fileID: 1814759181}
+--- !u!114 &785207987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785207982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &785207988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785207982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &787457329
 GameObject:
   m_ObjectHideFlags: 0
@@ -4191,6 +4311,8 @@ GameObject:
   - component: {fileID: 832881390}
   - component: {fileID: 832881389}
   - component: {fileID: 832881391}
+  - component: {fileID: 832881393}
+  - component: {fileID: 832881392}
   m_Layer: 0
   m_Name: Terrain12
   m_TagString: Untagged
@@ -4296,6 +4418,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 1404861856}
   - point: {fileID: 959093957}
     ladderPoint: {fileID: 471592709}
+--- !u!114 &832881392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832881387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &832881393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832881387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &836155463
 GameObject:
   m_ObjectHideFlags: 0
@@ -4405,6 +4554,8 @@ GameObject:
   - component: {fileID: 855242648}
   - component: {fileID: 855242647}
   - component: {fileID: 855242649}
+  - component: {fileID: 855242651}
+  - component: {fileID: 855242650}
   m_Layer: 0
   m_Name: Terrain1
   m_TagString: Untagged
@@ -4512,6 +4663,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 1110963695}
   - point: {fileID: 1299273652}
     ladderPoint: {fileID: 414923223}
+--- !u!114 &855242650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855242645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &855242651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855242645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &861677628
 GameObject:
   m_ObjectHideFlags: 0
@@ -4651,6 +4829,8 @@ GameObject:
   - component: {fileID: 897139674}
   - component: {fileID: 897139673}
   - component: {fileID: 897139675}
+  - component: {fileID: 897139677}
+  - component: {fileID: 897139676}
   m_Layer: 0
   m_Name: Terrain10
   m_TagString: Untagged
@@ -4757,6 +4937,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 2074826611}
   - point: {fileID: 864877417}
     ladderPoint: {fileID: 650420316}
+--- !u!114 &897139676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897139671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &897139677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897139671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &914483146
 GameObject:
   m_ObjectHideFlags: 0
@@ -5627,6 +5834,8 @@ GameObject:
   - component: {fileID: 1083407477}
   - component: {fileID: 1083407476}
   - component: {fileID: 1083407478}
+  - component: {fileID: 1083407480}
+  - component: {fileID: 1083407479}
   m_Layer: 0
   m_Name: Terrain15
   m_TagString: Untagged
@@ -5734,6 +5943,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 807760369}
   - point: {fileID: 1784679179}
     ladderPoint: {fileID: 1777652030}
+--- !u!114 &1083407479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083407474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &1083407480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083407474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &1084677155
 GameObject:
   m_ObjectHideFlags: 0
@@ -6709,6 +6945,8 @@ GameObject:
   - component: {fileID: 1334681086}
   - component: {fileID: 1334681085}
   - component: {fileID: 1334681087}
+  - component: {fileID: 1334681089}
+  - component: {fileID: 1334681088}
   m_Layer: 0
   m_Name: Terrain16
   m_TagString: Untagged
@@ -6814,6 +7052,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 954296546}
   - point: {fileID: 832290404}
     ladderPoint: {fileID: 1684759287}
+--- !u!114 &1334681088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334681083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &1334681089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334681083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &1369733105
 GameObject:
   m_ObjectHideFlags: 0
@@ -7146,6 +7411,8 @@ GameObject:
   - component: {fileID: 1440528022}
   - component: {fileID: 1440528021}
   - component: {fileID: 1440528023}
+  - component: {fileID: 1440528025}
+  - component: {fileID: 1440528024}
   m_Layer: 0
   m_Name: Terrain5
   m_TagString: Untagged
@@ -7253,6 +7520,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 1835842072}
   - point: {fileID: 42939502}
     ladderPoint: {fileID: 202895146}
+--- !u!114 &1440528024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440528019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &1440528025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440528019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &1441152015
 GameObject:
   m_ObjectHideFlags: 0
@@ -7296,6 +7590,8 @@ GameObject:
   - component: {fileID: 1441446587}
   - component: {fileID: 1441446586}
   - component: {fileID: 1441446588}
+  - component: {fileID: 1441446590}
+  - component: {fileID: 1441446589}
   m_Layer: 0
   m_Name: Terrain2
   m_TagString: Untagged
@@ -7425,6 +7721,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 609031285}
   - point: {fileID: 2004778739}
     ladderPoint: {fileID: 250829880}
+--- !u!114 &1441446589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441446584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &1441446590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441446584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &1445512500
 GameObject:
   m_ObjectHideFlags: 0
@@ -9051,6 +9374,8 @@ GameObject:
   - component: {fileID: 1779570495}
   - component: {fileID: 1779570494}
   - component: {fileID: 1779570496}
+  - component: {fileID: 1779570498}
+  - component: {fileID: 1779570497}
   m_Layer: 0
   m_Name: Terrain7
   m_TagString: Untagged
@@ -9160,6 +9485,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 637223594}
   - point: {fileID: 1660197608}
     ladderPoint: {fileID: 1378391027}
+--- !u!114 &1779570497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779570492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &1779570498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779570492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &1784679178
 GameObject:
   m_ObjectHideFlags: 0
@@ -9437,6 +9789,8 @@ GameObject:
   - component: {fileID: 1834488662}
   - component: {fileID: 1834488661}
   - component: {fileID: 1834488663}
+  - component: {fileID: 1834488665}
+  - component: {fileID: 1834488664}
   m_Layer: 0
   m_Name: Terrain3
   m_TagString: Untagged
@@ -9541,6 +9895,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 1312003063}
   - point: {fileID: 1474873378}
     ladderPoint: {fileID: 361210604}
+--- !u!114 &1834488664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834488659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &1834488665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834488659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &1835104937
 GameObject:
   m_ObjectHideFlags: 0
@@ -9918,6 +10299,8 @@ GameObject:
   - component: {fileID: 1888870900}
   - component: {fileID: 1888870899}
   - component: {fileID: 1888870901}
+  - component: {fileID: 1888870903}
+  - component: {fileID: 1888870902}
   m_Layer: 0
   m_Name: Terrain4
   m_TagString: Untagged
@@ -10021,6 +10404,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 1793011477}
   - point: {fileID: 187821516}
     ladderPoint: {fileID: 622386294}
+--- !u!114 &1888870902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888870897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &1888870903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888870897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &1906171029
 GameObject:
   m_ObjectHideFlags: 0
@@ -10400,6 +10810,8 @@ GameObject:
   - component: {fileID: 2049651116}
   - component: {fileID: 2049651115}
   - component: {fileID: 2049651117}
+  - component: {fileID: 2049651119}
+  - component: {fileID: 2049651118}
   m_Layer: 0
   m_Name: Terrain14
   m_TagString: Untagged
@@ -10506,6 +10918,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 201356324}
   - point: {fileID: 2005120151}
     ladderPoint: {fileID: 4406842}
+--- !u!114 &2049651118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049651113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &2049651119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049651113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &2050974419
 GameObject:
   m_ObjectHideFlags: 0
@@ -10810,6 +11249,8 @@ GameObject:
   - component: {fileID: 2138339222}
   - component: {fileID: 2138339221}
   - component: {fileID: 2138339223}
+  - component: {fileID: 2138339225}
+  - component: {fileID: 2138339224}
   m_Layer: 0
   m_Name: Terrain8
   m_TagString: Untagged
@@ -10919,6 +11360,33 @@ MonoBehaviour:
     ladderPoint: {fileID: 33087726}
   - point: {fileID: 992920381}
     ladderPoint: {fileID: 798893573}
+--- !u!114 &2138339224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138339219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 9
+--- !u!114 &2138339225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138339219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 68074388}
 --- !u!1 &2146359577
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,11 +25,11 @@ namespace Content.Scripts.BoatGame
 
         public float Time => time;
 
-        public void SetCraft(CraftObject craftObject, SelectionService selectionService, RaftBuildService raftBuildService)
+        public void SetCraft(CraftObject craftObject, SelectionService selectionService, RaftBuildService raftBuildService, GameDataObject gameDataObject)
         {
             this.raftBuildService = raftBuildService;
             craft = craftObject;
-            actionsHolder.Construct(selectionService);
+            actionsHolder.Construct(selectionService, gameDataObject);
             time = 0;
         }
 
@@ -61,7 +61,7 @@ namespace Content.Scripts.BoatGame
         {
             time = data.BuildedTime;
             craft = gameDataObject.GetCraftByID(data.CraftID);
-            actionsHolder.Construct(selectionService);
+            actionsHolder.Construct(selectionService, gameDataObject);
             this.raftBuildService = raftBuildService;
             
             ChangeValue();

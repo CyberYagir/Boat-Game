@@ -65,7 +65,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 896fa8b3127d4e04cbbfb468d32a3ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerActions: []
   character:
     name: 
     uid: 89c242ac-0d24-4f98-86a2-ca86699e2a20
@@ -174,7 +173,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.01
-  m_Speed: 1.5
+  m_Speed: 5
   m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 20
@@ -321,6 +320,7 @@ MonoBehaviour:
     min: 1
     max: 2
   itemPrefab: {fileID: 5576015116080871320, guid: 790f1263898db4b478f5d8e28c99595e, type: 3}
+  moveToStorage: 1
 --- !u!114 &5872485453627549057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,6 +340,7 @@ MonoBehaviour:
     min: 1
     max: 2
   itemPrefab: {fileID: 656097041723990654, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+  moveToStorage: 1
 --- !u!114 &2017369162570185803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,7 +431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4712a192cb489f84189559a1d5b2f7d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: -428544684, guid: 8e87fa800e2f4964f839bfaa91666b12, type: 3}
   state: 4
   type: 1
 --- !u!114 &6387675816536107232
@@ -445,7 +445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e54a8e71783e613499f882f063c24912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: -378381754, guid: 8e87fa800e2f4964f839bfaa91666b12, type: 3}
   state: 3
   type: 0
 --- !u!114 &8039501799819769420
@@ -460,7 +459,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcab04373f66ec7459602886d87131f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: -711957492, guid: 8e87fa800e2f4964f839bfaa91666b12, type: 3}
   state: 5
 --- !u!114 &1567832886262585198
 MonoBehaviour:
@@ -474,7 +472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcab04373f66ec7459602886d87131f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: -901568784, guid: 8e87fa800e2f4964f839bfaa91666b12, type: 3}
   state: 6
 --- !u!1 &7373654644208803848
 GameObject:

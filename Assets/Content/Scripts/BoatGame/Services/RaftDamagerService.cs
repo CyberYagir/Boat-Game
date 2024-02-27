@@ -32,9 +32,11 @@ namespace Content.Scripts.BoatGame.Services
             RaftBuildService raftBuildService,
             WorldGridService worldGridService,
             SaveDataObject saveDataObject,
-            SelectionService selectionService
+            SelectionService selectionService,
+            GameDataObject gameDataObject
         )
         {
+            this.gameDataObject = gameDataObject;
             this.selectionService = selectionService;
             this.worldGridService = worldGridService;
             this.raftBuildService = raftBuildService;
@@ -117,7 +119,7 @@ namespace Content.Scripts.BoatGame.Services
             var action = item.GetComponent<ActionsHolder>();
             if (action)
             {
-                action.Construct(selectionService);
+                action.Construct(selectionService, gameDataObject);
             }
 
             return item;
@@ -129,6 +131,7 @@ namespace Content.Scripts.BoatGame.Services
         }
 
         List<RaftBase> tmpRafts = new List<RaftBase>();
+        private GameDataObject gameDataObject;
 
         private RaftBase GetRaftOnSide()
         {

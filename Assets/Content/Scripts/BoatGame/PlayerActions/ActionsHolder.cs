@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Global;
 using UnityEngine;
 using Zenject;
 
@@ -16,12 +17,12 @@ namespace Content.Scripts.BoatGame.PlayerActions
 
 
         [Inject]
-        public void Construct(SelectionService selectionService)
+        public void Construct(SelectionService selectionService, GameDataObject gameDataObject)
         {
             this.selectionService = selectionService;
             foreach (var ac in playerActions)
             {
-                ac.Init(selectionService);
+                ac.Init(selectionService, gameDataObject);
             }
         }
 
