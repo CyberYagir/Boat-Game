@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6776221669830778970}
   - component: {fileID: 9079641003318124424}
   - component: {fileID: 6714867646371768581}
+  - component: {fileID: 8001713153365736368}
   m_Layer: 0
   m_Name: Stone_1
   m_TagString: Untagged
@@ -103,3 +104,17 @@ LODGroup:
     renderers:
     - renderer: {fileID: 9079641003318124424}
   m_Enabled: 1
+--- !u!114 &8001713153365736368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5340862968163142038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1cf8f252b420f442ae72675cf3d1a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionObject: {fileID: 11400000, guid: 5f641869f1c4490459c263e16068373c, type: 2}
+  action: 11

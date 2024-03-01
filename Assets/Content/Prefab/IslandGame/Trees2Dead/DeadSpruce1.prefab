@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4875927374149499554}
   - component: {fileID: 6426816958772036441}
+  - component: {fileID: -6069707044421497455}
   m_Layer: 0
   m_Name: DeadSpruce1
   m_TagString: Untagged
@@ -57,6 +58,23 @@ LODGroup:
     renderers:
     - renderer: {fileID: 6851751656695028673}
   m_Enabled: 1
+--- !u!114 &-6069707044421497455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005653562167937708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1cf8f252b420f442ae72675cf3d1a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionObject: {fileID: 11400000, guid: 549e95df0a9b2e84da9c26e82fe089e9, type: 2}
+  action: 10
+  healthRange:
+    min: 35
+    max: 65
 --- !u!1 &4440543054648658650
 GameObject:
   m_ObjectHideFlags: 0

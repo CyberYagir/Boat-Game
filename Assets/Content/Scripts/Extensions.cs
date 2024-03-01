@@ -121,6 +121,11 @@ namespace Content.Scripts
             vector3.z /= value.z;
             return vector3;
         }
+        
+        public static Vector3 MultiplyVector3(this Vector3 vector3, Vector3 value)
+        {
+            return new Vector3(vector3.x * value.x, vector3.y * value.y, vector3.z * value.z);
+        }
 
         public static Vector3 MultiplyVector3(this ref Vector3 vector3, float value)
         {

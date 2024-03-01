@@ -10,6 +10,9 @@ namespace Content.Scripts.BoatGame.Characters.States
         protected float stuckTimer = 0;
         protected NavMeshAgent Agent => Machine.AIMoveManager.NavMeshAgent;
         protected SelectionService SelectionService => Machine.SelectionService;
+
+        private Vector3 targetDestination;
+        
         protected bool StuckCheck()
         {
             if (!Machine.AIMoveManager.NavMeshAgent.IsArrived())
@@ -35,7 +38,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             if (!StuckCheck())
             {
-                if (Agent.IsArrived() && Vector3.Distance(Machine.transform.position, Agent.destination) <= Agent.stoppingDistance)
+                if (Agent.IsArrived() && targetDestination.ToDistance(Agent.transform.position) < Agent.stoppingDistance && !Agent.pathPending)
                 {
                     OnMoveEnded();
                 }
@@ -47,6 +50,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             if (NavMesh.SamplePosition(point,out NavMeshHit hit, Mathf.Infinity, ~0))
             {
+                targetDestination = hit.position;
                 Agent.SetDestination(hit.position);
                 return true;
             }

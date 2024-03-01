@@ -57,7 +57,7 @@ namespace Content.Scripts.BoatGame
 
             public void ExtraRotation()
             {
-                if (NavMeshAgent.enabled && NavMeshAgent.isStopped) return;
+                if (NavMeshAgent.enabled && NavMeshAgent.isStopped && NavMeshAgent.isOnNavMesh) return;
                 
                 Vector3 lookrotation = navMeshAgent.steeringTarget - navMeshAgent.transform.position;
                 if (lookrotation != Vector3.zero)

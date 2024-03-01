@@ -50,11 +50,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[9].stateType
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: statesList.Array.data[10].stateType
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[0].stateAction
@@ -64,6 +68,10 @@ PrefabInstance:
       propertyPath: statesList.Array.data[9].stateAction
       value: 
       objectReference: {fileID: 4471281927805974835}
+    - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: statesList.Array.data[10].stateAction
+      value: 
+      objectReference: {fileID: 9164802301470009610}
     - target: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: m_Name
       value: CharacterIsland Variant
@@ -76,6 +84,22 @@ PrefabInstance:
       propertyPath: moveToStorage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6222630175001778393, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222630175001778393, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: m_Acceleration
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222630175001778393, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222630175001778393, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 751144816067325089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
     m_RemovedGameObjects: []
@@ -87,6 +111,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4471281927805974835}
+    - targetCorrespondingSourceObject: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9164802301470009610}
   m_SourcePrefab: {fileID: 100100000, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
 --- !u!1 &9047022263986236250 stripped
 GameObject:
@@ -121,3 +148,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnded: 0
   machine: {fileID: 0}
+--- !u!114 &9164802301470009610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9047022263986236250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b7a3f0dac83b8543a7dca99cfa64ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnded: 0
+  machine: {fileID: 0}
+  axe: {fileID: 4608724423149764177, guid: 83ecf43c670786742a45ba0c09d47d38, type: 3}
+  damage: 5
+  damageSkill: {fileID: 11400000, guid: c545583ae52e42846b44c6b02b5d28db, type: 2}

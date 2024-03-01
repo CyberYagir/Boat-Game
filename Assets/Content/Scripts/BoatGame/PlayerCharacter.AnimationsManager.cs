@@ -12,6 +12,8 @@ namespace Content.Scripts.BoatGame
         [System.Serializable]
         public class AnimationsManager
         {
+            private static readonly int WeaponType = Animator.StringToHash("WeaponType");
+            private static readonly int IsLegAttack = Animator.StringToHash("IsLegAttack");
             private static readonly int IsMove = Animator.StringToHash("IsMove");        
             private static readonly int Hood = Animator.StringToHash("ApplyHood");
             private static readonly int TG_Fishing = Animator.StringToHash("TG_Fishing");
@@ -22,6 +24,7 @@ namespace Content.Scripts.BoatGame
             private static readonly int TG_Building = Animator.StringToHash("TG_Building");
             private static readonly int TG_Crafting = Animator.StringToHash("TG_Crafting");
             private static readonly int TG_Attack = Animator.StringToHash("TG_Attack");
+            private static readonly int TG_ChopTree = Animator.StringToHash("TG_TreeChop");
             private static readonly int HugFish = Animator.StringToHash("HugFish");
 
             
@@ -147,6 +150,12 @@ namespace Content.Scripts.BoatGame
             {
                 ResetAllTriggers();
                 animator.SetTrigger(TG_Crafting);
+            } 
+            
+            public void TriggerChopTree()
+            {
+                ResetAllTriggers();
+                animator.SetTrigger(TG_ChopTree);
             }
 
             private bool isAttackTriggerActived = false;
@@ -158,8 +167,8 @@ namespace Content.Scripts.BoatGame
                     isAttackTriggerActived = true;
                 }
 
-                animator.SetInteger("WeaponType", (int) animationType);
-                animator.SetBool("IsLegAttack", isLegPunch);
+                animator.SetInteger(WeaponType, (int) animationType);
+                animator.SetBool(IsLegAttack, isLegPunch);
             }
         }
     }

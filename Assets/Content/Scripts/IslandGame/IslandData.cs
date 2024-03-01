@@ -48,6 +48,14 @@ namespace Content.Scripts.IslandGame
             }
         }
 
+        [Button]
+        private void ClearTerrain()
+        {
+            terrain.terrainData.detailPrototypes = new DetailPrototype[0];
+            terrain.terrainData.treePrototypes = new TreePrototype[0];
+            terrain.terrainData.SetDetailResolution(512, 64);
+        }
+
         private void OnDrawGizmos()
         {
             for (int i = 0; i < SpawnPoints.Count; i++)
@@ -65,5 +73,6 @@ namespace Content.Scripts.IslandGame
                 Gizmos.DrawLine(SpawnPoints[i].Point.position, SpawnPoints[i].LadderPoint.position); 
             }
         }
+        
     }
 }

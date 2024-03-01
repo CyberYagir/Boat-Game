@@ -1,3 +1,5 @@
+using UnityEngine.AI;
+
 namespace Content.Scripts.BoatGame.Characters.States
 {
     public class CharActionMoveTo : CharActionBase
@@ -7,15 +9,21 @@ namespace Content.Scripts.BoatGame.Characters.States
             base.StartState();
             
             Machine.AIMoveManager.NavMeshAgent.isStopped = false;
-            
-            
-            MoveToPoint(SelectionService.LastWorldClick);
+
+
+            if (!MoveToPoint(SelectionService.LastWorldClick))
+            {
+                EndState();
+            }
+            else
+            {
+                print("move to point");
+            }
         }
 
         public override void ProcessState()
         {
-            print(Agent.pathPending + " " + Agent.pathStatus + " " + Agent.hasPath);
-            if (Agent.pathPending) return;
+            print(Agent.pathStatus);
             MovingToPointLogic();
         }
 

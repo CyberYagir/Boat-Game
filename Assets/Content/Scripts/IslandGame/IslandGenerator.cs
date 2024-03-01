@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Content.Scripts.BoatGame.PlayerActions;
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -41,14 +43,21 @@ namespace Content.Scripts.IslandGame
 
 
         private IslandData currentIslandData;
+        private SelectionService selectionService;
+        private GameDataObject gameDataObject;
 
         public IslandData CurrentIslandData => currentIslandData;
 
         public int Seed => seed;
-        
+
+        private List<TreeInstance> treesInstsances = new List<TreeInstance>(1000);
+        private IslandData targetTerrain;
+
         [Inject]
-        private void Construct(SaveDataObject saveDataObject)
+        private void Construct(SaveDataObject saveDataObject, SelectionService selectionService, GameDataObject gameDataObject)
         {
+            this.gameDataObject = gameDataObject;
+            this.selectionService = selectionService;
             this.saveDataObject = saveDataObject;
             
             Init(Seed);
@@ -74,19 +83,19 @@ namespace Content.Scripts.IslandGame
         {
             Random rnd = new Random(seed);
 
-            var terr = SelectTargetTerrain(rnd);
-            grassY = terr.transform.InverseTransformPoint(new Vector3(0, minGrassHeight, 0)).y;
-            var temperature = rnd.Next((int) temperaturesRange.min, (int) temperaturesRange.max) + terr.TemperatureAdd;
+            targetTerrain = SelectTargetTerrain(rnd);
+            grassY = targetTerrain.transform.InverseTransformPoint(new Vector3(0, minGrassHeight, 0)).y;
+            var temperature = rnd.Next((int) temperaturesRange.min, (int) temperaturesRange.max) + targetTerrain.TemperatureAdd;
             var targetBiome = SelectBiome(temperature);
 
             print(targetBiome.name + "/t:" + temperature);
 
-            terr.Terrain.terrainData.terrainLayers = targetBiome.Layers;
+            targetTerrain.Terrain.terrainData.terrainLayers = targetBiome.Layers;
 
-            PlaceGrass(terr, targetBiome, rnd);
+            PlaceGrass(targetTerrain, targetBiome, rnd);
 
 
-            currentIslandData = terr;
+            currentIslandData = targetTerrain;
         }
 
         private void PlaceGrass(IslandData terr, TerrainBiomeSO biome, Random rnd)
@@ -96,15 +105,15 @@ namespace Content.Scripts.IslandGame
 
             if (biome.DetailsData == null) return;
 
+            terrainData.SetDetailResolution(512, 64);
 
             float detailWidth = terrainData.detailWidth;
             float detailHeight = terrainData.detailHeight;
 
             AddDetailsAndTreesToTerrain(biome, rnd, (int) detailWidth, terrainData);
 
+            
             alphamaps = terrainData.GetAlphamaps(0, 0, terrainData.alphamapWidth, terrainData.alphamapHeight);
-            List<TreeInstance> treesInstsances = new List<TreeInstance>();
-
 
             details = new int[(int) detailWidth, (int) detailHeight];
             heights = new float[(int) detailWidth, (int) detailHeight];
@@ -258,7 +267,12 @@ namespace Content.Scripts.IslandGame
             Instantiate(terrainObjectIndicator, terrain.transform.position + new Vector3(percentX * terrain.terrainData.size.x, height, percentY * terrain.terrainData.size.z), Quaternion.identity)
                 .With(z => z.transform.localScale *= scale)
                 .With(z => spawnedTerrainObjects.Add(z))
-                .With(z => z.Init(treesInstsances.Count - 1, treesSO.GetObjectByID(targetBiomeItem)))
+                .With(z => z.Init(
+                    treesInstsances.Count - 1, 
+                    treesSO.GetObjectByID(targetBiomeItem).GetComponent<TreeData>(), 
+                    selectionService, 
+                    gameDataObject, 
+                    this))
                 .With(z => z.transform.parent = transform);
 
             spawnedObjects[y, x] = itemID;
@@ -320,15 +334,24 @@ namespace Content.Scripts.IslandGame
         private IslandData SelectTargetTerrain(Random rnd)
         {
             var terrainID = rnd.Next(0, terrains.Length);
-            for (int i = 0; i < terrains.Length; i++)
-            {
-                terrains[i].gameObject.SetActive(i == terrainID);
-            }
-
-            return terrains[terrainID];
+            return Instantiate(terrains[terrainID], transform)
+                .With(x => x.GetComponent<ActionsHolder>().Construct(selectionService, gameDataObject));
         }
 
+        public TreeInstance RemoveTree(int id, out float size)
+        {
+            var instance = targetTerrain.Terrain.terrainData.GetTreeInstance(id);
 
+            size = instance.heightScale;
+            
+            instance.widthScale = 0;
+            instance.heightScale = 0;
+            targetTerrain.Terrain.terrainData.SetTreeInstance(id, instance);
+
+            return instance;
+        }
+        
+        
         IEnumerator GoForAllSaves()
         {
             for (int i = 0; i < saveDataObject.Map.Islands.Count; i++)

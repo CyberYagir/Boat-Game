@@ -56,7 +56,7 @@ namespace Content.Scripts.IslandGame
                 }
             }
 
-            Instantiate(ladderPrefab).With(x => x.Init(spawnPoint.Point.position, spawnPoint.LadderPoint.position));
+            Instantiate(ladderPrefab).With(x => x.Init(raftBuildService.SpawnedRafts[id].transform.position, spawnPoint.LadderPoint.position));
             
             islandGenerator.BuildNavMesh();
             

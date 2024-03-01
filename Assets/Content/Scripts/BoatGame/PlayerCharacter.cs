@@ -86,14 +86,23 @@ namespace Content.Scripts.BoatGame
 
         public void SetCharacterRaftPosition()
         {
+            aiManager.NavMeshAgent.enabled = true;
             transform.position = aiManager.GenerateRandomPos();
             if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, Mathf.Infinity, ~0))
             {
                 transform.position = hit.position;
+
+                if (!aiManager.NavMeshAgent.isOnNavMesh)
+                {
+                    aiManager.NavMeshAgent.enabled = false;
+                    DOVirtual.DelayedCall(0.01f, SetCharacterRaftPosition);
+                    return;
+                }
             }
             else
             {
-                DOVirtual.DelayedCall(0.1f, SetCharacterRaftPosition);
+                aiManager.NavMeshAgent.enabled = false;
+                DOVirtual.DelayedCall(0.01f, SetCharacterRaftPosition);
                 return;
             }
 

@@ -17,7 +17,9 @@ namespace Content.Scripts.BoatGame.Characters
         ViewInfo,
         Crafting,
         Attack,
-        MoveTo
+        MoveTo,
+        TreeChop,
+        StoneChop
     }
 
     

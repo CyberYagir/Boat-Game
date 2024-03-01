@@ -20,7 +20,7 @@ namespace Content.Scripts.BoatGame.Characters
         }
 
         [SerializeField] private List<IconsKeys<EStateType>> stateTypes;
-
+        [SerializeField] private Sprite errorIcon;
         private Dictionary<EStateType, Sprite> stateIconsMap;
 
         public void Init()
@@ -33,7 +33,7 @@ namespace Content.Scripts.BoatGame.Characters
             {
                 return stateIconsMap[type];
             }
-            return null;
+            return errorIcon;
         }
     }
 }

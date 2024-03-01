@@ -14,6 +14,7 @@ namespace Content.Scripts.IslandGame.Services
 
         [SerializeField] private Transform minZoomPoint, maxZoomPoint;
 
+        [SerializeField] private LayerMask mask;
 
         private float zoom = 0.2f;
         private Vector3 cameraPosition;
@@ -30,7 +31,7 @@ namespace Content.Scripts.IslandGame.Services
                 
 
 
-                if (Physics.Raycast(cameraPosition + Vector3.up * 300, Vector3.down, out RaycastHit hit))
+                if (Physics.Raycast(cameraPosition + Vector3.up * 300, Vector3.down, out RaycastHit hit, Mathf.Infinity, mask))
                 {
                     var y = hit.point.y;
                     if (y < 0)

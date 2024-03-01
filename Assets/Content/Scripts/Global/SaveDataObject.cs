@@ -343,6 +343,9 @@ namespace Content.Scripts.Global
         public MapData Map => mapData;
 
         public GlobalData Global => globalData;
+        
+        private const string PrefsSaveKey = "GameSave";
+        
 
         public override void InstallBindings()
         {
@@ -357,51 +360,78 @@ namespace Content.Scripts.Global
 #endif
 #if UNITY_ANDROID
             return Application.persistentDataPath;
+#else
+            return null;
 #endif
-
         }
 
         protected virtual string GetFilePath() => GetPathFolder() + @"\data.dat";
         
         [Button]
-        public void SaveFile()
+        public virtual void SaveFile()
         {
+
+            string json = "";
+            
+#if UNITY_EDITOR || UNITY_ANDROID
             if (!string.IsNullOrEmpty(GetPathFolder()))
             {
-                var json = JsonUtility.ToJson(this);
+                json = JsonUtility.ToJson(this);
                 File.WriteAllText(GetFilePath(), json, Encoding.Unicode);
             }
             else
             {
                 Debug.LogError("Path error!");
             }
+#endif
+#if UNITY_WEBGL
+            json = JsonUtility.ToJson(this);
+            PlayerPrefs.SetString(PrefsSaveKey, json);
+#endif
         }
 
         [Button]
         public virtual void LoadFile()
         {
+#if UNITY_EDITOR || UNITY_ANDROID
             var file = GetFilePath();
             if (File.Exists(file))
             {
                 JsonUtility.FromJsonOverwrite(File.ReadAllText(file), this);
+                return;
             }
-            else
+#endif
+#if UNITY_WEBGL
+            var json = PlayerPrefs.GetString(PrefsSaveKey);
+            if (!string.IsNullOrEmpty(json))
             {
-                JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(ScriptableObject.CreateInstance<SaveDataObject>()), this);
-                SaveFile();
+                JsonUtility.FromJsonOverwrite(json, this);
+                return;
             }
+#endif
+            
+            JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(ScriptableObject.CreateInstance<SaveDataObject>()), this);
+            SaveFile();
+
         }
-        
+
         [Button]
         public void DeleteFile()
         {
+
+#if UNITY_EDITOR || UNITY_ANDROID
             var file = GetFilePath();
             if (File.Exists(file))
             {
                 File.Delete(file);
             }
+#endif
+#if UNITY_WEBGL
+            PlayerPrefs.DeleteAll();
+#endif
             LoadFile();
         }
+
         [Button]
         public void OpenFile()
         {
@@ -413,4 +443,5 @@ namespace Content.Scripts.Global
             raftsData = newRaftsData;
         }
     }
+    
 }

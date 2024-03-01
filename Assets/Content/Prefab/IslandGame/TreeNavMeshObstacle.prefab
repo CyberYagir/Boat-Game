@@ -9,14 +9,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854190180341568616}
-  - component: {fileID: 7930730334614199401}
   - component: {fileID: 4269952700949134826}
-  m_Layer: 0
+  - component: {fileID: 8985176459482802619}
+  - component: {fileID: 9221808286363054565}
+  - component: {fileID: 8255174670738687832}
+  m_Layer: 11
   m_Name: TreeNavMeshObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6854190180341568616
 Transform:
@@ -33,22 +35,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!208 &7930730334614199401
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8331349121961105793}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 0
-  m_Extents: {x: 0.44, y: 3.92, z: 0.44}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!114 &4269952700949134826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,3 +47,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f480606121a0af478dcee374350aaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  original: {fileID: 0}
+  capsuleCollider: {fileID: 8985176459482802619}
+  actionsHolder: {fileID: 8255174670738687832}
+  playerAction: {fileID: 9221808286363054565}
+  targetHealth: 0
+--- !u!136 &8985176459482802619
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8331349121961105793}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 4.4038486
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.7019243, z: 0}
+--- !u!114 &9221808286363054565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8331349121961105793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+--- !u!114 &8255174670738687832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8331349121961105793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 9221808286363054565}

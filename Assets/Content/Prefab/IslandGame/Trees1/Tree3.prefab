@@ -178,6 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6245182710136103504}
   - component: {fileID: 522106779677523274}
+  - component: {fileID: 1597638091320713747}
   m_Layer: 0
   m_Name: Tree3
   m_TagString: Untagged
@@ -230,6 +231,23 @@ LODGroup:
     renderers:
     - renderer: {fileID: 3595257811991799186}
   m_Enabled: 1
+--- !u!114 &1597638091320713747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4346830575553384516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1cf8f252b420f442ae72675cf3d1a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionObject: {fileID: 11400000, guid: 549e95df0a9b2e84da9c26e82fe089e9, type: 2}
+  action: 10
+  healthRange:
+    min: 35
+    max: 65
 --- !u!1 &6162610143389333440
 GameObject:
   m_ObjectHideFlags: 0

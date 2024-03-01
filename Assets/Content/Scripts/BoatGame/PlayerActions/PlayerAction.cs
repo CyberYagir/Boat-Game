@@ -63,5 +63,10 @@ namespace Content.Scripts.BoatGame.PlayerActions
         {
             SelectionService.SelectedCharacter.StopAction();
         }
+
+        public void SetState(EStateType action)
+        {
+            state = action;
+        }
     }
 }

@@ -45,6 +45,10 @@ namespace Content.Scripts.BoatGame
                 
                 public void ShowNeedPopup(bool state, float thirsty, float hunger)
                 {
+                    if (!needPopup.gameObject.activeInHierarchy && state)
+                    {
+                        needPopup.transform.position = parent.TransformPoint(needPopupPoint);
+                    }
                     needPopup.gameObject.SetActive(state);
                     if (state)
                     {
