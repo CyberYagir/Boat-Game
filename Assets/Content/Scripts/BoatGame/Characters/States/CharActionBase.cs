@@ -9,6 +9,7 @@ namespace Content.Scripts.BoatGame.Characters.States
     {
         protected float stuckTimer = 0;
         protected NavMeshAgent Agent => Machine.AIMoveManager.NavMeshAgent;
+        protected PrefabSpawnerFabric Fabric => Machine.SpawnerFabric;
         protected SelectionService SelectionService => Machine.SelectionService;
 
         private Vector3 targetDestination;
@@ -38,7 +39,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             if (!StuckCheck())
             {
-                if (Agent.IsArrived() && targetDestination.ToDistance(Agent.transform.position) < Agent.stoppingDistance && !Agent.pathPending)
+                if (Agent.IsArrived() && targetDestination.ToDistance(Agent.transform.position) <= Agent.stoppingDistance && !Agent.pathPending)
                 {
                     OnMoveEnded();
                 }

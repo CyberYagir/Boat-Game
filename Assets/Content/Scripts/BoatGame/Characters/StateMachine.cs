@@ -19,7 +19,10 @@ namespace Content.Scripts.BoatGame.Characters
         Attack,
         MoveTo,
         TreeChop,
-        StoneChop
+        StoneChop,
+        GetGrass,
+        PickupItem,
+        BuildingFromItem
     }
 
     

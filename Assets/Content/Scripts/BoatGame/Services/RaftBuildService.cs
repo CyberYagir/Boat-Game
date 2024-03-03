@@ -257,7 +257,8 @@ namespace Content.Scripts.BoatGame.Services
                 var id = i;
                 Instantiate(tapToBuildRaftPrefab, coords[i], Quaternion.identity, Holder)
                     .With(x => spawnedTapBuildRafts.Add(x))
-                    .With(x=>x.SetCoords(coords[id]));
+                    .With(x => x.SetCoords(coords[id]))
+                    .With(x => x.transform.localPosition = (Vector3) coords[id]);
             }
         }
 

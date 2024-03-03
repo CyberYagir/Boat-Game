@@ -9,6 +9,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Content.Scripts.BoatGame
@@ -28,6 +29,10 @@ namespace Content.Scripts.BoatGame
         [SerializeField] private bool onlyVisuals;
         
         private SelectionService selectionService;
+        private TickService tickService;
+        private RaftBuildService raftBuildService;
+        private PrefabSpawnerFabric prefabSpawnerFabric;
+        private GameDataObject gameData;
 
 
         public EStateType CurrentState => stateMachine.CurrentStateType;
@@ -41,12 +46,11 @@ namespace Content.Scripts.BoatGame
 
         public AppearanceManager AppearanceDataManager => appearanceManager;
 
+        public PrefabSpawnerFabric SpawnerFabric => prefabSpawnerFabric;
+
 
         public Action OnChangeState;
-        private GameDataObject gameData;
-        
-        private TickService tickService;
-        private RaftBuildService raftBuildService;
+
 
         public void Init(
             Character character, 
@@ -54,11 +58,13 @@ namespace Content.Scripts.BoatGame
             RaftBuildService raftBuildService,
             WeatherService weatherService,
             TickService tickService,
-            SelectionService selectionService)
+            SelectionService selectionService,
+            PrefabSpawnerFabric prefabSpawnerFabric)
         {
+            this.gameData = gameData;
+            this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.raftBuildService = raftBuildService;
             this.tickService = tickService;
-            this.gameData = gameData;
             this.character = character;
             this.selectionService = selectionService;
             

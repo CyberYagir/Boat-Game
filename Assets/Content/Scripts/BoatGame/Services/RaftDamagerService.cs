@@ -40,7 +40,9 @@ namespace Content.Scripts.BoatGame.Services
             this.selectionService = selectionService;
             this.worldGridService = worldGridService;
             this.raftBuildService = raftBuildService;
-            
+
+            if (!gameObject.activeInHierarchy) return;
+
             ResetTimer();
             tickService.OnTick += TickServiceOnOnTick;
 

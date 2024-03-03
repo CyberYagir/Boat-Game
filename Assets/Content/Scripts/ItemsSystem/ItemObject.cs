@@ -2,6 +2,7 @@ using System;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI.UIEquipment;
+using Content.Scripts.IslandGame;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -35,6 +36,7 @@ namespace Content.Scripts.ItemsSystem
         [SerializeField] private EItemType itemType;
         [SerializeField, PreviewField] private Sprite itemIcon;
         [SerializeField] private ItemsParameters parametersData;
+        [SerializeField, ShowIf("@itemType == EItemType.Item")] private DroppedItem dropPrefab;
         [SerializeField, ShowIf("@itemType == EItemType.Armor")] private GameObject prefab;
         [SerializeField, ShowIf("@itemType == EItemType.Armor")] private UIEquipmentBase.EEquipmentType equipment;
         [SerializeField, ShowIf("@equipment == UIEquipmentBase.EEquipmentType.Weapon")] private EWeaponAnimationType animationType;
@@ -55,6 +57,8 @@ namespace Content.Scripts.ItemsSystem
         public GameObject Prefab => prefab;
 
         public EWeaponAnimationType AnimationType => animationType;
+
+        public DroppedItem DropPrefab => dropPrefab;
 
 
         [Button]

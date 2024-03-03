@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 420473474564444466}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.497389, y: 39.159966, z: 17.404638}
+  m_LocalPosition: {x: -20.497389, y: 4.407196, z: 17.404638}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -154,7 +154,7 @@ Transform:
   m_GameObject: {fileID: 6559202899897583141}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.199894, y: 30.956848, z: 1.3003922}
+  m_LocalPosition: {x: 29.199894, y: 3.0811691, z: 1.3003922}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -217,7 +217,7 @@ Transform:
   m_GameObject: {fileID: 8734429263301584769}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.305428, y: 53.673172, z: 6.3029823}
+  m_LocalPosition: {x: 18.305428, y: 3.0701141, z: 6.3029823}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 2333679206517992690}
   - component: {fileID: 5946203797775936738}
   - component: {fileID: 4607223314418536897}
+  - component: {fileID: -657983363458670208}
   m_Layer: 0
   m_Name: Terrain4
   m_TagString: Untagged
@@ -252,7 +253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8897272288248179598}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -250, y: 25.1, z: -250}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -354,6 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerActions:
   - {fileID: 4607223314418536897}
+  - {fileID: -657983363458670208}
 --- !u!114 &4607223314418536897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,3 +369,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 9
+--- !u!114 &-657983363458670208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8897272288248179598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 12

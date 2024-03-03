@@ -1,4 +1,5 @@
 using Content.Scripts.BoatGame.Characters;
+using Content.Scripts.ItemsSystem;
 using DG.DemiLib;
 using UnityEngine;
 
@@ -8,10 +9,13 @@ namespace Content.Scripts.IslandGame
     {
         [SerializeField] private CollisionSO collisionObject;
         [SerializeField] private EStateType action;
-        [SerializeField] private DG.DemiLib.Range healthRange;
+        [SerializeField] private Range healthRange;
+        [SerializeField] private DroppedItem dropItem;
         public EStateType Action => action;
 
         public Range HealthRange => healthRange;
+
+        public DroppedItem DropItem => dropItem;
 
         public void SetCollisionAsset(CollisionSO collisionObject)
         {

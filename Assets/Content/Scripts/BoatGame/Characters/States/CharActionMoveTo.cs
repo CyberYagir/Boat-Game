@@ -8,22 +8,17 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             base.StartState();
             
-            Machine.AIMoveManager.NavMeshAgent.isStopped = false;
+            Agent.isStopped = false;
 
 
             if (!MoveToPoint(SelectionService.LastWorldClick))
             {
                 EndState();
             }
-            else
-            {
-                print("move to point");
-            }
         }
 
         public override void ProcessState()
         {
-            print(Agent.pathStatus);
             MovingToPointLogic();
         }
 

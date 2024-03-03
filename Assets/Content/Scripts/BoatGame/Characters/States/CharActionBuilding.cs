@@ -17,7 +17,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         public Action OnShowBuildWindow;
 
         [SerializeField] private GameObject hammerItem;
-        [SerializeField] private SkillObject buildingSkill;
+        [SerializeField] protected SkillObject buildingSkill;
         private GameObject spawnedHammer;
 
         private EState state;
@@ -33,13 +33,20 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             base.StartState();
 
-            
+
             if (SelectionService.SelectedObject == null)
             {
                 EndState();
                 return;
             }
-            
+
+            GetTargetAndStart();
+
+        }
+
+        public virtual void GetTargetAndStart()
+        {
+            Agent.isStopped = false;
             targetBuildRaft = SelectionService.SelectedObject.Transform.GetComponent<RaftBuild>();
 
             if (targetBuildRaft == null)
@@ -49,8 +56,14 @@ namespace Content.Scripts.BoatGame.Characters.States
                 return;
             }
 
-            targetBuildRaft.SetTime(Machine.Character.GetSkillMultiply(buildingSkill.SkillID));
-            MoveToPoint(targetBuildRaft.transform.position);
+            if (targetBuildRaft != null)
+            {
+                targetBuildRaft.SetTime(Machine.Character.GetSkillMultiply(buildingSkill.SkillID));
+                if (!MoveToPoint(targetBuildRaft.transform.position))
+                {
+                    EndState();
+                }
+            }
         }
 
         public override void ProcessState()
@@ -63,13 +76,11 @@ namespace Content.Scripts.BoatGame.Characters.States
                 case EState.Building:
                     BuildLogic();
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
 
 
-        public void BuildLogic()
+        public virtual void BuildLogic()
         {
             targetBuildRaft.AddProgress(TimeService.DeltaTime);
             if (targetBuildRaft.Progress >= 100)

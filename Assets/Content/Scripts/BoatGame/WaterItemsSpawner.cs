@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Boot;
 using Content.Scripts.Global;
+using DG.DemiLib;
 using UnityEngine;
 using Zenject;
 
@@ -23,58 +24,71 @@ namespace Content.Scripts.BoatGame
         [SerializeField] private List<ItemHolder> itemsList;
         [SerializeField] private List<Transform> pointsHolders;
         [SerializeField] private int maxCount;
-        [SerializeField] private bool drawGizmo = true;
-
+        [SerializeField] private int maxDistance = 40;
+        [SerializeField] private Range itemSpeed = new Range(0.5f, 2f);
         [SerializeField] private float cooldown;
-
+        
+        [SerializeField] private bool drawGizmo = true;
         private float time;
 
         private List<WaterItem> spawnedItems = new List<WaterItem>();
-        private SelectionService selectionService;
-        private GameDataObject gameDataObject;
 
 
         [Inject]
-        private void Construct(TickService tickService, SelectionService selectionService, ScenesService scenesService, GameDataObject gameDataObject)
+        private void Construct(
+            TickService tickService, 
+            SelectionService selectionService, 
+            ScenesService scenesService, 
+            GameDataObject gameDataObject, 
+            PrefabSpawnerFabric prefabSpawnerFabric)
         {
-            this.gameDataObject = gameDataObject;
-            if (scenesService.GetActiveScene() == ESceneName.IslandGame) return;
+            this._prefabSpawnerFabric = prefabSpawnerFabric;
             
-            this.selectionService = selectionService;
+            if (!gameObject.activeInHierarchy) return;
+            
             tickService.OnTick += OnTick;
         }
+
+        private List<float> weights = new List<float>(10);
+        private PrefabSpawnerFabric _prefabSpawnerFabric;
 
         private void OnTick(float t)
         {
             if (spawnedItems.Count <= maxCount && time <= 0)
             {
-                List<float> weights = new List<float>();
-                for (int i = 0; i < itemsList.Count; i++)
-                {
-                    weights.Add(itemsList[i].Weight);
-                }
-
-                weights.RecalculateWeights();
-                var item = weights.ChooseRandomIndexFromWeights();
-
-                var (start, end) = GetPoses(pointsHolders.GetRandomIndex());
-
-                var spawned = Instantiate(itemsList[item].Item, start, Quaternion.identity);
-                
-                spawned.Init(end - start, selectionService, gameDataObject);
-                
-                
-                spawnedItems.Add(spawned);
-
-                time = cooldown;
-                
-                
-                transform.SetYLocalEulerAngles(Random.Range(0, 360));
+                SpawnItem();
             }
 
             spawnedItems.RemoveAll(x => x == null);
 
             time -= t;
+        }
+
+        private (WaterItem, Vector3, Vector3) SpawnItem()
+        {
+            weights.Clear();
+
+            for (int i = 0; i < itemsList.Count; i++)
+            {
+                weights.Add(itemsList[i].Weight);
+            }
+
+            weights.RecalculateWeights();
+            var item = weights.ChooseRandomIndexFromWeights();
+
+            var (start, end) = GetPoses(pointsHolders.GetRandomIndex());
+
+            
+            
+            var spawned = _prefabSpawnerFabric.SpawnItem<WaterItem>(itemsList[item].Item, start, Quaternion.identity, null)
+                .With(x => x.Init(end - start, maxDistance, itemSpeed.RandomWithin()));
+
+            spawnedItems.Add(spawned);
+            time = cooldown;
+
+            transform.SetYLocalEulerAngles(Random.Range(0, 360));
+
+            return (spawned, start, end - start);
         }
 
         public (Vector3, Vector3) GetPoses(int id)
@@ -88,8 +102,16 @@ namespace Content.Scripts.BoatGame
             
             for (int i = 0; i < pointsHolders.Count; i++)
             {
+                Gizmos.color = Color.white;
                 Gizmos.DrawLine(pointsHolders[i].GetChild(0).position, pointsHolders[i].GetChild(1).position);
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(pointsHolders[i].GetChild(0).position, 2);
+                
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(pointsHolders[i].GetChild(1).position, 2);
             }
+            
+           
         }
     }
 }

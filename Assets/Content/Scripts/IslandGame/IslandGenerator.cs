@@ -45,6 +45,7 @@ namespace Content.Scripts.IslandGame
         private IslandData currentIslandData;
         private SelectionService selectionService;
         private GameDataObject gameDataObject;
+        private PrefabSpawnerFabric prefabSpawnerFabric;
 
         public IslandData CurrentIslandData => currentIslandData;
 
@@ -54,14 +55,19 @@ namespace Content.Scripts.IslandGame
         private IslandData targetTerrain;
 
         [Inject]
-        private void Construct(SaveDataObject saveDataObject, SelectionService selectionService, GameDataObject gameDataObject)
+        private void Construct(
+            SaveDataObject saveDataObject,
+            SelectionService selectionService,
+            GameDataObject gameDataObject,
+            PrefabSpawnerFabric prefabSpawnerFabric)
         {
+            this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.gameDataObject = gameDataObject;
             this.selectionService = selectionService;
             this.saveDataObject = saveDataObject;
-            
+
             Init(Seed);
-            
+
             print("execute " + transform.name);
         }
 
@@ -272,6 +278,7 @@ namespace Content.Scripts.IslandGame
                     treesSO.GetObjectByID(targetBiomeItem).GetComponent<TreeData>(), 
                     selectionService, 
                     gameDataObject, 
+                    prefabSpawnerFabric,
                     this))
                 .With(z => z.transform.parent = transform);
 

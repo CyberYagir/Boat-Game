@@ -6,6 +6,7 @@ using Content.Scripts.ItemsSystem;
 using DG.Tweening;
 using StylizedWater2;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Content.Scripts.BoatGame
@@ -32,6 +33,7 @@ namespace Content.Scripts.BoatGame
         private bool isStopped;
         private bool isOnDeath;
         private FloatingTransform floatingTransform;
+        private int maxDistance;
 
         public DropData Drop => dropData;
 
@@ -40,19 +42,19 @@ namespace Content.Scripts.BoatGame
         public bool IsOnDeath => isOnDeath;
 
 
-        public void Init(Vector3 dir, SelectionService selectionService, GameDataObject gameDataObject)
+        public void Init(Vector3 dir, int maxDistance, float itemSpeed)
         {
-            startVelocity = dir.normalized * Random.Range(0.5f, 2f);
+            this.maxDistance = maxDistance;
+            startVelocity = dir.normalized * itemSpeed;
             rb.AddForce(startVelocity, ForceMode.VelocityChange);
             rig.SetYLocalEulerAngles(Random.Range(0, 360));
-            GetComponent<ActionsHolder>().Construct(selectionService, gameDataObject);
             floatingTransform = GetComponent<FloatingTransform>();
             StartCoroutine(Loop());
         }
 
         IEnumerator Loop()
         {
-            while (transform.position.magnitude < 40)
+            while (transform.position.magnitude < maxDistance)
             {
                 yield return null;
 

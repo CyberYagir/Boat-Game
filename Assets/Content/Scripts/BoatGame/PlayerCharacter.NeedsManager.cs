@@ -87,10 +87,10 @@ namespace Content.Scripts.BoatGame
             
  
             private WeatherService.WeatherModifiers currentModifiers;
-            private GameDataObject gameDataObject;
             private SelectionService selectionService;
             private Character selfCharacter;
-
+            private bool godMode;
+            
             public bool IsDead => isDead;
             public float Health => health;
             public float Hunger => hunger;
@@ -100,7 +100,6 @@ namespace Content.Scripts.BoatGame
             {
                 selfCharacter = character;
                 this.selectionService = selectionService;
-                this.gameDataObject = gameDataObject;
                 var parametersData = character.Parameters;
                 health = parametersData.Health;
                 hunger = parametersData.Hunger;
@@ -111,6 +110,10 @@ namespace Content.Scripts.BoatGame
                 popUp.Init();
             }
 
+            public void SetGodMode()
+            {
+                godMode = true;
+            }
 
             public void OnTick(float delta)
             {
@@ -144,6 +147,7 @@ namespace Content.Scripts.BoatGame
 
             private void CalculateHealth(float delta, float vitalityModify)
             {
+                
                 if (Thirsty > 60 && Hunger > 60)
                 {
                     health += delta * (1 + (1f - vitalityModify));
@@ -151,7 +155,14 @@ namespace Content.Scripts.BoatGame
 
                 if (Thirsty <= 0 || Hunger <= 0)
                 {
-                    health -= (delta * vitalityModify);
+                    if (!godMode)
+                    {
+                        health -= (delta * vitalityModify);
+                    }
+                    else
+                    {
+                        health = 100;
+                    }
 
                     if (Health <= 0)
                     {

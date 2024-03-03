@@ -25,6 +25,7 @@ namespace Content.Scripts.BoatGame
             private static readonly int TG_Crafting = Animator.StringToHash("TG_Crafting");
             private static readonly int TG_Attack = Animator.StringToHash("TG_Attack");
             private static readonly int TG_ChopTree = Animator.StringToHash("TG_TreeChop");
+            private static readonly int TG_Pickup = Animator.StringToHash("TG_Pickup");
             private static readonly int HugFish = Animator.StringToHash("HugFish");
 
             
@@ -108,6 +109,8 @@ namespace Content.Scripts.BoatGame
                 animator.ResetTrigger(TG_Building);
                 animator.ResetTrigger(TG_Crafting);
                 animator.ResetTrigger(TG_Attack);
+                animator.ResetTrigger(TG_ChopTree);
+                animator.ResetTrigger(TG_Pickup);
                 
                 
                 isAttackTriggerActived = false;
@@ -157,6 +160,11 @@ namespace Content.Scripts.BoatGame
                 ResetAllTriggers();
                 animator.SetTrigger(TG_ChopTree);
             }
+            public void TriggerPickUpAnim()
+            {
+                ResetAllTriggers();
+                animator.SetTrigger(TG_Pickup);
+            }
 
             private bool isAttackTriggerActived = false;
             public void SetAttackTarget(EWeaponAnimationType animationType, bool isLegPunch)
@@ -170,6 +178,7 @@ namespace Content.Scripts.BoatGame
                 animator.SetInteger(WeaponType, (int) animationType);
                 animator.SetBool(IsLegAttack, isLegPunch);
             }
+
         }
     }
 }

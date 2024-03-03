@@ -27,7 +27,7 @@ namespace Content.Scripts.IslandGame.Services
 
                 if(dir.magnitude > 20 ) return;
                 
-                cameraPosition += new Vector3(dir.x, 0, dir.y) * Time.unscaledDeltaTime * cameraSpeed;
+                cameraPosition += new Vector3(dir.x, 0, dir.y) * TimeService.UnscaledDelta * cameraSpeed;
                 
 
 
@@ -43,11 +43,11 @@ namespace Content.Scripts.IslandGame.Services
                 }
             }
 
-            zoom += InputService.MouseWheel * Time.unscaledDeltaTime * cameraZoomSpeed;
+            zoom += InputService.MouseWheel * TimeService.UnscaledDelta * cameraZoomSpeed;
             zoom = Mathf.Clamp01(zoom);
             cameraSpeed = Mathf.Lerp(minCameraSpeed, maxCameraSpeed, zoom);
             
-            cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraPosition + offcet, Time.unscaledDeltaTime * cameraSpeed);
+            cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraPosition + offcet, TimeService.UnscaledDelta * cameraSpeed);
 
             zoomTransform.localPosition = Vector3.Lerp(minZoomPoint.localPosition, maxZoomPoint.localPosition, zoom);
         }
@@ -55,6 +55,8 @@ namespace Content.Scripts.IslandGame.Services
 
         private void OnDrawGizmos()
         {
+            if (!Application.isPlaying) return;
+            
             Gizmos.DrawSphere(cameraPosition, 0.5f);
             Gizmos.DrawLine(minZoomPoint.position, maxZoomPoint.position);
         }

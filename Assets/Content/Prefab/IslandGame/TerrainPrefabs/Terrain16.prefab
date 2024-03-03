@@ -57,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 1836856523792614681}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.994265, y: -0.025234222, z: 4.007671}
+  m_LocalPosition: {x: 14.9940605, y: 8.039589, z: 4.0080295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -187,7 +187,7 @@ Transform:
   m_GameObject: {fileID: 4616201937059082116}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.7516775, y: -0.025234222, z: 11.206241}
+  m_LocalPosition: {x: -11.751525, y: 12.027466, z: 11.20707}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -218,7 +218,7 @@ Transform:
   m_GameObject: {fileID: 5034011610970128590}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.791822, y: -0.025234222, z: 15.557209}
+  m_LocalPosition: {x: -15.791733, y: 39.55166, z: 15.557411}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -249,7 +249,7 @@ Transform:
   m_GameObject: {fileID: 6046338384297232124}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.290962, y: -0.0038261414, z: 6.295087}
+  m_LocalPosition: {x: 18.290586, y: 11.62812, z: 6.2954664}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 5397903911177331262}
   - component: {fileID: 8231949460332067370}
   - component: {fileID: 7155606332805412617}
+  - component: {fileID: 2807576808027018897}
   m_Layer: 0
   m_Name: Terrain16
   m_TagString: Untagged
@@ -284,7 +285,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6754472153789153616}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -256, y: 23.599998, z: -130}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -388,6 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerActions:
   - {fileID: 7155606332805412617}
+  - {fileID: 2807576808027018897}
 --- !u!114 &7155606332805412617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,6 +403,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 9
+--- !u!114 &2807576808027018897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6754472153789153616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 12
 --- !u!1 &7302326039294994883
 GameObject:
   m_ObjectHideFlags: 0

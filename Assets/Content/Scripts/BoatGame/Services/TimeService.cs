@@ -12,6 +12,7 @@ namespace Content.Scripts.BoatGame.Services
         public static float PlayedTime => playedTime;
 
         public static float TimeRate => timeRate;
+        public static float UnscaledDelta => Time.unscaledDeltaTime;
 
         private static float playedTime;
         private static float timeRate = 1f;

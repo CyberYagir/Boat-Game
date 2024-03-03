@@ -59,13 +59,27 @@ namespace Content.Scripts.BoatGame.UI
 
             selectedStorage.OnStorageChange -= UpdateSelectedStorage;
             selectedStorage.OnStorageChange += UpdateSelectedStorage;
-
+            var raft = selectedStorage.GetComponent<RaftBase>();
+            raft.OnDeath -= OnStorageDestroy;
+            raft.OnDeath += OnStorageDestroy;
             Redraw();
+        }
+
+        private void OnStorageDestroy(DamageObject obj)
+        {
+            Close();
         }
 
         private void UpdateSelectedStorage(EResourceTypes arg1, RaftStorage.ResourceTypeHolder arg2)
         {
-            Redraw();
+            if (selectedStorage != null)
+            {
+                Redraw();
+            }
+            else
+            {
+                Close();
+            }
         }
 
         public void Redraw()
@@ -111,7 +125,9 @@ namespace Content.Scripts.BoatGame.UI
             holder.DOScale(Vector3.zero, 0.2f).onComplete += delegate { holder.gameObject.SetActive(false); };
             if (selectedStorage != null)
             {
+                var raft = selectedStorage.GetComponent<RaftBase>();
                 selectedStorage.OnStorageChange -= UpdateSelectedStorage;
+                raft.OnDeath -= OnStorageDestroy;
                 selectedStorage = null;
             }
         }

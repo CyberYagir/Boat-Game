@@ -57,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 576019171072299925}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.792008, y: -0.025234222, z: 15.5576}
+  m_LocalPosition: {x: -15.792008, y: 2.4544983, z: 15.5576}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -88,7 +88,7 @@ Transform:
   m_GameObject: {fileID: 871410142372932390}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.291939, y: -0.025234222, z: 6.295249}
+  m_LocalPosition: {x: 18.291939, y: 6.5412827, z: 6.295249}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 3451400064519621185}
   - component: {fileID: 7795457387144918186}
   - component: {fileID: 514438607555740759}
+  - component: {fileID: -3452858720996266307}
   m_Layer: 0
   m_Name: Terrain14
   m_TagString: Untagged
@@ -254,7 +255,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3469874767337550123}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -256, y: 26.899998, z: -130}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -359,6 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerActions:
   - {fileID: 514438607555740759}
+  - {fileID: -3452858720996266307}
 --- !u!114 &514438607555740759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,6 +374,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 9
+--- !u!114 &-3452858720996266307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469874767337550123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 12
 --- !u!1 &3639516489424251551
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +412,7 @@ Transform:
   m_GameObject: {fileID: 3639516489424251551}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.994222, y: -0.025234222, z: 4.007796}
+  m_LocalPosition: {x: 14.994253, y: 33.754005, z: 4.007992}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -428,7 +443,7 @@ Transform:
   m_GameObject: {fileID: 8900952605056351938}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.835123, y: -0.025234222, z: 11.312536}
+  m_LocalPosition: {x: -11.835123, y: 3.90234, z: 11.312536}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

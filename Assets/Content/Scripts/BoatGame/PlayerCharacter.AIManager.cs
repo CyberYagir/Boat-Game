@@ -42,11 +42,11 @@ namespace Content.Scripts.BoatGame
             private RaycastHit[] raycastResults = new RaycastHit[4];
             public bool IsOnGround()
             {
-                var size = Physics.RaycastNonAlloc(NavMeshAgent.transform.position + Vector3.up, -NavMeshAgent.transform.up, raycastResults, 20, LayerMask.GetMask("Raft"), QueryTriggerInteraction.Ignore);
+                var size = Physics.RaycastNonAlloc(NavMeshAgent.transform.position + Vector3.up, -NavMeshAgent.transform.up, raycastResults, 20, LayerMask.GetMask("Raft", "Default"), QueryTriggerInteraction.Ignore);
 
                 for (int i = 0; i < size; i++)
                 {
-                    if (raycastResults[i].transform.GetComponent<RaftBase>())
+                    if (raycastResults[i].transform.GetComponent<RaftBase>() || raycastResults[i].transform.GetComponent<Terrain>())
                     {
                         return true;
                     }

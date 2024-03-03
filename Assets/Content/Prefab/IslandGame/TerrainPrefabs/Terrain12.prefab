@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 679558854318593377}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.994153, y: -0.025234222, z: 4.0077457}
+  m_LocalPosition: {x: 14.994265, y: 31.423729, z: 4.0075636}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 2204934872271686842}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.291792, y: -0.025234222, z: 6.293966}
+  m_LocalPosition: {x: 18.291807, y: 12.715164, z: 6.2939663}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 1385520567616498276}
   - component: {fileID: 136205457102351376}
   - component: {fileID: 9090936820275593012}
+  - component: {fileID: -8912159912348104967}
   m_Layer: 0
   m_Name: Terrain12
   m_TagString: Untagged
@@ -284,7 +285,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7640738324690796962}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -256, y: 27.599998, z: -130}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -388,6 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerActions:
   - {fileID: 9090936820275593012}
+  - {fileID: -8912159912348104967}
 --- !u!114 &9090936820275593012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,6 +403,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 9
+--- !u!114 &-8912159912348104967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7640738324690796962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ac25ebe94b4282b4b6440412c4597f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 12
 --- !u!1 &8951051540177322770
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,7 +27,8 @@ namespace Content.Scripts.BoatGame.Services
             GameDataObject gameDataObject,
             TickService tickService,
             WeatherService weatherService,
-            SelectionService selectionService
+            SelectionService selectionService,
+            PrefabSpawnerFabric prefabSpawnerFabric
         )
         {
             this.saveData = saveData;
@@ -45,7 +46,8 @@ namespace Content.Scripts.BoatGame.Services
                         raftBuildService,
                         weatherService,
                         tickService,
-                        selectionService
+                        selectionService,
+                        prefabSpawnerFabric
                     ))
                     .With(x => SpawnedCharacters.Add(x))
                     .With(x => x.NeedManager.OnDeath += OnDeath);
