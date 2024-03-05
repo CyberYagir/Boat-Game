@@ -91,10 +91,11 @@ namespace Content.Scripts.IslandGame
                     .With(x => x.Init(respawnedMesh.GetComponentInChildren<MeshFilter>().sharedMesh));
 
                 DropItems();
+
+                particle.DestroyAfter(2);
                 
                 Destroy(respawnedMesh.gameObject);
                 Destroy(gameObject);
-                Destroy(particle, 2f);
             });
         }
 

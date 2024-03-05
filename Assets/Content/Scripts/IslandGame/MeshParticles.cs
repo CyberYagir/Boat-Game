@@ -18,5 +18,10 @@ namespace Content.Scripts.IslandGame
             
             particleSystems[0].Play(true);
         }
+
+        public void DestroyAfter(int i)
+        {
+            Destroy(gameObject, i);
+        }
     }
 }

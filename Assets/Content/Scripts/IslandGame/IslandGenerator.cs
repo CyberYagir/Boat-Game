@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
@@ -59,7 +61,8 @@ namespace Content.Scripts.IslandGame
             SaveDataObject saveDataObject,
             SelectionService selectionService,
             GameDataObject gameDataObject,
-            PrefabSpawnerFabric prefabSpawnerFabric)
+            PrefabSpawnerFabric prefabSpawnerFabric,
+            RaftBuildService raftBuildService)
         {
             this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.gameDataObject = gameDataObject;
@@ -68,10 +71,12 @@ namespace Content.Scripts.IslandGame
 
             Init(Seed);
 
+            raftBuildService.OnChangeRaft += BuildNavMesh;
+            
             print("execute " + transform.name);
         }
 
-        public void BuildNavMesh()
+        public async void BuildNavMesh()
         {
             if (!isNavMeshBuilded)
             {
@@ -83,7 +88,8 @@ namespace Content.Scripts.IslandGame
                 navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
             }
         }
-
+        
+        
 
         public void Init(int seed)
         {
