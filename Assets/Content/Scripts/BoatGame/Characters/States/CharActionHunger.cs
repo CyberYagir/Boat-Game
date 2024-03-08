@@ -50,7 +50,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
             if (moveToStorage)
             {
-                Machine.AIMoveManager.NavMeshAgent.isStopped = false;
+                Machine.AIMoveManager.NavMeshAgent.SetStopped(false);
                 Machine.AIMoveManager.NavMeshAgent.SetDestination(targetStorage.transform.position);
             }
             else
@@ -77,7 +77,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             if (Machine.AIMoveManager.NavMeshAgent.IsArrived())
             {
-                Machine.AIMoveManager.NavMeshAgent.isStopped = true;
+                Machine.AIMoveManager.NavMeshAgent.SetStopped(true);
                 Animation();
 
                 spawnedItem = Instantiate(itemPrefab, Machine.AnimationManager.RightHand);

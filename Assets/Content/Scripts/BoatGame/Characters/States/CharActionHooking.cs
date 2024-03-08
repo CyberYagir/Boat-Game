@@ -33,7 +33,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             state = States.MoveToPoint;
             selectedItem = null;
             resourceData = null;
-            Agent.isStopped = false;
+            Agent.SetStopped(false);
         }
 
 
@@ -111,7 +111,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         private void FindStorage()
         {
-            Machine.AIMoveManager.NavMeshAgent.isStopped = false;
+            Machine.AIMoveManager.NavMeshAgent.SetStopped(false);
             var storage = Machine.AIMoveManager.GoToEmptyStorage(resourceData.Item, resourceData.Value);
             if (storage == null)
             {

@@ -11,10 +11,10 @@ namespace Content.Scripts.BoatGame.Services
     {
         [SerializeField] private PlayerCharacter prefab;
         [SerializeField] private List<PlayerCharacter> spawnedCharacters;
-        
-        private NavMeshSurface surface;
+        [SerializeField] private bool buildNavMeshAfterCharacters = true;
         private SelectionService selectionService;
         private SaveDataObject saveData;
+        private INavMeshProvider navMeshProvider;
 
         public List<PlayerCharacter> SpawnedCharacters => spawnedCharacters;
 
@@ -28,12 +28,13 @@ namespace Content.Scripts.BoatGame.Services
             TickService tickService,
             WeatherService weatherService,
             SelectionService selectionService,
-            PrefabSpawnerFabric prefabSpawnerFabric
+            PrefabSpawnerFabric prefabSpawnerFabric,
+            INavMeshProvider navMeshProvider
         )
         {
+            this.navMeshProvider = navMeshProvider;
             this.saveData = saveData;
             this.selectionService = selectionService;
-            surface = raftBuildService.Holder.GetComponent<NavMeshSurface>();
             
             RebuildNavMesh();
             for (int i = 0; i < saveData.Characters.Count; i++)
@@ -87,8 +88,11 @@ namespace Content.Scripts.BoatGame.Services
 
         private void RebuildNavMesh()
         {
-            if (surface.enabled)
-                surface.BuildNavMesh();
+            if (buildNavMeshAfterCharacters)
+            {
+                navMeshProvider.BuildNavMesh();
+                print("build nav mesh");
+            }
         }
 
         public void SaveCharacters()

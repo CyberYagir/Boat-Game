@@ -92,27 +92,30 @@ namespace Content.Scripts.BoatGame
 
         public void SetCharacterRaftPosition()
         {
-            aiManager.NavMeshAgent.enabled = true;
+            
+            
             transform.position = aiManager.GenerateRandomPos();
-            if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, Mathf.Infinity, ~0))
-            {
-                transform.position = hit.position;
-
-                if (!aiManager.NavMeshAgent.isOnNavMesh)
-                {
-                    aiManager.NavMeshAgent.enabled = false;
-                    DOVirtual.DelayedCall(0.01f, SetCharacterRaftPosition);
-                    return;
-                }
-            }
-            else
-            {
-                aiManager.NavMeshAgent.enabled = false;
-                DOVirtual.DelayedCall(0.01f, SetCharacterRaftPosition);
-                return;
-            }
-
             transform.SetYEulerAngles(Random.value * 360);
+            
+            // aiManager.NavMeshAgent.enabled = true;
+            // if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, Mathf.Infinity, ~0))
+            // {
+            //     transform.position = hit.position;
+            //
+            //     if (!aiManager.NavMeshAgent.isOnNavMesh)
+            //     {
+            //         aiManager.NavMeshAgent.enabled = false;
+            //         DOVirtual.DelayedCall(0.01f, SetCharacterRaftPosition);
+            //         return;
+            //     }
+            // }
+            // else
+            // {
+            //     aiManager.NavMeshAgent.enabled = false;
+            //     DOVirtual.DelayedCall(0.01f, SetCharacterRaftPosition);
+            //     return;
+            // }
+
         }
 
         private void CheckGround()
@@ -127,7 +130,7 @@ namespace Content.Scripts.BoatGame
         {
             ragdollController.ActiveRagdoll();
             stateMachine.enabled = false;
-            aiManager.NavMeshAgent.enabled = false;
+            aiManager.NavMeshAgent.Disable();
             GetComponent<Collider>().enabled = false;
             appearanceManager.ChangeSelection(false);
             gameObject.ChangeLayerWithChilds(LayerMask.NameToLayer("PlayerDead"));
@@ -179,9 +182,16 @@ namespace Content.Scripts.BoatGame
         private void Update()
         {
             if (onlyVisuals) return;
-            animationsManager.Update();
+            animationsManager.Update(aiManager.NavMeshAgent);
             aiManager.ExtraRotation();
             needsManager.Update();
+
+            if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default", "Raft")))
+            {
+                var pos = transform.position;
+                pos.y = hit.point.y;
+                transform.position = pos;
+            }
         }
 
         public void Select(bool state)

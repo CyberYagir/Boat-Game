@@ -31,7 +31,6 @@ namespace Content.Scripts.BoatGame
             
             [SerializeField] private Animator animator;
             [SerializeField] private Animation hoodAnimations;
-            [SerializeField] private NavMeshAgent navMeshAgent;
             [SerializeField] private CharAnimationEvents animationEvents;
             
             [SerializeField] private Transform rightHand;
@@ -80,9 +79,9 @@ namespace Content.Scripts.BoatGame
                 appearanceManager.SetInHood(inHood);
             }
 
-            public void Update()
+            public void Update(INavAgentProvider navAgentProvider)
             {
-                animator.SetBool(IsMove, navMeshAgent.velocity.magnitude != 0);
+                animator.SetBool(IsMove, navAgentProvider.Velocity.magnitude != 0);
             }
 
             public void TriggerFishingAnimation(bool isReset = false)

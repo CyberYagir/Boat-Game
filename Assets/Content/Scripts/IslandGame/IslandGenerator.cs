@@ -27,8 +27,6 @@ namespace Content.Scripts.IslandGame
 
 
         [SerializeField] private TerrainObject terrainObjectIndicator;
-        [SerializeField] private NavMeshSurface navMeshSurface;
-        private SaveDataObject saveDataObject;
         
         
         private float[,,] alphamaps;
@@ -38,23 +36,25 @@ namespace Content.Scripts.IslandGame
         private int[,] textureLayers;
         private int[,] spawnedObjects;
 
-        private float grassY;
         private Dictionary<int, DetailsSO> detailsIds = new Dictionary<int, DetailsSO>(10);
         private List<TerrainObject> spawnedTerrainObjects = new List<TerrainObject>(1024);
+        private List<TreeInstance> treesInstsances = new List<TreeInstance>(1000);
+        private IslandData targetTerrain;
         private bool isNavMeshBuilded = false;
-
+        private float grassY;
 
         private IslandData currentIslandData;
         private SelectionService selectionService;
         private GameDataObject gameDataObject;
+        private SaveDataObject saveDataObject;
         private PrefabSpawnerFabric prefabSpawnerFabric;
+        private INavMeshProvider navMeshProvider;
 
         public IslandData CurrentIslandData => currentIslandData;
 
         public int Seed => seed;
 
-        private List<TreeInstance> treesInstsances = new List<TreeInstance>(1000);
-        private IslandData targetTerrain;
+
 
         [Inject]
         private void Construct(
@@ -62,8 +62,10 @@ namespace Content.Scripts.IslandGame
             SelectionService selectionService,
             GameDataObject gameDataObject,
             PrefabSpawnerFabric prefabSpawnerFabric,
-            RaftBuildService raftBuildService)
+            RaftBuildService raftBuildService,
+            INavMeshProvider navMeshProvider)
         {
+            this.navMeshProvider = navMeshProvider;
             this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.gameDataObject = gameDataObject;
             this.selectionService = selectionService;
@@ -72,20 +74,18 @@ namespace Content.Scripts.IslandGame
             Init(Seed);
 
             raftBuildService.OnChangeRaft += BuildNavMesh;
-            
-            print("execute " + transform.name);
         }
 
-        public async void BuildNavMesh()
+        public void BuildNavMesh()
         {
             if (!isNavMeshBuilded)
             {
-                navMeshSurface.BuildNavMesh();
+                navMeshProvider.BuildNavMesh();
                 isNavMeshBuilded = true;
             }
             else
             {
-                navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
+                navMeshProvider.BuildNavMeshAsync();
             }
         }
         

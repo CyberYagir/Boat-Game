@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.ItemsSystem;
@@ -12,19 +13,22 @@ namespace Content.Scripts.BoatGame
         [System.Serializable]
         public class AIManager
         {
-            [SerializeField] private NavMeshAgent navMeshAgent;
+            [SerializeField] private MonoBehaviour navMeshAgent;
             private RaftBuildService raftBuildService;
 
-            public NavMeshAgent NavMeshAgent => navMeshAgent;
+            private INavAgentProvider agent;
+            
+            public INavAgentProvider NavMeshAgent => agent;
 
             public void Init(RaftBuildService raftBuildService)
             {
+                agent = navMeshAgent.GetComponent<INavAgentProvider>();
                 this.raftBuildService = raftBuildService;
             }
             
             public Vector3 WalkToAnyPoint()
             {
-                NavMeshAgent.isStopped = false;
+                NavMeshAgent.SetStopped(false);
                 return GenerateRandomPos();
             }
 
@@ -42,7 +46,7 @@ namespace Content.Scripts.BoatGame
             private RaycastHit[] raycastResults = new RaycastHit[4];
             public bool IsOnGround()
             {
-                var size = Physics.RaycastNonAlloc(NavMeshAgent.transform.position + Vector3.up, -NavMeshAgent.transform.up, raycastResults, 20, LayerMask.GetMask("Raft", "Default"), QueryTriggerInteraction.Ignore);
+                var size = Physics.RaycastNonAlloc(NavMeshAgent.Transform.position + Vector3.up, -NavMeshAgent.Transform.up, raycastResults, 20, LayerMask.GetMask("Raft", "Default"), QueryTriggerInteraction.Ignore);
 
                 for (int i = 0; i < size; i++)
                 {
@@ -57,13 +61,7 @@ namespace Content.Scripts.BoatGame
 
             public void ExtraRotation()
             {
-                if (NavMeshAgent.enabled && NavMeshAgent.isStopped && NavMeshAgent.isOnNavMesh) return;
-                
-                Vector3 lookrotation = navMeshAgent.steeringTarget - navMeshAgent.transform.position;
-                if (lookrotation != Vector3.zero)
-                {
-                    navMeshAgent.transform.rotation = Quaternion.Slerp(navMeshAgent.transform.rotation, Quaternion.LookRotation(lookrotation), navMeshAgent.angularSpeed * Time.deltaTime);
-                }
+                NavMeshAgent.ExtraRotation();
             }
 
             public RaftStorage GoToEmptyStorage(ItemObject item, int value)

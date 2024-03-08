@@ -61,7 +61,8 @@ namespace Content.Scripts.BoatGame.Services
             SaveDataObject saveData, 
             GameStateService gameStateService, 
             SelectionService selectionService,
-            GameDataObject gamedata)
+            GameDataObject gamedata,
+            INavMeshProvider navMeshProvider)
         {
             this.gamedata = gamedata;
             this.gameStateService = gameStateService;
@@ -79,11 +80,15 @@ namespace Content.Scripts.BoatGame.Services
             {
                 LoadPlayerRaft(saveData, selectionService, gamedata);
             }
+            
             gameStateService.OnChangeEState += GameStateServiceOnOnChangeEState;  
             print("execute " + transform.name);
         }
 
-        private void LoadPlayerRaft(SaveDataObject saveData, SelectionService selectionService, GameDataObject gamedata)
+        private void LoadPlayerRaft(
+            SaveDataObject saveData, 
+            SelectionService selectionService, 
+            GameDataObject gamedata)
         {
             for (int i = 0; i < saveData.Rafts.Rafts.Count; i++)
             {
@@ -105,6 +110,7 @@ namespace Content.Scripts.BoatGame.Services
                     building.LoadBuild(saveData.Rafts.RaftsInBuild.Find(x => x.RaftUid == raft.Uid), gamedata, selectionService, this);
                 }
             }
+            
         }
 
         private void SpawnStartRaft()

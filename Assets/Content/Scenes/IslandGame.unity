@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 970024464}
-  m_IndirectSpecularColor: {r: 0.86527395, g: 1.707243, b: 2.1072972, a: 1}
+  m_IndirectSpecularColor: {r: 0.86885786, g: 1.708637, b: 2.0721338, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -787,6 +787,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2442271846738543133, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
+      propertyPath: data.dataString
+      value: UEsDBBQAAAgIAAAYIexjsZTUNQAAAD4AAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jO00FFQSi9KLMgoBooYgDilmSkgdnQskFNSWZDql5ibChGoBQBQSwECLQAUAAAICAAAGCHsY7GU1DUAAAA+AAAACQAkAAAAAAAAAAAAAAAAAAAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAABAAEAWwAAAIAAAAAAAA==
+      objectReference: {fileID: 0}
     - target: {fileID: 2614847717352630239, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: sun
       value: 
@@ -1027,6 +1031,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 839338543770585755, guid: 71e4e276b26a4004a818de0db8e02993, type: 3}
+    - target: {fileID: 6109461790759577614, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
+      propertyPath: buildNavMeshAfterCharacters
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6289756244438697198, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1300,6 +1308,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6566987069165216538, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 110275459}
+    - targetCorrespondingSourceObject: {fileID: 6566987069165216538, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1807866249}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 939660303702654878, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       insertIndex: -1
@@ -1810,7 +1821,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1527
+    m_Bits: 5623
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -2286,7 +2297,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raftsSpawnPoint: {fileID: 2088137552}
   ladderPrefab: {fileID: 8407781293100930783, guid: f49ac48fd590ad346873df8396cb17d4, type: 3}
-  camera: {fileID: 2146359578}
 --- !u!1 &1449519362
 GameObject:
   m_ObjectHideFlags: 0
@@ -2646,7 +2656,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1737859042}
   - component: {fileID: 1737859043}
-  - component: {fileID: 1737859044}
   m_Layer: 0
   m_Name: IsalndGeneratorService
   m_TagString: Untagged
@@ -2710,38 +2719,6 @@ MonoBehaviour:
     max: 60
   minGrassHeight: 1
   terrainObjectIndicator: {fileID: 4269952700949134826, guid: 82630f472df92514c9d75deed26c6060, type: 3}
-  navMeshSurface: {fileID: 1737859044}
---- !u!114 &1737859044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1737859040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 1
-  m_Size: {x: 502.9, y: 79.73656, z: 555.3917}
-  m_Center: {x: 0, y: 81.20326, z: 36.454163}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 2113
-  m_UseGeometry: 1
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.083333336
-  m_MinRegionArea: 0.1
-  m_NavMeshData: {fileID: 0}
-  m_BuildHeightMesh: 0
 --- !u!1 &1787757237
 GameObject:
   m_ObjectHideFlags: 0
@@ -2773,6 +2750,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2022511224}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1807866248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1807866249}
+  - component: {fileID: 1807866250}
+  m_Layer: 0
+  m_Name: GraphsUpdaterService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1807866249
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807866248}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 333748304}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1807866250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807866248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ca2cb16e94c9a40b471c5cd2971785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1835104937
 GameObject:
   m_ObjectHideFlags: 0
@@ -2830,7 +2851,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1216
+    m_Bits: 13504
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

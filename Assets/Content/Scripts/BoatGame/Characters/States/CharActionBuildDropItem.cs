@@ -19,7 +19,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         public override void GetTargetAndStart()
         {
 
-            Agent.isStopped = false;
+            Agent.SetStopped(false);
             
             targetDroppedItem = SelectionService.SelectedObject.Transform.GetComponent<DroppedItem>();
 

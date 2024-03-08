@@ -7,8 +7,8 @@ namespace Content.Scripts.BoatGame.Characters.States
         public override void StartState()
         {
             base.StartState();
-            
-            Agent.isStopped = false;
+
+            Agent.SetStopped(false);
 
 
             if (!MoveToPoint(SelectionService.LastWorldClick))
@@ -32,7 +32,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             base.EndState();
 
-            Agent.isStopped = true;
+            Agent.SetStopped(true);
         }
     }
 }

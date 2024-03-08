@@ -19,6 +19,7 @@ namespace Content.Scripts.BoatGame
             
             BindService<GameStateService>();
             BindService<TickService>();
+            BindService<INavMeshProvider>();
             BindService<WorldGridService>();
             BindService<WeatherService>();
             BindService<RaftBuildService>();

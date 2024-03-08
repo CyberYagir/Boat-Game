@@ -28,7 +28,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             base.StartState();
 
-            Agent.isStopped = false;
+            Agent.SetStopped(false);
             selectedTree = SelectionService.SelectedObject.Transform.GetComponent<TerrainObject>();
 
             
@@ -54,7 +54,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         protected override void OnMoveEnded()
         {
-            Agent.isStopped = true;
+            Agent.SetStopped(true);
             spawnedAxe = Instantiate(axe, Machine.AnimationManager.RightHand);
             Machine.AnimationManager.TriggerChopTree();
             isMoveEnded = true;

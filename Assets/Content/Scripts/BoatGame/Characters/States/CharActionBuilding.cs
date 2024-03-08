@@ -46,7 +46,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         public virtual void GetTargetAndStart()
         {
-            Agent.isStopped = false;
+            Agent.SetStopped(false);
             targetBuildRaft = SelectionService.SelectedObject.Transform.GetComponent<RaftBuild>();
 
             if (targetBuildRaft == null)

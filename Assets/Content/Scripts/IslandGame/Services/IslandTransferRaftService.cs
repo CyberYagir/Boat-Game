@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.IslandGame.Services;
+using Pathfinding;
 using UnityEngine;
 using Zenject;
 using Random = System.Random;
@@ -11,18 +13,15 @@ namespace Content.Scripts.IslandGame
     {
         [SerializeField] private Transform raftsSpawnPoint;
         [SerializeField] private RaftLadderToIsland ladderPrefab;
-        [SerializeField] private Transform camera;
         
-        private IslandGenerator islandGenerator;
         private RaftBuildService raftBuildService;
-        private CharacterService characterService;
 
+        public event Action OnRaftTransferingEnding;
+        
         [Inject]
-        public void Construct(IslandGenerator islandGenerator, RaftBuildService raftBuildService, CharacterService characterService, CameraMovingService cameraMovingService)
+        public void Construct(IslandGenerator islandGenerator, RaftBuildService raftBuildService, CameraMovingService cameraMovingService)
         {
-            this.characterService = characterService;
             this.raftBuildService = raftBuildService;
-            this.islandGenerator = islandGenerator;
             Random rnd = new Random(islandGenerator.Seed);
 
             var spawnPoint = islandGenerator.CurrentIslandData.SpawnPoints.GetRandomItem(rnd);
@@ -58,12 +57,7 @@ namespace Content.Scripts.IslandGame
 
             Instantiate(ladderPrefab).With(x => x.Init(raftBuildService.SpawnedRafts[id].transform.position, spawnPoint.LadderPoint.position));
             
-            islandGenerator.BuildNavMesh();
-            
-            foreach (var ch in characterService.SpawnedCharacters)
-            {
-                ch.SetCharacterRaftPosition();
-            }
+            OnRaftTransferingEnding?.Invoke();
         }
     }
 }

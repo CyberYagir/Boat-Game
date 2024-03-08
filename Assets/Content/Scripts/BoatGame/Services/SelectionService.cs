@@ -89,7 +89,7 @@ namespace Content.Scripts.BoatGame.Services
         }
         private void NormalStateSelectionLogic()
         {
-            var hit = Camera.MouseRaycast(out bool isHit, Input.mousePosition, Mathf.Infinity, LayerMask.GetMask("Default", "Raft", "Builds", "Water", "Trees"));
+            var hit = Camera.MouseRaycast(out bool isHit, Input.mousePosition, Mathf.Infinity, LayerMask.GetMask("Default", "Raft", "Builds", "Water", "Trees", "Player"));
 
             if (isHit)
             {

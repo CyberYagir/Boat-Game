@@ -54,7 +54,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             state = EState.MovingToPoint;
             stuckTimer = 0;
             Machine.AnimationManager.TriggerFishingAnimation(true);
-            Agent.isStopped = false;
+            Agent.SetStopped(false);
             timer = 0;
             tween = null;
         }
@@ -192,7 +192,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
             if (storage != null)
             {
-                Machine.AIMoveManager.NavMeshAgent.isStopped = false;
+                Machine.AIMoveManager.NavMeshAgent.SetStopped(false);
                 Machine.AIMoveManager.NavMeshAgent.SetDestination(storage.transform.position);
                 
             }
@@ -236,7 +236,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             if (spawnedRod == null)
             {
 
-                Agent.isStopped = true;
+                Agent.SetStopped(true);
 
                 spawnedRod = Instantiate(fishingRodPrefab, Machine.AnimationManager.RightHand);
 
