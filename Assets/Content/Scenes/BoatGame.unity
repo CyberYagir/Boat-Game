@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 970024464}
-  m_IndirectSpecularColor: {r: 0.86885786, g: 1.708637, b: 2.0721338, a: 1}
+  m_IndirectSpecularColor: {r: 0.86527395, g: 1.707243, b: 2.1072972, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -865,7 +865,7 @@ Transform:
   m_GameObject: {fileID: 678400352}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6782297, z: 0}
+  m_LocalPosition: {x: 0, y: 11.89713, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1223,7 +1223,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 17
+    m_Bits: 8209
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1403,7 +1403,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 5623
+    m_Bits: 13815
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -2252,6 +2252,14 @@ PrefabInstance:
       propertyPath: camera.Array.data[1]
       value: 
       objectReference: {fileID: 677022773}
+    - target: {fileID: 1358628927090493565, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
+      propertyPath: aiPath
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1358628927090493565, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
+      propertyPath: seeker
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1379296135498313183, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2371,6 +2379,10 @@ PrefabInstance:
     - target: {fileID: 2442271846738543133, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: logPathResults
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442271846738543133, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
+      propertyPath: data.dataString
+      value: UEsDBBQAAAgIAAAYIexU+N8+oQIAAKQFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFtVNtu2kAQ/RW0z01kHGOFvrUmIa2UBIVWeajzsPGO8Yr1rrWXAIn498yuDTakEpLNzDlzOTPjD8KlaaCwSs81Z/eKAfk+Iv6dfBv1zjvY0pWSS/4OB8wzZ7byIBowT9RyhfaxpxlVg9W8+CFXwoMjNDrJS6XrG7aCTBlr0FxSYQBdWlnPlmj6GJFtR9h1z3f/HO3xrQBpQX9FXUSXkxOgk4WgdQPMF9zj40lHiCcBJrGVDhFdBmehhOCmK4XYXRNazWhjHDaCAMYpthaKSPBvBXxVWR9xSH4sSwO2K1DT3YxrVKiNSn6qVraamnVb2hsVzucZXydXcSisDXv/BZEmwV1qVd8dMo+jyKexFS/WT3RXUGMH0g7Ns772cRBpQ8Wavgp4rkA+qLlWTjJ0Wu081RmIZ4NQx/ayCop1j2uLPTO65uuYxv2M9kGAbSZ4/RrUj8atZSlUc9gY0DifX1hwWA7TRUCrL+KvgT90NdyiznHLtbHo6uDSV/eqnPZQcosvXvzC2UxpCcHaldyApMLuFhjFng/xzDfIeua5pf5cTlmHKzijBPMRH0ftHIfOhdqEaU3aafx2dbNQXNolUF1Ug4imUpt7MNWjs4JL6HvyjgdUMVNStito/kNbOl3SYkCzsLVOw4xaGg4Ba8I1YUMqChkY0gnhVzL04YP/wy7878XLXFHMK4KZPCgZTujk+eI3YeU4O110Auk4goSlccySJE7Ti2l8RadpnCaT6VWaXE9JuAQuUXUqFq1oney4QbLvReLSH75po7mmTbg+pulmzt9rNVgALku1LDSAfGwjHJsFjUnwQ8FuGMc2l2Atl2H5yEdOhCrWwPJjoDwIe7O1muZ9lJw0/E1Zb8lJFr5kOfHm410tNLxx2PjkR96e7D8BUEsDBBQAAAgIAAAYIewDesX3bQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jO00FFQSi9KLMgoBooYgjilmSkgdrRSqpmhQapJipmRUYqJiZGZma6lkXGipZmRmYmppbGZiYWlUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAAAYIexU+N8+oQIAAKQFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAYIewDesX3bQAAAHgAAAAJACQAAAAAAAAAAAAAAO4CAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAApgMAAAAA
       objectReference: {fileID: 0}
     - target: {fileID: 2614847717352630239, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: sun

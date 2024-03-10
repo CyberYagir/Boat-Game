@@ -14,18 +14,18 @@ namespace Content.Scripts.BoatGame.Services
         }
 
 
-        public T SpawnItem<T>(T prefab, Vector3 pos, Quaternion rot, Transform parent) where T : Object
+        public T SpawnItem<T>(T prefab, Vector3 pos = default, Quaternion rot = default, Transform parent = null) where T : Object
         {
             return container.InstantiatePrefabForComponent<T>(prefab, pos, rot, parent);
         }
 
-        public GameObject SpawnItem(GameObject prefab, Vector3 pos, Quaternion rot, Transform parent)
+        public GameObject SpawnItem(GameObject prefab, Vector3 pos = default, Quaternion rot = default, Transform parent = null)
         {
             return container.InstantiatePrefab(prefab, pos, rot, parent);
         }
         
         
-        public T SpawnItemOnGround<T>(T prefab, Vector3 pos, Quaternion rot, Transform parent) where T : Object
+        public T SpawnItemOnGround<T>(T prefab, Vector3 pos = default, Quaternion rot = default, Transform parent = null) where T : Object
         {
             Vector3 spawnPos = pos;
             if (Physics.Raycast(pos + Vector3.up * 100, Vector3.down, out RaycastHit hit))

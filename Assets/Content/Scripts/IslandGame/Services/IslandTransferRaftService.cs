@@ -13,28 +13,39 @@ namespace Content.Scripts.IslandGame
     {
         [SerializeField] private Transform raftsSpawnPoint;
         [SerializeField] private RaftLadderToIsland ladderPrefab;
-        
-        private RaftBuildService raftBuildService;
+        [SerializeField] private DirectionalTrigger directionalTriggerPrefab;
 
-        public event Action OnRaftTransferingEnding;
+
+
+        private DirectionalTrigger enterRaftTrigger, exitRaftTrigger;
+
+        private RaftBuildService raftBuildService;
+        private PrefabSpawnerFabric prefabSpawnerFabric;
         
+        public event Action OnRaftTransferingEnding;
+
+        public DirectionalTrigger EnterRaftTrigger => enterRaftTrigger;
+
+        public DirectionalTrigger ExitRaftTrigger => exitRaftTrigger;
+
         [Inject]
-        public void Construct(IslandGenerator islandGenerator, RaftBuildService raftBuildService, CameraMovingService cameraMovingService)
+        public void Construct(IslandGenerator islandGenerator, RaftBuildService raftBuildService, CameraMovingService cameraMovingService, PrefabSpawnerFabric prefabSpawnerFabric)
         {
+            this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.raftBuildService = raftBuildService;
             Random rnd = new Random(islandGenerator.Seed);
 
             var spawnPoint = islandGenerator.CurrentIslandData.SpawnPoints.GetRandomItem(rnd);
-        
+
             Physics.Raycast(spawnPoint.LadderPoint.position + Vector3.up * 100, Vector3.down, out RaycastHit hit);
             spawnPoint.LadderPoint.position = hit.point;
             spawnPoint.Point.position = new Vector3(spawnPoint.Point.position.x, 0, spawnPoint.Point.position.z);
-            
+
             raftsSpawnPoint.transform.position = spawnPoint.Point.position;
 
 
             cameraMovingService.SetStartPosition(spawnPoint.Point.position);
-            
+
             StartCoroutine(WaitFrameToBuildNavMesh(spawnPoint));
 
         }
@@ -55,8 +66,19 @@ namespace Content.Scripts.IslandGame
                 }
             }
 
-            Instantiate(ladderPrefab).With(x => x.Init(raftBuildService.SpawnedRafts[id].transform.position, spawnPoint.LadderPoint.position));
-            
+            prefabSpawnerFabric.SpawnItem(ladderPrefab)
+                .With(x => x.Init(raftBuildService.SpawnedRafts[id].transform.position, spawnPoint.LadderPoint.position));
+
+
+            exitRaftTrigger = prefabSpawnerFabric.SpawnItem(directionalTriggerPrefab, spawnPoint.LadderPoint.position + Vector3.up, Quaternion.LookRotation(spawnPoint.LadderPoint.position - spawnPoint.Point.position))
+                .With(x => x.transform.eulerAngles = new Vector3(0, x.transform.eulerAngles.y, 0))
+                .With(x => x.transform.name = " exit trigger");
+
+            enterRaftTrigger = prefabSpawnerFabric.SpawnItem(directionalTriggerPrefab, spawnPoint.LadderPoint.position + Vector3.up, Quaternion.LookRotation(spawnPoint.Point.position - spawnPoint.LadderPoint.position))
+                .With(x => x.transform.eulerAngles = new Vector3(0, x.transform.eulerAngles.y, 0))
+                .With(x=>x.transform.position += x.transform.forward * 2.5f)
+                .With(x => x.transform.name = " enter trigger");
+
             OnRaftTransferingEnding?.Invoke();
         }
     }
