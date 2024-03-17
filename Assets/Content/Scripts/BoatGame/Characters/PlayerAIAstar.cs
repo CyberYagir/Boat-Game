@@ -14,7 +14,7 @@ namespace Content.Scripts.BoatGame.Characters
         public bool IsStopped => aiPath.isStopped;
         public bool IsOnNavMesh => true;
         public float StoppingDistance => aiPath.slowdownDistance;
-        public Vector3 Velocity => aiPath.desiredVelocity;
+        public Vector3 Velocity => GetVelocity();
         public Vector3 Destination => aiPath.destination;
 
         public void SetDestination(Vector3 target)
@@ -25,11 +25,26 @@ namespace Content.Scripts.BoatGame.Characters
         public void SetStopped(bool state)
         {
             aiPath.isStopped = state;
+            aiPath.canMove = !state;
         }
+
+        public Vector3 GetVelocity()
+        {
+            if (!aiPath.canMove)
+            {
+                return Vector3.zero;
+            }
+
+            return aiPath.desiredVelocity;
+        }
+        
 
         public bool IsArrived()
         {
-            return aiPath.remainingDistance <= StoppingDistance && Transform.position.ToDistance(Destination) <= StoppingDistance;
+            var destWithoutY = new Vector3(Destination.x, 0, Destination.z);
+            var trnsWithoutY = new Vector3(Transform.position.x, 0, Transform.position.z);
+            
+            return aiPath.remainingDistance <= StoppingDistance && destWithoutY.ToDistance(trnsWithoutY) <= StoppingDistance;
         }
 
         public void ExtraRotation()
@@ -48,12 +63,13 @@ namespace Content.Scripts.BoatGame.Characters
             constraint.walkable = true;
             constraint.constrainTags = true;
             constraint.tags = ~0;
+            constraint.graphMask = seeker.graphMask;
             NNInfo info = new NNInfo();
-            for (int i = 0; i < AstarPath.active.graphs.Length; i++)
-            {
-                info = AstarPath.active.GetNearest(target, constraint);
-            }
 
+
+            info = AstarPath.active.GetNearest(target, constraint);
+            
+            
             newPoint = info.position;
             return true;
         }
@@ -61,6 +77,18 @@ namespace Content.Scripts.BoatGame.Characters
         public void Disable()
         {
             aiPath.canMove = false;
+        }
+
+        public void ChangeMask(int newMask)
+        {
+            if ((int)seeker.graphMask != newMask)
+            {
+                seeker.graphMask = newMask;
+                if (TryBuildPath(aiPath.destination, out Vector3 newPoint))
+                {
+                    SetDestination(newPoint);
+                }
+            }
         }
     }
 }

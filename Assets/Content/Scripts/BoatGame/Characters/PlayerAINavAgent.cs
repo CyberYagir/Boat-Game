@@ -59,5 +59,10 @@ namespace Content.Scripts.BoatGame.Characters
         {
             navMeshAgent.enabled = false;
         }
+
+        public void ChangeMask(int newMask)
+        {
+            
+        }
     }
 }

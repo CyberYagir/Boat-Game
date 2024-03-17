@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame;
+using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using Pathfinding;
 using Unity.VisualScripting;
@@ -15,118 +17,61 @@ namespace Content.Scripts.IslandGame.Services
         {
             private GridGraph gridGraph;
             private Transform character;
-            private GridData gridData;
+            private INavAgentProvider agent;
 
-            public CharData(GridGraph gridGraph, Transform character,GridData gridData)
+            public CharData(GridGraph gridGraph, Transform character)
             {
                 this.gridGraph = gridGraph;
                 this.character = character;
-                this.gridData = gridData;
+                agent = character.Get<INavAgentProvider>();
             }
 
-            public void SetGridData(GridData gridData)
-            {
-                this.gridData = gridData;
-            }
-            
-            
             public Transform Character => character;
 
             public GridGraph GridGraph => gridGraph;
 
-            public GridData GridData => gridData;
+            public INavAgentProvider Seeker => agent;
         }
 
-        [System.Serializable]
-        public class GridData
-        {
-            [SerializeField] private int width, depth;
-            [SerializeField] private float cellSize;
-            [SerializeField] private int erosion;
-            [SerializeField] private float maxClimb = 1f;
-            
-            public float CellSize => cellSize;
-
-            public int Depth => depth;
-
-            public int Width => width;
-
-            public int Erosion => erosion;
-
-            public float MaxClimb => maxClimb;
-        }
-
-        [SerializeField] private int generateMaxTerrainDistance = 15;
         
         private CharacterService characterService;
 
         private List<CharData> charactersDatas = new List<CharData>(10);
-
+        
         private int ticksCount;
         private TickService tickService;
         private IslandTransferRaftService raftConverterService;
 
-        [SerializeField] private GridData onRaftGrid, onTerrainGrid;
+        private INavMeshProvider navMeshProvider;
 
+        private int raftGraphMask;
+        private int terrainGraphMask;
+        private float switchRadius;
+
+        [SerializeField] private float switchRadiusModify;
+        
         [Inject]
-        private void Construct(IslandGenerator islandGenerator, CharacterService characterService, TickService tickService, IslandTransferRaftService raftService)
+        private void Construct(
+            IslandGenerator islandGenerator, 
+            CharacterService characterService, 
+            TickService tickService, 
+            IslandTransferRaftService raftTransferService, 
+            RaftBuildService raftBuildService,
+            INavMeshProvider navMeshProvider)
         {
-            raftConverterService = raftService;
+            this.navMeshProvider = navMeshProvider;
+            raftConverterService = raftTransferService;
             this.tickService = tickService;
             this.characterService = characterService;
 
-            
-            raftService.OnRaftTransferingEnding += OnRaftTransfered;
+            raftBuildService.OnChangeRaft += RebuildTargetNavGrid;
+            raftTransferService.OnRaftTransferingEnding += OnRaftTransfer;
         }
 
-        private void OnUnitExitRaft(Collider obj)
+
+
+        private void OnRaftTransfer()
         {
-            ChangeGrid(obj, onTerrainGrid);
-            print("Exit");
-        }
-
-        private void ChangeGrid(Collider obj, GridData dimensions)
-        {
-            var ch = GetCharacter(obj);
-            if (ch != null)
-            {
-                var charData = charactersDatas.Find(x => x.Character == ch);
-
-                ChangeGridData(dimensions, charData);
-            }
-        }
-
-        private static void ChangeGridData(GridData dimensions, CharData charData)
-        {
-            charData.GridGraph.SetDimensions((int) dimensions.Width, (int) dimensions.Depth, dimensions.CellSize);
-            charData.GridGraph.erodeIterations = dimensions.Erosion;
-            charData.GridGraph.maxClimb = dimensions.MaxClimb;
-            charData.SetGridData(dimensions);
-            charData.GridGraph.Scan();
-        }
-
-        private static Transform GetCharacter(Collider obj)
-        {
-            var n = obj.GetComponentInParent<PlayerCharacter>();
-            if (n != null)
-            {
-                return n.transform;
-            }
-
-            return null;
-        }
-
-        private void OnUnitEnterRaft(Collider obj)
-        {
-            ChangeGrid(obj, onRaftGrid);
-            print("Enter");
-        }
-
-        private void OnRaftTransfered()
-        {
-            
-            raftConverterService.EnterRaftTrigger.OnTriggerEntered += OnUnitEnterRaft;
-            raftConverterService.ExitRaftTrigger.OnTriggerEntered += OnUnitExitRaft;
             StartCoroutine(SkipFrameForBuild());
         }
 
@@ -134,76 +79,74 @@ namespace Content.Scripts.IslandGame.Services
         IEnumerator SkipFrameForBuild()
         {
             yield return null;
-            tickService.OnTick += OnTick;
-            AddGraphs();
+            
+            CenterNavGraph();
+            AddCharacters();
+            CalculateMasks();
+            
+            
+            navMeshProvider.BuildNavMesh();
+            EnableCharactersAIAfterMoving();
+            
+            tickService.OnTick += GraphSwitcher;
+        }
+        
+        private void RebuildTargetNavGrid()
+        {
+            navMeshProvider.BuildNavMeshAsync(1);
         }
 
-        private void OnTick(float delta)
+        private void CalculateMasks()
+        {
+            raftGraphMask = GraphMask.FromGraph(navMeshProvider.GetNavMeshByID(1));
+            terrainGraphMask = GraphMask.FromGraph(navMeshProvider.GetNavMeshByID(0));
+        }
+
+        private void EnableCharactersAIAfterMoving()
+        {
+            for (int i = 0; i < characterService.SpawnedCharacters.Count; i++)
+            {
+                characterService.SpawnedCharacters[i].Get<AIPath>().enabled = true;
+            }
+        }
+
+        private void AddCharacters()
+        {
+            OnCharactersAdded();
+            characterService.OnCharactersChange += OnCharactersAdded;
+        }
+
+        private void OnCharactersAdded()
+        {
+            charactersDatas.Clear();
+            for (int i = 0; i < characterService.SpawnedCharacters.Count; i++)
+            {
+                charactersDatas.Add(new CharData(null, characterService.SpawnedCharacters[i].transform));
+            }
+        }
+
+        private void CenterNavGraph()
+        {
+            var nav = (navMeshProvider.GetNavMeshByID(1) as GridGraph);
+            nav.center = raftConverterService.RaftPoint;
+            switchRadius = (nav.width/2f) * nav.nodeSize;
+        }
+
+        private void GraphSwitcher(float delta)
         {
             for (int i = 0; i < charactersDatas.Count; i++)
             {
-                var needDistance = (charactersDatas[i].GridGraph.width * charactersDatas[i].GridGraph.nodeSize) / 4.1f;
-                var dist = Vector3.Distance(charactersDatas[i].Character.position, charactersDatas[i].GridGraph.center);
+                var dist = Vector3.Distance(charactersDatas[i].Character.transform.position, raftConverterService.RaftPoint) <= switchRadius * switchRadiusModify;
                 
-                
-                
-                if (dist >= needDistance)
-                {
-                    var pos = charactersDatas[i].Character.position + Vector3.down * 10;
-                    if (pos.y < -0.5f)
-                    {
-                        pos.y = -0.5f;
-                    }
-                    
-                    charactersDatas[i].GridGraph.center = pos;
-                    charactersDatas[i].GridGraph.Scan();
-                }
+                charactersDatas[i].Seeker.ChangeMask(dist ? raftGraphMask : terrainGraphMask);
             }
         }
 
-
-        public void AddGraphs()
+        private void OnDrawGizmos()
         {
-            uint chId = 0;
-            var path = AstarPath.active;
-
-            if (path == null)
-            {
-                path = FindObjectOfType<AstarPath>();
-            }
-            
-            foreach (var ch in characterService.SpawnedCharacters)
-            {
-                ch.SetCharacterRaftPosition();
-
-                path.data.AddGraph(typeof(GridGraph));
-                
-                GridGraph graph = path.data.graphs[^1] as GridGraph;
-                graph.center = ch.transform.position;
-                
-                graph.SetDimensions(onRaftGrid.Width, onRaftGrid.Depth, onRaftGrid.CellSize);
-                graph.erodeIterations = onRaftGrid.Erosion;
-                
-                graph.graphIndex = chId;
-                graph.collision.collisionCheck = true;
-                graph.collision.heightCheck = true;
-                graph.collision.heightMask = LayerMask.GetMask("Raft", "Default");
-                graph.collision.mask = LayerMask.GetMask("Trees", "Obstacle");
-                
-                
-                graph.maxClimb = onRaftGrid.MaxClimb;
-                graph.maxSlope = 60;
-
-                ch.GetComponent<Seeker>().graphMask = 1 << (int) chId;
-                
-                charactersDatas.Add(new CharData(graph, ch.transform, onRaftGrid));
-                
-                graph.Scan();
-                
-                chId++;
-            }
-
-            path.FlushGraphUpdates();
+            if (AstarPath.active == null || AstarPath.active.graphs.Length == 0) return;
+            Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 0.2f);
+            Gizmos.DrawSphere((AstarPath.active.graphs[1] as GridGraph).center, switchRadius * switchRadiusModify);
         }
     }
 }

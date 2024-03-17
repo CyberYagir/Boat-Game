@@ -23,5 +23,6 @@ namespace Content.Scripts.BoatGame.Characters
         
         public void Disable();
 
+        void ChangeMask(int newMask);
     }
 }

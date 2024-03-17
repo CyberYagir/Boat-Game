@@ -48,8 +48,6 @@ namespace Content.Scripts.BoatGame.Services
         private CraftObject lastSelectedCraftItem;
         
         public event Action OnChangeRaft;
-        public event Action OnPreRaftGenerated;
-
         public List<RaftBase> SpawnedRafts => spawnedRafts;
         public List<RaftStorage> Storages => storages;
 
@@ -70,8 +68,6 @@ namespace Content.Scripts.BoatGame.Services
             this.saveData = saveData;
             this.worldGridService = worldGridService;
 
-            OnPreRaftGenerated?.Invoke();
-            
             if (saveData.Rafts.RaftsCount == 0)
             {
                 SpawnStartRaft();

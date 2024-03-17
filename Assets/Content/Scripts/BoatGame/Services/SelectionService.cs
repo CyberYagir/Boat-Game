@@ -21,7 +21,7 @@ namespace Content.Scripts.BoatGame.Services
 
         
         private Vector3 lastWorldClick;
-        private List<GraphicRaycaster> raycasters;
+        private List<GraphicRaycaster> raycasters = new List<GraphicRaycaster>(10);
         private List<RaycastResult> raycastResults = new List<RaycastResult>(10);
 
         public Action<ISelectable> OnChangeSelectObject;
@@ -129,6 +129,7 @@ namespace Content.Scripts.BoatGame.Services
             };
             for (int i = 0; i < raycasters.Count; i++)
             {
+                if (raycasters[i] == null) continue;
                 raycasters[i].Raycast(pointer, raycastResults);
 
                 if (raycastResults.Count > 0)

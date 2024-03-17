@@ -28,6 +28,13 @@ namespace Content.Scripts.IslandGame
 
         public DirectionalTrigger ExitRaftTrigger => exitRaftTrigger;
 
+        public Vector3 RaftPoint => raftPoint;
+        public Vector3 EndPoint => endPoint;
+
+        private Vector3 raftPoint;
+        private Vector3 endPoint;
+        
+
         [Inject]
         public void Construct(IslandGenerator islandGenerator, RaftBuildService raftBuildService, CameraMovingService cameraMovingService, PrefabSpawnerFabric prefabSpawnerFabric)
         {
@@ -66,6 +73,9 @@ namespace Content.Scripts.IslandGame
                 }
             }
 
+            raftPoint = raftBuildService.SpawnedRafts[id].transform.position;
+            endPoint = spawnPoint.LadderPoint.position;
+            
             prefabSpawnerFabric.SpawnItem(ladderPrefab)
                 .With(x => x.Init(raftBuildService.SpawnedRafts[id].transform.position, spawnPoint.LadderPoint.position));
 
