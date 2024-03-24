@@ -42,6 +42,7 @@ namespace Content.Scripts.BoatGame.Services
         
         IEnumerator ScanAsync()
         {
+            yield return null;
             foreach (Progress progress in navMesh.ScanAsync())
             {
                 yield return null;
@@ -50,6 +51,7 @@ namespace Content.Scripts.BoatGame.Services
         
         IEnumerator ScanAsync(NavGraph navGraph)
         {
+            yield return null;
             foreach (Progress progress in navMesh.ScanAsync(navGraph))
             {
                 yield return null;

@@ -301,15 +301,19 @@ namespace Content.Scripts.Global
             }
             
             [SerializeField] private float totalSecondsInGame;
+            [SerializeField] private int islandSeed = -1;
             [SerializeField] private RaftDamagerData damagersData = new RaftDamagerData(0,0, new List<RaftDamagerData.SpawnedItem>());
             [SerializeField] private WeatherData weathersData = new WeatherData(0, -1, WeatherService.EWeatherType.Сalm);
-            
+
+            public bool isOnIsland => IslandSeed != -1;
             
             public float TotalSecondsInGame => totalSecondsInGame;
 
             public RaftDamagerData DamagersData => damagersData;
 
             public WeatherData WeathersData => weathersData;
+
+            public int IslandSeed => islandSeed;
 
             public void SetTimePlayed(float value)
             {
@@ -329,6 +333,11 @@ namespace Content.Scripts.Global
             public void SetWeatherData(WeatherData getWeatherData)
             {
                 weathersData = getWeatherData;
+            }
+
+            public void SetIslandSeed(int selectedIslandSeed)
+            {
+                islandSeed = selectedIslandSeed;
             }
         }
         

@@ -1,16 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
-using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Profiling;
 using Zenject;
 using Random = System.Random;
 using Range = DG.DemiLib.Range;
@@ -22,6 +16,7 @@ namespace Content.Scripts.IslandGame
         [SerializeField] private int seed;
         [SerializeField] private IslandData[] terrains;
         [SerializeField] private TerrainBiomeSO[] biomesDatas;
+        [SerializeField] private IslandNativesData islandNativesData;
         [SerializeField] private Range temperaturesRange;
         [SerializeField] private float minGrassHeight;
 
@@ -71,7 +66,7 @@ namespace Content.Scripts.IslandGame
             this.selectionService = selectionService;
             this.saveDataObject = saveDataObject;
 
-            Init(Seed);
+            Init(saveDataObject.Global.IslandSeed);
 
             raftBuildService.OnChangeRaft += BuildNavMesh;
         }
@@ -100,17 +95,18 @@ namespace Content.Scripts.IslandGame
             var temperature = rnd.Next((int) temperaturesRange.min, (int) temperaturesRange.max) + targetTerrain.TemperatureAdd;
             var targetBiome = SelectBiome(temperature);
 
-            print(targetBiome.name + "/t:" + temperature);
 
             targetTerrain.Terrain.terrainData.terrainLayers = targetBiome.Layers;
 
-            PlaceGrass(targetTerrain, targetBiome, rnd);
+            islandNativesData.Init(seed, rnd, saveDataObject, targetBiome, prefabSpawnerFabric); 
+            
+            PlaceAll(targetTerrain, targetBiome, rnd);
 
 
             currentIslandData = targetTerrain;
         }
 
-        private void PlaceGrass(IslandData terr, TerrainBiomeSO biome, Random rnd)
+        private void PlaceAll(IslandData terr, TerrainBiomeSO biome, Random rnd)
         {
             var terrainToPopulate = terr.Terrain;
             var terrainData = terrainToPopulate.terrainData;
@@ -123,7 +119,6 @@ namespace Content.Scripts.IslandGame
             float detailHeight = terrainData.detailHeight;
 
             AddDetailsAndTreesToTerrain(biome, rnd, (int) detailWidth, terrainData);
-
             
             alphamaps = terrainData.GetAlphamaps(0, 0, terrainData.alphamapWidth, terrainData.alphamapHeight);
 
@@ -138,7 +133,8 @@ namespace Content.Scripts.IslandGame
             int grassId = 0;
 
             CollectGrassDictionary(biome, grassId);
-
+            
+            
             for (int i = 0; i < terrainData.detailPrototypes.Length; i++)
             {
                 for (int x = 0; x < detailWidth; x++)
@@ -154,32 +150,12 @@ namespace Content.Scripts.IslandGame
                         float height = 0;
                         float angle = 0;
 
-
-                        GetOrCacheData(biome, isFirstLoopEnded, terrainData, percentX, percentY, y, x, out height, out angle, out textureLayer);
-
                         details[y, x] = 0;
 
-                        if (IsCanPlaceGrass(detailData, height, textureLayer, angle))
-                        {
-                            details[y, x] = detailData.DensityScale;
-                        }
-
-
-
-                        if (!isFirstLoopEnded)
-                        {
-                            spawnedObjects[y, x] = -1;
-                            for (int j = 0; j < biome.TreesData.Count; j++)
-                            {
-                                if (IsCanPlaceGrass(biome.TreesData[j], height, textureLayer, angle))
-                                {
-                                    if (PlaceTree(terr.Terrain, biome, j, biome.TreesData[j], rnd, biome.TreesData[j].Noise.GeneratedNoise, x, y, percentX, percentY, treesInstsances, height))
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
-                        }
+                        GetOrCacheData(biome, isFirstLoopEnded, terrainData, percentX, percentY, y, x, out height, out angle, out textureLayer);
+                        PlaceGrass(detailData, height, textureLayer, angle, y, x);
+                        PlaceTrees(terr, biome, rnd, isFirstLoopEnded, y, x, height, textureLayer, angle, percentX, percentY);
+                        
                     }
                 }
 
@@ -191,6 +167,32 @@ namespace Content.Scripts.IslandGame
 
             terrainData.SetTreeInstances(treesInstsances.ToArray(), true);
 
+        }
+
+        private void PlaceTrees(IslandData terr, TerrainBiomeSO biome, Random rnd, bool isFirstLoopEnded, int y, int x, float height, TerrainLayer textureLayer, float angle, float percentX, float percentY)
+        {
+            if (!isFirstLoopEnded)
+            {
+                spawnedObjects[y, x] = -1;
+                for (int j = 0; j < biome.TreesData.Count; j++)
+                {
+                    if (IsCanPlaceGrass(biome.TreesData[j], height, textureLayer, angle))
+                    {
+                        if (PlaceTree(terr.Terrain, biome, j, biome.TreesData[j], rnd, biome.TreesData[j].Noise.GeneratedNoise, x, y, percentX, percentY, treesInstsances, height))
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void PlaceGrass(DetailsSO detailData, float height, TerrainLayer textureLayer, float angle, int y, int x)
+        {
+            if (IsCanPlaceGrass(detailData, height, textureLayer, angle))
+            {
+                details[y, x] = detailData.DensityScale;
+            }
         }
 
         private void GetOrCacheData(TerrainBiomeSO biome, bool isFirstLoopEnded, TerrainData terrainData, float percentX, float percentY, int y, int x, out float height, out float angle, out TerrainLayer textureLayer)

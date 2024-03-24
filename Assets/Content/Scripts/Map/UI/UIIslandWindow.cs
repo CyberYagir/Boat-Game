@@ -1,5 +1,6 @@
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI;
+using Content.Scripts.Global;
 using UnityEngine;
 
 namespace Content.Scripts.Map.UI
@@ -8,9 +9,11 @@ namespace Content.Scripts.Map.UI
     {
         [SerializeField] private Animator iconAnimator;
         [SerializeField] private UIMark mark;
+        private MapSelectionService mapSelectionService;
 
         public void Init(MapSelectionService selectionService)
         {
+            mapSelectionService = selectionService;
             selectionService.OnSelectIsland += SelectionServiceOnOnSelectIsland;
         }
 
@@ -38,6 +41,11 @@ namespace Content.Scripts.Map.UI
             base.OnClosed();
             
             TimeService.SetTimeRate(1f);
+        }
+
+        public void GoToIsland()
+        {
+            mapSelectionService.LoadIsland();
         }
     }
 }

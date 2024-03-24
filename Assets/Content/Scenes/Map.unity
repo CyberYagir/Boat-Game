@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 203844588}
-  m_IndirectSpecularColor: {r: 0.86885786, g: 1.708637, b: 2.0721338, a: 1}
+  m_IndirectSpecularColor: {r: 0.86527395, g: 1.707243, b: 2.1072972, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -578,9 +578,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Content.Scripts.BoatGame.UI.AnimatedWindow, Assembly-CSharp
-        m_MethodName: CloseWindow
+      - m_Target: {fileID: 356205227}
+        m_TargetAssemblyTypeName: Content.Scripts.Map.UI.UIIslandWindow, Assembly-CSharp
+        m_MethodName: GoToIsland
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

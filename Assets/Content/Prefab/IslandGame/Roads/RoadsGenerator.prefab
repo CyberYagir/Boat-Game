@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5272040257196092802
+--- !u!1 &6286625592415329840
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8508439218782077099}
-  - component: {fileID: 8407781293100930783}
-  m_Layer: 6
-  m_Name: Trap
+  - component: {fileID: 8123058546422122545}
+  - component: {fileID: 7964975415372054287}
+  m_Layer: 0
+  m_Name: RoadsGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8508439218782077099
+--- !u!4 &8123058546422122545
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5272040257196092802}
+  m_GameObject: {fileID: 6286625592415329840}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,18 +32,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8407781293100930783
+--- !u!114 &7964975415372054287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5272040257196092802}
+  m_GameObject: {fileID: 6286625592415329840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee7794f162610b34884536a9af74ce22, type: 3}
+  m_Script: {fileID: 11500000, guid: 7664dd84f94754844b90edb535f24fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 9196744927808217235, guid: 439c0d56ca751fc4393b1193528bdc64, type: 3}
-  colliders: []
-  aiBorders: []
+  roadSo: {fileID: 11400000, guid: 3a9d0e35005de2b4085ae934068aeb34, type: 2}
+  maxRoadsCount:
+    min: 2
+    max: 5
+  seed: 60
+  points: []
+  ends: []

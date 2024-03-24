@@ -1,5 +1,6 @@
 using System;
 using Content.Scripts.Boot;
+using Content.Scripts.Global;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +14,7 @@ namespace Content.Scripts.Map
 
 
         private MapIsland selectedIsland;
+        private SaveDataObject saveDataObject;
 
         public event Action<MapIsland> OnSelectIsland;
         
@@ -21,8 +23,10 @@ namespace Content.Scripts.Map
         private void Construct(
             MapSpawnerService mapSpawnerService, 
             MapIslandCollector mapIslandCollector, 
-            ScenesService scenesService)
+            ScenesService scenesService,
+            SaveDataObject saveDataObject)
         {
+            this.saveDataObject = saveDataObject;
             this.scenesService = scenesService;
             this.mapIslandCollector = mapIslandCollector;
             this.mapSpawnerService = mapSpawnerService;
@@ -52,6 +56,16 @@ namespace Content.Scripts.Map
                         OnSelectIsland?.Invoke(selectedIsland);
                     }
                 }
+            }
+        }
+
+        public void LoadIsland()
+        {
+            if (selectedIsland != null)
+            {
+                saveDataObject.Global.SetIslandSeed(selectedIsland.Seed);
+                saveDataObject.SaveFile();
+                scenesService.ChangeScene(ESceneName.IslandGame);
             }
         }
     }

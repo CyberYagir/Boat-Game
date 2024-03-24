@@ -90,7 +90,7 @@ namespace Content.Scripts.BoatGame.Services
         {
             if (buildNavMeshAfterCharacters)
             {
-                navMeshProvider.BuildNavMesh();
+                navMeshProvider.BuildNavMeshAsync();
                 print("build nav mesh");
             }
         }

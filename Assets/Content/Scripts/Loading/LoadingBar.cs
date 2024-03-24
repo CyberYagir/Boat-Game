@@ -34,6 +34,10 @@ namespace Loading
             {
                 scenesService.FadeScene(ESceneName.ManCreator);
             }
+            else if (saveData.Global.isOnIsland)
+            {
+                scenesService.FadeScene(ESceneName.IslandGame);
+            }
             else
             {
                 scenesService.FadeScene(ESceneName.BoatGame);

@@ -25,21 +25,19 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
         public List<Vector3Int> Points => points;
 
-        private void Awake()
-        {
-            SpawnNewRoad(0);
-        }
-
-        private void SpawnNewRoad(int iteration = 0)
+        public List<RoadBuilder> SpawnRoad(int iteration = 0)
         {
             count = 0;
-            var spawned = Instantiate(roadSo.GetRoadByEnum(RoadSO.ERoadsType.Start), new Vector3(0, iteration, 0), Quaternion.identity);
+            var spawned = Instantiate(roadSo.GetRoadByEnum(RoadSO.ERoadsType.Start), new Vector3(0, iteration, 0), Quaternion.identity, transform);
+            spawned.transform.localPosition = Vector3.zero;
             ends.Clear();
             Points.Clear();
             rnd = new Random(seed + iteration);
             targetCount = (int) maxRoadsCount.RandomWithin();
             Points.Add(Vector3Int.RoundToInt(spawned.transform.position));
             BuildRoad(spawned);
+
+            return ends;
         }
 
 

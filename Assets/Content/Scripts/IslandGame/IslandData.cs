@@ -68,10 +68,23 @@ namespace Content.Scripts.IslandGame
                     SpawnPoints[i].Point.position = new Vector3(SpawnPoints[i].Point.position.x, 0, SpawnPoints[i].Point.position.z);
                 }
 
-                
-                Gizmos.DrawWireSphere(SpawnPoints[i].Point.position, 0.5f); 
-                Gizmos.DrawSphere(SpawnPoints[i].LadderPoint.position, 0.5f); 
-                Gizmos.DrawLine(SpawnPoints[i].Point.position, SpawnPoints[i].LadderPoint.position); 
+
+                Gizmos.DrawWireSphere(SpawnPoints[i].Point.position, 0.5f);
+                var dist = Vector3.Distance(SpawnPoints[i].LadderPoint.position, SpawnPoints[i].Point.position);
+
+                Gizmos.DrawCube(SpawnPoints[i].Point.position, new Vector3(2, 0.2f, 2f));
+
+                if (dist >= (70 * 0.25f) * 0.9f || SpawnPoints[i].LadderPoint.position.y <= 0)
+                {
+                    Gizmos.color = Color.red;
+                }
+                else
+                {
+                    Gizmos.color = Color.white;
+                }
+
+                Gizmos.DrawSphere(SpawnPoints[i].LadderPoint.position, 0.5f);
+                Gizmos.DrawLine(SpawnPoints[i].Point.position, SpawnPoints[i].LadderPoint.position);
             }
         }
         

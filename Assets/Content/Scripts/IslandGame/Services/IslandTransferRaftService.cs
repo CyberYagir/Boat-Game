@@ -1,19 +1,16 @@
 using System;
 using System.Collections;
 using Content.Scripts.BoatGame.Services;
-using Content.Scripts.IslandGame.Services;
-using Pathfinding;
 using UnityEngine;
 using Zenject;
 using Random = System.Random;
 
-namespace Content.Scripts.IslandGame
+namespace Content.Scripts.IslandGame.Services
 {
     public class IslandTransferRaftService : MonoBehaviour
     {
         [SerializeField] private Transform raftsSpawnPoint;
         [SerializeField] private RaftLadderToIsland ladderPrefab;
-        [SerializeField] private DirectionalTrigger directionalTriggerPrefab;
 
 
 
@@ -23,10 +20,6 @@ namespace Content.Scripts.IslandGame
         private PrefabSpawnerFabric prefabSpawnerFabric;
         
         public event Action OnRaftTransferingEnding;
-
-        public DirectionalTrigger EnterRaftTrigger => enterRaftTrigger;
-
-        public DirectionalTrigger ExitRaftTrigger => exitRaftTrigger;
 
         public Vector3 RaftPoint => raftPoint;
         public Vector3 EndPoint => endPoint;
@@ -45,7 +38,9 @@ namespace Content.Scripts.IslandGame
             var spawnPoint = islandGenerator.CurrentIslandData.SpawnPoints.GetRandomItem(rnd);
 
             Physics.Raycast(spawnPoint.LadderPoint.position + Vector3.up * 100, Vector3.down, out RaycastHit hit);
-            spawnPoint.LadderPoint.position = hit.point;
+            var point = hit.point;
+            point.y = 0;
+            spawnPoint.LadderPoint.position = point;
             spawnPoint.Point.position = new Vector3(spawnPoint.Point.position.x, 0, spawnPoint.Point.position.z);
 
             raftsSpawnPoint.transform.position = spawnPoint.Point.position;
@@ -65,7 +60,7 @@ namespace Content.Scripts.IslandGame
             var id = -1;
             for (int i = 0; i < raftBuildService.SpawnedRafts.Count; i++)
             {
-                var dst = Vector3.Distance(spawnPoint.Point.position, raftBuildService.SpawnedRafts[i].transform.position);
+                var dst = Vector3.Distance(spawnPoint.LadderPoint.position, raftBuildService.SpawnedRafts[i].transform.position);
                 if (dst < minDist)
                 {
                     minDist = dst;
@@ -80,14 +75,14 @@ namespace Content.Scripts.IslandGame
                 .With(x => x.Init(raftBuildService.SpawnedRafts[id].transform.position, spawnPoint.LadderPoint.position));
 
 
-            exitRaftTrigger = prefabSpawnerFabric.SpawnItem(directionalTriggerPrefab, spawnPoint.LadderPoint.position + Vector3.up, Quaternion.LookRotation(spawnPoint.LadderPoint.position - spawnPoint.Point.position))
-                .With(x => x.transform.eulerAngles = new Vector3(0, x.transform.eulerAngles.y, 0))
-                .With(x => x.transform.name = " exit trigger");
-
-            enterRaftTrigger = prefabSpawnerFabric.SpawnItem(directionalTriggerPrefab, spawnPoint.LadderPoint.position + Vector3.up, Quaternion.LookRotation(spawnPoint.Point.position - spawnPoint.LadderPoint.position))
-                .With(x => x.transform.eulerAngles = new Vector3(0, x.transform.eulerAngles.y, 0))
-                .With(x=>x.transform.position += x.transform.forward * 2.5f)
-                .With(x => x.transform.name = " enter trigger");
+            // exitRaftTrigger = prefabSpawnerFabric.SpawnItem(directionalTriggerPrefab, spawnPoint.LadderPoint.position + Vector3.up, Quaternion.LookRotation(spawnPoint.LadderPoint.position - spawnPoint.Point.position))
+            //     .With(x => x.transform.eulerAngles = new Vector3(0, x.transform.eulerAngles.y, 0))
+            //     .With(x => x.transform.name = " exit trigger");
+            //
+            // enterRaftTrigger = prefabSpawnerFabric.SpawnItem(directionalTriggerPrefab, spawnPoint.LadderPoint.position + Vector3.up, Quaternion.LookRotation(spawnPoint.Point.position - spawnPoint.LadderPoint.position))
+            //     .With(x => x.transform.eulerAngles = new Vector3(0, x.transform.eulerAngles.y, 0))
+            //     .With(x=>x.transform.position += x.transform.forward * 2.5f)
+            //     .With(x => x.transform.name = " enter trigger");
 
             OnRaftTransferingEnding?.Invoke();
         }

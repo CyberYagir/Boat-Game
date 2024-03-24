@@ -11,11 +11,12 @@ namespace Content.Scripts.Map
         public class IslandData
         {
             [SerializeField] private int level;
-
-
-            public IslandData(int seed)
+            public IslandData(Vector2Int pos)
             {
-                var rnd = new Random(seed);
+                Random rnd = new Random(Mathf.FloorToInt(Mathf.Pow((float) pos.x + pos.y, 2) / 125f));
+                var seed = rnd.Next(-100000, 100000);
+
+                rnd = new Random(seed);
                 level = rnd.Next(1, 10);
             }
 
@@ -31,12 +32,12 @@ namespace Content.Scripts.Map
 
         public IslandData GeneratedData => islandData;
 
-        public void Init()
-        {
-            Random rnd = new Random(Mathf.FloorToInt(Mathf.Pow(transform.position.x + transform.position.z, 2) / 125f));
-            seed = rnd.Next(-100000, 100000);
+        public int Seed => seed;
 
-            islandData = new IslandData(seed);
+        public void Init(Vector2Int pos, int seed)
+        {
+            this.seed = seed;
+            islandData = new IslandData(pos);
         }
     }
 }

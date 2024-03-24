@@ -42,7 +42,7 @@ namespace Content.Scripts.Map
                     .With(x => x.Renderer.material.SetTexture(MainTex, textures.GetRandomItem(random)))
                     .With(x => x.transform.SetYEulerAngles(random.Next(0, 360)))
                     .With(x => Islands.Add(x))
-                    .With(x => x.Init());
+                    .With(x => x.Init(il.IslandPos, il.IslandSeed));
             }
 
             var worldRandom = new System.Random(saveData.Map.WorldSeed);
