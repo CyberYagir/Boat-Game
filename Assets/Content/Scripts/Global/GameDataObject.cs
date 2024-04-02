@@ -3,6 +3,7 @@ using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
+using Content.Scripts.IslandGame.WorldStructures;
 using Content.Scripts.ItemsSystem;
 using Content.Scripts.Map;
 using Content.Scripts.SkillsSystem;
@@ -32,7 +33,9 @@ namespace Content.Scripts.Global
         [SerializeField] private List<ItemObject> items;
         [SerializeField] private List<int> levelXps;
         [SerializeField] private List<MapPathObject> mapPaths;
-
+        [SerializeField] private List<RandomStructureMaterialsBase.MatsByBiome> structuresMaterials;
+        [SerializeField] private List<RandomStructureMaterialsBase.MatsByBiome> structuresRoofMaterials;
+        
         public List<Material> SkinColors => skinColors;
 
         public List<SkillObject> SkillsList => skillsList;
@@ -46,6 +49,10 @@ namespace Content.Scripts.Global
         public List<MapPathObject> MapPaths => mapPaths;
 
         public ActionsDataSO ActionsData => actionsData;
+
+        public List<RandomStructureMaterialsBase.MatsByBiome> StructuresMaterials => structuresMaterials;
+        public List<RandomStructureMaterialsBase.MatsByBiome> StructuresRoofMaterials => structuresRoofMaterials;
+        
 
 
         public ItemObject GetItem(string id)

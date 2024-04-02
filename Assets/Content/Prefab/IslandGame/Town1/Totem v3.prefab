@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 8636192647526464904}
   - component: {fileID: 4373380174879403011}
   - component: {fileID: 3987626107958936654}
+  - component: {fileID: 6821732232641858094}
   m_Layer: 0
-  m_Name: Mball.004
+  m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6821732232641858094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990041698292867863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49528ae8acc34b67a2f464f8d3f83bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  structures: []
+  randomVisuals: []
 --- !u!1 &3166169565980198766
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +144,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49528ae8acc34b67a2f464f8d3f83bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  structures:
+  - biome: {fileID: 11400000, guid: a7153a792b45e924090d277d33f05d5b, type: 2}
+    structures:
+    - structure: {fileID: 6821732232641858094}
+      weight: 0
+  - biome: {fileID: 11400000, guid: d2e198e62bb93e940bd50a61de3f55dc, type: 2}
+    structures:
+    - structure: {fileID: 6821732232641858094}
+      weight: 0
+  randomVisuals: []
 --- !u!1 &4823394446393639158
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +165,7 @@ GameObject:
   - component: {fileID: 1042782257599518305}
   - component: {fileID: 8746790037684690392}
   - component: {fileID: 3029790326931492481}
+  - component: {fileID: 6343584783997497608}
   m_Layer: 0
   m_Name: lp.obj
   m_TagString: Untagged
@@ -212,3 +238,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6343584783997497608
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823394446393639158}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.029631998, y: 0.024083238, z: 0.057051595}
+  m_Center: {x: -0.000005508773, y: -0.0042483523, z: 0.027288636}

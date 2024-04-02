@@ -400,6 +400,26 @@ namespace Content.Scripts
 
             return probs.Count - 1;
         }
+        
+        public static int ChooseRandomIndexFromWeights(this List<float> probs, System.Random rnd)
+        {
+            float total = 0;
+
+            for (int i = 0; i < probs.Count; i++)
+                total += probs[i];
+
+            float randomPoint = (float)rnd.NextDouble() * total;
+
+            for (int i = 0; i < probs.Count; i++)
+            {
+                if (randomPoint < probs[i] && randomPoint >= 0)
+                    return i;
+
+                randomPoint -= probs[i];
+            }
+
+            return probs.Count - 1;
+        }
 
         public static void RecalculateWeights(this List<float> weights) // общая сумма весов = 1
         {

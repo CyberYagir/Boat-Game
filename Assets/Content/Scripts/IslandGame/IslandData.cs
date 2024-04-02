@@ -26,6 +26,10 @@ namespace Content.Scripts.IslandGame
         [SerializeField] private Terrain terrain;
         [SerializeField] private int temperatureAdd;
         [SerializeField] private List<SpawnPoint> spawnPoints;
+
+        [SerializeField] private Vector3 size;
+        [SerializeField] private Vector3 offcet;
+        
         public int TemperatureAdd => temperatureAdd;
 
         public Terrain Terrain => terrain;
@@ -57,8 +61,20 @@ namespace Content.Scripts.IslandGame
             terrain.terrainData.SetDetailResolution(512, 64);
         }
 
+        public Bounds GetBounds()
+        {
+            var pos = transform.position + offcet;
+            pos.y = 0;
+            size.y = 500;
+            
+            return new Bounds(pos, size);
+        }
+
         private void OnDrawGizmos()
         {
+            Gizmos.color = Color.red * new Color(1, 1, 1, 0.2f);
+            Gizmos.DrawCube(GetBounds().center, GetBounds().size);
+            
             for (int i = 0; i < SpawnPoints.Count; i++)
             {
                 if (!Application.isPlaying)
@@ -87,6 +103,8 @@ namespace Content.Scripts.IslandGame
                 Gizmos.DrawLine(SpawnPoints[i].Point.position, SpawnPoints[i].LadderPoint.position);
             }
         }
+        
+        
         
     }
 }

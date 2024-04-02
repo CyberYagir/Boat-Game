@@ -25,19 +25,21 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
         public List<Vector3Int> Points => points;
 
+        public List<RoadBuilder> Ends => ends;
+
         public List<RoadBuilder> SpawnRoad(int iteration = 0)
         {
             count = 0;
             var spawned = Instantiate(roadSo.GetRoadByEnum(RoadSO.ERoadsType.Start), new Vector3(0, iteration, 0), Quaternion.identity, transform);
             spawned.transform.localPosition = Vector3.zero;
-            ends.Clear();
+            Ends.Clear();
             Points.Clear();
             rnd = new Random(seed + iteration);
-            targetCount = (int) maxRoadsCount.RandomWithin();
+            targetCount = (int) Mathf.Lerp(maxRoadsCount.min, maxRoadsCount.max, (int)rnd.NextDouble());
             Points.Add(Vector3Int.RoundToInt(spawned.transform.position));
             BuildRoad(spawned);
 
-            return ends;
+            return Ends;
         }
 
 
@@ -101,7 +103,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
             {
                 Points.Add(r);
             }
-            ends.Add(item);
+            Ends.Add(item);
         }
     }
 }

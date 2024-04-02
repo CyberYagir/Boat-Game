@@ -151,6 +151,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49528ae8acc34b67a2f464f8d3f83bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  structures:
+  - biome: {fileID: 11400000, guid: a7153a792b45e924090d277d33f05d5b, type: 2}
+    structures:
+    - structure: {fileID: 7950597717384791259}
+      weight: 0
+  - biome: {fileID: 11400000, guid: d2e198e62bb93e940bd50a61de3f55dc, type: 2}
+    structures:
+    - structure: {fileID: 7950597717384791259}
+      weight: 0
+  randomVisuals: []
 --- !u!1 &6434981939121063816
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,8 +172,9 @@ GameObject:
   - component: {fileID: 5874977885684654631}
   - component: {fileID: 2870033042142975341}
   - component: {fileID: 1397147709901660513}
+  - component: {fileID: 7950597717384791259}
   m_Layer: 0
-  m_Name: Mball.013
+  m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,3 +245,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7950597717384791259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6434981939121063816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49528ae8acc34b67a2f464f8d3f83bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  structures: []
+  randomVisuals: []

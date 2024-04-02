@@ -25,16 +25,16 @@ namespace Content.Scripts.BoatGame.Services
         }
         
         
-        public T SpawnItemOnGround<T>(T prefab, Vector3 pos = default, Quaternion rot = default, Transform parent = null) where T : Object
+        public T SpawnItemOnGround<T>(T prefab, Vector3 pos = default, Quaternion rot = default, Transform parent = null, int layer = ~0, float yOffcet = 1) where T : Object
         {
             Vector3 spawnPos = pos;
-            if (Physics.Raycast(pos + Vector3.up * 100, Vector3.down, out RaycastHit hit))
+            if (Physics.Raycast(pos + Vector3.up * 100, Vector3.down, out RaycastHit hit, Mathf.Infinity, layer, QueryTriggerInteraction.Ignore))
             {
-                spawnPos = hit.point + Vector3.up;
+                spawnPos = hit.point + Vector3.up * yOffcet;
             }
 
             var item = SpawnItem<T>(prefab, spawnPos, rot, parent);
-
+            
             return item;
         }
     }
