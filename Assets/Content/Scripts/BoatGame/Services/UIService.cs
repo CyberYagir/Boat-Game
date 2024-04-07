@@ -23,6 +23,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UICharacterWindow characterWindow;
         [SerializeField] private UIMessageBoxManager messageBoxManager;
         [SerializeField] private UIDeathWindow deathWindow;
+        [SerializeField] private UICharactersList charactersList;
         [SerializeField] private List<ResourcesCounter> counter;
         
         private PlayerCharacter targetCharacter;
@@ -60,7 +61,7 @@ namespace Content.Scripts.BoatGame.Services
             craftsWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
             craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
             characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager);
-                
+            charactersList?.Init(characterService, tickService, selectionService);
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
 
             resourcesService.OnChangeResources += OnChangeResources;

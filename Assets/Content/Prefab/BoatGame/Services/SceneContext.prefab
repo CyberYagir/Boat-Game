@@ -422,6 +422,10 @@ PrefabInstance:
       value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 1480648171187000261, guid: 826fe69cbac500c4e81db85f2223fe9f, type: 3}
+      propertyPath: itemsList.Array.data[1].weight
+      value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480648171187000261, guid: 826fe69cbac500c4e81db85f2223fe9f, type: 3}
       propertyPath: itemsList.Array.data[3].weight
       value: 70
       objectReference: {fileID: 0}
@@ -1109,6 +1113,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3163427618692537316, guid: 9f98094e06d5515498e17e14e27c9fea, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163427618692537316, guid: 9f98094e06d5515498e17e14e27c9fea, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4103079767973029923, guid: 9f98094e06d5515498e17e14e27c9fea, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -1231,11 +1243,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5397324831690503282, guid: 9f98094e06d5515498e17e14e27c9fea, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1418.9161
+      value: 1418.6862
       objectReference: {fileID: 0}
     - target: {fileID: 5397324831690503282, guid: 9f98094e06d5515498e17e14e27c9fea, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 709.45807
+      value: 709.3431
       objectReference: {fileID: 0}
     - target: {fileID: 5397324832231401964, guid: 9f98094e06d5515498e17e14e27c9fea, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1265,6 +1277,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6944678837257634250, guid: 9f98094e06d5515498e17e14e27c9fea, type: 3}
+      propertyPath: charactersList
+      value: 
+      objectReference: {fileID: 2951610812275030847}
     - target: {fileID: 6967618186724011627, guid: 9f98094e06d5515498e17e14e27c9fea, type: 3}
       propertyPath: m_Name
       value: UIService
@@ -1330,6 +1346,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f98094e06d5515498e17e14e27c9fea, type: 3}
+--- !u!114 &2951610812275030847 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8157464460345118417, guid: 9f98094e06d5515498e17e14e27c9fea, type: 3}
+  m_PrefabInstance: {fileID: 6468040779492521454}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30bab9c08ac1e746a9c365ae63674b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4153282348522042404 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6944678837257634250, guid: 9f98094e06d5515498e17e14e27c9fea, type: 3}

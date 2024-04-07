@@ -48,7 +48,6 @@ namespace Content.Scripts.BoatGame
 
         public PrefabSpawnerFabric SpawnerFabric => prefabSpawnerFabric;
 
-
         public Action OnChangeState;
 
 

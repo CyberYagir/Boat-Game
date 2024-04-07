@@ -46,6 +46,8 @@ namespace Content.Scripts.BoatGame.Services
 
             public List<Skill> SkillsList => skills;
 
+            public event Action OnLevelUp;
+
             public void RemoveScore()
             {
                 scores--;
@@ -56,6 +58,7 @@ namespace Content.Scripts.BoatGame.Services
                 xp = 0;
                 level++;
                 scores++;
+                OnLevelUp?.Invoke();
             }
 
             public void AddXp(int exp)

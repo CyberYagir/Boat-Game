@@ -68,6 +68,7 @@ namespace Content.Scripts.IslandGame
             this.selectionService = selectionService;
             this.saveDataObject = saveDataObject;
 
+            seed = saveDataObject.Global.IslandSeed;
             Init(saveDataObject.Global.IslandSeed);
 
             raftBuildService.OnChangeRaft += BuildNavMesh;
@@ -160,6 +161,11 @@ namespace Content.Scripts.IslandGame
                     ids.RemoveAt(0);
                     n++;
                 }
+
+                for (int i = 0; i < spawnedTerrainObjects.Count; i++)
+                {
+                    spawnedTerrainObjects[i].ChangeInstanceID(i);
+                }
             }
         }
 
@@ -188,7 +194,8 @@ namespace Content.Scripts.IslandGame
 
             bool isFirstLoopEnded = false;
             int grassId = 0;
-
+            var islandData = saveDataObject.Map.GetIslandData(Seed);
+            print(islandData);
             CollectGrassDictionary(biome, grassId);
             
             
@@ -211,7 +218,7 @@ namespace Content.Scripts.IslandGame
 
                         GetOrCacheData(biome, isFirstLoopEnded, terrainData, percentX, percentY, y, x, out height, out angle, out textureLayer);
                         PlaceGrass(detailData, height, textureLayer, angle, y, x);
-                        PlaceTrees(terr, biome, rnd, isFirstLoopEnded, y, x, height, textureLayer, angle, percentX, percentY);
+                        PlaceTrees(terr, biome, rnd, isFirstLoopEnded, y, x, height, textureLayer, angle, percentX, percentY, islandData);
                         
                     }
                 }
@@ -225,7 +232,7 @@ namespace Content.Scripts.IslandGame
 
         }
 
-        private void PlaceTrees(IslandData terr, TerrainBiomeSO biome, Random rnd, bool isFirstLoopEnded, int y, int x, float height, TerrainLayer textureLayer, float angle, float percentX, float percentY)
+        private void PlaceTrees(IslandData terr, TerrainBiomeSO biome, Random rnd, bool isFirstLoopEnded, int y, int x, float height, TerrainLayer textureLayer, float angle, float percentX, float percentY, SaveDataObject.MapData.IslandData islandData)
         {
             if (!isFirstLoopEnded)
             {
@@ -234,7 +241,7 @@ namespace Content.Scripts.IslandGame
                 {
                     if (IsCanPlaceGrass(biome.TreesData[j], height, textureLayer, angle))
                     {
-                        if (PlaceTree(terr.Terrain, biome, j, biome.TreesData[j], rnd, biome.TreesData[j].Noise.GeneratedNoise, x, y, percentX, percentY, treesInstsances, height))
+                        if (PlaceTree(terr.Terrain, biome, j, biome.TreesData[j], rnd, biome.TreesData[j].Noise.GeneratedNoise, x, y, percentX, percentY, treesInstsances, height, islandData))
                         {
                             break;
                         }
@@ -306,10 +313,10 @@ namespace Content.Scripts.IslandGame
             terrainData.RefreshPrototypes();
         }
 
-        private bool PlaceTree(Terrain terrain, TerrainBiomeSO biome, int objectIndex, TreesSO treesSO, Random rnd, float[,] noise, int x, int y, float percentX, float percentY, List<TreeInstance> treesInstsances, float height)
+        private bool PlaceTree(Terrain terrain, TerrainBiomeSO biome, int objectIndex, TreesSO treesSO, Random rnd, float[,] noise, int x, int y, float percentX, float percentY, List<TreeInstance> treesInstsances, float height, SaveDataObject.MapData.IslandData islandData)
         {
             if (!treesSO.Noise.IsInRange(noise[x, y]) || !treesSO.IsDensityOk(rnd)) return false;
-
+            var intPos = new Vector2Int(x, y);
 
 
             var pos = new Vector3(percentX, 0.5f, percentY);
@@ -323,7 +330,7 @@ namespace Content.Scripts.IslandGame
             var targetBiomeItem = rnd.Next(1, treesSO.Count - 1);
             itemID += targetBiomeItem;
 
-            treesInstsances.Add(new TreeInstance()
+            var tree = new TreeInstance()
             {
                 color = Color.white,
                 position = pos,
@@ -332,26 +339,33 @@ namespace Content.Scripts.IslandGame
                 widthScale = scale,
                 rotation = rnd.Next(0, 360),
                 lightmapColor = Color.white
-            });
+            };
 
-            var treeData = treesSO.GetObjectByID(targetBiomeItem).GetComponent<TreeData>();
-            if (treeData != null)
+            if (!islandData.IsTreeDestroyed(intPos))
             {
-                Instantiate(terrainObjectIndicator, terrain.transform.position + new Vector3(percentX * terrain.terrainData.size.x, height, percentY * terrain.terrainData.size.z), Quaternion.identity)
-                    .With(z => z.transform.localScale *= scale)
-                    .With(z => spawnedTerrainObjects.Add(z))
-                    .With(z => z.Init(
-                        treesInstsances.Count - 1,
-                        treeData,
-                        selectionService,
-                        gameDataObject,
-                        prefabSpawnerFabric,
-                        this))
-                    .With(z => z.transform.parent = transform);
-            }
-            else
-            {
-                spawnedTerrainObjects.Add(null);
+                treesInstsances.Add(tree);
+
+                var treeData = treesSO.GetObjectByID(targetBiomeItem).GetComponent<TreeData>();
+                if (treeData != null)
+                {
+                    Instantiate(terrainObjectIndicator, terrain.transform.position + new Vector3(percentX * terrain.terrainData.size.x, height, percentY * terrain.terrainData.size.z), Quaternion.identity)
+                        .With(z => z.transform.localScale *= scale)
+                        .With(z => spawnedTerrainObjects.Add(z))
+                        .With(z => z.Init(
+                            treesInstsances.Count - 1,
+                            treeData,
+                            selectionService,
+                            gameDataObject,
+                            prefabSpawnerFabric,
+                            this,
+                            intPos
+                        ))
+                        .With(z => z.transform.parent = transform);
+                }
+                else
+                {
+                    spawnedTerrainObjects.Add(null);
+                }
             }
 
             spawnedObjects[y, x] = itemID;
@@ -429,6 +443,12 @@ namespace Content.Scripts.IslandGame
 
             return instance;
         }
+        
+        public void RemoveTreeToSave(Vector2Int pos)
+        {
+            var island = saveDataObject.Map.GetIslandData(Seed);
+            island.AddDestroyedTreePos(pos);
+        }
 
         private void OnDrawGizmos()
         {
@@ -439,5 +459,7 @@ namespace Content.Scripts.IslandGame
         {
             return angles[y, x];
         }
+
+    
     }
 }

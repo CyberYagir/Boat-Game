@@ -19,6 +19,7 @@ namespace Content.Scripts.BoatGame.Services
         public List<PlayerCharacter> SpawnedCharacters => spawnedCharacters;
 
         public event Action OnCharactersChange;
+        public event Action<PlayerCharacter> OnCharactersFocus;
 
         [Inject]
         private void Construct(
@@ -101,6 +102,11 @@ namespace Content.Scripts.BoatGame.Services
             {
                 sp.Character.SetParameters(sp.NeedManager.GetParameters());
             }
+        }
+
+        public void FocusTo(PlayerCharacter targetCharacter)
+        {
+            OnCharactersFocus?.Invoke(targetCharacter);
         }
     }
 }

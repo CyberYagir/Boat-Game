@@ -8,11 +8,11 @@ namespace Content.Scripts.BoatGame.Characters.States
 {
     public class CharActionChopTree : CharActionBase
     {
-        [SerializeField] private GameObject axe;
+        [SerializeField] private GameObject handTool;
         [SerializeField] private float damage;
         [SerializeField] private SkillObject damageSkill;
         
-        private GameObject spawnedAxe;
+        protected GameObject spawnedAxe;
         private bool isMoveEnded;
 
         private TerrainObject selectedTree;
@@ -55,19 +55,34 @@ namespace Content.Scripts.BoatGame.Characters.States
         protected override void OnMoveEnded()
         {
             Agent.SetStopped(true);
-            spawnedAxe = Instantiate(axe, Machine.AnimationManager.RightHand);
-            Machine.AnimationManager.TriggerChopTree();
+            spawnedAxe = Instantiate(handTool, Machine.AnimationManager.RightHand);
+            StartAnimation();
             isMoveEnded = true;
             Machine.transform.DOLookAt(new Vector3(selectedTree.transform.position.x, Machine.transform.position.y, selectedTree.transform.position.z), 0.2f);
-            Machine.AnimationManager.AnimationEvents.OnChop += Damage;
+            AddAnimationEvent();
         }
 
+        protected virtual void AddAnimationEvent()
+        {
+            Machine.AnimationManager.AnimationEvents.OnChop += Damage;
+        }
+        protected virtual void RemoveAnimationEvent()
+        {
+            Machine.AnimationManager.AnimationEvents.OnChop -= Damage;
+        }
+        
+        protected virtual void StartAnimation()
+        {
+            Machine.AnimationManager.TriggerChopTree();
+        }
+        
+   
         private void Damage()
         {
             if (selectedTree != null)
             {
                 selectedTree.Damage(damage * Machine.Character.GetSkillMultiply(damageSkill.SkillID), Machine.transform);
-
+                OnDamage();
                 if (selectedTree.IsDead)
                 {
                     EndState();
@@ -76,6 +91,11 @@ namespace Content.Scripts.BoatGame.Characters.States
             }
             
             EndState();
+        }
+
+        protected virtual void OnDamage()
+        {
+            
         }
 
 
@@ -89,9 +109,9 @@ namespace Content.Scripts.BoatGame.Characters.States
             {
                 Destroy(spawnedAxe.gameObject);
             }
-            
-            
-            Machine.AnimationManager.AnimationEvents.OnChop -= Damage;
+            RemoveAnimationEvent();
         }
+
+
     }
 }

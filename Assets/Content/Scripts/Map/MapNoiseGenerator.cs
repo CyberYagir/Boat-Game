@@ -57,7 +57,6 @@ namespace Content.Scripts.Map
 
             List<SaveDataObject.MapData.IslandData> list = new List<SaveDataObject.MapData.IslandData>();
 
-            
             for (int x = 0; x < scale; x++)
             {
                 for (int y = 0; y < scale; y++)
@@ -77,7 +76,8 @@ namespace Content.Scripts.Map
 
                     if (value >= cutout)
                     {
-                        if (mapPath.TexturePath.GetPixel(x, y).a == 0)
+                        Color col = mapPath.TexturePath.GetPixel(x, y);
+                        if (col.a == 0)
                         {
                             list.Add(new SaveDataObject.MapData.IslandData(new Vector2Int(x, y), seed + x + y + list.Count));
                         }

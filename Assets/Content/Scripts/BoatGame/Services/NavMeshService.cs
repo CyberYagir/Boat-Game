@@ -1,19 +1,22 @@
 using System.Collections;
 using UnityEngine;
 using Pathfinding;
+
 namespace Content.Scripts.BoatGame.Services
 {
     public interface INavMeshProvider
     {
         public void BuildNavMesh();
         public void BuildNavMeshAsync();
-        
+
         public void BuildNavMeshAsync(int id);
         NavGraph GetNavMeshByID(int i);
     }
+
     public class NavMeshService : MonoBehaviour, INavMeshProvider
     {
         [SerializeField] private AstarPath navMesh;
+
         public void BuildNavMesh()
         {
             StartCoroutine(RebuildSkipFrame());
@@ -39,22 +42,34 @@ namespace Content.Scripts.BoatGame.Services
             yield return null;
             navMesh.Scan();
         }
-        
+
+        private bool isInProgress = false;
+
         IEnumerator ScanAsync()
         {
-            yield return null;
-            foreach (Progress progress in navMesh.ScanAsync())
+            if (!isInProgress)
             {
+                isInProgress = true;
                 yield return null;
+                foreach (Progress progress in navMesh.ScanAsync())
+                {
+                    yield return null;
+                }
+                isInProgress = false;
             }
         }
-        
+
         IEnumerator ScanAsync(NavGraph navGraph)
         {
-            yield return null;
-            foreach (Progress progress in navMesh.ScanAsync(navGraph))
+            if (!isInProgress)
             {
+                isInProgress = true;
                 yield return null;
+                foreach (Progress progress in navMesh.ScanAsync(navGraph))
+                {
+                    yield return null;
+                }
+                isInProgress = false;
             }
         }
     }

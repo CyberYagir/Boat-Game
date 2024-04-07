@@ -1,5 +1,7 @@
 using System;
+using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
+using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
@@ -18,9 +20,30 @@ namespace Content.Scripts.IslandGame.Services
 
         private float zoom = 0.2f;
         private Vector3 cameraPosition;
+
+        private bool zoomWait;
         
+        [Inject]
+        private void Construct(CharacterService characterService)
+        {
+            characterService.OnCharactersFocus += OnFocusCharacter; 
+        }
+
+        private void OnFocusCharacter(PlayerCharacter obj)
+        {
+            if (zoomWait) return;
+            if (cameraPosition.ToDistance(obj.transform.position) < 5) return;
+            
+            zoomWait = true;
+
+            cameraPosition = obj.transform.position;
+            cameraTransform.transform.DOMove(obj.transform.position + offcet, 1f)
+                .onComplete += () => zoomWait = false;
+        }
+
         private void LateUpdate()
         {
+            if (zoomWait) return;
             if (InputService.IsRMBPressed)
             {
                 var dir = -InputService.MouseAxis;

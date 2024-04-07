@@ -29,6 +29,7 @@ namespace Content.Scripts.BoatGame
             [SerializeField] private GameObject selectedCircle;
             [SerializeField] private HatsHolder hatsHolder;
             [SerializeField] private ParticleSystem inWaterRippleParticlePrefab;
+            [SerializeField] private ParticleSystem levelUpParticlesPrefab;
             [SerializeField] private List<Transform> bones;
 
 
@@ -52,7 +53,10 @@ namespace Content.Scripts.BoatGame
 
                 character.Equipment.OnEquipmentChange -= OnEquipmentChange;
                 character.Equipment.OnEquipmentChange += OnEquipmentChange;
-
+                
+                character.SkillData.OnLevelUp -= SkillDataOnOnLevelUp;
+                character.SkillData.OnLevelUp += SkillDataOnOnLevelUp;
+                
                 if (bonesMap.Count == 0)
                 {
                     var names = Enum.GetNames(typeof(EBones));
@@ -63,6 +67,11 @@ namespace Content.Scripts.BoatGame
                 }
                 
                 OnEquipmentChange();
+            }
+
+            private void SkillDataOnOnLevelUp()
+            {
+                levelUpParticlesPrefab.Play(true);
             }
 
             private void OnEquipmentChange()

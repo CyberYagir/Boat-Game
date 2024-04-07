@@ -26,6 +26,7 @@ namespace Content.Scripts.BoatGame
             private static readonly int TG_Attack = Animator.StringToHash("TG_Attack");
             private static readonly int TG_ChopTree = Animator.StringToHash("TG_TreeChop");
             private static readonly int TG_Pickup = Animator.StringToHash("TG_Pickup");
+            private static readonly int TG_Mine = Animator.StringToHash("TG_Mining");
             private static readonly int HugFish = Animator.StringToHash("HugFish");
 
             
@@ -110,6 +111,7 @@ namespace Content.Scripts.BoatGame
                 animator.ResetTrigger(TG_Attack);
                 animator.ResetTrigger(TG_ChopTree);
                 animator.ResetTrigger(TG_Pickup);
+                animator.ResetTrigger(TG_Mine);
                 
                 
                 isAttackTriggerActived = false;
@@ -163,6 +165,11 @@ namespace Content.Scripts.BoatGame
             {
                 ResetAllTriggers();
                 animator.SetTrigger(TG_Pickup);
+            }
+            public void TriggerMineAnim()
+            {
+                ResetAllTriggers();
+                animator.SetTrigger(TG_Mine);
             }
 
             private bool isAttackTriggerActived = false;

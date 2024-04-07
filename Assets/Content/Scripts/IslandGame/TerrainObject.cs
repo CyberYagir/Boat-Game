@@ -1,4 +1,3 @@
-using System;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
@@ -19,29 +18,35 @@ namespace Content.Scripts.IslandGame
         
         [SerializeField, ReadOnly] private float targetHealth;
 
-        private TreeData respawnedMesh = null;
-        
-        public bool IsDead => targetHealth <= 0;
-        
+
+
+
+        private float instanceSize;
         private IslandGenerator islandGenerator;
         private int treesInstsancesCount;
-        private SelectionService selectionService;
-        private GameDataObject gameDataObject;
         private PrefabSpawnerFabric prefabSpawnerFabric;
+        private TreeData respawnedMesh = null;
+        private Vector2Int pos;
+
+
+        public bool IsDead => targetHealth <= 0;
+        private bool withFallAnimation => original.WithFallAnimation;
+        public Vector2Int Pos => pos;
 
         public void Init(int instanceID,
             TreeData original,
             SelectionService selectionService,
             GameDataObject gameDataObject,
             PrefabSpawnerFabric prefabSpawnerFabric,
-            IslandGenerator islandGenerator)
+            IslandGenerator islandGenerator,
+            Vector2Int pos)
         {
+            this.pos = pos;
             this.prefabSpawnerFabric = prefabSpawnerFabric;
-            this.gameDataObject = gameDataObject;
-            this.selectionService = selectionService;
             this.treesInstsancesCount = instanceID;
             this.islandGenerator = islandGenerator;
             this.original = original;
+            
             transform.name = "Tree Instance #" + instanceID;
 
             targetHealth = original.HealthRange.RandomWithin();
@@ -61,7 +66,9 @@ namespace Content.Scripts.IslandGame
             
             targetHealth -= damage;
 
-            respawnedMesh.transform.DOPunchScale(Vector3.one * 0.1f, 0.2f);
+            respawnedMesh.transform
+                .DOPunchScale(original.transform.localScale * 0.1f, 0.2f)
+                .SetLink(respawnedMesh.gameObject);
             
             if (targetHealth <= 0)
             {
@@ -72,31 +79,45 @@ namespace Content.Scripts.IslandGame
         
         public void DestroyFromTerrain(Transform damager)
         {
-            var treeHolder = new GameObject("Falled " + original.name);
-            treeHolder.transform.position = respawnedMesh.transform.position;
-            treeHolder.transform.forward = (new Vector3(damager.transform.position.x, treeHolder.transform.position.y, damager.transform.position.z) - treeHolder.transform.transform.position);
-            
-            respawnedMesh.transform.parent = treeHolder.transform;
+            if (withFallAnimation)
+            {
+                var treeHolder = new GameObject("Falled " + original.name);
+                treeHolder.transform.position = respawnedMesh.transform.position;
+                treeHolder.transform.forward = (new Vector3(damager.transform.position.x, treeHolder.transform.position.y, damager.transform.position.z) - treeHolder.transform.transform.position);
 
-            treeHolder.transform.DORotateQuaternion(Quaternion.Euler(treeHolder.transform.right * -90), 5).SetEase(Ease.InQuart).onComplete += OnFallEnded;
+                respawnedMesh.transform.parent = treeHolder.transform;
 
+                treeHolder.transform
+                    .DORotateQuaternion(Quaternion.Euler(treeHolder.transform.right * -90), 5)
+                    .SetEase(Ease.InQuart)
+                    .SetLink(treeHolder)
+                    .onComplete += OnFallEnded;
+
+            }
+            else
+            {
+                OnFallEnded();
+            }
         }
 
         private void OnFallEnded()
         {
-            DOVirtual.DelayedCall(1f, delegate
+            var wait = withFallAnimation ? 1f : 0.1f;
+            DOVirtual.DelayedCall(wait, delegate
             {
                 var particle = Instantiate(dissolveParticles, respawnedMesh.transform.position, respawnedMesh.transform.rotation)
-                    .With(x => x.transform.localScale = respawnedMesh.transform.localScale)
+                    .With(x => x.transform.localScale = Vector3.one * instanceSize)
                     .With(x => x.Init(respawnedMesh.GetComponentInChildren<MeshFilter>().sharedMesh));
 
                 DropItems();
 
                 particle.DestroyAfter(2);
-                
+
+            }).onComplete += delegate
+            {
                 Destroy(respawnedMesh.gameObject);
                 Destroy(gameObject);
-            });
+            };
         }
 
         public void DropItems()
@@ -106,6 +127,10 @@ namespace Content.Scripts.IslandGame
 
             prefabSpawnerFabric.SpawnItemOnGround(original.DropItem, randomBoundsPoint, Quaternion.Euler(Random.insideUnitSphere), null)
                 .With(x => x.Animate());
+            
+            
+            
+            islandGenerator.RemoveTreeToSave(pos);
         }
 
 
@@ -113,7 +138,7 @@ namespace Content.Scripts.IslandGame
         {
             if (respawnedMesh != null) return;
             
-            var instance = islandGenerator.RemoveTree(treesInstsancesCount, out float size);
+            var instance = islandGenerator.RemoveTree(treesInstsancesCount, out instanceSize);
             var terrSize = islandGenerator.CurrentIslandData.Terrain.terrainData.size;
 
             var pos = islandGenerator.CurrentIslandData.Terrain.transform.position + terrSize.MultiplyVector3(instance.position);
@@ -122,7 +147,12 @@ namespace Content.Scripts.IslandGame
                     pos,
                     Quaternion.AngleAxis(instance.rotation * Mathf.Rad2Deg, Vector3.up),
                     null)
-                .With(x => x.transform.localScale = Vector3.one * size);
+                .With(x => x.transform.localScale = original.transform.localScale * instanceSize);
+        }
+
+        public void ChangeInstanceID(int i)
+        {
+            treesInstsancesCount = i;
         }
     }
 }

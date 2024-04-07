@@ -14,16 +14,24 @@ namespace Content.Scripts.BoatGame
         [System.Serializable]
         public class NeedsManager
         {
+            
+            public const int minimalScores = 40;
+            public const int regenScores = 40;
             [System.Serializable]
             public class PopUp
             {
                 [SerializeField] private Transform needPopup;
                 [SerializeField] private Image image;
                 [SerializeField] private Sprite eat, water, skull;
+                
+                
+                
                 private Transform parent;
                 private Vector3 needPopupPoint;
 
-
+                public bool isActive => needPopup.gameObject.active;
+                
+                
                 public void Init()
                 {
                     parent = needPopup.parent;
@@ -52,24 +60,26 @@ namespace Content.Scripts.BoatGame
                     needPopup.gameObject.SetActive(state);
                     if (state)
                     {
-                        if (hunger < 40 && thirsty < 40)
-                        {
-                            image.sprite = skull;
-                            return;
-                        }
-
-                        if (hunger < 40)
-                        {
-                            image.sprite = eat;
-                            return;
-                        }
-
-                        if (thirsty < 40)
-                        {
-                            image.sprite = water;
-                            return;
-                        }
+                        image.sprite = GetSprite(thirsty, hunger);
                     }
+                }
+
+                public Sprite GetSprite(float thirsty, float hunger)
+                {
+                    if (hunger < minimalScores && thirsty < minimalScores || (hunger <= 0 || thirsty <= 0))
+                    {
+                        return skull;
+                    }
+                    if (hunger < minimalScores)
+                    {
+                        return eat;
+                    }
+                    if (thirsty < minimalScores)
+                    {
+                        return water;
+                    }
+
+                    return null;
                 }
             }
 
@@ -142,13 +152,13 @@ namespace Content.Scripts.BoatGame
                 hunger -= (delta * currentModifiers.Hunger * vitalityModify);
                 thirsty -= (delta * currentModifiers.Thirsty * vitalityModify);
 
-                popUp.ShowNeedPopup(Hunger < 40 || Thirsty < 40, Thirsty, Hunger);
+                popUp.ShowNeedPopup(Hunger < minimalScores || Thirsty < minimalScores, Thirsty, Hunger);
             }
 
             private void CalculateHealth(float delta, float vitalityModify)
             {
                 
-                if (Thirsty > 60 && Hunger > 60)
+                if (Thirsty > regenScores && Hunger > regenScores)
                 {
                     health += delta * (1 + (1f - vitalityModify));
                 }
@@ -205,6 +215,13 @@ namespace Content.Scripts.BoatGame
                 hunger = 0;
                 thirsty = 0;
                 OnDeath?.Invoke(selfCharacter);
+            }
+
+
+            public Sprite GetCurrentIcons(out bool isActive)
+            {
+                isActive = popUp.isActive;
+                return popUp.GetSprite(thirsty, hunger);
             }
         }
     }

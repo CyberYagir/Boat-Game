@@ -26,13 +26,21 @@ namespace Content.Scripts.IslandGame.Services
 
         private Vector3 raftPoint;
         private Vector3 endPoint;
-        
+        private CharacterService characterService;
+
 
         [Inject]
-        public void Construct(IslandGenerator islandGenerator, RaftBuildService raftBuildService, CameraMovingService cameraMovingService, PrefabSpawnerFabric prefabSpawnerFabric)
+        public void Construct(
+            IslandGenerator islandGenerator, 
+            RaftBuildService raftBuildService, 
+            CameraMovingService cameraMovingService, 
+            PrefabSpawnerFabric prefabSpawnerFabric, 
+            CharacterService characterService)
         {
+            this.characterService = characterService;
             this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.raftBuildService = raftBuildService;
+            
             Random rnd = new Random(islandGenerator.Seed);
 
             var spawnPoint = islandGenerator.CurrentIslandData.SpawnPoints.GetRandomItem(rnd);
@@ -73,17 +81,14 @@ namespace Content.Scripts.IslandGame.Services
             
             prefabSpawnerFabric.SpawnItem(ladderPrefab)
                 .With(x => x.Init(raftBuildService.SpawnedRafts[id].transform.position, spawnPoint.LadderPoint.position));
-
-
-            // exitRaftTrigger = prefabSpawnerFabric.SpawnItem(directionalTriggerPrefab, spawnPoint.LadderPoint.position + Vector3.up, Quaternion.LookRotation(spawnPoint.LadderPoint.position - spawnPoint.Point.position))
-            //     .With(x => x.transform.eulerAngles = new Vector3(0, x.transform.eulerAngles.y, 0))
-            //     .With(x => x.transform.name = " exit trigger");
-            //
-            // enterRaftTrigger = prefabSpawnerFabric.SpawnItem(directionalTriggerPrefab, spawnPoint.LadderPoint.position + Vector3.up, Quaternion.LookRotation(spawnPoint.Point.position - spawnPoint.LadderPoint.position))
-            //     .With(x => x.transform.eulerAngles = new Vector3(0, x.transform.eulerAngles.y, 0))
-            //     .With(x=>x.transform.position += x.transform.forward * 2.5f)
-            //     .With(x => x.transform.name = " enter trigger");
-
+            
+            
+            foreach (var character in characterService.SpawnedCharacters)
+            {
+                character.SetCharacterRaftPosition();
+            }
+            
+            
             OnRaftTransferingEnding?.Invoke();
         }
     }

@@ -53,8 +53,16 @@ namespace Content.Scripts.BoatGame.Services
             saveDataObject.Global.AddTime(TimeService.PlayedTime);
             TimeService.ClearPlayedTime();
             saveDataObject.SetRaftsData(raftsData);
-            saveDataObject.Global.SetDamagersData(damagerService.GetDamagersData());
-            saveDataObject.Global.SetWeatherData(weatherService.GetWeatherData());
+            
+            if (damagerService != null)
+            {
+                saveDataObject.Global.SetDamagersData(damagerService.GetDamagersData());
+            }
+            if (weatherService != null)
+            {
+                saveDataObject.Global.SetWeatherData(weatherService.GetWeatherData());
+            }
+
             saveDataObject.SaveFile();
         }
     }

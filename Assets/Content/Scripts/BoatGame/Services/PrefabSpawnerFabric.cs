@@ -1,3 +1,4 @@
+using Content.Scripts.BoatGame.PlayerActions;
 using UnityEngine;
 using Zenject;
 
@@ -36,6 +37,21 @@ namespace Content.Scripts.BoatGame.Services
             var item = SpawnItem<T>(prefab, spawnPos, rot, parent);
             
             return item;
+        }
+
+        public void InjectComponent(Object getComponent)
+        {
+            if (getComponent != null)
+            {
+                if (getComponent is GameObject g)
+                {
+                    container.InjectGameObject(g);
+                }
+                else
+                {
+                    container.Inject(getComponent);
+                }
+            }
         }
     }
 }

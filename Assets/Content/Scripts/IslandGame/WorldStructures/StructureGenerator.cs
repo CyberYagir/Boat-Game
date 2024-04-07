@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
 using UnityEngine;
 using Zenject;
@@ -79,8 +80,8 @@ namespace Content.Scripts.IslandGame.WorldStructures
                 spawnPos = hit.point + Vector3.up * 0.2f;
             }
 
-            var spawned = Instantiate(structure.Structure, spawnPos, roadBuilder.transform.rotation, transform);// spawnerFabric.SpawnItemOnGround(structure, , , transform, , );
-            
+            var spawned = Instantiate(structure.Structure, spawnPos, roadBuilder.transform.rotation, transform);
+            spawnerFabric.InjectComponent(spawned.GetComponent<ActionsHolder>());
             spawned.Init(rnd, biome);
         }
 

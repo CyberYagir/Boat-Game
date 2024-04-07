@@ -5,6 +5,7 @@ using System.Text;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.RaftDamagers;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.IslandGame;
 using Content.Scripts.ManCreator;
 using Content.Scripts.Map;
 using Sirenix.OdinInspector;
@@ -176,7 +177,10 @@ namespace Content.Scripts.Global
 
                         for (int j = 0; j < raftStorage.Items[i].ItemObjects.Count; j++)
                         {
-                            items.Add(new RaftStorage.StorageItem(raftStorage.Items[i].ItemObjects[j].Item.ID, raftStorage.Items[i].ItemObjects[j].Count));
+                            if (raftStorage.Items[i].ItemObjects[j].Item != null)
+                            {
+                                items.Add(new RaftStorage.StorageItem(raftStorage.Items[i].ItemObjects[j].Item.ID, raftStorage.Items[i].ItemObjects[j].Count));
+                            }
                         }
 
                         raftStorages.Add(new RaftStorage.Storage(raftStorage.Items[i].ResourcesType, items));
@@ -199,8 +203,37 @@ namespace Content.Scripts.Global
             [System.Serializable]
             public class IslandData
             {
+                [System.Serializable]
+                public class DroppedItemData
+                {
+                    [SerializeField] private Vector3 pos;
+                    [SerializeField] private Vector3 rot;
+                    [SerializeField] private string itemID;
+                    [SerializeField] private string dropID;
+
+                    public DroppedItemData(Vector3 pos, Vector3 rot, string itemID, string dropID)
+                    {
+                        this.pos = pos;
+                        this.rot = rot;
+                        this.itemID = itemID;
+                        this.dropID = dropID;
+                    }
+
+                    public DroppedItemData()
+                    {
+                        
+                    }
+
+                    public string ItemID => itemID;
+                    public Vector3 Rot => rot;
+                    public Vector3 Pos => pos;
+                    public string DropID => dropID;
+                }
+
                 [SerializeField] private Vector2Int islandPos;
                 [SerializeField] private int islandSeed;
+                [SerializeField] private List<Vector2Int> removedTrees = new List<Vector2Int>();
+                [SerializeField] private List<DroppedItemData> droppedItems = new List<DroppedItemData>();
 
                 public IslandData(Vector2Int islandPos, int islandSeed)
                 {
@@ -211,7 +244,35 @@ namespace Content.Scripts.Global
                 public int IslandSeed => islandSeed;
 
                 public Vector2Int IslandPos => islandPos;
+
+                public List<DroppedItemData> DroppedItems => droppedItems;
+
+
+                public void AddDestroyedTreePos(Vector2Int pos)
+                {
+                    removedTrees.Add(pos);
+                }
+
+                public bool IsTreeDestroyed(Vector2Int intPos)
+                {
+                    return removedTrees.Contains(intPos);
+                }
+
+                public void AddDroppedItem(DroppedItem item)
+                {
+                    if (droppedItems.Find(x => x.DropID == item.DropID) == null)
+                    {
+                        var data = new DroppedItemData(item.transform.position, item.transform.eulerAngles, item.Item.ID, item.DropID);
+                        droppedItems.Add(data);
+                    }
+                }
+
+                public void RemoveDroppedItem(DroppedItem droppedItem)
+                {
+                    droppedItems.RemoveAll(x=>x.DropID == droppedItem.DropID);
+                }
             }
+
             [SerializeField] private int worldSeed = 0;
             [SerializeField] private List<IslandData> islands;
 
@@ -232,6 +293,11 @@ namespace Content.Scripts.Global
                 }
 
                 islands = MapNoiseGenerator.GetIslandPoints(worldSeed, gameDataObject.MapPaths);
+            }
+
+            public IslandData GetIslandData(int seed)
+            {
+                return islands.Find(x => x.IslandSeed == seed);
             }
         }
         
@@ -284,7 +350,7 @@ namespace Content.Scripts.Global
             public class WeatherData
             {
                 [SerializeField] private float tickCount, maxTickCount;
-                [SerializeField] private WeatherService.EWeatherType currentWeather = WeatherService.EWeatherType.Сalm;
+                [SerializeField] private WeatherService.EWeatherType currentWeather;
 
                 public WeatherData(float tickCount, float maxTickCount, WeatherService.EWeatherType currentWeather)
                 {
@@ -300,12 +366,13 @@ namespace Content.Scripts.Global
                 public float TickCount => tickCount;
             }
             
+            
             [SerializeField] private float totalSecondsInGame;
-            [SerializeField] private int islandSeed = -1;
+            [SerializeField] private int islandSeed = 0;
             [SerializeField] private RaftDamagerData damagersData = new RaftDamagerData(0,0, new List<RaftDamagerData.SpawnedItem>());
             [SerializeField] private WeatherData weathersData = new WeatherData(0, -1, WeatherService.EWeatherType.Сalm);
 
-            public bool isOnIsland => IslandSeed != -1;
+            public bool isOnIsland => IslandSeed != 0;
             
             public float TotalSecondsInGame => totalSecondsInGame;
 
@@ -360,6 +427,11 @@ namespace Content.Scripts.Global
         {
             Container.Bind<SaveDataObject>().FromInstance(this).AsSingle();
             LoadFile();
+        }
+        
+        public MapData.IslandData GetTargetIsland()
+        {
+            return mapData.GetIslandData(globalData.IslandSeed);
         }
 
         protected string GetPathFolder()
