@@ -26,11 +26,14 @@ namespace Content.Scripts.BoatGame.Characters.States
         public override void StartState()
         {
             base.StartState();
+            
+            Machine.AIMoveManager.NavMeshAgent.SetStopped(false);
             attackObject = SelectionService.SelectedObject.Transform.GetComponent<DamageObject>();
             if (attackObject)
             {
                 characterHips = Machine.AppearanceDataManager.GetBone(PlayerCharacter.AppearanceManager.EBones.Hips);
-                MoveToPoint(attackObject.transform.position);
+                attackObject.AttackStart();
+                MoveToPoint(attackObject.AttackPoint.position);
             }
             else
             {
@@ -70,9 +73,12 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         protected override void OnMoveEnded()
         {
-            Machine.AnimationManager.ResetAllTriggers();
-            attack = true;
-            Machine.AnimationManager.AnimationEvents.OnAttack += AttackEnemy;
+            if (Vector3.Distance(attackObject.AttackPoint.position, transform.position) < 0.5f)
+            {
+                Machine.AnimationManager.ResetAllTriggers();
+                attack = true;
+                Machine.AnimationManager.AnimationEvents.OnAttack += AttackEnemy;
+            }
         }
 
         private void AttackEnemy()
@@ -97,7 +103,13 @@ namespace Content.Scripts.BoatGame.Characters.States
         public override void EndState()
         {
             base.EndState();
-            
+            if (attackObject != null)
+            {
+                if (!attackObject.IsDead)
+                {
+                    attackObject.AttackStop();
+                }
+            }
             Machine.AppearanceDataManager.ActiveMeleeWeapon(false);
             ToIdleAnimation();
             Machine.AnimationManager.AnimationEvents.OnAttack -= AttackEnemy;

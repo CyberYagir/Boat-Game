@@ -48,17 +48,21 @@ namespace Content.Scripts.BoatGame
 
         public PrefabSpawnerFabric SpawnerFabric => prefabSpawnerFabric;
 
+        public RaftBuildService BuildService => raftBuildService;
+
         public Action OnChangeState;
 
 
         public void Init(
-            Character character, 
-            GameDataObject gameData, 
+            Character character,
+            GameDataObject gameData,
             RaftBuildService raftBuildService,
             WeatherService weatherService,
             TickService tickService,
             SelectionService selectionService,
-            PrefabSpawnerFabric prefabSpawnerFabric)
+            PrefabSpawnerFabric prefabSpawnerFabric,
+            INavMeshProvider navMeshProvider
+        )
         {
             this.gameData = gameData;
             this.prefabSpawnerFabric = prefabSpawnerFabric;
@@ -66,12 +70,12 @@ namespace Content.Scripts.BoatGame
             this.tickService = tickService;
             this.character = character;
             this.selectionService = selectionService;
-            
+
             appearanceManager.Init(character, gameData);
-            
+
             if (onlyVisuals) return;
-            
-            aiManager.Init(raftBuildService);
+
+            aiManager.Init(raftBuildService, navMeshProvider);
             animationsManager.Init(weatherService, appearanceManager);
             needsManager.Init(character, weatherService, gameData, this.selectionService);
             actionsHolder.Construct(selectionService, gameData);
@@ -80,12 +84,12 @@ namespace Content.Scripts.BoatGame
             needsManager.OnDeath += Death;
 
             SetCharacterRaftPosition();
-            
+
             stateMachine.Init(this);
             stateMachine.OnChangeState += OnStateMachineStateChanged;
-            
+
             tickService.OnTick += OnTick;
-            
+
             Select(false);
         }
 
@@ -164,7 +168,17 @@ namespace Content.Scripts.BoatGame
             aiManager.ExtraRotation();
             needsManager.Update();
 
-            if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default", "Raft")))
+            PlaceUnitOnGround();
+        }
+
+        private void PlaceUnitOnGround()
+        {
+            var playerPos = transform.position;
+            if (playerPos.y < 0)
+            {
+                playerPos.y = 0;
+            }
+            if (Physics.Raycast(playerPos + Vector3.up, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default", "Raft", "Terrain")))
             {
                 var pos = transform.position;
                 pos.y = hit.point.y;
@@ -217,9 +231,9 @@ namespace Content.Scripts.BoatGame
                 tickService.OnTick -= OnTick;
             }
 
-            if (raftBuildService)
+            if (BuildService)
             {
-                raftBuildService.OnChangeRaft -= CheckGround;
+                BuildService.OnChangeRaft -= CheckGround;
             }
         }
 

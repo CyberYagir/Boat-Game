@@ -10,13 +10,19 @@ namespace Content.Scripts.BoatGame
         private float maxHealth;
         [SerializeField, FoldoutGroup("Damage Object Data"), ShowIf(nameof(IsPlaying))] 
         private float health;
+        [SerializeField, FoldoutGroup("Damage Object Data")]
+        private Transform attackPoint;
 
         public event Action<float> OnDamage;
         public event Action<DamageObject> OnDeath;
+        public event Action OnAttackedStart;
+        public event Action OnAttackedEnd;
         
         public float Health => health;
         public bool IsDead => health <= 0;
-        
+
+        public Transform AttackPoint => attackPoint == null ? transform : attackPoint.transform;
+
         protected void SetHealth()
         {
             health = maxHealth;
@@ -48,5 +54,15 @@ namespace Content.Scripts.BoatGame
         }
         
         public bool IsPlaying() => Application.isPlaying;
+
+        public void AttackStart()
+        {
+            OnAttackedStart?.Invoke();
+        }
+
+        public void AttackStop()
+        {
+            OnAttackedEnd?.Invoke();
+        }
     }
 }

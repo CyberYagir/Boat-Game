@@ -419,9 +419,7 @@ namespace Content.Scripts.Global
         public MapData Map => mapData;
 
         public GlobalData Global => globalData;
-        
-        private const string PrefsSaveKey = "GameSave";
-        
+
 
         public override void InstallBindings()
         {
@@ -436,7 +434,7 @@ namespace Content.Scripts.Global
 
         protected string GetPathFolder()
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || PLATFORM_STANDALONE_WIN
             return Directory.GetParent(Application.dataPath)?.FullName;
 #endif
 #if UNITY_ANDROID
@@ -454,7 +452,7 @@ namespace Content.Scripts.Global
 
             string json = "";
             
-#if UNITY_EDITOR || UNITY_ANDROID
+#if UNITY_EDITOR || UNITY_ANDROID || PLATFORM_STANDALONE_WIN
             if (!string.IsNullOrEmpty(GetPathFolder()))
             {
                 json = JsonUtility.ToJson(this);
@@ -474,7 +472,7 @@ namespace Content.Scripts.Global
         [Button]
         public virtual void LoadFile()
         {
-#if UNITY_EDITOR || UNITY_ANDROID
+#if UNITY_EDITOR || UNITY_ANDROID || PLATFORM_STANDALONE_WIN
             var file = GetFilePath();
             if (File.Exists(file))
             {
@@ -500,7 +498,7 @@ namespace Content.Scripts.Global
         public void DeleteFile()
         {
 
-#if UNITY_EDITOR || UNITY_ANDROID
+#if UNITY_EDITOR || UNITY_ANDROID || PLATFORM_STANDALONE_WIN
             var file = GetFilePath();
             if (File.Exists(file))
             {

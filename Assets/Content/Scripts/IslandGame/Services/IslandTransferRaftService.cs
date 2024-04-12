@@ -87,7 +87,8 @@ namespace Content.Scripts.IslandGame.Services
             {
                 character.SetCharacterRaftPosition();
             }
-            
+
+            raftBuildService.SetEndRaftPoint(spawnPoint.LadderPoint);
             
             OnRaftTransferingEnding?.Invoke();
         }

@@ -46,6 +46,7 @@ namespace Content.Scripts.IslandGame
         private SaveDataObject saveDataObject;
         private PrefabSpawnerFabric prefabSpawnerFabric;
         private INavMeshProvider navMeshProvider;
+        private TickService tickService;
 
         public IslandData CurrentIslandData => currentIslandData;
 
@@ -60,8 +61,10 @@ namespace Content.Scripts.IslandGame
             GameDataObject gameDataObject,
             PrefabSpawnerFabric prefabSpawnerFabric,
             RaftBuildService raftBuildService,
-            INavMeshProvider navMeshProvider)
+            INavMeshProvider navMeshProvider,
+            TickService tickService)
         {
+            this.tickService = tickService;
             this.navMeshProvider = navMeshProvider;
             this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.gameDataObject = gameDataObject;
@@ -112,10 +115,10 @@ namespace Content.Scripts.IslandGame
 
 
             SpawnVillage(seed, rnd, targetBiome);
-
             targetTerrain.Terrain.terrainData.SetTreeInstances(treesInstsances.ToArray(), true);
-            
             currentIslandData = targetTerrain;
+
+            CurrentIslandData.Init(gameDataObject, prefabSpawnerFabric);
         }
 
         private void SpawnVillage(int seed, Random rnd, TerrainBiomeSO targetBiome)

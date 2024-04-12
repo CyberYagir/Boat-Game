@@ -41,7 +41,7 @@ namespace Content.Scripts.BoatGame.Services
         
         
         [SerializeField, ReadOnly] private List<RaftStorage> storages = new List<RaftStorage>();
-
+        [SerializeField, ReadOnly] private Transform raftEndPoint;
         private WorldGridService worldGridService;
         private SaveDataObject saveData;
         private List<RaftTapToBuild> spawnedTapBuildRafts = new List<RaftTapToBuild>();
@@ -52,6 +52,8 @@ namespace Content.Scripts.BoatGame.Services
         public List<RaftStorage> Storages => storages;
 
         public Transform Holder => holder;
+
+        public Transform RaftEndPoint => raftEndPoint;
 
         [Inject]
         private void Construct(
@@ -338,6 +340,11 @@ namespace Content.Scripts.BoatGame.Services
             }
 
             return false;
+        }
+
+        public void SetEndRaftPoint(Transform spawnPointLadderPoint)
+        {
+            raftEndPoint = spawnPointLadderPoint;
         }
     }
 }

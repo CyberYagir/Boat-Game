@@ -32,7 +32,6 @@ namespace Content.Scripts.IslandGame.Services
 
             public INavAgentProvider Seeker => agent;
         }
-
         
         private CharacterService characterService;
 
@@ -137,8 +136,27 @@ namespace Content.Scripts.IslandGame.Services
             for (int i = 0; i < charactersDatas.Count; i++)
             {
                 var dist = Vector3.Distance(charactersDatas[i].Character.transform.position, raftConverterService.RaftPoint) <= switchRadius * switchRadiusModify;
-                
-                charactersDatas[i].Seeker.ChangeMask(dist ? raftGraphMask : terrainGraphMask);
+                if (!charactersDatas[i].Seeker.IsStopped)
+                {
+                    var targetGraph = dist ? raftGraphMask : terrainGraphMask;
+                    
+                    if (charactersDatas[i].Seeker.GetCurrentGraphMask() == terrainGraphMask && targetGraph == raftGraphMask)
+                    {
+                        var nearestPosOnTerrain = navMeshProvider
+                            .GetNavMeshByID(0)
+                            .GetNearest(charactersDatas[i].Seeker.TargetPoint, NNConstraint.Default)
+                            .clampedPosition;
+                        
+                        print(Vector3.Distance(nearestPosOnTerrain, charactersDatas[i].Seeker.TargetPoint));
+                        
+                        if (Vector3.Distance(nearestPosOnTerrain, charactersDatas[i].Seeker.TargetPoint) < 1f)
+                        {
+                            charactersDatas[i].Seeker.ChangeMask(terrainGraphMask);
+                            continue;
+                        }
+                    }
+                    charactersDatas[i].Seeker.ChangeMask(targetGraph);
+                }
             }
         }
 

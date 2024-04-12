@@ -5,6 +5,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Experimental.Rendering;
 using UnityEngine.UI;
 
 namespace Content.Scripts.BoatGame.UI
@@ -16,21 +17,30 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private Image currentActionIcon, needIcon;
         [SerializeField] private RectTransform background;
         [SerializeField] private float unactiveX, activeX;
-        
+        [SerializeField] private RawImage rawImage;
+        private RenderTexture renderTexture;
         
         private PlayerCharacter targetCharacter;
         private EStateType lastState;
         private SelectionService selectionService;
         private TickService tickService;
         private CharacterService characterService;
+        private Camera camera;
 
         public PlayerCharacter TargetCharacter => targetCharacter;
 
-        public void Init(PlayerCharacter character, TickService tickService, SelectionService selectionService, CharacterService characterService)
+        public void Init(PlayerCharacter character, TickService tickService, SelectionService selectionService, CharacterService characterService, Camera camera)
         {
+            this.camera = camera;
             this.characterService = characterService;
             this.tickService = tickService;
             this.selectionService = selectionService;
+
+            if (renderTexture == null)
+            {
+                renderTexture = new RenderTexture(128, 128, 8, GraphicsFormat.R8G8B8A8_UNorm);
+                rawImage.texture = renderTexture;
+            }
             
             tickService.OnTick -= TickServiceOnOnTick;
             tickService.OnTick += TickServiceOnOnTick;
@@ -74,6 +84,16 @@ namespace Content.Scripts.BoatGame.UI
             {
                 needIcon.sprite = sprite;
             }
+
+            var bone = targetCharacter.AppearanceDataManager.GetBone(PlayerCharacter.AppearanceManager.EBones.Spine2);
+
+            camera.transform.position = bone.transform.position;
+            camera.transform.rotation = bone.transform.rotation;
+            camera.transform.Translate(Vector3.forward * 0.8f + Vector3.up/2f, Space.Self);
+            camera.transform.Rotate(Vector3.up * 180, Space.Self);
+
+            camera.targetTexture = renderTexture;
+            camera.Render();
         }
 
         private void AnimateButton(PlayerCharacter character)

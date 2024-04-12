@@ -14,6 +14,7 @@ namespace Content.Scripts.BoatGame.Characters
         public float StoppingDistance => navMeshAgent.stoppingDistance;
         public Vector3 Velocity => navMeshAgent.velocity;
         public Vector3 Destination => navMeshAgent.destination;
+        public Vector3 TargetPoint { get; }
 
         public void SetDestination(Vector3 target)
         {
@@ -63,6 +64,16 @@ namespace Content.Scripts.BoatGame.Characters
         public void ChangeMask(int newMask)
         {
             
+        }
+
+        public GraphMask GetCurrentGraphMask()
+        {
+            return ~0;
+        }
+
+        public void SetTargetPoint(Vector3 point)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

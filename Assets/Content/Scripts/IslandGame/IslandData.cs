@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Global;
+using Content.Scripts.IslandGame.Mobs;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -29,6 +32,7 @@ namespace Content.Scripts.IslandGame
 
         [SerializeField] private Vector3 size;
         [SerializeField] private Vector3 offcet;
+        [SerializeField] private BotSpawnersManager botsSpawnerManager;
         
         public int TemperatureAdd => temperatureAdd;
 
@@ -36,13 +40,22 @@ namespace Content.Scripts.IslandGame
 
         public List<SpawnPoint> SpawnPoints => spawnPoints;
 
+        public BotSpawnersManager BotsSpawnerManager => botsSpawnerManager;
+
         private void OnValidate()
         {
             terrain = GetComponent<Terrain>();
+            botsSpawnerManager = GetComponentInChildren<BotSpawnersManager>();
         }
 
+        public void Init(GameDataObject gameData, PrefabSpawnerFabric prefabSpawner)
+        {
+            if (botsSpawnerManager)
+            {
+                botsSpawnerManager.Init(gameData, prefabSpawner);
+            }
+        }
 
-        [Button]
         private void GetSpawns(GameObject target)
         {
             SpawnPoints.Clear();

@@ -49,7 +49,8 @@ namespace Content.Scripts.BoatGame.Services
                         weatherService,
                         tickService,
                         selectionService,
-                        prefabSpawnerFabric
+                        prefabSpawnerFabric,
+                        navMeshProvider
                     ))
                     .With(x => SpawnedCharacters.Add(x))
                     .With(x => x.NeedManager.OnDeath += OnDeath);

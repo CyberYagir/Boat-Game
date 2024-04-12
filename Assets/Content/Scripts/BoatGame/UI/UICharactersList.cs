@@ -6,12 +6,12 @@ namespace Content.Scripts.BoatGame.UI
 {
     public class UICharactersList : MonoBehaviour
     {
-        private CharacterService characterService;
-        
-        
-        
+
+
+        [SerializeField] private Camera camera;
         [SerializeField] private UICharactersListItem item;
 
+        private CharacterService characterService;
         private List<UICharactersListItem> spawnedItems = new List<UICharactersListItem>();
         private TickService tickService;
         private SelectionService selectionService;
@@ -55,7 +55,7 @@ namespace Content.Scripts.BoatGame.UI
                 spawnedItems[i].gameObject.SetActive(i < characterService.SpawnedCharacters.Count);
                 if (spawnedItems[i].gameObject.activeInHierarchy)
                 {
-                    spawnedItems[i].Init(characterService.SpawnedCharacters[i], tickService, selectionService, characterService);
+                    spawnedItems[i].Init(characterService.SpawnedCharacters[i], tickService, selectionService, characterService, camera);
                 }
             }
         }

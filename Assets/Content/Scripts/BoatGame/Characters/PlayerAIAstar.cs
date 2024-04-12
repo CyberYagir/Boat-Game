@@ -9,13 +9,14 @@ namespace Content.Scripts.BoatGame.Characters
     {
         [SerializeField] private AIPath aiPath;
         [SerializeField] private Seeker seeker;
-
+        [SerializeField] private Vector3 targetPoint;
         public Transform Transform => transform;
         public bool IsStopped => aiPath.isStopped;
         public bool IsOnNavMesh => true;
         public float StoppingDistance => aiPath.slowdownDistance;
         public Vector3 Velocity => GetVelocity();
         public Vector3 Destination => aiPath.destination;
+        public Vector3 TargetPoint => targetPoint;
 
         public void SetDestination(Vector3 target)
         {
@@ -89,6 +90,26 @@ namespace Content.Scripts.BoatGame.Characters
                     SetDestination(newPoint);
                 }
             }
+        }
+        
+        public GraphMask GetCurrentGraphMask()
+        {
+            return seeker.graphMask;
+        }
+
+        public void SetTargetPoint(Vector3 point)
+        {
+            targetPoint = point;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(Destination, 0.2f);
+            
+            
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(TargetPoint + Vector3.up * 0.2f, 0.2f);
         }
     }
 }

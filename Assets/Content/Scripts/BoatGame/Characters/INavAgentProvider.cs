@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Pathfinding;
+using UnityEngine;
 
 namespace Content.Scripts.BoatGame.Characters
 {
@@ -9,8 +10,8 @@ namespace Content.Scripts.BoatGame.Characters
         public bool IsOnNavMesh { get; }
         public float StoppingDistance { get; }
         public Vector3 Velocity { get; }
-
         public Vector3 Destination { get; }
+        public Vector3 TargetPoint { get; }
         
         public void SetDestination(Vector3 target);
         public void SetStopped(bool state);
@@ -24,5 +25,7 @@ namespace Content.Scripts.BoatGame.Characters
         public void Disable();
 
         void ChangeMask(int newMask);
+        GraphMask GetCurrentGraphMask();
+        public void SetTargetPoint(Vector3 point);
     }
 }

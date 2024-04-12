@@ -120,7 +120,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             }
             else
             {
-                Machine.AIMoveManager.NavMeshAgent.SetDestination(storage.transform.position);
+                MoveToPoint(storage.transform.position);
                 state = States.MoveToStorage;
             }
         }

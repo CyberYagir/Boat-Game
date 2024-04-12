@@ -22,7 +22,8 @@ namespace Content.Scripts.BoatGame
                 RightShoulder,
                 RightHand,
                 BackSword,
-                Hips
+                Hips,
+                Spine2
             }
 
             [SerializeField] private Renderer renderer;
@@ -71,7 +72,10 @@ namespace Content.Scripts.BoatGame
 
             private void SkillDataOnOnLevelUp()
             {
-                levelUpParticlesPrefab.Play(true);
+                if (levelUpParticlesPrefab)
+                {
+                    levelUpParticlesPrefab.Play(true);
+                }
             }
 
             private void OnEquipmentChange()

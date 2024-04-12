@@ -193,8 +193,8 @@ namespace Content.Scripts.BoatGame.Characters.States
             if (storage != null)
             {
                 Machine.AIMoveManager.NavMeshAgent.SetStopped(false);
-                Machine.AIMoveManager.NavMeshAgent.SetDestination(storage.transform.position);
-                
+                MoveToPoint(storage.transform.position);
+
             }
             else
             {

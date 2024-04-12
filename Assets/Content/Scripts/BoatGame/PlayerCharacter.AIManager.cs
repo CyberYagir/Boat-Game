@@ -17,13 +17,16 @@ namespace Content.Scripts.BoatGame
             private RaftBuildService raftBuildService;
 
             private INavAgentProvider agent;
+            private INavMeshProvider navMeshProvider;
             
             public INavAgentProvider NavMeshAgent => agent;
+            public INavMeshProvider NavMesh => navMeshProvider;
 
-            public void Init(RaftBuildService raftBuildService)
+            public void Init(RaftBuildService raftBuildService, INavMeshProvider navMeshProvider)
             {
-                agent = navMeshAgent.GetComponent<INavAgentProvider>();
+                this.navMeshProvider = navMeshProvider;
                 this.raftBuildService = raftBuildService;
+                agent = navMeshAgent.GetComponent<INavAgentProvider>();
             }
             
             public Vector3 WalkToAnyPoint()
@@ -44,9 +47,10 @@ namespace Content.Scripts.BoatGame
             }
 
             private RaycastHit[] raycastResults = new RaycastHit[4];
+
             public bool IsOnGround()
             {
-                var size = Physics.RaycastNonAlloc(NavMeshAgent.Transform.position + Vector3.up, -NavMeshAgent.Transform.up, raycastResults, 20, LayerMask.GetMask("Raft", "Default"), QueryTriggerInteraction.Ignore);
+                var size = Physics.RaycastNonAlloc(NavMeshAgent.Transform.position + Vector3.up, -NavMeshAgent.Transform.up, raycastResults, 20, LayerMask.GetMask("Raft", "Default", "Terrain"), QueryTriggerInteraction.Ignore);
 
                 for (int i = 0; i < size; i++)
                 {

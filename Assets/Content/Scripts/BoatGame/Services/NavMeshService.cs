@@ -11,6 +11,7 @@ namespace Content.Scripts.BoatGame.Services
 
         public void BuildNavMeshAsync(int id);
         NavGraph GetNavMeshByID(int i);
+        int GetGraphsCount();
     }
 
     public class NavMeshService : MonoBehaviour, INavMeshProvider
@@ -35,6 +36,11 @@ namespace Content.Scripts.BoatGame.Services
         public NavGraph GetNavMeshByID(int i)
         {
             return AstarPath.active.graphs[i];
+        }
+
+        public int GetGraphsCount()
+        {
+            return AstarPath.active.graphs.Length;
         }
 
         IEnumerator RebuildSkipFrame()

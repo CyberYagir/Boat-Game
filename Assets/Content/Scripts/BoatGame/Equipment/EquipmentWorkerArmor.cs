@@ -17,19 +17,29 @@ namespace Content.Scripts.BoatGame.Equipment
 
         public void SetEpaulet(GameObject obj, Transform bone)
         {
-            obj.transform.parent = bone;
+            if (obj != null)
+            {
+                obj.transform.parent = bone;
 
-            obj.transform.localScale = Vector3.one;
-            obj.transform.localPosition = Vector3.zero;
-            obj.transform.localEulerAngles = Vector3.zero;
+                obj.transform.localScale = Vector3.one;
+                obj.transform.localPosition = Vector3.zero;
+                obj.transform.localEulerAngles = Vector3.zero;
+            }
         }
 
         public override void OnDestroy()
         {
             base.OnDestroy();
 
-            Destroy(epauletLeft);
-            Destroy(epauletRight);
+            if (epauletLeft != null)
+            {
+                Destroy(epauletLeft);
+            }
+
+            if (epauletRight != null)
+            {
+                Destroy(epauletRight);
+            }
         }
     }
 }

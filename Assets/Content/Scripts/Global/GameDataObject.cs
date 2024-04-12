@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
@@ -6,6 +7,7 @@ using Content.Scripts.CraftsSystem;
 using Content.Scripts.IslandGame.WorldStructures;
 using Content.Scripts.ItemsSystem;
 using Content.Scripts.Map;
+using Content.Scripts.Mobs;
 using Content.Scripts.SkillsSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -17,10 +19,14 @@ namespace Content.Scripts.Global
     public class GameDataObject : ScriptableObjectInstaller
     {
 
-        
+
         public override void InstallBindings()
         {
             Container.Bind<GameDataObject>().FromInstance(this).AsSingle();
+
+            crafts = Resources.LoadAll<CraftObject>("Crafts").ToList();
+            items = Resources.LoadAll<ItemObject>("Item").ToList();
+
             ActionsData.Init();
         }
 
@@ -31,10 +37,12 @@ namespace Content.Scripts.Global
         [SerializeField] private List<Material> skinColors;
         [SerializeField] private List<CraftObject> crafts;
         [SerializeField] private List<ItemObject> items;
+        [SerializeField] private List<MobObject> mobs;
         [SerializeField] private List<int> levelXps;
         [SerializeField] private List<MapPathObject> mapPaths;
         [SerializeField] private List<RandomStructureMaterialsBase.MatsByBiome> structuresMaterials;
         [SerializeField] private List<RandomStructureMaterialsBase.MatsByBiome> structuresRoofMaterials;
+        
         
         public List<Material> SkinColors => skinColors;
 
@@ -52,7 +60,6 @@ namespace Content.Scripts.Global
 
         public List<RandomStructureMaterialsBase.MatsByBiome> StructuresMaterials => structuresMaterials;
         public List<RandomStructureMaterialsBase.MatsByBiome> StructuresRoofMaterials => structuresRoofMaterials;
-        
 
 
         public ItemObject GetItem(string id)
@@ -80,6 +87,11 @@ namespace Content.Scripts.Global
         public int GetLevelXP(int skillDataLevel)
         {
             return levelXps[Mathf.Clamp(skillDataLevel, 0, levelXps.Count - 1)];
+        }
+
+        public MobObject GetMob(MobObject.MobType mobType)
+        {
+            return mobs.Find(x => x.Type == mobType);
         }
     }
 }

@@ -51,7 +51,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             if (moveToStorage)
             {
                 Machine.AIMoveManager.NavMeshAgent.SetStopped(false);
-                Machine.AIMoveManager.NavMeshAgent.SetDestination(targetStorage.transform.position);
+                MoveToPoint(targetStorage.transform.position);
             }
             else
             {

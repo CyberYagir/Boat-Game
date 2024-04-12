@@ -251,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiPath: {fileID: 4770986152678125077}
   seeker: {fileID: 3444973807227729939}
+  targetPoint: {x: 0, y: 0, z: 0}
 --- !u!136 &6289154111012544031
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -838,17 +839,33 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 19821980, guid: 8f3db2ef4b3fd674eafb97a117b99408, type: 3}
+      propertyPath: useUnscaledTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 19850338, guid: 8f3db2ef4b3fd674eafb97a117b99408, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19850338, guid: 8f3db2ef4b3fd674eafb97a117b99408, type: 3}
+      propertyPath: useUnscaledTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19875848, guid: 8f3db2ef4b3fd674eafb97a117b99408, type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 19875848, guid: 8f3db2ef4b3fd674eafb97a117b99408, type: 3}
+      propertyPath: useUnscaledTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 19884194, guid: 8f3db2ef4b3fd674eafb97a117b99408, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19884194, guid: 8f3db2ef4b3fd674eafb97a117b99408, type: 3}
+      propertyPath: useUnscaledTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19931438, guid: 8f3db2ef4b3fd674eafb97a117b99408, type: 3}
       propertyPath: m_Materials.Array.size
