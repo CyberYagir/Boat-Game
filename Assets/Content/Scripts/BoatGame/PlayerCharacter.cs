@@ -98,6 +98,7 @@ namespace Content.Scripts.BoatGame
             transform.position = aiManager.GenerateRandomPos();
             transform.SetYEulerAngles(Random.value * 360);
             aiManager.NavMeshAgent.SetDestination(transform.position);
+            aiManager.NavMeshAgent.SetTargetPoint(transform.position);
         }
 
         private void CheckGround()

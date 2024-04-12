@@ -85,9 +85,10 @@ namespace Content.Scripts.BoatGame.Characters
             if ((int)seeker.graphMask != newMask)
             {
                 seeker.graphMask = newMask;
-                if (TryBuildPath(aiPath.destination, out Vector3 newPoint))
+                if (TryBuildPath(targetPoint, out Vector3 newPoint))
                 {
                     SetDestination(newPoint);
+                    SetTargetPoint(newPoint);
                 }
             }
         }
