@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Content.Scripts.Boot;
 using UnityEngine;
@@ -12,13 +13,21 @@ namespace Content.Scripts.BoatGame
         private Dictionary<Camera, bool> cameraStates = new();
 
         private bool currentState = true;
-        
+        private ScenesService scenesService;
+
 
         [Inject]
         private void Construct(ScenesService scenesService)
         {
+            this.scenesService = scenesService;
+            scenesService.OnChangeActiveScene -= ScenesServiceOnOnChangeActiveScene;
             scenesService.OnChangeActiveScene += ScenesServiceOnOnChangeActiveScene;
             ScenesServiceOnOnChangeActiveScene(scenesService.GetActiveScene());
+        }
+
+        private void OnDisable()
+        {
+            scenesService.OnChangeActiveScene -= ScenesServiceOnOnChangeActiveScene;
         }
 
         private void ScenesServiceOnOnChangeActiveScene(ESceneName newScene)

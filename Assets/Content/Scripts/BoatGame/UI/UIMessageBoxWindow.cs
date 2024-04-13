@@ -9,6 +9,7 @@ namespace Content.Scripts.BoatGame.UI
     {
         [SerializeField] private TMP_Text yesText, noText, mainText;
         [SerializeField] private Button yesButton, noButton;
+
         
         public void Init(string text, string okText = "Yes", string noText = "No")
         {

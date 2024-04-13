@@ -198,7 +198,6 @@ namespace Content.Scripts.IslandGame
             bool isFirstLoopEnded = false;
             int grassId = 0;
             var islandData = saveDataObject.Map.GetIslandData(Seed);
-            print(islandData);
             CollectGrassDictionary(biome, grassId);
             
             

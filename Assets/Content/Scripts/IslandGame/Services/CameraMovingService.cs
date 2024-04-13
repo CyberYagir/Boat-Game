@@ -22,11 +22,13 @@ namespace Content.Scripts.IslandGame.Services
         private Vector3 cameraPosition;
 
         private bool zoomWait;
-        
+        private SelectionService selectionService;
+
         [Inject]
-        private void Construct(CharacterService characterService)
+        private void Construct(CharacterService characterService, SelectionService selectionService)
         {
-            characterService.OnCharactersFocus += OnFocusCharacter; 
+            this.selectionService = selectionService;
+            characterService.OnCharactersFocus += OnFocusCharacter;
         }
 
         private void OnFocusCharacter(PlayerCharacter obj)
@@ -44,6 +46,8 @@ namespace Content.Scripts.IslandGame.Services
         private void LateUpdate()
         {
             if (zoomWait) return;
+            if (selectionService.IsUIBlocked) return;
+            
             if (InputService.IsRMBPressed)
             {
                 var dir = -InputService.MouseAxis;

@@ -1,4 +1,5 @@
 using System;
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using UnityEngine;
@@ -36,6 +37,11 @@ namespace Content.Scripts.Map
             OnChangeScene(scenesService.GetActiveScene());
         }
 
+        private void OnDisable()
+        {
+            scenesService.OnChangeActiveScene -= OnChangeScene;
+        }
+
         private void OnChangeScene(ESceneName scene)
         {
             gameObject.SetActive(scene == ESceneName.Map);
@@ -63,6 +69,8 @@ namespace Content.Scripts.Map
         {
             if (selectedIsland != null)
             {
+                
+                TimeService.SetTimeRate(1f);
                 saveDataObject.Global.SetIslandSeed(selectedIsland.Seed);
                 saveDataObject.SaveFile();
                 scenesService.FadeScene(ESceneName.IslandGame);

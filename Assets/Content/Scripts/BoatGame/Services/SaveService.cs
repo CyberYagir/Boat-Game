@@ -51,6 +51,7 @@ namespace Content.Scripts.BoatGame.Services
                 raftsData.AddSpawnedRaft(raftBuildService.SpawnedRafts[i]);
             }
             saveDataObject.Global.AddTime(TimeService.PlayedTime);
+            saveDataObject.Global.AddTimeOnRaft(TimeService.PlayedBoatTime);
             TimeService.ClearPlayedTime();
             saveDataObject.SetRaftsData(raftsData);
             
@@ -63,6 +64,12 @@ namespace Content.Scripts.BoatGame.Services
                 saveDataObject.Global.SetWeatherData(weatherService.GetWeatherData());
             }
 
+            saveDataObject.SaveFile();
+        }
+
+        public void ExitFromIsland()
+        {
+            saveDataObject.Global.SetIslandSeed(0);
             saveDataObject.SaveFile();
         }
     }

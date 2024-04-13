@@ -24,6 +24,7 @@ namespace Content.Scripts.BoatGame.UI
             messageBoxManager.ShowMessageBox("Do you want to leave this island?", delegate
             {
                 saveService.SaveWorld();
+                saveService.ExitFromIsland();
                 scenesService.FadeScene(ESceneName.BoatGame);
             });
         }

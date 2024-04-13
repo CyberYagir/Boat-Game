@@ -42,6 +42,7 @@ namespace Content.Scripts.BoatGame.UI
                 rawImage.texture = renderTexture;
             }
             
+            
             tickService.OnTick -= TickServiceOnOnTick;
             tickService.OnTick += TickServiceOnOnTick;
 
@@ -57,6 +58,7 @@ namespace Content.Scripts.BoatGame.UI
             
             currentActionIcon.sprite = actionsData.GetActionIcon(targetCharacter.CurrentState);
             lastState = targetCharacter.CurrentState;
+            
         }
 
         private void OnDisable()

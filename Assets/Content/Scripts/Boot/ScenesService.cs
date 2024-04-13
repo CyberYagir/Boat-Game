@@ -26,6 +26,7 @@ namespace Content.Scripts.Boot
         
         public void ChangeScene(ESceneName name)
         {
+            overlayLoadedScenes.Clear();
             SceneManager.LoadScene(name.ToString());
         }
 

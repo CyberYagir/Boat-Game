@@ -112,6 +112,8 @@ namespace Content.Scripts.BoatGame.Services
                 }
             }
             
+            OnChangeRaft?.Invoke();
+            
         }
 
         private void SpawnStartRaft()

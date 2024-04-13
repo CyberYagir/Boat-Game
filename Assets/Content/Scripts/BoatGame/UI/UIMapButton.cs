@@ -31,6 +31,7 @@ namespace Content.Scripts.BoatGame.UI
 
             if (state)
             {
+                print("Add Scene");
                 scenesService.AddScene(ESceneName.Map);
             }
             else

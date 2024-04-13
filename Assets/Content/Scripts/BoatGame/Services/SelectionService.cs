@@ -21,22 +21,28 @@ namespace Content.Scripts.BoatGame.Services
 
         
         private Vector3 lastWorldClick;
+        private bool isUIBlocked;
         private List<GraphicRaycaster> raycasters = new List<GraphicRaycaster>(10);
         private List<RaycastResult> raycastResults = new List<RaycastResult>(10);
+        
+        private GameStateService gameStateService;
+        private ScenesService scenesService;
 
         public Action<ISelectable> OnChangeSelectObject;
         public Action<PlayerCharacter> OnChangeSelectCharacter;
         public Action<RaftTapToBuild> OnTapOnBuildingRaft;
         
-        private GameStateService gameStateService;
-        private ScenesService scenesService;
 
+        
+        
         public Camera Camera => camera;
 
         public Vector3 LastWorldClick => lastWorldClick;
         public PlayerCharacter SelectedCharacter => selectedCharacter;
 
         public ISelectable SelectedObject => selectedObject;
+
+        public bool IsUIBlocked => isUIBlocked;
 
         [Inject]
         private void Construct(GameStateService gameStateService, ScenesService scenesService)
@@ -60,7 +66,7 @@ namespace Content.Scripts.BoatGame.Services
             {
                 if (scenesService.GetActiveScene() == ESceneName.Map) return;
                 
-                if (CheckUILogic()) return;
+                if (isUIBlocked) return;
                 
                 switch (gameStateService.GameState)
                 {
@@ -72,6 +78,11 @@ namespace Content.Scripts.BoatGame.Services
                         break;
                 }
             }
+        }
+
+        private void FixedUpdate()
+        {
+            CheckUILogic();
         }
 
         private void BuildingStateSelectionLogic()
@@ -120,7 +131,7 @@ namespace Content.Scripts.BoatGame.Services
             }
         }
 
-        private bool CheckUILogic()
+        public bool CheckUILogic()
         {
             raycastResults.Clear();
             var pointer = new PointerEventData(EventSystem.current)
@@ -134,10 +145,11 @@ namespace Content.Scripts.BoatGame.Services
 
                 if (raycastResults.Count > 0)
                 {
+                    isUIBlocked = true;
                     return true;
                 }
             }
-
+            isUIBlocked = false;
             return false;
         }
 

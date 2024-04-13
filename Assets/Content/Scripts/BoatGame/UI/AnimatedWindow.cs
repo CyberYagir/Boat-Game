@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.UI
@@ -9,7 +10,10 @@ namespace Content.Scripts.BoatGame.UI
 
         private bool isOpen;
 
-        public bool IsOpen => isOpen;
+        public bool IsOpen => isOpen;        
+        
+        public event Action<AnimatedWindow> OnClose;
+
 
         public virtual void ShowWindow()
         {
@@ -33,7 +37,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public virtual void OnClosed()
         {
-            
+            OnClose?.Invoke(this);
         }
     }
 }

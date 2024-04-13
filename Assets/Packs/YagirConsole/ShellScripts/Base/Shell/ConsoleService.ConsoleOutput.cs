@@ -51,11 +51,15 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                         }
                         else if (repeatLastMessageCount == 2)
                         {
-                            if (outputText.text.Last() == '\n')
+                            if (!string.IsNullOrEmpty(outputText.text) && !string.IsNullOrWhiteSpace(outputText.text))
                             {
-                                outputText.text = outputText.text.Substring(0, outputText.text.Length - 1);
+                                if (outputText.text.Last() == '\n')
+                                {
+                                    outputText.text = outputText.text.Substring(0, outputText.text.Length - 1);
+                                }
+
+                                outputText.text += GetRepeatCount(repeatLastMessageCount);
                             }
-                            outputText.text += GetRepeatCount(repeatLastMessageCount);
                         }
                     }
                 }

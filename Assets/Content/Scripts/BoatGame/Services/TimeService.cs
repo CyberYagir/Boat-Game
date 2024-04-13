@@ -5,7 +5,8 @@ namespace Content.Scripts.BoatGame.Services
     public static class TimeService
     {
         public static float DeltaTime => Time.deltaTime * TimeRate;
-        public static float TickRate => 20 * TimeScale;
+        public static int Ticks => 20;
+        public static float TickRate => Ticks * TimeScale;
         public static float TimeScale => Time.timeScale * TimeRate;
 
         
@@ -14,7 +15,10 @@ namespace Content.Scripts.BoatGame.Services
         public static float TimeRate => timeRate;
         public static float UnscaledDelta => Time.unscaledDeltaTime;
 
+        public static float PlayedBoatTime => playedBoatTime;
+
         private static float playedTime;
+        private static float playedBoatTime;
         private static float timeRate = 1f;
 
         public static void ChangeTimeScale(float newValue)
@@ -29,13 +33,18 @@ namespace Content.Scripts.BoatGame.Services
 
         public static void SetTimeRate(float rate)
         {
-            Debug.LogError("Set Rate " + rate);
             timeRate = rate;
         }
 
         public static void ClearPlayedTime()
         {
             playedTime = 0;
+            playedBoatTime = 0;
+        }
+
+        public static void AddPlayedBoatTime()
+        {
+            playedBoatTime = PlayedBoatTime + DeltaTime * TimeRate;
         }
     }
 }

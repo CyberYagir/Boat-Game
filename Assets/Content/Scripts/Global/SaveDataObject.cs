@@ -368,6 +368,7 @@ namespace Content.Scripts.Global
             
             
             [SerializeField] private float totalSecondsInGame;
+            [SerializeField] private float totalSecondsOnRaft;
             [SerializeField] private int islandSeed = 0;
             [SerializeField] private RaftDamagerData damagersData = new RaftDamagerData(0,0, new List<RaftDamagerData.SpawnedItem>());
             [SerializeField] private WeatherData weathersData = new WeatherData(0, -1, WeatherService.EWeatherType.Сalm);
@@ -392,6 +393,11 @@ namespace Content.Scripts.Global
                 totalSecondsInGame += value;
             }
             
+            public void AddTimeOnRaft(float value)
+            {
+                totalSecondsOnRaft += value;
+            }
+
             public void SetDamagersData(RaftDamagerData getDamagersDataData)
             {
                 damagersData = getDamagersDataData;

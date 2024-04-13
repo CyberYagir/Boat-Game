@@ -17,9 +17,9 @@ MonoBehaviour:
     - name: Stas
       uid: c37f90c2-cf6f-4642-8603-27bc5841a778
       skillsData:
-        xp: 11
-        scores: 5
-        level: 3
+        xp: 13
+        scores: 4
+        level: 2
         skills:
         - skillID: bd91198f-eeab-4ae1-acef-2551fa57d4d9
           value: 2
@@ -31,8 +31,8 @@ MonoBehaviour:
           value: 1
       parametersData:
         health: 100
-        hunger: 85.494934
-        thirsty: 70.98987
+        hunger: 86.1794
+        thirsty: 72.358795
       equipmentData:
         helmetID: 
         armorID: 
@@ -42,7 +42,7 @@ MonoBehaviour:
     - name: HUILO
       uid: 137f90c2-cf6f-4642-8603-27bc5841a778
       skillsData:
-        xp: 9
+        xp: 7
         scores: 1
         level: 1
         skills:
@@ -56,8 +56,8 @@ MonoBehaviour:
           value: 1
       parametersData:
         health: 100
-        hunger: 85.494934
-        thirsty: 70.98987
+        hunger: 86.1794
+        thirsty: 72.358795
       equipmentData:
         helmetID: 
         armorID: 
@@ -77,7 +77,7 @@ MonoBehaviour:
     - uid: cbda7e69-f5fd-484f-8929-1ab86fc56233
       pos: {x: 1, y: 0, z: 0}
       health: 100
-      raftType: 0
+      raftType: 4
     - uid: afae1eb2-cae7-4737-9a44-efff67274203
       pos: {x: 1, y: 0, z: 1}
       health: 100
@@ -86,28 +86,26 @@ MonoBehaviour:
       pos: {x: 1, y: 0, z: -1}
       health: 100
       raftType: 1
-    - uid: 44401f6d-f0ec-4915-bf68-e4df7b325452
-      pos: {x: 0, y: 0, z: -1}
-      health: 100
-      raftType: 3
-    - uid: 7dd9f944-4a0c-4f0b-b22a-55c94dc8bc70
-      pos: {x: -1, y: 0, z: -1}
-      health: 100
-      raftType: 5
     storages:
     - raftUid: afae1eb2-cae7-4737-9a44-efff67274203
       storagesData:
       - resourceType: 0
         itemList:
-        - itemID: 4fae55f1-5bdd-4b87-8480-d3c850f436ee
-          count: 1
+        - itemID: 47b167db-86da-4574-92e5-c52823934ba0
+          count: 3
       - resourceType: 1
         itemList: []
       - resourceType: 2
         itemList:
-        - itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
-          count: 1
         - itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
+          count: 2
+        - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
+          count: 1
+        - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
+          count: 2
+        - itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
+          count: 2
+        - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
           count: 1
       - resourceType: 3
         itemList: []
@@ -228,8 +226,8 @@ MonoBehaviour:
       - {x: 202, y: 370}
       - {x: 199, y: 371}
       - {x: 209, y: 370}
-      - {x: 210, y: 447}
-      - {x: 226, y: 438}
+      - {x: 235, y: 347}
+      - {x: 176, y: 310}
       droppedItems:
       - pos: {x: -128.70775, y: 4.4043884, z: 91.69983}
         rot: {x: 359.49515, y: 359.91833, z: 0.0069567603}
@@ -247,10 +245,22 @@ MonoBehaviour:
         rot: {x: 359.90976, y: 359.9535, z: 359.29752}
         itemID: 4fae55f1-5bdd-4b87-8480-d3c850f436ee
         dropID: 42cd906e-cf2d-48cc-b6fb-ff4f13805324
-      - pos: {x: -49.628647, y: 9.1194, z: 102.66992}
-        rot: {x: 0.44603205, y: 0.4228348, z: 0.43380913}
+      - pos: {x: -9.750624, y: 16.672676, z: 25.9154}
+        rot: {x: 358.19604, y: 92.5444, z: 205.43593}
+        itemID: 8ed50794-6763-4fad-b113-35d51650b12d
+        dropID: ddfac33d-2ea4-4dd4-86c2-4cd7701d1b28
+      - pos: {x: -10.345445, y: 15.5480175, z: 25.81768}
+        rot: {x: 358.19604, y: 92.5444, z: 205.43593}
+        itemID: 8ed50794-6763-4fad-b113-35d51650b12d
+        dropID: 7ca9bad0-935e-4ea0-a3a8-c149e2d5a5d8
+      - pos: {x: -23.793106, y: 19.61187, z: 95.57776}
+        rot: {x: 359.3059, y: 359.72153, z: 359.8132}
         itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
-        dropID: 50425577-2f2f-4942-9086-57eb4b1ea3fd
+        dropID: ab1699ad-9999-4911-bb4e-532f90025222
+      - pos: {x: 13.938599, y: 23.91475, z: 82.914}
+        rot: {x: 0.94839793, y: 359.9228, z: 359.95325}
+        itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
+        dropID: 690a5f43-faeb-42a4-9899-a7809c1ae8eb
     - islandPos: {x: 79, y: 125}
       islandSeed: -1847195287
       removedTrees: []
@@ -349,7 +359,9 @@ MonoBehaviour:
       droppedItems: []
     - islandPos: {x: 236, y: 199}
       islandSeed: -1847195032
-      removedTrees: []
+      removedTrees:
+      - {x: 91, y: 336}
+      - {x: 81, y: 336}
       droppedItems: []
     - islandPos: {x: 247, y: 290}
       islandSeed: -1847194929
@@ -472,13 +484,14 @@ MonoBehaviour:
       removedTrees: []
       droppedItems: []
   globalData:
-    totalSecondsInGame: 9687.538
-    islandSeed: -1847195165
+    totalSecondsInGame: 7856.5156
+    totalSecondsOnRaft: 24.571184
+    islandSeed: 0
     damagersData:
-      tickCount: 173
-      maxTickCount: 6434
+      tickCount: 55
+      maxTickCount: 6752
       spawnedItems: []
     weathersData:
-      tickCount: 673
+      tickCount: 795
       maxTickCount: 2351
       currentWeather: 0
