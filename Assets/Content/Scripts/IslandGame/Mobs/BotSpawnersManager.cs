@@ -16,11 +16,11 @@ namespace Content.Scripts.IslandGame.Mobs
             spawners = GetComponentsInChildren<BotSpawner>().ToList();
         }
 
-        public void Init(GameDataObject gameData, PrefabSpawnerFabric prefabSpawner)
+        public void Init(GameDataObject gameData, PrefabSpawnerFabric prefabSpawner, TerrainBiomeSO biome)
         {
             for (int i = 0; i < spawners.Count; i++)
             {
-                spawners[i].Init(gameData, prefabSpawner);
+                spawners[i].Init(gameData, prefabSpawner, biome);
             }
         }
     }

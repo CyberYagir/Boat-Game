@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using OmniSARTechnologies.LiteFPSCounter;
 using Packs.YagirConsole.ShellScripts.Base.Shell;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Packs.YagirConsole.ShellScripts.Base.Commands
@@ -12,13 +13,28 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
         {
             SpawnDamager();
             ShowFPS();
+            Quit();
+        }
+
+        private void Quit()
+        {
+            void ApplicationQuit(ArgumentsShell shell)
+            {
+                Application.Quit();
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            }
+
+            AddCommand("/quit", new List<Argument>(), ApplicationQuit);
+            AddCommand("/q", new List<Argument>(), ApplicationQuit);
         }
 
         public void ShowFPS()
         {
             AddCommand("/showfps", new List<Argument>()
                 {
-                    new Argument("state", ArgumentType.Bool)
+                    new Argument("state", ArgumentType.Bool, false, 0f, "", true)
                 },
                 delegate(ArgumentsShell shell)
                 {

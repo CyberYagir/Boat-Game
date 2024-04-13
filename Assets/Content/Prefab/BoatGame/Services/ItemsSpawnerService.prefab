@@ -500,23 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a316209582e1745b5c70f1496794fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsList:
-  - item: {fileID: 1696502501753796398, guid: be95aae2887a2da44810fd454d2e0365, type: 3}
-    weight: 50
-  - item: {fileID: 7246954319342683919, guid: fb5fd52b962864e41b8254b3ec1d4313, type: 3}
-    weight: 150
-  - item: {fileID: 3068768402554248844, guid: 8acd5cebf907d6a43ab870b37776ab69, type: 3}
-    weight: 50
-  - item: {fileID: 6027058475979960371, guid: a2878088c868a194bb27976b4bef3d3c, type: 3}
-    weight: 50
-  - item: {fileID: 8477931477220809314, guid: a766ead45496f9c4fb00ab8be8a96f35, type: 3}
-    weight: 50
-  - item: {fileID: 311678042325001339, guid: 2efada84aa998864887287133f282df0, type: 3}
-    weight: 50
-  - item: {fileID: 4574453690590372472, guid: ed3688478b0556f448434c78eb16facb, type: 3}
-    weight: 50
-  - item: {fileID: 263320035121123727, guid: 80bf0028eb903894c9dac0bd3a4f0ef1, type: 3}
-    weight: 50
+  itemsData: {fileID: 11400000, guid: 0e8239df2d80f1a45a94d0dfc7597528, type: 2}
   pointsHolders:
   - {fileID: 1853748873286602446}
   - {fileID: 2172536853546494990}
@@ -532,11 +516,11 @@ MonoBehaviour:
   - {fileID: 4159301438016560216}
   maxCount: 2
   maxDistance: 40
-  drawGizmo: 0
   itemSpeed:
     min: 0.5
     max: 2
   cooldown: 2
+  drawGizmo: 0
 --- !u!1 &3224233105649566152
 GameObject:
   m_ObjectHideFlags: 0

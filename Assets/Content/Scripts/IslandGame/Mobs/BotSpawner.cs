@@ -15,12 +15,16 @@ namespace Content.Scripts.IslandGame.Mobs
         [SerializeField] private MobObject.MobType mobType;
         [SerializeField] private float radius;
         [SerializeField] private Range respawnCooldown;
+
+        [SerializeField] private List<TerrainBiomeSO> biomes;
+
         private SpawnedMob spawnedMob;
         private PrefabSpawnerFabric spawner;
         private GameDataObject gameData;
         
-        public void Init(GameDataObject gameData, PrefabSpawnerFabric spawner)
+        public void Init(GameDataObject gameData, PrefabSpawnerFabric spawner, TerrainBiomeSO biome)
         {
+            this.biome = biome;
             this.spawner = spawner;
             this.gameData = gameData;
             RespawnMob();
@@ -31,6 +35,7 @@ namespace Content.Scripts.IslandGame.Mobs
         private List<Vector3> gizmosPoints = new List<Vector3>();
         private Vector3 lastPos;
         private float lastRadius;
+        private TerrainBiomeSO biome;
 
         private void OnDrawGizmos()
         {
@@ -96,9 +101,12 @@ namespace Content.Scripts.IslandGame.Mobs
         
         public void RespawnMob()
         {
-            var mob = gameData.GetMob(mobType);
-            spawnedMob = spawner.SpawnItemOnGround(mob.Prefab, GetRandomPointInRange(), Quaternion.identity, transform, LayerMask.GetMask("Default"), 0);
-            spawnedMob.Init(this);
+            if (biomes.Contains(biome))
+            {
+                var mob = gameData.GetMob(mobType);
+                spawnedMob = spawner.SpawnItemOnGround(mob.Prefab, GetRandomPointInRange(), Quaternion.identity, transform, LayerMask.GetMask("Default"), 0);
+                spawnedMob.Init(this);
+            }
         }
     }
 }

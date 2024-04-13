@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Boot;
 using Content.Scripts.Global;
+using Content.Scripts.ItemsSystem;
 using DG.DemiLib;
 using UnityEngine;
 using Zenject;
@@ -10,18 +11,7 @@ namespace Content.Scripts.BoatGame
 {
     public class WaterItemsSpawner : MonoBehaviour
     {
-        [System.Serializable]
-        public class ItemHolder
-        {
-            [SerializeField] private WaterItem item;
-            [SerializeField] private float weight;
-
-            public float Weight => weight;
-
-            public WaterItem Item => item;
-        }
-
-        [SerializeField] private List<ItemHolder> itemsList;
+        [SerializeField] private WaterSpawnItemsObject itemsData;
         [SerializeField] private List<Transform> pointsHolders;
         [SerializeField] private int maxCount;
         [SerializeField] private int maxDistance = 40;
@@ -30,7 +20,7 @@ namespace Content.Scripts.BoatGame
         
         [SerializeField] private bool drawGizmo = true;
         private float time;
-
+        private PrefabSpawnerFabric _prefabSpawnerFabric;
         private List<WaterItem> spawnedItems = new List<WaterItem>();
 
 
@@ -49,8 +39,6 @@ namespace Content.Scripts.BoatGame
             tickService.OnTick += OnTick;
         }
 
-        private List<float> weights = new List<float>(10);
-        private PrefabSpawnerFabric _prefabSpawnerFabric;
 
         private void OnTick(float t)
         {
@@ -66,21 +54,8 @@ namespace Content.Scripts.BoatGame
 
         private (WaterItem, Vector3, Vector3) SpawnItem()
         {
-            weights.Clear();
-
-            for (int i = 0; i < itemsList.Count; i++)
-            {
-                weights.Add(itemsList[i].Weight);
-            }
-
-            weights.RecalculateWeights();
-            var item = weights.ChooseRandomIndexFromWeights();
-
             var (start, end) = GetPoses(pointsHolders.GetRandomIndex());
-
-            
-            
-            var spawned = _prefabSpawnerFabric.SpawnItem<WaterItem>(itemsList[item].Item, start, Quaternion.identity, null)
+            var spawned = _prefabSpawnerFabric.SpawnItem<WaterItem>(itemsData.GetRandomItem(), start, Quaternion.identity, null)
                 .With(x => x.Init(end - start, maxDistance, itemSpeed.RandomWithin()));
 
             spawnedItems.Add(spawned);
@@ -90,6 +65,7 @@ namespace Content.Scripts.BoatGame
 
             return (spawned, start, end - start);
         }
+        
 
         public (Vector3, Vector3) GetPoses(int id)
         {

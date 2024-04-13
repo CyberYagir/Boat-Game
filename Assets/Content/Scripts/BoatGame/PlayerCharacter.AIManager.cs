@@ -37,11 +37,15 @@ namespace Content.Scripts.BoatGame
 
             public Vector3 GenerateRandomPos()
             {
-                var targetRaft = raftBuildService.SpawnedRafts.FindAll(x=>x.RaftType != RaftBuildService.RaftItem.ERaftType.Building && x.RaftType != RaftBuildService.RaftItem.ERaftType.CraftTable).GetRandomItem();
-                return targetRaft.transform.position + new Vector3(GetRandomOffcet(), 0, GetRandomOffcet());
+                var targetRaft = raftBuildService.SpawnedRafts.FindAll(x=>
+                    x.RaftType != RaftBuildService.RaftItem.ERaftType.Building && 
+                    x.RaftType != RaftBuildService.RaftItem.ERaftType.CraftTable && 
+                    x.RaftType != RaftBuildService.RaftItem.ERaftType.Fishing
+                ).GetRandomItem();
+                return targetRaft.transform.position + new Vector3(GetRandomOffset(), 0, GetRandomOffset());
             }
 
-            private float GetRandomOffcet()
+            private float GetRandomOffset()
             {
                 return Random.Range(-0.35f, 0.35f);
             }

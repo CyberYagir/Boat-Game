@@ -45,6 +45,8 @@ namespace Content.Scripts.BoatGame
             private GameObject spawnedArmor;
             private GameObject spawnedWeapon;
 
+            public bool InHood => inHood;
+
             public void Init(Character character, GameDataObject gameData)
             {
                 this.gameData = gameData;
@@ -87,7 +89,7 @@ namespace Content.Scripts.BoatGame
 
                 ActiveMeleeWeapon(weaponInHand);
                 
-                SetHatState(inHood, 0);
+                SetHatState(InHood, 0);
 
                 GameObject RespawnItem(GameObject spawned, string id)
                 {
@@ -114,11 +116,17 @@ namespace Content.Scripts.BoatGame
                 }
             }
 
+
+            private Tween hoodTween = null;
             public void SetHatState(bool state, float time = 1)
             {
+                if (hoodTween != null)
+                {
+                    hoodTween.Kill();
+                }
                 if (!state)
                 {
-                    DOVirtual.DelayedCall(time, delegate
+                    hoodTween = DOVirtual.DelayedCall(time, delegate
                     {
                         if (spawnedHelmet == null)
                         {

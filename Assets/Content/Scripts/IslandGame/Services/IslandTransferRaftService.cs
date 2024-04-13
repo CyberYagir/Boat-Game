@@ -45,11 +45,11 @@ namespace Content.Scripts.IslandGame.Services
 
             var spawnPoint = islandGenerator.CurrentIslandData.SpawnPoints.GetRandomItem(rnd);
 
-            Physics.Raycast(spawnPoint.LadderPoint.position + Vector3.up * 100, Vector3.down, out RaycastHit hit);
-            var point = hit.point;
-            point.y = 0;
-            spawnPoint.LadderPoint.position = point;
-            spawnPoint.Point.position = new Vector3(spawnPoint.Point.position.x, 0, spawnPoint.Point.position.z);
+            // Physics.Raycast(spawnPoint.LadderPoint.position + Vector3.up * 100, Vector3.down, out RaycastHit hit);
+            // var point = hit.point;
+            // point.y = 0;
+            // spawnPoint.LadderPoint.position = point;
+            // spawnPoint.Point.position = new Vector3(spawnPoint.Point.position.x, 0, spawnPoint.Point.position.z);
 
             raftsSpawnPoint.transform.position = spawnPoint.Point.position;
 

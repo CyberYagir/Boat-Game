@@ -21,7 +21,8 @@ namespace Content.Scripts.BoatGame.Services
                 Storage,
                 Building,
                 CraftTable,
-                Moored
+                Moored,
+                Fishing
             }
 
             [SerializeField] private ERaftType raftType;
@@ -62,8 +63,10 @@ namespace Content.Scripts.BoatGame.Services
             GameStateService gameStateService, 
             SelectionService selectionService,
             GameDataObject gamedata,
-            INavMeshProvider navMeshProvider)
+            INavMeshProvider navMeshProvider,
+            PrefabSpawnerFabric prefabSpawnerFabric)
         {
+            this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.gamedata = gamedata;
             this.gameStateService = gameStateService;
             this.selectionService = selectionService;
@@ -191,7 +194,8 @@ namespace Content.Scripts.BoatGame.Services
 
         private RaftBase SpawnRaftPrefab(Vector3Int cords, RaftItem.ERaftType type, RaftBase raft)
         {
-            var rf = Instantiate(raft, Vector3.zero, Quaternion.identity, Holder)
+            
+            var rf = prefabSpawnerFabric.SpawnItem(raft, Vector3.zero, Quaternion.identity, Holder)
                 .With(x => x.Init())
                 .With(x => x.SetCoords(cords))
                 .With(x => SpawnedRafts.Add(x));
@@ -204,13 +208,7 @@ namespace Content.Scripts.BoatGame.Services
                     Storages.Add(storage);
                 }
             }
-
-            var actions = rf.GetComponent<RaftWithAction>();
-            if (actions)
-            {
-                actions.InitActions(selectionService, gamedata);
-            }
-
+            
             rf.OnDeath += OnRaftDeath;
             OnChangeRaft?.Invoke();
             return rf;
@@ -310,6 +308,7 @@ namespace Content.Scripts.BoatGame.Services
 
         private List<RaftStorage> emptyStoragesArray = new List<RaftStorage>(10);
         private GameDataObject gamedata;
+        private PrefabSpawnerFabric prefabSpawnerFabric;
 
         public List<RaftStorage> FindEmptyStorages(ItemObject item, int value)
         {

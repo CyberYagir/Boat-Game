@@ -118,7 +118,7 @@ namespace Content.Scripts.IslandGame
             targetTerrain.Terrain.terrainData.SetTreeInstances(treesInstsances.ToArray(), true);
             currentIslandData = targetTerrain;
 
-            CurrentIslandData.Init(gameDataObject, prefabSpawnerFabric);
+            CurrentIslandData.Init(gameDataObject, prefabSpawnerFabric, targetBiome);
         }
 
         private void SpawnVillage(int seed, Random rnd, TerrainBiomeSO targetBiome)

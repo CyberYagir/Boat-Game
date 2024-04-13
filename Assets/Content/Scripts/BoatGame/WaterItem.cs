@@ -41,13 +41,13 @@ namespace Content.Scripts.BoatGame
 
         public bool IsOnDeath => isOnDeath;
 
+        private bool isStaticInited = false;
 
         public void Init(Vector3 dir, int maxDistance, float itemSpeed)
         {
             this.maxDistance = maxDistance;
             startVelocity = dir.normalized * itemSpeed;
             rb.AddForce(startVelocity, ForceMode.VelocityChange);
-            rig.SetYLocalEulerAngles(Random.Range(0, 360));
             floatingTransform = GetComponent<FloatingTransform>();
             StartCoroutine(Loop());
         }
@@ -88,17 +88,34 @@ namespace Content.Scripts.BoatGame
 
         public void DisableItem()
         {
+            if (isStaticInited) return;
+            floatingTransform.enabled = false;
             isStopped = true;
             rb.isKinematic = true;
-            floatingTransform.enabled = false;
         }
 
         public void EnableItem()
         {
-            isStopped = false;
-            rb.isKinematic = false;
+            
+            if (isStaticInited) return;
             floatingTransform.enabled = true;
+            rb.isKinematic = false;
+            isStopped = false;
             rb.velocity = startVelocity;
+        }
+
+        public void InitStaticItem()
+        {
+            isStaticInited = true;
+            floatingTransform = GetComponent<FloatingTransform>();
+            floatingTransform.enabled = false;
+            rig.SetYLocalEulerAngles(Random.Range(0, 360));
+            var scale = rig.transform.localScale;
+            rig.transform.localScale = Vector3.zero;
+            rig.transform.DOScale(scale, 0.25f);
+            
+            
+            rb.isKinematic = true;
         }
     }
 }

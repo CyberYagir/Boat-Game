@@ -48,11 +48,11 @@ namespace Content.Scripts.IslandGame
             botsSpawnerManager = GetComponentInChildren<BotSpawnersManager>();
         }
 
-        public void Init(GameDataObject gameData, PrefabSpawnerFabric prefabSpawner)
+        public void Init(GameDataObject gameData, PrefabSpawnerFabric prefabSpawner, TerrainBiomeSO biome)
         {
             if (botsSpawnerManager)
             {
-                botsSpawnerManager.Init(gameData, prefabSpawner);
+                botsSpawnerManager.Init(gameData, prefabSpawner, biome);
             }
         }
 

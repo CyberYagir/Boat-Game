@@ -8,8 +8,6 @@ using Content.Scripts.ItemsSystem;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.AI;
-using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Content.Scripts.BoatGame

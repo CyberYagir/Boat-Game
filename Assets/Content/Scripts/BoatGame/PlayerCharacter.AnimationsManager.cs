@@ -37,8 +37,6 @@ namespace Content.Scripts.BoatGame
             [SerializeField] private Transform rightHand;
             [SerializeField] private Transform fishPoint;
             
-            
-            private bool inHood;
             private AppearanceManager appearanceManager;
             public Transform RightHand => rightHand;
 
@@ -55,6 +53,7 @@ namespace Content.Scripts.BoatGame
 
             private void ApplyHood(WeatherService.EWeatherType type)
             {
+                var inHood = appearanceManager.InHood;
                 if (inHood)
                 {
                     if (type != WeatherService.EWeatherType.Windy && type != WeatherService.EWeatherType.Сalm)

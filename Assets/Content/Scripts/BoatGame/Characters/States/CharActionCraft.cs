@@ -56,6 +56,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         public void SetCraft(CraftObject craftItem)
         {
             targetCraftingTable.StartCraft(craftItem, Machine.Character.GetSkillMultiply(buildingSkill.SkillID));
+            Agent.SetStopped(false);
             MoveToPoint(targetCraftingTable.transform.position);
             OnCloseBuildWindow?.Invoke();
         }

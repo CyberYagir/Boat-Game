@@ -21,7 +21,7 @@ namespace Content.Scripts.Mobs.MobCrab
         public override void Init(BotSpawner botSpawner)
         {
             base.Init(botSpawner);
-            groundMask = LayerMask.GetMask("Default");
+            groundMask = LayerMask.GetMask("Default", "Terrain");
             stateMachine.Init(this);
             
             OnAttackedStart += OnOnAttackedStart;
