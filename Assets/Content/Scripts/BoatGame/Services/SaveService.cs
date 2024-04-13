@@ -32,16 +32,16 @@ namespace Content.Scripts.BoatGame.Services
         private void OnApplicationPause(bool pauseStatus)
         {
             if (!pauseStatus) return;
-            SaveBoatWorld();
+            SaveWorld();
         }
 
         private void OnApplicationQuit()
         {
-            SaveBoatWorld();
+            SaveWorld();
         }
 
 
-        public void SaveBoatWorld()
+        public void SaveWorld()
         {
             characterService.SaveCharacters();
 

@@ -21,6 +21,7 @@ namespace Content.Scripts.IslandGame.Mobs
         private SpawnedMob spawnedMob;
         private PrefabSpawnerFabric spawner;
         private GameDataObject gameData;
+        private TerrainBiomeSO biome;
         
         public void Init(GameDataObject gameData, PrefabSpawnerFabric spawner, TerrainBiomeSO biome)
         {
@@ -35,7 +36,6 @@ namespace Content.Scripts.IslandGame.Mobs
         private List<Vector3> gizmosPoints = new List<Vector3>();
         private Vector3 lastPos;
         private float lastRadius;
-        private TerrainBiomeSO biome;
 
         private void OnDrawGizmos()
         {

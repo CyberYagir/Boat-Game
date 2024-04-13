@@ -15,6 +15,7 @@ namespace Content.Scripts.BoatGame.Services
     {
         [SerializeField] private UIActionManager actionManager;
         [SerializeField] private UIRewindButton rewindButton;
+        [SerializeField] private UIExitIslandButton exitIslandButton;
         [SerializeField] private UIMapButton mapButton;
         [SerializeField] private UIStopBuildButton stopBuildButton;
         [SerializeField] private UIChestShow chestShow;
@@ -42,7 +43,8 @@ namespace Content.Scripts.BoatGame.Services
             CharacterService characterService,
             RaftBuildService raftBuildService, 
             SaveDataObject saveDataObject,
-            ScenesService scenesService
+            ScenesService scenesService,
+            SaveService saveService
         )
         {
             this._gameState = gameState;
@@ -56,6 +58,7 @@ namespace Content.Scripts.BoatGame.Services
             rewindButton.Init(tickService, gameStateService);
             mapButton.Init(raftBuildService, scenesService);
             stopBuildButton.Init(tickService, gameStateService);
+            exitIslandButton.Init(messageBoxManager, saveService, scenesService);
             
             chestShow.Init(gameDataObject, selectionService);
             craftsWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);

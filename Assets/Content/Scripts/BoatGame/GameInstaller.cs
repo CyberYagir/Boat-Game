@@ -27,6 +27,7 @@ namespace Content.Scripts.BoatGame
             BindService<ResourcesService>();
             BindService<SelectionService>();
             BindService<CharacterService>();
+            BindService<SaveService>();
         }
     }
 }

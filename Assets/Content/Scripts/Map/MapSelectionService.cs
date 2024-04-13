@@ -65,7 +65,7 @@ namespace Content.Scripts.Map
             {
                 saveDataObject.Global.SetIslandSeed(selectedIsland.Seed);
                 saveDataObject.SaveFile();
-                scenesService.ChangeScene(ESceneName.IslandGame);
+                scenesService.FadeScene(ESceneName.IslandGame);
             }
         }
     }
