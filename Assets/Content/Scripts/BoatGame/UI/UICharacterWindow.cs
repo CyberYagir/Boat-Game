@@ -156,7 +156,7 @@ namespace Content.Scripts.BoatGame.UI
         {
             foreach (var raftStorage in raftBuildService.Storages)
             {
-                if (raftStorage.IsEmptyStorage(item, 1))
+                if (raftStorage.IsEmptyStorage(1))
                 {
                     raftStorage.AddToStorage(item, 1);
                 }

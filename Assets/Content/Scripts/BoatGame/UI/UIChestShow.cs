@@ -70,7 +70,7 @@ namespace Content.Scripts.BoatGame.UI
             Close();
         }
 
-        private void UpdateSelectedStorage(EResourceTypes arg1, RaftStorage.ResourceTypeHolder arg2)
+        private void UpdateSelectedStorage()
         {
             if (selectedStorage != null)
             {
@@ -100,12 +100,9 @@ namespace Content.Scripts.BoatGame.UI
             int id = 0;
             for (int i = 0; i < selectedStorage.Items.Count; i++)
             {
-                for (int j = 0; j < selectedStorage.Items[i].ItemObjects.Count; j++)
-                {
-                    items[id].gameObject.SetActive(true);
-                    items[id].Init(selectedStorage, selectedStorage.Items[i].ItemObjects[j].Item, selectedStorage.Items[i].ItemObjects[j].Count);
-                    id++;
-                }
+                items[id].gameObject.SetActive(true);
+                items[id].Init(selectedStorage, selectedStorage.Items[i].Item, selectedStorage.Items[i].Count);
+                id++;
             }
 
             emptyText.gameObject.SetActive(id == 0);

@@ -42,8 +42,8 @@ namespace Content.Scripts.Global
         [SerializeField] private List<MapPathObject> mapPaths;
         [SerializeField] private List<RandomStructureMaterialsBase.MatsByBiome> structuresMaterials;
         [SerializeField] private List<RandomStructureMaterialsBase.MatsByBiome> structuresRoofMaterials;
-        
-        
+        [SerializeField] private List<ActionsDataSO.IconsKeys<EResourceTypes>> resourcesIcons;
+
         public List<Material> SkinColors => skinColors;
 
         public List<SkillObject> SkillsList => skillsList;
@@ -92,6 +92,11 @@ namespace Content.Scripts.Global
         public MobObject GetMob(MobObject.MobType mobType)
         {
             return mobs.Find(x => x.Type == mobType);
+        }
+
+        public Sprite GetResourceIcon(EResourceTypes type)
+        {
+            return resourcesIcons.Find(x => x.Key == type).Icon;
         }
     }
 }

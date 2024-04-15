@@ -25,12 +25,12 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIMessageBoxManager messageBoxManager;
         [SerializeField] private UIDeathWindow deathWindow;
         [SerializeField] private UICharactersList charactersList;
-        [SerializeField] private List<ResourcesCounter> counter;
+        [SerializeField] private UIResourcesCounter resourcesList;
         
         private PlayerCharacter targetCharacter;
         private TickService tickService;
         private ResourcesService resourcesService;
-        private GameStateService _gameState;
+        private GameStateService gameState;
 
         [Inject]
         private void Construct(
@@ -47,7 +47,7 @@ namespace Content.Scripts.BoatGame.Services
             SaveService saveService
         )
         {
-            this._gameState = gameState;
+            this.gameState = gameState;
             this.resourcesService = resourcesService;
             this.tickService = tickService;
 
@@ -65,18 +65,21 @@ namespace Content.Scripts.BoatGame.Services
             craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
             characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager);
             charactersList?.Init(characterService, tickService, selectionService);
+            
+            
+            resourcesList.Init(raftBuildService, gameDataObject, resourcesService);
+            
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
-
             resourcesService.OnChangeResources += OnChangeResources;
 
 
             ChangeCharacter(selectionService.SelectedCharacter);
+            
+        }
 
-            for (int i = 0; i < counter.Count; i++)
-            {
-                var data = resourcesService.GetResourceData(counter[i].ResourceTypes);
-                counter[i].UpdateCounter(data.Count, data.MaxCount);
-            }
+        private void OnChangeResources()
+        {
+            resourcesList.UpdateCounter();
         }
 
         private void ChangeCharacter(PlayerCharacter newPlayer)
@@ -102,14 +105,14 @@ namespace Content.Scripts.BoatGame.Services
             actionManager.UpdateButtons(false);
         }
 
-        private void OnChangeResources(EResourceTypes name, RaftStorage.ResourceTypeHolder data)
-        {
-            var count = counter.Find(x => x.ResourceTypes == name);
-            if (count != null)
-            {
-                count.UpdateCounter(data.Count, data.MaxCount);
-            }
-        }
+        // private void OnChangeResources(EResourceTypes name, RaftStorage.StorageItem data)
+        // {
+        //     var count = counter.Find(x => x.ResourceTypes == name);
+        //     if (count != null)
+        //     {
+        //         count.UpdateCounter(data.Count, data.MaxCount);
+        //     }
+        // }
 
         private void LateUpdate()
         {
@@ -119,7 +122,7 @@ namespace Content.Scripts.BoatGame.Services
 
         public void ChangeGameStateToBuild()
         {
-            _gameState.ChangeGameState(GameStateService.EGameState.Building);
+            gameState.ChangeGameState(GameStateService.EGameState.Building);
         }
 
         public void CharacterCraftItem(CraftObject item)

@@ -9,7 +9,7 @@
                 int canHoldItems = 0;
                 foreach (var raftStorage in raftBuildService.Storages)
                 {
-                    canHoldItems += raftStorage.GetStorage(item.FinalItem.ResourceName.Type, true).GetEmptySlots();
+                    canHoldItems += raftStorage.GetEmptySlots();
                 }
 
                 if (canHoldItems < item.FinalItem.Count)

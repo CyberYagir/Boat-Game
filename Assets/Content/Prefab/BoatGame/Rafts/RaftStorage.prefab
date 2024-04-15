@@ -1365,6 +1365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   health: 0
+  attackPoint: {fileID: 0}
   coords: {x: 0, y: 0, z: 0}
   raftType: 1
   uid: 
@@ -1380,22 +1381,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f557b8d9ca965854db503d270419c440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - resourceType: 0
-    maxCount: 9
-    itemObjects: []
-  - resourceType: 1
-    maxCount: 9
-    itemObjects: []
-  - resourceType: 2
-    maxCount: 9
-    itemObjects: []
-  - resourceType: 3
-    maxCount: 9
-    itemObjects: []
-  - resourceType: 4
-    maxCount: 9
-    itemObjects: []
+  items: []
+  maxItemsCount: 14
 --- !u!114 &3647327643183572109
 MonoBehaviour:
   m_ObjectHideFlags: 0

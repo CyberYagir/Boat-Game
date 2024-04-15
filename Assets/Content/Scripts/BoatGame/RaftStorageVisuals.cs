@@ -24,56 +24,67 @@ namespace Content.Scripts.BoatGame
         [SerializeField] private List<GameObject> logsVisuals;
         [SerializeField] private List<GameObject> waterBuckets;
         [SerializeField] private List<GameObject> bagsVisuals;
+        
+        private RaftStorage raftStorage;
 
         private void Awake()
         {
-            var raftStorage = GetComponent<RaftStorage>();
+            raftStorage = GetComponent<RaftStorage>();
             raftStorage.OnStorageChange += OnStorageChange;
+            OnStorageChange();
+        }
 
-            foreach (var it in raftStorage.Items)
+        private void OnStorageChange()
+        {
+            UpdateFishes();
+            UpdateBuilds();
+            UpdateWater();
+            UpdateCoins();
+        }
+
+        private void UpdateBuilds()
+        {
+            var buildItems = raftStorage.Items.FindAll(x => x.Item.Type == EResourceTypes.Build);
+            for (int i = 0; i < logsVisuals.Count; i++)
             {
-                OnStorageChange(it.ResourcesType, it);
+                logsVisuals[i].SetActive(i < buildItems.Count);
             }
         }
 
-        private void OnStorageChange(EResourceTypes item, RaftStorage.ResourceTypeHolder holder)
+        private void UpdateFishes()
         {
-            if (item == EResourceTypes.Eat )
+            var eatItems = raftStorage.Items.FindAll(x => x.Item.Type == EResourceTypes.Eat);
+            foreach (var fv in fishesVisuals)
             {
-                foreach (var fv in fishesVisuals)
-                {
-                    fv.FishMesh.gameObject.SetActive(false);
-                    fv.Stick.gameObject.SetActive(false);
-                }
+                fv.FishMesh.gameObject.SetActive(false);
+                fv.Stick.gameObject.SetActive(false);
+            }
 
-                for (int i = 0; i < holder.Count; i++)
+            for (int i = 0; i < eatItems.Count; i++)
+            {
+                if (fishesVisuals.Count < i)
                 {
                     fishesVisuals[i].Stick.gameObject.SetActive(true);
                     fishesVisuals[i].FishMesh.gameObject.SetActive(true);
                 }
-            }else
-            if (item == EResourceTypes.Build)
+            }
+        }
+
+        private void UpdateWater()
+        {
+            var waterItems = raftStorage.Items.FindAll(x => x.Item.Type == EResourceTypes.Water);
+            for (int i = 0; i < waterBuckets.Count; i++)
             {
-                for (int i = 0; i < logsVisuals.Count; i++)
-                {
-                    logsVisuals[i].SetActive(i < holder.Count);
-                }
-            }else if (item == EResourceTypes.Water)
+                waterBuckets[i].SetActive(i < waterItems.Count);
+            }
+        }
+        
+        private void UpdateCoins()
+        {
+            var coinsItems = raftStorage.Items.FindAll(x => x.Item.Type == EResourceTypes.Money);
+            for (int i = 0; i < bagsVisuals.Count; i++)
             {
-                var percent = holder.Count / (float) holder.MaxCount;
-                var count = Mathf.Ceil(waterBuckets.Count * percent);
-                for (int i = 0; i < waterBuckets.Count; i++)
-                {
-                    waterBuckets[i].SetActive(i < count);
-                }
-            }else if (item == EResourceTypes.Money)
-            {
-                var percent = holder.Count / (float) holder.MaxCount;
-                var count = Mathf.Ceil(bagsVisuals.Count * percent);
-                for (int i = 0; i < bagsVisuals.Count; i++)
-                {
-                    bagsVisuals[i].SetActive(i < count);
-                }
+                bagsVisuals[i].SetActive(i < coinsItems.Count);
             }
         }
     }

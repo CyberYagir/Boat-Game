@@ -156,11 +156,11 @@ namespace Content.Scripts.BoatGame.UI
             item.gameObject.SetActive(true);
             foreach (var raftStorage in raftBuildService.Storages)
             {
-                var other = raftStorage.GetStorage(EResourceTypes.Other, true);
+                var other = raftStorage.GetItem(EResourceTypes.Other);
 
                 if (other != null)
                 {
-                    foreach (var otherItemObject in other.ItemObjects)
+                    foreach (var otherItemObject in other)
                     {
                         for (int i = 0; i < otherItemObject.Count; i++)
                         {

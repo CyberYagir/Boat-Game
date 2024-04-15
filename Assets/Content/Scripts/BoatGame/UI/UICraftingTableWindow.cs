@@ -43,7 +43,7 @@ namespace Content.Scripts.BoatGame.UI
             RedrawItems();
         }
         
-        private void OnChangeResources(EResourceTypes arg1, RaftStorage.ResourceTypeHolder arg2)
+        private void OnChangeResources()
         {
             if (IsOpen)
             {

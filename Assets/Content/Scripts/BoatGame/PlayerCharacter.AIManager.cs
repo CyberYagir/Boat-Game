@@ -74,7 +74,7 @@ namespace Content.Scripts.BoatGame
 
             public RaftStorage GoToEmptyStorage(ItemObject item, int value)
             {
-                return raftBuildService.FindEmptyStorage(item, value);
+                return raftBuildService.FindEmptyStorage(value);
             }
             
             public List<RaftStorage> GoToEmptyStorages(ItemObject item, int value)
@@ -94,10 +94,10 @@ namespace Content.Scripts.BoatGame
                     int count = 0;
                     for (int i = 0; i < raftBuildService.Storages.Count; i++)
                     {
-                        var storage = raftBuildService.Storages[i].GetStorage(currentCraftIngredient.ResourceName.Type, true);
+                        var storage = raftBuildService.Storages[i].GetItem(currentCraftIngredient.ResourceName.Type);
                         if (storage != null)
                         {
-                            var item = storage.ItemObjects.Find(x => x.Item.ID == currentCraftIngredient.ResourceName.ID);
+                            var item = storage.Find(x => x.Item.ID == currentCraftIngredient.ResourceName.ID);
                             if (item != null)
                             {
                                 count += item.Count;

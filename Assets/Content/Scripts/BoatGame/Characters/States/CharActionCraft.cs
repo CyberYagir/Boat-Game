@@ -86,7 +86,9 @@ namespace Content.Scripts.BoatGame.Characters.States
             if (Machine.AIMoveManager.HaveMaterials(targetCraftingTable.CurrentCraft.Ingredients))
             {
                 time += TimeService.DeltaTime;
-
+                
+                targetCraftingTable.UpdateCraftingTable(time);
+                
                 Machine.transform.LookAt(new Vector3(targetCraftingTable.transform.position.x, Machine.transform.position.y, targetCraftingTable.transform.position.z));
 
                 if (targetCraftingTable.CraftingTimeTime <= time)
@@ -119,7 +121,7 @@ namespace Content.Scripts.BoatGame.Characters.States
                 {
                     if (finalCount != 0)
                     {
-                        while (storage[i].IsEmptyStorage(targetCraftingTable.CurrentCraft.FinalItem.ResourceName, 1) && finalCount > 0)
+                        while (storage[i].IsEmptyStorage(1) && finalCount > 0)
                         {
                             finalCount--;
                             storage[i].AddToStorage(targetCraftingTable.CurrentCraft.FinalItem.ResourceName, 1);

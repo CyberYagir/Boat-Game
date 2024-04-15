@@ -74,23 +74,6 @@ namespace Content.Scripts.Global
             public class RaftStorage
             {
                 [System.Serializable]
-                public class Storage
-                {
-                    [SerializeField] private EResourceTypes resourceType;
-                    [SerializeField] private List<StorageItem> itemList;
-
-                    public Storage(EResourceTypes resourceType, List<StorageItem> itemList)
-                    {
-                        this.resourceType = resourceType;
-                        this.itemList = itemList;
-                    }
-
-                    public List<StorageItem> ItemList => itemList;
-
-                    public EResourceTypes ResourceType => resourceType;
-                }
-                
-                [System.Serializable]
                 public class StorageItem
                 {
                     [SerializeField] private string itemID;
@@ -107,16 +90,16 @@ namespace Content.Scripts.Global
                     public string ItemID => itemID;
                 }
                 [SerializeField] private string raftUid;
-                [SerializeField] private List<Storage> storagesData;
+                [SerializeField] private List<StorageItem> storagesData;
 
 
-                public RaftStorage(string raftUid, List<Storage> storagesData)
+                public RaftStorage(string raftUid, List<StorageItem> storagesData)
                 {
                     this.raftUid = raftUid;
                     this.storagesData = storagesData;
                 }
 
-                public List<Storage> StoragesData => storagesData;
+                public List<StorageItem> StoragesData => storagesData;
 
                 public string RaftUid => raftUid;
             }
@@ -168,22 +151,15 @@ namespace Content.Scripts.Global
                 BoatGame.RaftStorage raftStorage = spawnedRaft.GetComponent<BoatGame.RaftStorage>();
                 if (raftStorage != null)
                 {
-                    List<RaftStorage.Storage> raftStorages = new List<RaftStorage.Storage>();
+                    List<RaftStorage.StorageItem> raftStorages = new List<RaftStorage.StorageItem>();
 
 
                     for (int i = 0; i < raftStorage.Items.Count; i++)
                     {
-                        List<RaftStorage.StorageItem> items = new List<RaftStorage.StorageItem>();
-
-                        for (int j = 0; j < raftStorage.Items[i].ItemObjects.Count; j++)
+                        if (raftStorage.Items[i].Item != null)
                         {
-                            if (raftStorage.Items[i].ItemObjects[j].Item != null)
-                            {
-                                items.Add(new RaftStorage.StorageItem(raftStorage.Items[i].ItemObjects[j].Item.ID, raftStorage.Items[i].ItemObjects[j].Count));
-                            }
+                            raftStorages.Add(new RaftStorage.StorageItem(raftStorage.Items[i].Item.ID, raftStorage.Items[i].Count));
                         }
-
-                        raftStorages.Add(new RaftStorage.Storage(raftStorage.Items[i].ResourcesType, items));
                     }
 
                     storages.Add(new RaftStorage(spawnedRaft.Uid, raftStorages));

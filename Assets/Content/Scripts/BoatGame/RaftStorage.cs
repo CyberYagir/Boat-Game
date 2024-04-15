@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
@@ -10,167 +11,58 @@ namespace Content.Scripts.BoatGame
 {
     public class RaftStorage : MonoBehaviour
     {
+        
         [System.Serializable]
-        public class ResourceTypeHolder
+        public class StorageItem
         {
-            [System.Serializable]
-            public class StorageItem
+            [SerializeField] private ItemObject item;
+            [SerializeField] private int count;
+
+            public StorageItem(ItemObject item, int count)
             {
-                [SerializeField] private ItemObject item;
-                [SerializeField] private int count;
-
-                public StorageItem(ItemObject item, int count)
-                {
-                    this.item = item;
-                    this.count = count;
-                }
-
-                public int Count => count;
-
-                public ItemObject Item => item;
-
-                public void Add(int value)
-                {
-                    count += value;
-                }
+                this.item = item;
+                this.count = count;
             }
 
-            [SerializeField] private EResourceTypes resourceType;
-            [SerializeField] private int maxCount;
+            public int Count => count;
 
-            [SerializeField] private List<StorageItem> itemObjects = new List<StorageItem>();
+            public ItemObject Item => item;
 
-            public EResourceTypes ResourcesType => resourceType;
-
-            
-            public ResourceTypeHolder(EResourceTypes resourceType, int maxCount)
+            public void Add(int value)
             {
-                this.resourceType = resourceType;
-                this.maxCount = maxCount;
-            }
-
-
-            public int Count => GetCount();
-
-            public int MaxCount => maxCount;
-
-            public List<StorageItem> ItemObjects => itemObjects;
-
-
-            public void SetMaxCount(int count)
-            {
-                maxCount = count;
-            }
-            
-            public bool IsCanFitItem(ItemObject itemObject, int value)
-            {
-                return GetCount() + value <= MaxCount;
-            }
-
-
-            public int GetCount()
-            {
-                int count = 0;
-                for (int i = 0; i < ItemObjects.Count; i++)
-                {
-                    count += ItemObjects[i].Count;
-                }
-
-                return count;
-            }
-
-            public void Add(ItemObject itemObject, int value)
-            {
-                var findedItem = ItemObjects.Find(x => x.Item.ID == itemObject.ID);
-
-                if (findedItem == null)
-                {
-                    ItemObjects.Add(new StorageItem(itemObject, value));
-                }
-                else
-                {
-                    findedItem.Add(value);
-                }
-                
-            }
-
-            public void RemoveItem(ItemObject itemObject)
-            {
-                if (ItemObjects.Count == 0) return;
-
-                var find = ItemObjects.Find(x => x.Item.ID == itemObject.ID);
-
-                if (find != null)
-                {
-                    find.Add(-1);
-                }
-
-                if (find.Count == 0)
-                {
-                    ItemObjects.Remove(find);
-                }
-            }
-            
-            public ItemObject RemoveItem()
-            {
-                if (ItemObjects.Count == 0) return null;
-                
-                var holder = ItemObjects[0];
-                holder.Add(-1);
-                if (holder.Count == 0)
-                {
-                    ItemObjects.RemoveAt(0);
-                }
-                
-                return holder.Item;
-            }
-
-            public int GetEmptySlots()
-            {
-                return maxCount - Count;
-            }
-
-            public void Clear()
-            {
-                itemObjects.Clear();
+                count += value;
             }
         }
+        
+        [SerializeField] private List<StorageItem> items = new List<StorageItem>();
+        [SerializeField] private int maxItemsCount;
+        
+        
+        public Action OnStorageChange;
 
-        [SerializeField] private List<ResourceTypeHolder> items = new List<ResourceTypeHolder>();
-        public Action<EResourceTypes, ResourceTypeHolder> OnStorageChange;
-
-        public List<ResourceTypeHolder> Items => items;
+        public List<StorageItem> Items => items;
 
 
-        public ResourceTypeHolder GetStorage(ItemObject item)
+        public StorageItem GetItem(ItemObject item)
         {
-            return Items.Find(x => x.ResourcesType == item.Type);
+            return Items.Find(x => x.Item.ID == item.ID);
         }
         
         
-        public List<ResourceTypeHolder> GetStorage(EResourceTypes name)
+        public List<StorageItem> GetItem(EResourceTypes name)
         {
-            return Items.FindAll(x => x.ResourcesType == name);
-        }
-        
-        public ResourceTypeHolder GetStorage(EResourceTypes name, bool single)
-        {
-            return Items.Find(x => x.ResourcesType == name);
+            return Items.FindAll(x => x.Item.Type == name && x.Count > 0);
         }
 
 
-        
-        public bool IsEmptyStorage(ItemObject item, int value)
+        public bool IsEmptyStorage(int value)
         {
-            var storage = GetStorage(item);
-            if (storage == null) return false;
-
-            return storage.IsCanFitItem(item, value);
+            return items.Sum(x=>x.Count) + value < maxItemsCount;
         }
 
         public int GetResourceByType(EResourceTypes type)
         {
-            var item = Items.Find(x => x.ResourcesType == type);
+            var item = Items.Find(x => x.Item.Type == type);
             if (item != null)
             {
                 return item.Count;
@@ -179,25 +71,23 @@ namespace Content.Scripts.BoatGame
             return 0;
         }
 
-        public bool AddToStorage(ItemObject resourceDataItem, int resourceDataValue)
+        public void AddToStorage(ItemObject item, int resourceDataValue)
         {
-            var storage = GetStorage(resourceDataItem);
+            var storage = GetItem(item);
             if (storage != null)
             {
-                storage.Add(resourceDataItem, resourceDataValue);
-
-                OnStorageChange?.Invoke(resourceDataItem.Type, storage);
-                return true;
+                storage.Add(resourceDataValue);
             }
-
-            return false;
+            else
+            {
+                items.Add(new StorageItem(item, resourceDataValue));
+            }
+            OnStorageChange?.Invoke();
         }
 
         public bool HaveItem(ItemObject item)
         {
-            var storage = GetStorage(item.Type, true);
-            if (storage == null) return false;
-            var itemInStorage = storage.ItemObjects.Find(x => x.Item.ID == item.ID);
+            var itemInStorage = GetItem(item.Type);
             if (itemInStorage == null) return false;
             if (itemInStorage.Count == 0) return false;
             
@@ -206,25 +96,39 @@ namespace Content.Scripts.BoatGame
 
         public ItemObject RemoveFromStorage(EResourceTypes type)
         {
-            var storage = GetStorage(type, true);
-            var remove = storage.RemoveItem();
+            var storage = GetItem(type);
 
+            if (storage.Count == 0) return null;
+
+
+            var remove = storage.First();
+            
             if (remove != null)
             {
-                OnStorageChange?.Invoke(remove.Type, storage);
+                RemoveItem(remove);
+                OnStorageChange?.Invoke();
+                return remove.Item;
             }
-            return remove;
+            return null;
+        }
+
+        private void RemoveItem(StorageItem remove)
+        {
+            remove.Add(-1);
+
+            if (remove.Count == 0)
+            {
+                items.Remove(remove);
+            }
         }
 
         public bool RemoveFromStorage(ItemObject item)
         {
-            var storage = GetStorage(item.Type, true);
-            var remove = storage.ItemObjects.Find(x => x.Item.ID == item.ID);
-
+            StorageItem remove = GetItem(item);
+            
             if (remove != null)
             {
-                storage.RemoveItem(item);
-                OnStorageChange?.Invoke(item.Type, storage);
+                RemoveItem(remove);
                 return true;
             }
 
@@ -233,17 +137,15 @@ namespace Content.Scripts.BoatGame
 
         public void LoadStorage(SaveDataObject.RaftsData.RaftStorage data, GameDataObject gameData)
         {
+            items.Clear();
             for (int i = 0; i < data.StoragesData.Count; i++)
             {
-                var storage = items.Find(x => x.ResourcesType == data.StoragesData[i].ResourceType);
-
-                if (storage != null)
+                if (data.StoragesData[i].Count > 0)
                 {
-                    for (int j = 0; j < data.StoragesData[i].ItemList.Count; j++)
-                    {
-                        items[i].Add(gameData.GetItem(data.StoragesData[i].ItemList[j].ItemID), data.StoragesData[i].ItemList[j].Count);
-                    }
-                    OnStorageChange?.Invoke(storage.ResourcesType, storage);
+                    var item = gameData.GetItem(data.StoragesData[i].ItemID);
+                    var storageItems = new StorageItem(item, data.StoragesData[i].Count);
+                    items.Add(storageItems);
+                    OnStorageChange?.Invoke();
                 }
             }
             
@@ -251,11 +153,13 @@ namespace Content.Scripts.BoatGame
 
         public void RemoveAllFromStorage()
         {
-            foreach (var resourceTypeHolder in Items)
-            {
-                resourceTypeHolder.Clear();
-                OnStorageChange?.Invoke(resourceTypeHolder.ResourcesType, resourceTypeHolder);
-            }
+            Items.Clear();
+            OnStorageChange?.Invoke();
+        }
+
+        public int GetEmptySlots()
+        {
+            return maxItemsCount - items.Count;
         }
     }
 }

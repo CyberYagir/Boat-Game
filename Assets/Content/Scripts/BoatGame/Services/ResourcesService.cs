@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Content.Scripts.Global;
-using Content.Scripts.ItemsSystem;
 using UnityEngine;
 using Zenject;
 
@@ -18,16 +17,16 @@ namespace Content.Scripts.BoatGame.Services
     }
     public class ResourcesService : MonoBehaviour
     {
-        public Action<EResourceTypes, RaftStorage.ResourceTypeHolder> OnChangeResources;
+        [SerializeField] private List<RaftStorage.StorageItem> allItemsList = new List<RaftStorage.StorageItem>(20);
+        
         private RaftBuildService raftBuildService;
-        private List<RaftStorage.ResourceTypeHolder> allItemsList = new List<RaftStorage.ResourceTypeHolder>(20);
-        private GameDataObject gameData;
-        public List<RaftStorage.ResourceTypeHolder> AllItemsList => allItemsList;
+        
+        public Action OnChangeResources;
+        public List<RaftStorage.StorageItem> AllItemsList => allItemsList;
 
         [Inject]
         private void Construct(RaftBuildService raftBuildService, GameDataObject gameData)
         {
-            this.gameData = gameData;
             this.raftBuildService = raftBuildService;
             foreach (var spawnedRaft in raftBuildService.Storages)
             {
@@ -37,52 +36,30 @@ namespace Content.Scripts.BoatGame.Services
             print("execute " + transform.name);
         }
 
-        private void OnAnyStorageChange(EResourceTypes it, RaftStorage.ResourceTypeHolder data)
+        private void OnAnyStorageChange()
         {
-            var type = it;
-            var newData = GetResourceData(type);
-
-            OnChangeResources?.Invoke(type, newData);
+            OnChangeResources?.Invoke();
         }
 
-        public RaftStorage.ResourceTypeHolder GetResourceData(EResourceTypes name)
+
+        public void PlayerItemsList()
         {
-            var holder = new RaftStorage.ResourceTypeHolder(name, int.MaxValue);
-            
-            int count = 0;
-            int max = 0;
-            
-            for (int i = 0; i < raftBuildService.Storages.Count; i++)
-            {
-                var storages = raftBuildService.Storages[i].GetStorage(name);
-
-                for (int j = 0; j < storages.Count; j++)
-                {
-                    for (int k = 0; k < storages[j].ItemObjects.Count; k++)
-                    {
-                        holder.Add(storages[j].ItemObjects[k].Item, storages[j].ItemObjects[k].Count);
-                        
-                        count += storages[j].Count;
-                    }
-                    max += storages[j].MaxCount;
-                }
-            }
-
-            holder.SetMaxCount(max);
-
-            return holder;
-        }
-
-        
-        public List<RaftStorage.ResourceTypeHolder> PlayerItemsList()
-        {
-            AllItemsList.Clear();
+            allItemsList.Clear();
             foreach (var raftStorage in raftBuildService.Storages)
             {
-                AllItemsList.AddRange(raftStorage.Items);
+                for (int i = 0; i < raftStorage.Items.Count; i++)
+                {
+                    var itemInArray = allItemsList.Find(x=>x.Item.ID == raftStorage.Items[i].Item.ID);
+                    if (itemInArray == null)
+                    {
+                        allItemsList.Add(new RaftStorage.StorageItem(raftStorage.Items[i].Item, raftStorage.Items[i].Count));
+                    }
+                    else
+                    {
+                        itemInArray.Add(raftStorage.Items[i].Count);
+                    }
+                }
             }
-
-            return AllItemsList;
         }
     }
 }

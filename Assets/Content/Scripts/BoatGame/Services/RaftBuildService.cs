@@ -22,7 +22,8 @@ namespace Content.Scripts.BoatGame.Services
                 Building,
                 CraftTable,
                 Moored,
-                Fishing
+                Fishing,
+                Furnace
             }
 
             [SerializeField] private ERaftType raftType;
@@ -227,9 +228,9 @@ namespace Content.Scripts.BoatGame.Services
             }
         }
 
-        public RaftStorage FindEmptyStorage(ItemObject item, int value)
+        public RaftStorage FindEmptyStorage(int value)
         {
-            var storage = Storages.Find(x => x.IsEmptyStorage(item, value));
+            var storage = Storages.Find(x => x.IsEmptyStorage(value));
             return storage;
         }
 
@@ -317,7 +318,7 @@ namespace Content.Scripts.BoatGame.Services
             emptyStoragesArray.Clear();
             foreach (var raftStorage in Storages)
             {
-                if (raftStorage.IsEmptyStorage(item, value))
+                if (raftStorage.IsEmptyStorage(value))
                 {
                     emptyStoragesArray.Add(raftStorage);
                 }

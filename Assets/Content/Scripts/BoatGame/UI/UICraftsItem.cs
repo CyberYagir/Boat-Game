@@ -52,14 +52,10 @@ namespace Content.Scripts.BoatGame.UI
             bool canCraft = true;
             for (int i = 0; i < subItems.Count; i++)
             {
-                var typeFilter = resourcesService.AllItemsList.FindAll(x => x.ResourcesType == item.Ingredients[i].ResourceName.Type);
-
                 int count = 0;
-                for (int j = 0; j < typeFilter.Count; j++)
-                {
-                    var items = typeFilter[j].ItemObjects.FindAll(x => x.Item.ID == item.Ingredients[i].ResourceName.ID);
-                    count += items.Sum(x => x.Count);
-                }
+                
+                var items = resourcesService.AllItemsList.FindAll(x => x.Item.ID == item.Ingredients[i].ResourceName.ID);
+                count += items.Sum(x => x.Count);
 
                 if (count < item.Ingredients[i].Count)
                 {
