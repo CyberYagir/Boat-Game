@@ -57,7 +57,7 @@ namespace Content.Scripts.BoatGame
 
         public bool IsEmptyStorage(int value)
         {
-            return items.Sum(x=>x.Count) + value < maxItemsCount;
+            return items.Sum(x=>x.Count) + value <= maxItemsCount;
         }
 
         public int GetResourceByType(EResourceTypes type)
@@ -82,6 +82,13 @@ namespace Content.Scripts.BoatGame
             {
                 items.Add(new StorageItem(item, resourceDataValue));
             }
+            
+            WorldPopupService.StaticSpawnPopup(
+                transform.position,
+                item,
+                resourceDataValue
+            );
+            
             OnStorageChange?.Invoke();
         }
 
@@ -99,14 +106,12 @@ namespace Content.Scripts.BoatGame
             var storage = GetItem(type);
 
             if (storage.Count == 0) return null;
-
-
+            
             var remove = storage.First();
             
             if (remove != null)
             {
                 RemoveItem(remove);
-                OnStorageChange?.Invoke();
                 return remove.Item;
             }
             return null;
@@ -120,6 +125,7 @@ namespace Content.Scripts.BoatGame
             {
                 items.Remove(remove);
             }
+            OnStorageChange?.Invoke();
         }
 
         public bool RemoveFromStorage(ItemObject item)
@@ -159,7 +165,7 @@ namespace Content.Scripts.BoatGame
 
         public int GetEmptySlots()
         {
-            return maxItemsCount - items.Count;
+            return maxItemsCount - items.Sum(x=>x.Count);
         }
     }
 }

@@ -120,6 +120,8 @@ namespace Content.Scripts.BoatGame
             private Tween hoodTween = null;
             public void SetHatState(bool state, float time = 1)
             {
+                if (hatsHolder == null) return;
+                
                 if (hoodTween != null)
                 {
                     hoodTween.Kill();

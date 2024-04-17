@@ -47,6 +47,12 @@ namespace Content.Scripts.ManCreator
             character.SetName(gameData.NamesList.GetRandomItem());
             OnNameChanged?.Invoke();
         }
+        
+        public void ChangeName(string str)
+        {
+            character.SetName(str);
+            OnNameChanged?.Invoke();
+        }
 
         public string GetCharacterName()
         {
@@ -129,6 +135,7 @@ namespace Content.Scripts.ManCreator
             }
             saveData.SaveFile();
         }
+
 
 
     }

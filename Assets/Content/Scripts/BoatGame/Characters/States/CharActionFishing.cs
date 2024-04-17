@@ -104,10 +104,11 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             if (Machine.AIMoveManager.NavMeshAgent.IsArrived())
             {
-                var storage = Machine.AIMoveManager.GoToEmptyStorage(fishItem, 1);
+                var storage = Machine.AIMoveManager.GoToEmptyStorage(1);
                 if (storage == null)
                 {
                     DropFish();
+                    WorldPopupService.StaticSpawnCantPopup(Machine.transform.position);
                 }
                 else
                 {
@@ -116,7 +117,7 @@ namespace Content.Scripts.BoatGame.Characters.States
                     Destroy(spawnedFish.gameObject);
                     Machine.AddExp(1);
                 }
-                
+
                 EndState();
             }
         }
@@ -188,7 +189,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         private void FindEmptyStorage()
         {
-            var storage = Machine.AIMoveManager.GoToEmptyStorage(fishItem, 1);
+            var storage = Machine.AIMoveManager.GoToEmptyStorage(1, false);
 
             if (storage != null)
             {
@@ -275,6 +276,9 @@ namespace Content.Scripts.BoatGame.Characters.States
             tween.Kill();
         }
 
-
+        public override bool IsCanCancel()
+        {
+            return CurrentState != EState.RopeBack && CurrentState != EState.FishToStorage;
+        }
     }
 }

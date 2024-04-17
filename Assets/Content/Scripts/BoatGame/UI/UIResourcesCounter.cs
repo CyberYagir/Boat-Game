@@ -10,13 +10,14 @@ namespace Content.Scripts.BoatGame.UI
     public class UIResourcesCounter : MonoBehaviour
     {
         [SerializeField] private UIResourcesCounterGroup counterGroupPrefab;
-        
+        [SerializeField] private RectTransform holder, scroll;
+        [SerializeField] private float maxY = 775;
         
         private Dictionary<EResourceTypes, UIResourcesCounterGroup> headers = new Dictionary<EResourceTypes, UIResourcesCounterGroup>(5);
         private IEnumerator waiterCoroutine;
         private ResourcesService resourcesService;
 
-        public void Init(RaftBuildService raftBuildService, GameDataObject gameData, ResourcesService resourcesService)
+        public void Init(RaftBuildService raftBuildService, GameDataObject gameData, ResourcesService resourcesService, TickService tickService)
         {
             this.resourcesService = resourcesService;
             for (int i = 0; i < raftBuildService.Storages.Count; i++)
@@ -37,6 +38,13 @@ namespace Content.Scripts.BoatGame.UI
             counterGroupPrefab.gameObject.SetActive(false);
 
             UpdateCounter();
+
+            tickService.OnTick += UpdateCounterSize;
+        }
+
+        private void UpdateCounterSize(float obj)
+        {
+            scroll.sizeDelta = new Vector2(scroll.sizeDelta.x, Mathf.Clamp(holder.sizeDelta.y, 0, maxY));
         }
 
         private void OnStorageChange()

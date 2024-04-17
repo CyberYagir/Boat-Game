@@ -7,21 +7,15 @@ namespace Content.Scripts.BoatGame.PlayerActions
     public class PlayerActionHunger : PlayerAction
     {
         [SerializeField] protected EResourceTypes type;
+
         public override bool IsCanShow()
         {
-            // var count = SelectionService.SelectedCharacter.GetCharacterAction<CharActionHunger>().Count;
-            return SelectionService.SelectedCharacter.AIMoveManager.FindResource(type) != null;
-        }
-
-        public override bool IsCanCancel()
-        {
-            if (IsSelectedCharacterOnThisAction())
+            if (base.IsCanShow())
             {
-                var action = SelectionService.SelectedCharacter.GetCharacterAction<CharActionHunger>();
-                return action.CurrentState is CharActionHunger.EHungerState.MoveToStorage;
+                return SelectionService.SelectedCharacter.AIMoveManager.FindResource(type) != null;
             }
 
-            return true;
+            return false;
         }
     }
 }

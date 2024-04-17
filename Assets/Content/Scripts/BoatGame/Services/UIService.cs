@@ -67,7 +67,7 @@ namespace Content.Scripts.BoatGame.Services
             charactersList?.Init(characterService, tickService, selectionService);
             
             
-            resourcesList.Init(raftBuildService, gameDataObject, resourcesService);
+            resourcesList.Init(raftBuildService, gameDataObject, resourcesService, tickService);
             
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
             resourcesService.OnChangeResources += OnChangeResources;

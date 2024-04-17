@@ -16,6 +16,7 @@ namespace Content.Scripts.BoatGame
         public void InstallBoatGame()
         {
             Container.Bind<PrefabSpawnerFabric>().AsSingle().NonLazy();
+            BindService<WorldPopupService>();
             
             BindService<GameStateService>();
             BindService<TickService>();

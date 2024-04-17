@@ -313,7 +313,7 @@ namespace Content.Scripts.BoatGame.Services
         private GameDataObject gamedata;
         private PrefabSpawnerFabric prefabSpawnerFabric;
 
-        public List<RaftStorage> FindEmptyStorages(ItemObject item, int value)
+        public List<RaftStorage> FindEmptyStorages(int value)
         {
             emptyStoragesArray.Clear();
             foreach (var raftStorage in Storages)

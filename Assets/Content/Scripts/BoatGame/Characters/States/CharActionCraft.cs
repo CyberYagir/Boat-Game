@@ -104,7 +104,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         private void AddCraftToStorage()
         {
-            var storage = Machine.AIMoveManager.GoToEmptyStorages(targetCraftingTable.CurrentCraft.FinalItem.ResourceName, 1);
+            var storage = Machine.AIMoveManager.GoToEmptyStorages(1);
             if (storage.Count != 0)
             {
                 for (int i = 0; i < targetCraftingTable.CurrentCraft.Ingredients.Count; i++)
@@ -130,6 +130,11 @@ namespace Content.Scripts.BoatGame.Characters.States
                 }
 
 
+                EndState();
+            }
+            else
+            {
+                WorldPopupService.StaticSpawnCantPopup(transform.position);
                 EndState();
             }
         }

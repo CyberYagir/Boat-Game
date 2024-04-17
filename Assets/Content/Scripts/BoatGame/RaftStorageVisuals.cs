@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.ItemsSystem;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace Content.Scripts.BoatGame
         [SerializeField] private List<GameObject> logsVisuals;
         [SerializeField] private List<GameObject> waterBuckets;
         [SerializeField] private List<GameObject> bagsVisuals;
-        
+        [SerializeField] private GameObject storageIsFull;
         private RaftStorage raftStorage;
 
         private void Awake()
@@ -60,9 +61,10 @@ namespace Content.Scripts.BoatGame
                 fv.Stick.gameObject.SetActive(false);
             }
 
-            for (int i = 0; i < eatItems.Count; i++)
+            var count = eatItems.Sum(x => x.Count);
+            for (int i = 0; i < count; i++)
             {
-                if (fishesVisuals.Count < i)
+                if (i < fishesVisuals.Count)
                 {
                     fishesVisuals[i].Stick.gameObject.SetActive(true);
                     fishesVisuals[i].FishMesh.gameObject.SetActive(true);

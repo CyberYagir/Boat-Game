@@ -35,13 +35,17 @@ namespace Content.Scripts.BoatGame
                 return GenerateRandomPos();
             }
 
+            private readonly List<RaftBuildService.RaftItem.ERaftType> notWalkableRafts = new()
+            {
+                RaftBuildService.RaftItem.ERaftType.Building,
+                RaftBuildService.RaftItem.ERaftType.CraftTable,
+                RaftBuildService.RaftItem.ERaftType.Fishing,
+                RaftBuildService.RaftItem.ERaftType.Furnace
+            };
+
             public Vector3 GenerateRandomPos()
             {
-                var targetRaft = raftBuildService.SpawnedRafts.FindAll(x=>
-                    x.RaftType != RaftBuildService.RaftItem.ERaftType.Building && 
-                    x.RaftType != RaftBuildService.RaftItem.ERaftType.CraftTable && 
-                    x.RaftType != RaftBuildService.RaftItem.ERaftType.Fishing
-                ).GetRandomItem();
+                var targetRaft = raftBuildService.SpawnedRafts.FindAll(x=>!notWalkableRafts.Contains(x.RaftType)).GetRandomItem();
                 return targetRaft.transform.position + new Vector3(GetRandomOffset(), 0, GetRandomOffset());
             }
 
@@ -72,14 +76,34 @@ namespace Content.Scripts.BoatGame
                 NavMeshAgent.ExtraRotation();
             }
 
-            public RaftStorage GoToEmptyStorage(ItemObject item, int value)
+            public RaftStorage GoToEmptyStorage(int value, bool throwIsFull = true)
             {
-                return raftBuildService.FindEmptyStorage(value);
+                var emptyStorage = raftBuildService.FindEmptyStorage(value);
+
+                if (emptyStorage == null && throwIsFull)
+                {
+                    SpawnFullPopup();
+                }
+
+                return emptyStorage;
             }
-            
-            public List<RaftStorage> GoToEmptyStorages(ItemObject item, int value)
+
+            private void SpawnFullPopup()
             {
-                return raftBuildService.FindEmptyStorages(item, value);
+                if (raftBuildService.SpawnedRafts.Count != 0)
+                {
+                    WorldPopupService.StaticSpawnPopup(raftBuildService.SpawnedRafts.GetRandomItem().transform.position, "FULL");
+                }
+            }
+
+            public List<RaftStorage> GoToEmptyStorages(int value)
+            {
+                var storages = raftBuildService.FindEmptyStorages(value);
+                if (storages.Count == 0)
+                {
+                    SpawnFullPopup();
+                }
+                return storages;
             }
 
             public RaftStorage FindResource(EResourceTypes type)

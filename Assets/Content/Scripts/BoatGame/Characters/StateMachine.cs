@@ -111,5 +111,10 @@ namespace Content.Scripts.BoatGame.Characters
 
             return null;
         }
+
+        public StateAction<T> GetStateByType(EStateType state)
+        {
+            return statesList.Find(x => x.StateType.Equals(state)).StateAction;
+        }
     }
 }

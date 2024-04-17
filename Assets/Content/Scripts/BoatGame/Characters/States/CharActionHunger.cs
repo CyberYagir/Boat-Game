@@ -115,5 +115,10 @@ namespace Content.Scripts.BoatGame.Characters.States
 
 
         public virtual void Animation() => Machine.AnimationManager.TriggerEatAnimation();
+
+        public override bool IsCanCancel()
+        {
+            return CurrentState is CharActionHunger.EHungerState.MoveToStorage;
+        }
     }
 }

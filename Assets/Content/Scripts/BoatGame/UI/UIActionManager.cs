@@ -45,11 +45,13 @@ namespace Content.Scripts.BoatGame.UI
             selectionService.OnChangeSelectObject += OnChangeSelectObject;
             selectionService.OnChangeSelectCharacter += OnChangeSelectCharacter;
 
+            
             for (int i = 0; i < buttons.Count; i++)
             {
                 localButtonsPoses.Add(buttons[i].Transform.localPosition);
             }
         }
+        
 
         private void OnChangeSelectCharacter(PlayerCharacter obj)
         {
@@ -100,7 +102,7 @@ namespace Content.Scripts.BoatGame.UI
                             buttons[i].Button.onClick.AddListener(delegate { holder.gameObject.SetActive(false); });
 
                             buttons[i].Icon.sprite = selectable.PlayerActions[i].Icon;
-                            var canShow = selectable.PlayerActions[i].IsCanShow();
+                            var canShow = selectable.PlayerActions[i].IsCanShow() && selectionService.SelectedCharacter.GetCurrentAction().IsCanCancel();
                             buttons[i].Icon.SetAlpha(canShow ? 1f : 0.35f);
                             buttons[i].Button.enabled = canShow;
                         }
@@ -146,6 +148,10 @@ namespace Content.Scripts.BoatGame.UI
                             if (selectable.PlayerActions[i].IsSelectedCharacterOnThisAction())
                             {
                                 buttons[i].CancelState.SetAlpha(selectable.PlayerActions[i].IsCanCancel() ? 1f : 0.35f);
+                            }
+                            else
+                            {
+                                buttons[i].Icon.SetAlpha(selectionService.SelectedCharacter.GetCurrentAction().IsCanCancel() ? 1f : 0.35f);
                             }
                         }
                     }

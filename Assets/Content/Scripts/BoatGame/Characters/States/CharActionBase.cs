@@ -166,6 +166,10 @@ namespace Content.Scripts.BoatGame.Characters.States
             Machine.AIMoveManager.NavMeshAgent.SetVelocity(Vector3.zero);
         }
 
-        
+
+        public virtual bool IsCanCancel()
+        {
+            return true;
+        }
     }
 }

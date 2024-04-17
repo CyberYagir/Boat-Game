@@ -1,3 +1,4 @@
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.ItemsSystem;
 using UnityEngine;
 
@@ -37,6 +38,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             }
             else
             {
+                WorldPopupService.StaticSpawnCantPopup(Machine.transform.position);
                 EndState();
             }
         }

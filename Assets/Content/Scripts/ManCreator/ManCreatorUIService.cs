@@ -18,7 +18,6 @@ namespace Content.Scripts.ManCreator
         {
             [SerializeField] private RectTransform holder;
             [SerializeField] private TMP_Text nameText;
-            [SerializeField] private HorizontalLayoutGroup group;
 
             public void SetHolderPoint(Vector3 getNamePoint)
             {
@@ -28,8 +27,6 @@ namespace Content.Scripts.ManCreator
             public void SetName(string getCharacterName)
             {
                 nameText.text = getCharacterName;
-                group.CalculateLayoutInputHorizontal();
-                group.SetLayoutHorizontal();
             }
         }
         
@@ -68,6 +65,7 @@ namespace Content.Scripts.ManCreator
         
         [SerializeField] private NamePopup namePopup;
         [SerializeField] private SkillsDrawer skillsDrawer;
+        [SerializeField] private UIChangeNameWindow changeNameWindow;
         [SerializeField] private Image skinColorIndicator;
         [SerializeField] private TMP_Text scoresText;
         [SerializeField] private Button applyButton;
@@ -93,6 +91,12 @@ namespace Content.Scripts.ManCreator
             characterService.OnChangeSkillsCount += OnScoresChanged;
             
             skillsDrawer.Redraw(gameDataObject.SkillsList, characterService);
+            changeNameWindow.Init(this);
+        }
+        
+        public void ShowChangeNameWindow(){
+            changeNameWindow.gameObject.SetActive(true);
+            changeNameWindow.ShowWindow();
         }
 
         private void OnScoresChanged(int value)
@@ -107,6 +111,7 @@ namespace Content.Scripts.ManCreator
         {
             namePopup.SetName(characterService.GetCharacterName());
         }
+    
 
         private void Update()
         {
@@ -117,6 +122,11 @@ namespace Content.Scripts.ManCreator
         public void ChangeName()
         {
             characterService.ChangeName();
+        }
+
+        public void ChangeName(string str)
+        {
+            characterService.ChangeName(str);
         }
 
         public void NextSkinColor()

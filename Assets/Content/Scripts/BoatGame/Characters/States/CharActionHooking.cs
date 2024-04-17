@@ -1,6 +1,7 @@
     using System;
 using Content.Scripts.BoatGame.Ropes;
-using Sirenix.OdinInspector;
+    using Content.Scripts.BoatGame.Services;
+    using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -112,7 +113,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         private void FindStorage()
         {
             Machine.AIMoveManager.NavMeshAgent.SetStopped(false);
-            var storage = Machine.AIMoveManager.GoToEmptyStorage(resourceData.Item, resourceData.Value);
+            var storage = Machine.AIMoveManager.GoToEmptyStorage(resourceData.Value);
             if (storage == null)
             {
                 DropItem();
@@ -162,7 +163,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             if (Machine.AIMoveManager.NavMeshAgent.IsArrived())
             {
-                var storage = Machine.AIMoveManager.GoToEmptyStorage(resourceData.Item, resourceData.Value);
+                var storage = Machine.AIMoveManager.GoToEmptyStorage(resourceData.Value);
                 if (storage == null)
                 {
                     DropItem();
@@ -188,6 +189,8 @@ namespace Content.Scripts.BoatGame.Characters.States
                 rb.isKinematic = false;
                 rb.AddForce(transform.forward * Random.Range(100, 200) + Vector3.up * Random.Range(50, 150));
                 rb.AddTorque(Random.insideUnitSphere * Random.Range(20, 50));
+                
+                WorldPopupService.StaticSpawnCantPopup(transform.position);
             }
 
             Machine.AnimationManager.TriggerHoldFishAnimation(false);
@@ -212,6 +215,11 @@ namespace Content.Scripts.BoatGame.Characters.States
             }
 
             ToIdleAnimation();
+        }
+
+        public override bool IsCanCancel()
+        {
+            return state != States.MoveToStorage;
         }
     }
 }

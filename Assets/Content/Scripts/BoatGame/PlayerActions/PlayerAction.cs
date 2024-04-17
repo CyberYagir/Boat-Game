@@ -36,17 +36,17 @@ namespace Content.Scripts.BoatGame.PlayerActions
                 return false;
             }
 
-            if (SelectionService.SelectedCharacter.CurrentState != EStateType.Idle)
-            {
-                return false;
-            }
-            
-            return true;
+            return SelectionService.SelectedCharacter.GetCurrentAction().IsCanCancel();
         }
 
         public virtual bool IsCanCancel()
         {
-            return true;
+            if (IsSelectedCharacterOnThisAction())
+            {
+                return SelectionService.SelectedCharacter.GetCharacterAction(state).IsCanCancel();
+            }
+
+            return false;
         }
 
         public bool IsSelectedCharacterOnThisAction()
