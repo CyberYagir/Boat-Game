@@ -71,7 +71,7 @@ namespace Content.Scripts.BoatGame
             return 0;
         }
 
-        public void AddToStorage(ItemObject item, int resourceDataValue)
+        public void AddToStorage(ItemObject item, int resourceDataValue, bool spawnPopup = true)
         {
             var storage = GetItem(item);
             if (storage != null)
@@ -82,19 +82,23 @@ namespace Content.Scripts.BoatGame
             {
                 items.Add(new StorageItem(item, resourceDataValue));
             }
-            
-            WorldPopupService.StaticSpawnPopup(
-                transform.position,
-                item,
-                resourceDataValue
-            );
-            
+
+            if (spawnPopup)
+            {
+
+                WorldPopupService.StaticSpawnPopup(
+                    transform.position,
+                    item,
+                    resourceDataValue
+                );
+            }
+
             OnStorageChange?.Invoke();
         }
 
         public bool HaveItem(ItemObject item)
         {
-            var itemInStorage = GetItem(item.Type);
+            var itemInStorage = GetItem(item);
             if (itemInStorage == null) return false;
             if (itemInStorage.Count == 0) return false;
             

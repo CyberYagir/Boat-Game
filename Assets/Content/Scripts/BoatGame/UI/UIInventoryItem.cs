@@ -8,7 +8,7 @@ using static Content.Scripts.BoatGame.UI.UIInventorySubWindow.Dragger;
 
 namespace Content.Scripts.BoatGame.UI
 {
-    public class UIInventoryItem : MonoBehaviour, IDragHandler
+    public class UIInventoryItem : MonoBehaviour, IDragHandler, IBeginDragHandler
     {
         [SerializeField] private Image image;
         [SerializeField] private TMP_Text text;
@@ -30,25 +30,47 @@ namespace Content.Scripts.BoatGame.UI
 
         public void OnDrag(PointerEventData eventData)
         {
-            window.DragManager.DragStart += delegate
-            {
-                SetState(true);
-            };
-            window.DragManager.DragEnd += delegate
-            {
-                SetState(false);
-            };
+            
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            window.DragManager.DragStart += OnDragStartEvent;
+            window.DragManager.DragEnd += OnDragStopEvent;
             window.StartDrag(item, gameObject, EDragType.ToEquipment);
+        }
+        
+        private void OnDragStopEvent()
+        {
+            SetState(false);
+        }
+
+        private void OnDragStartEvent()
+        {
+            SetState(true);
         }
 
         public void SetState(bool state)
         {
             image.DOFade(state ? 0.2f : 1f, 0.2f);
             text.DOFade(state ? 0.2f : 1f, 0.2f);
-            
+
             transform.DOKill();
             transform.localScale = Vector3.one;
             transform.DOPunchScale(Vector3.one * 0.1f, 0.2f);
+
+
+            if (state == false)
+            {
+                DisableItem();
+            }
+        }
+
+
+        public void DisableItem()
+        {
+            window.DragManager.DragStart -= OnDragStartEvent;
+            window.DragManager.DragEnd -= OnDragStopEvent;
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Content.Scripts.Global;
 using UnityEngine;
 using Zenject;
@@ -27,6 +28,20 @@ namespace Content.Scripts.BoatGame.Services
             this.raftBuildService = raftBuildService;
             this.characterService = characterService;
             this.saveDataObject = saveDataObject;
+            
+            
+            
+            StartCoroutine(AutoSave());
+        }
+
+
+        IEnumerator AutoSave()
+        {
+            while (true)
+            {
+                yield return new WaitForSecondsRealtime(300);
+                SaveWorld();
+            }
         }
         
         private void OnApplicationPause(bool pauseStatus)
@@ -65,6 +80,8 @@ namespace Content.Scripts.BoatGame.Services
             }
 
             saveDataObject.SaveFile();
+            
+            Debug.LogError("Save World");
         }
 
         public void ExitFromIsland()

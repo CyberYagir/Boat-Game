@@ -56,7 +56,7 @@ namespace Content.Scripts.BoatGame.Services
             
             actionManager.Init(selectionService);
             rewindButton.Init(tickService, gameStateService);
-            mapButton.Init(raftBuildService, scenesService);
+            mapButton.Init(raftBuildService, scenesService, saveService);
             stopBuildButton.Init(tickService, gameStateService);
             exitIslandButton.Init(messageBoxManager, saveService, scenesService);
             

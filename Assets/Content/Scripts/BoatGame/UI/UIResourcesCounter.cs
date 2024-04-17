@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using Content.Scripts.ItemsSystem;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.UI
@@ -16,14 +17,16 @@ namespace Content.Scripts.BoatGame.UI
         private Dictionary<EResourceTypes, UIResourcesCounterGroup> headers = new Dictionary<EResourceTypes, UIResourcesCounterGroup>(5);
         private IEnumerator waiterCoroutine;
         private ResourcesService resourcesService;
+        private RaftBuildService raftBuildService;
 
         public void Init(RaftBuildService raftBuildService, GameDataObject gameData, ResourcesService resourcesService, TickService tickService)
         {
+            this.raftBuildService = raftBuildService;
             this.resourcesService = resourcesService;
-            for (int i = 0; i < raftBuildService.Storages.Count; i++)
-            {
-                raftBuildService.Storages[i].OnStorageChange += OnStorageChange;
-            }
+            
+            raftBuildService.OnChangeRaft += UpdateRaftEvents;
+            
+            
             counterGroupPrefab.gameObject.SetActive(true);
 
             var enums = Enum.GetNames(typeof(EResourceTypes));
@@ -39,9 +42,19 @@ namespace Content.Scripts.BoatGame.UI
 
             UpdateCounter();
 
+            UpdateRaftEvents();
+            
             tickService.OnTick += UpdateCounterSize;
         }
 
+        private void UpdateRaftEvents()
+        {
+            for (int i = 0; i < raftBuildService.Storages.Count; i++)
+            {
+                raftBuildService.Storages[i].OnStorageChange -= OnStorageChange;
+                raftBuildService.Storages[i].OnStorageChange += OnStorageChange;
+            }
+        }
         private void UpdateCounterSize(float obj)
         {
             scroll.sizeDelta = new Vector2(scroll.sizeDelta.x, Mathf.Clamp(holder.sizeDelta.y, 0, maxY));
@@ -73,6 +86,11 @@ namespace Content.Scripts.BoatGame.UI
             {
                 header.Value.DrawList(resourcesService.AllItemsList.FindAll(x => x.Item.Type == header.Key));
             }
+        }
+
+        public void RemoveItem(ItemObject itemObject)
+        {
+            resourcesService.RemoveItemFromAnyRaft(itemObject);
         }
     }
 }

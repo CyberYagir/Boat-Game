@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Content.Scripts.BoatGame.UI.UIEquipment
 {
-    public class UIEquipmentBase : MonoBehaviour, IDragHandler
+    public class UIEquipmentBase : MonoBehaviour, IDragHandler, IBeginDragHandler
     {
         public enum EEquipmentType
         {
@@ -78,20 +78,36 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
 
         public void OnDrag(PointerEventData eventData)
         {
+          
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
             if (item != null)
             {
+                
+                Debug.LogError("Start Drag");
                 window.ChangeTabToInventory();
-                inventorySubWindow.DragManager.DragStart += delegate
-                {
-                    image.DOFade(0.2f, 0.2f);
-                };
-                inventorySubWindow.DragManager.DragEnd += delegate
-                {
-                    image.DOFade(1, 0.2f);
-                };
+                inventorySubWindow.DragManager.DragStart += OnDragManagerDragStart;
+                inventorySubWindow.DragManager.DragEnd += OnDragManagerDragEnd;
                 
                 inventorySubWindow.StartDrag(item, gameObject, UIInventorySubWindow.Dragger.EDragType.FromEquipment);
             }
+        }
+
+        private void OnDragManagerDragEnd()
+        {
+            image.DOFade(1, 0.2f);
+            
+            Debug.LogError("End Drag");
+            
+            inventorySubWindow.DragManager.DragStart -= OnDragManagerDragStart;
+            inventorySubWindow.DragManager.DragEnd -= OnDragManagerDragEnd;
+        }
+
+        private void OnDragManagerDragStart()
+        {
+            image.DOFade(0.2f, 0.2f);
         }
     }
 }

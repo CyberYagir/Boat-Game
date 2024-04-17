@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Content.Scripts.Global;
+using Content.Scripts.ItemsSystem;
 using UnityEngine;
 using Zenject;
 
@@ -59,6 +60,16 @@ namespace Content.Scripts.BoatGame.Services
                         itemInArray.Add(raftStorage.Items[i].Count);
                     }
                 }
+            }
+        }
+
+        public void RemoveItemFromAnyRaft(ItemObject itemObject)
+        {
+            var storage = raftBuildService.Storages.Find(x => x.HaveItem(itemObject));
+            
+            if (storage != null)
+            {
+                storage.RemoveFromStorage(itemObject);
             }
         }
     }

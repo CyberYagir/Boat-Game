@@ -8,7 +8,14 @@ namespace Content.Scripts.BoatGame.Weather
         [SerializeField] private Vector3 offcet;
         private void FixedUpdate()
         {
-            transform.position = (floater.localPosition * -transform.localScale.y) + offcet ;
+            var pos = (floater.localPosition * -transform.localScale.y) + offcet;
+
+            if (pos.y > 0)
+            {
+                pos.y = 0;
+            }
+
+            transform.position = pos;
         }
     }
 }

@@ -99,29 +99,30 @@ namespace Content.Scripts.BoatGame.UI
                                 if (equipment)
                                 {
                                     equipment.ChangeItem(null);
+                                    
                                 }
-
                                 break;
                             }
                         }
                     }
 
                     DragEnd?.Invoke();
-                    item.transform.DOScale(Vector3.zero, 0.25f).onComplete += () =>
-                    {
-                        Disable();
-                    };
-                    isDragged = false;
-
+                    item.transform.DOScale(Vector3.zero, 0.25f).onComplete += Disable;
+                    ResetEvents();
                 }
+            }
+
+            private void ResetEvents()
+            {
+                isDragged = false;
+                DragEnd = null;
+                DragStart = null;
             }
 
             public void Disable()
             {
                 item.gameObject.SetActive(false);
-                isDragged = false;
-                DragEnd = null;
-                DragStart = null;
+                ResetEvents();
             }
         }
         
@@ -149,6 +150,7 @@ namespace Content.Scripts.BoatGame.UI
         {
             for (int i = 0; i < items.Count; i++)
             {
+                items[i].DisableItem();
                 Destroy(items[i].gameObject);
             }
 

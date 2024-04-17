@@ -71,9 +71,11 @@ namespace Content.Scripts.BoatGame.Characters.States
                 
                 if (storage != null)
                 {
-                    storage.AddToStorage(droppedItem.Item, 1);
+                    storage.AddToStorage(droppedItem.Item, 1, false);
                     Machine.AddExp(1);
+                    WorldPopupService.StaticSpawnPopup(droppedItem.transform.position, droppedItem.Item, 1);
                     droppedItem.DeleteItem();
+
                 }
             }
         }

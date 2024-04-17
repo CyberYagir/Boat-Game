@@ -82,7 +82,7 @@ namespace Content.Scripts.BoatGame
 
             private void OnEquipmentChange()
             {
-
+                
                 spawnedHelmet = RespawnItem(spawnedHelmet, character.Equipment.HelmetID);
                 spawnedArmor = RespawnItem(spawnedArmor, character.Equipment.ArmorID);
                 spawnedWeapon = RespawnItem(spawnedWeapon, character.Equipment.WeaponID);

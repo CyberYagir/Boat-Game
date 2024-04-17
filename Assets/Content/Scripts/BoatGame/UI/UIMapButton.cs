@@ -8,9 +8,11 @@ namespace Content.Scripts.BoatGame.UI
     {
         private RaftBuildService raftBuildService;
         private ScenesService scenesService;
+        private SaveService saveService;
 
-        public void Init(RaftBuildService raftBuildService, ScenesService scenesService)
+        public void Init(RaftBuildService raftBuildService, ScenesService scenesService, SaveService saveService)
         {
+            this.saveService = saveService;
             this.scenesService = scenesService;
             this.raftBuildService = raftBuildService;
             raftBuildService.OnChangeRaft += RaftBuildServiceOnOnChangeRaft;
@@ -31,7 +33,6 @@ namespace Content.Scripts.BoatGame.UI
 
             if (state)
             {
-                print("Add Scene");
                 scenesService.AddScene(ESceneName.Map);
             }
             else
@@ -48,6 +49,7 @@ namespace Content.Scripts.BoatGame.UI
             }
             else
             {
+                saveService.SaveWorld();
                 scenesService.ChangeActiveScene(ESceneName.Map);
             }
         }

@@ -18,21 +18,22 @@ namespace Content.Scripts.Map
         private SaveDataObject saveDataObject;
 
         public event Action<MapIsland> OnSelectIsland;
-        
-        
+
+
         [Inject]
         private void Construct(
-            MapSpawnerService mapSpawnerService, 
-            MapIslandCollector mapIslandCollector, 
+            MapSpawnerService mapSpawnerService,
+            MapIslandCollector mapIslandCollector,
             ScenesService scenesService,
-            SaveDataObject saveDataObject)
+            SaveDataObject saveDataObject
+        )
         {
             this.saveDataObject = saveDataObject;
             this.scenesService = scenesService;
             this.mapIslandCollector = mapIslandCollector;
             this.mapSpawnerService = mapSpawnerService;
-            
-            
+
+
             scenesService.OnChangeActiveScene += OnChangeScene;
             OnChangeScene(scenesService.GetActiveScene());
         }
@@ -69,10 +70,8 @@ namespace Content.Scripts.Map
         {
             if (selectedIsland != null)
             {
-                
                 TimeService.SetTimeRate(1f);
                 saveDataObject.Global.SetIslandSeed(selectedIsland.Seed);
-                saveDataObject.SaveFile();
                 scenesService.FadeScene(ESceneName.IslandGame);
             }
         }

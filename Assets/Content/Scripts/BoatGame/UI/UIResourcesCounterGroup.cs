@@ -57,7 +57,7 @@ namespace Content.Scripts.BoatGame.UI
             for (int i = 0; i < items.Count; i++)
             {
                 spawnedItems[i].gameObject.SetActive(i < items.Count);
-                spawnedItems[i].Init(items[i].Item.ItemIcon, items[i].Count);
+                spawnedItems[i].Init(items[i].Count, items[i].Item, counterManager);
             }
             itemPrefab.gameObject.SetActive(false);
         }

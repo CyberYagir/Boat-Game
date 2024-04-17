@@ -24,14 +24,20 @@ namespace Content.Scripts.BoatGame.Characters.States
                 var storage = Machine.AIMoveManager.GoToEmptyStorage(1);
                 if (storage != null)
                 {
-                    storage.AddToStorage(item, 1);
+                    storage.AddToStorage(item, 1, false);
                     lastPoint = currentTarget;
+                    WorldPopupService.StaticSpawnPopup(lastPoint, item, 1);
                     Machine.AddExp(1);
+                    
+                }
+                else
+                {
+                    WorldPopupService.StaticSpawnCantPopup(currentTarget);
                 }
             }
             else
             { 
-                WorldPopupService.StaticSpawnCantPopup(lastPoint);
+                WorldPopupService.StaticSpawnCantPopup(currentTarget);
             }
         }
     }

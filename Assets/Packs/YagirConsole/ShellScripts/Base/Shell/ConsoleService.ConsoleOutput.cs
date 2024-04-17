@@ -45,9 +45,12 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                         if (repeatLastMessageCount > 2)
                         {
                             var oldCounter = GetRepeatCount(repeatLastMessageCount-1);
-                            var newText = outputText.text.Substring(0, (outputText.text.Length - oldCounter.Length));
-                            newText += GetRepeatCount(repeatLastMessageCount);
-                            outputText.text = newText;
+                            if (outputText.text.Length != 0)
+                            {
+                                var newText = outputText.text.Substring(0, (outputText.text.Length - oldCounter.Length));
+                                newText += GetRepeatCount(repeatLastMessageCount);
+                                outputText.text = newText;
+                            }
                         }
                         else if (repeatLastMessageCount == 2)
                         {

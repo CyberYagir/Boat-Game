@@ -159,6 +159,7 @@ namespace Content.Scripts.BoatGame.UI
                 if (raftStorage.IsEmptyStorage(1))
                 {
                     raftStorage.AddToStorage(item, 1);
+                    break;
                 }
             }
         }
