@@ -22,10 +22,14 @@ namespace Content.Scripts.BoatGame.UI
 
         public void UpdateCharacterVisuals(Character ch)
         {
+            if (targetCharacter != null){
+                targetCharacter.Equipment.OnEquipmentChange -= OnEquipmentChange;
+            }
             targetCharacter = ch;
-            character.Character.Equipment.OnEquipmentChange -= OnEquipmentChange;
             character.ChangeCharacter(ch);
-            character.Character.Equipment.OnEquipmentChange += OnEquipmentChange;
+            targetCharacter.Equipment.OnEquipmentChange += OnEquipmentChange;
+            
+            
             OnEquipmentChange();
         }
 

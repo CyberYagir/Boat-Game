@@ -71,6 +71,7 @@ namespace Content.Scripts.BoatGame
                 
                 OnEquipmentChange();
             }
+            
 
             private void SkillDataOnOnLevelUp()
             {
@@ -104,6 +105,7 @@ namespace Content.Scripts.BoatGame
                         if (item != null)
                         {
                             Transform targetBone = GetBone(item.Prefab.GetComponent<EquipmentWorker>().TargetBone);
+                            
                             var spawn = Instantiate(item.Prefab, targetBone)
                                 .With(x => x.GetComponent<EquipmentWorker>()
                                     .Init(this));

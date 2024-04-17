@@ -40,10 +40,12 @@ namespace Content.Scripts.BoatGame.Services
             RebuildNavMesh();
             for (int i = 0; i < saveData.Characters.Count; i++)
             {
-                var id = i;
+                var character = saveData.Characters.GetCharacter(i);
+                character.ClearEvents();
+                
                 Instantiate(prefab, Vector3.zero, Quaternion.identity, raftBuildService.Holder)
                     .With(x => x.Init(
-                        saveData.Characters.GetCharacter(id),
+                        character,
                         gameDataObject,
                         raftBuildService,
                         weatherService,

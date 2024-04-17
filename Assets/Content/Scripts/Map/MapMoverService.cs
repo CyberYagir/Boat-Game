@@ -21,13 +21,19 @@ namespace Content.Scripts.Map
         {
             this.saveDataObject = saveDataObject;
             this.mapSpawnerService = mapSpawnerService;
-            Player.transform.position = mapSpawnerService.Path.GetPointAtTime((float)mapSpawnerService.StartTime + ((TimeService.PlayedTime + saveDataObject.Global.TotalSecondsInGame)/divider), EndOfPathInstruction.Loop);
+            MovePlayer();
             
             Player.GetComponentInChildren<TrailRenderer>().Clear();
         }
+
+        private void MovePlayer()
+        {
+            Player.transform.position = mapSpawnerService.Path.GetPointAtTime((float) mapSpawnerService.StartTime + ((TimeService.PlayedBoatTime + saveDataObject.Global.TotalSecondsInGame) / divider), EndOfPathInstruction.Loop);
+        }
+
         void Update()
         {
-            Player.transform.position = mapSpawnerService.Path.GetPointAtTime((float)mapSpawnerService.StartTime + ((TimeService.PlayedTime + saveDataObject.Global.TotalSecondsInGame)/divider), EndOfPathInstruction.Loop);
+            MovePlayer();
         }
     }
 }

@@ -99,7 +99,7 @@ namespace Content.Scripts.BoatGame.Characters.States
                                     {
                                         var raftDelta = (Machine.BuildService.RaftEndPoint.position - Machine.BuildService.Holder.transform.position);
 
-                                        var raftGraph = Machine.AIMoveManager.NavMesh.GetNavMeshByID(1) as GridGraph;
+                                        var raftGraph = Machine.AIMoveManager.NavMesh.GetNavMeshByID(NavMeshConstants.IslandRaftGraph) as GridGraph;
                                         
                                         tempPoint =
                                             Machine.BuildService.Holder.position +
@@ -131,7 +131,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             var navMesh = Machine.AIMoveManager.NavMesh;
             var mask = Machine.AIMoveManager.NavMeshAgent.GetCurrentGraphMask();
-            bool isOnRaftGraph = mask == GraphMask.FromGraph(navMesh.GetNavMeshByID(1));
+            bool isOnRaftGraph = mask == GraphMask.FromGraph(navMesh.GetNavMeshByID(NavMeshConstants.IslandRaftGraph));
             return isOnRaftGraph;
         }
 

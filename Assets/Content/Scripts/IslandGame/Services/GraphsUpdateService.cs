@@ -97,8 +97,8 @@ namespace Content.Scripts.IslandGame.Services
 
         private void CalculateMasks()
         {
-            raftGraphMask = GraphMask.FromGraph(navMeshProvider.GetNavMeshByID(1));
-            terrainGraphMask = GraphMask.FromGraph(navMeshProvider.GetNavMeshByID(0));
+            raftGraphMask = GraphMask.FromGraph(navMeshProvider.GetNavMeshByID(NavMeshConstants.IslandRaftGraph));
+            terrainGraphMask = GraphMask.FromGraph(navMeshProvider.GetNavMeshByID(NavMeshConstants.IslandTerrainGraph));
         }
 
         private void EnableCharactersAIAfterMoving()
@@ -126,7 +126,7 @@ namespace Content.Scripts.IslandGame.Services
 
         private void CenterNavGraph()
         {
-            var nav = (navMeshProvider.GetNavMeshByID(1) as GridGraph);
+            var nav = (navMeshProvider.GetNavMeshByID(NavMeshConstants.IslandRaftGraph) as GridGraph);
             nav.center = raftConverterService.RaftPoint;
             switchRadius = (nav.width/2f) * nav.nodeSize;
         }
@@ -137,29 +137,21 @@ namespace Content.Scripts.IslandGame.Services
             {
                 var dist = Vector3.Distance(charactersDatas[i].Character.transform.position, raftConverterService.RaftPoint) <= switchRadius * switchRadiusModify;
                 var targetGraph = dist ? raftGraphMask : terrainGraphMask;
+                var constrainInGraph = dist;
+                
+                
                 if (!charactersDatas[i].Seeker.IsStopped)
                 {
                     if (charactersDatas[i].Seeker.GetCurrentGraphMask() == terrainGraphMask && targetGraph == raftGraphMask)
                     {
-                        var nearestPosOnTerrain = navMeshProvider
-                            .GetNavMeshByID(0)
-                            .GetNearest(charactersDatas[i].Seeker.TargetPoint, NNConstraint.Default)
-                            .clampedPosition;
-                        
-                        
-                        print(nearestPosOnTerrain);
-                        print(charactersDatas[i].Seeker.TargetPoint);
-                        
-                        print(Vector3.Distance(nearestPosOnTerrain, charactersDatas[i].Seeker.TargetPoint));
-                        
                         if (Vector3.Distance(charactersDatas[i].Seeker.Destination, charactersDatas[i].Seeker.TargetPoint) < 1f)
                         {
-                            charactersDatas[i].Seeker.ChangeMask(terrainGraphMask);
+                            charactersDatas[i].Seeker.ChangeMask(terrainGraphMask, false);
                             continue;
                         }
                     }
                 }
-                charactersDatas[i].Seeker.ChangeMask(targetGraph);
+                charactersDatas[i].Seeker.ChangeMask(targetGraph, constrainInGraph);
             }
         }
 

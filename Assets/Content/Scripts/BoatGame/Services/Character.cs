@@ -65,6 +65,11 @@ namespace Content.Scripts.BoatGame.Services
             {
                 xp += exp;
             }
+
+            public void ClearEvents()
+            {
+                OnLevelUp = null;
+            }
         }
         
         [System.Serializable]
@@ -105,9 +110,8 @@ namespace Content.Scripts.BoatGame.Services
             public bool IsHaveHelmet => string.IsNullOrEmpty(HelmetID);
 
 
-            [NonSerialized] 
-            public Action OnEquipmentChange;
-            
+            [NonSerialized] public Action OnEquipmentChange;
+
 
             public void SetHelmet(ItemObject item)
             {
@@ -119,7 +123,7 @@ namespace Content.Scripts.BoatGame.Services
                 }
 
                 helmetID = item.ID;
-                
+
                 OnEquipmentChange?.Invoke();
             }
 
@@ -133,7 +137,7 @@ namespace Content.Scripts.BoatGame.Services
                 }
 
                 armorID = item.ID;
-                
+
                 OnEquipmentChange?.Invoke();
             }
 
@@ -147,7 +151,7 @@ namespace Content.Scripts.BoatGame.Services
                 }
 
                 weaponID = item.ID;
-                
+
                 OnEquipmentChange?.Invoke();
             }
 
@@ -181,9 +185,14 @@ namespace Content.Scripts.BoatGame.Services
                         break;
                 }
             }
+
+            public void ClearEvents()
+            {
+                OnEquipmentChange = null;
+            }
         }
-        
-        
+
+
         [SerializeField] private string name;
         [SerializeField] private string uid;
         [SerializeField] private SkillsData skillsData = new SkillsData();
@@ -273,6 +282,12 @@ namespace Content.Scripts.BoatGame.Services
         public void SetParameters(ParametersData getParameters)
         {
             parametersData = getParameters;
+        }
+
+        public void ClearEvents()
+        {
+            skillsData.ClearEvents();
+            equipmentData.ClearEvents();
         }
     }
 }

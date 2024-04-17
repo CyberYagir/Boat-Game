@@ -80,10 +80,11 @@ namespace Content.Scripts.BoatGame.Characters
             aiPath.canMove = false;
         }
 
-        public void ChangeMask(int newMask)
+        public void ChangeMask(int newMask, bool constrainInGraph)
         {
             if ((int)seeker.graphMask != newMask)
             {
+                aiPath.constrainInsideGraph = constrainInGraph;
                 seeker.graphMask = newMask;
                 if (TryBuildPath(targetPoint, out Vector3 newPoint))
                 {

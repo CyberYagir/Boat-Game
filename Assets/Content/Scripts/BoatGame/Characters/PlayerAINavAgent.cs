@@ -61,7 +61,7 @@ namespace Content.Scripts.BoatGame.Characters
             navMeshAgent.enabled = false;
         }
 
-        public void ChangeMask(int newMask)
+        public void ChangeMask(int newMask, bool constrainInGraph)
         {
             
         }

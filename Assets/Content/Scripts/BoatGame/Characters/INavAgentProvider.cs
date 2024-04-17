@@ -24,7 +24,7 @@ namespace Content.Scripts.BoatGame.Characters
         
         public void Disable();
 
-        void ChangeMask(int newMask);
+        void ChangeMask(int newMask, bool constrainInGraph);
         GraphMask GetCurrentGraphMask();
         public void SetTargetPoint(Vector3 point);
     }
