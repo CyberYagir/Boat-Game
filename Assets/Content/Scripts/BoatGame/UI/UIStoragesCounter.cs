@@ -51,6 +51,7 @@ namespace Content.Scripts.BoatGame.UI
 
 
             transform.DOKill();
+            transform.localScale = Vector3.one * startScale;
             transform.DOPunchScale(Vector3.one * 0.1f, 0.25f).SetUpdate(true);
         }
 

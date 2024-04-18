@@ -6,13 +6,11 @@ using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.RaftDamagers;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.IslandGame;
-using Content.Scripts.ManCreator;
 using Content.Scripts.Map;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
-using Range = DG.DemiLib.Range;
 
 namespace Content.Scripts.Global
 {
