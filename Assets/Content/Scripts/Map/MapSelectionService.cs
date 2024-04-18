@@ -35,12 +35,16 @@ namespace Content.Scripts.Map
 
 
             scenesService.OnChangeActiveScene += OnChangeScene;
+            scenesService.OnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
+            
+            
             OnChangeScene(scenesService.GetActiveScene());
         }
 
-        private void OnDisable()
+        private void ScenesServiceOnOnLoadOtherScene(ESceneName obj)
         {
             scenesService.OnChangeActiveScene -= OnChangeScene;
+            scenesService.OnLoadOtherScene -= ScenesServiceOnOnLoadOtherScene;
         }
 
         private void OnChangeScene(ESceneName scene)

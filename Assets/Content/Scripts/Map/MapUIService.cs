@@ -18,15 +18,18 @@ namespace Content.Scripts.Map
             this.scenesService = scenesService;
             marksContainer.Init(mapIslandCollector);
             scenesService.OnChangeActiveScene += OnChangeScene;
+            scenesService.OnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
             OnChangeScene(scenesService.GetActiveScene());
 
             islandWindow.Init(mapSelectionService);
         }
 
-        private void OnDisable()
+        private void ScenesServiceOnOnLoadOtherScene(ESceneName obj)
         {
             scenesService.OnChangeActiveScene -= OnChangeScene;
+            scenesService.OnLoadOtherScene -= ScenesServiceOnOnLoadOtherScene;
         }
+        
 
         private void OnChangeScene(ESceneName state)
         {

@@ -42,6 +42,8 @@ namespace Content.Scripts.BoatGame
 
         public List<StorageItem> Items => items;
 
+        public int MaxItemsCount => maxItemsCount;
+
 
         public StorageItem GetItem(ItemObject item)
         {
@@ -57,7 +59,7 @@ namespace Content.Scripts.BoatGame
 
         public bool IsEmptyStorage(int value)
         {
-            return items.Sum(x=>x.Count) + value <= maxItemsCount;
+            return items.Sum(x=>x.Count) + value <= MaxItemsCount;
         }
 
         public int GetResourceByType(EResourceTypes type)
@@ -169,7 +171,7 @@ namespace Content.Scripts.BoatGame
 
         public int GetEmptySlots()
         {
-            return maxItemsCount - items.Sum(x=>x.Count);
+            return MaxItemsCount - items.Sum(x=>x.Count);
         }
     }
 }

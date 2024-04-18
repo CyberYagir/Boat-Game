@@ -23,9 +23,11 @@ namespace Content.Scripts.Boot
         private List<ESceneName> overlayLoadedScenes = new List<ESceneName>();
 
         public event Action<ESceneName> OnChangeActiveScene;
+        public event Action<ESceneName> OnLoadOtherScene;
         
         public void ChangeScene(ESceneName name)
         {
+            OnLoadOtherScene?.Invoke(name);
             overlayLoadedScenes.Clear();
             SceneManager.LoadScene(name.ToString());
         }

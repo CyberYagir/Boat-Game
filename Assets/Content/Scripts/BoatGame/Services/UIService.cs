@@ -26,6 +26,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIDeathWindow deathWindow;
         [SerializeField] private UICharactersList charactersList;
         [SerializeField] private UIResourcesCounter resourcesList;
+        [SerializeField] private UIStoragesCounter storagesCounter;
         
         private PlayerCharacter targetCharacter;
         private TickService tickService;
@@ -68,6 +69,8 @@ namespace Content.Scripts.BoatGame.Services
             
             
             resourcesList.Init(raftBuildService, gameDataObject, resourcesService, tickService);
+            storagesCounter.Init(raftBuildService);
+            
             
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
             resourcesService.OnChangeResources += OnChangeResources;
