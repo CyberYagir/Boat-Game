@@ -9673,8 +9673,8 @@ MonoBehaviour:
     boxCollider: {fileID: 3634301492502812625}
   damageObject: {fileID: 2069288281279056614}
   damageRange:
-    min: 2
-    max: 5
+    min: 1
+    max: 2.5
 --- !u!114 &192137139835125095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9701,7 +9701,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcab04373f66ec7459602886d87131f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: -1426298772, guid: 8e87fa800e2f4964f839bfaa91666b12, type: 3}
   state: 8
 --- !u!65 &3634301492502812625
 BoxCollider:
@@ -9738,6 +9737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   health: 0
+  attackPoint: {fileID: 0}
 --- !u!1001 &1179382307116350534
 PrefabInstance:
   m_ObjectHideFlags: 0

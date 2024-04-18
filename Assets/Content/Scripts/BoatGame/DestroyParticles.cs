@@ -9,6 +9,7 @@ namespace Content.Scripts.BoatGame
 
         private void OnDestroy()
         {
+            if (!this.gameObject.scene.isLoaded) return;
             Instantiate(particlePrefab, transform.position, Quaternion.identity).Play();
         }
     }

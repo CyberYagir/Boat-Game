@@ -17,26 +17,26 @@ MonoBehaviour:
     - name: "\u041D\u0435\u0433\u0440"
       uid: 7-8bb284f69c11
       skillsData:
-        xp: 0
+        xp: 30
         scores: 0
-        level: 4
+        level: 7
         skills:
         - skillID: bd91198f-eeab-4ae1-acef-2551fa57d4d9
-          value: 4
+          value: 5
         - skillID: 20b3171e-8a60-4361-bfe4-c12a4b154163
           value: 3
         - skillID: 3b8443e2-2fef-4110-95aa-d61d78459f6f
           value: 1
         - skillID: f3b559d4-e0e2-42ef-b5d1-71101d0e10ca
-          value: 1
+          value: 3
       parametersData:
         health: 100
-        hunger: 68.89905
-        thirsty: 37.80116
+        hunger: 80.01012
+        thirsty: 59.991623
       equipmentData:
         helmetID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
-        armorID: 
-        weaponID: 
+        armorID: 54ba5fca-4720-4315-94bc-0d887d48ee5a
+        weaponID: bcddab5b-dfe3-4642-807d-96e3b0e64c38
       skinColorID: 4
       hatID: 4
   raftsData:
@@ -65,21 +65,29 @@ MonoBehaviour:
       pos: {x: -1, y: 0, z: 1}
       health: 0
       raftType: 3
+    - uid: 39f7b413-dca1-4c06-9198-36cc34fc5a65
+      pos: {x: 0, y: 0, z: -1}
+      health: 100
+      raftType: 4
+    - uid: 9b153de6-0ee7-4507-9536-50feb56da70e
+      pos: {x: -1, y: 0, z: 0}
+      health: 0
+      raftType: 5
     storages:
     - raftUid: e3e097e4-cd85-412a-8ef1-f08be56a0d42
       storagesData:
-      - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
-        count: 1
+      - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
+        count: 4
+      - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
+        count: 2
       - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
-        count: 6
-      - itemID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
-        count: 1
+        count: 3
+      - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
+        count: 4
     - raftUid: 759f63c5-fc0e-44f2-85bd-b5adabf0b8fb
       storagesData:
-      - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
-        count: 7
-      - itemID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
-        count: 5
+      - itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
+        count: 1
     raftsInBuild: []
   mapData:
     worldSeed: -85804634
@@ -98,7 +106,14 @@ MonoBehaviour:
       droppedItems: []
     - islandPos: {x: 26, y: 198}
       islandSeed: -85804407
-      removedTrees: []
+      removedTrees:
+      - {x: 252, y: 268}
+      - {x: 285, y: 269}
+      - {x: 303, y: 320}
+      - {x: 313, y: 346}
+      - {x: 320, y: 344}
+      - {x: 293, y: 363}
+      - {x: 287, y: 344}
       droppedItems: []
     - islandPos: {x: 33, y: 287}
       islandSeed: -85804310
@@ -146,7 +161,9 @@ MonoBehaviour:
       droppedItems: []
     - islandPos: {x: 109, y: 20}
       islandSeed: -85804490
-      removedTrees: []
+      removedTrees:
+      - {x: 209, y: 276}
+      - {x: 202, y: 251}
       droppedItems: []
     - islandPos: {x: 109, y: 324}
       islandSeed: -85804185
@@ -294,8 +311,27 @@ MonoBehaviour:
       droppedItems: []
     - islandPos: {x: 267, y: 345}
       islandSeed: -85803970
-      removedTrees: []
-      droppedItems: []
+      removedTrees:
+      - {x: 107, y: 363}
+      - {x: 115, y: 355}
+      - {x: 100, y: 328}
+      - {x: 99, y: 312}
+      - {x: 142, y: 327}
+      - {x: 107, y: 330}
+      - {x: 150, y: 302}
+      - {x: 160, y: 328}
+      - {x: 183, y: 328}
+      - {x: 183, y: 330}
+      - {x: 200, y: 338}
+      droppedItems:
+      - pos: {x: -172.2291, y: 3.9677734, z: 134.00049}
+        rot: {x: 0.47455776, y: 359.12598, z: 0.011593487}
+        itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
+        dropID: 806cb924-19ff-4a28-8330-f77fda8cbdd4
+      - pos: {x: -77.89267, y: 14.294006, z: 126.79047}
+        rot: {x: 0.748023, y: 359.98627, z: 359.8462}
+        itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
+        dropID: c795c2dc-44bf-4e5d-b038-8c5f22594f50
     - islandPos: {x: 285, y: 103}
       islandSeed: -85804193
       removedTrees: []
@@ -361,14 +397,14 @@ MonoBehaviour:
       removedTrees: []
       droppedItems: []
   globalData:
-    totalSecondsInGame: 3316.7751
-    totalSecondsOnRaft: 3257.9858
+    totalSecondsInGame: 8781.609
+    totalSecondsOnRaft: 5696.49
     islandSeed: 0
     damagersData:
-      tickCount: 398
-      maxTickCount: 4956
+      tickCount: 23
+      maxTickCount: 7451.0996
       spawnedItems: []
     weathersData:
-      tickCount: 1281
-      maxTickCount: 2479
+      tickCount: 1163
+      maxTickCount: 2207
       currentWeather: 0

@@ -54,20 +54,10 @@ namespace Content.Scripts.IslandGame.Services
 
                 if(dir.magnitude > 20 ) return;
                 
-                cameraPosition += new Vector3(dir.x, 0, dir.y) * TimeService.UnscaledDelta * cameraSpeed;
-                
-
-
-                if (Physics.Raycast(cameraPosition + Vector3.up * 300, Vector3.down, out RaycastHit hit, Mathf.Infinity, mask))
-                {
-                    var y = hit.point.y;
-                    if (y < 0)
-                    {
-                        y = 0;
-                    }
-
-                    cameraPosition.y = y;
-                }
+                MoveCamera(dir);
+            }else if (InputService.MoveAxis.magnitude != 0)
+            {
+                MoveCamera(InputService.MoveAxis);
             }
 
             zoom += InputService.MouseWheel * TimeService.UnscaledDelta * cameraZoomSpeed;
@@ -79,6 +69,23 @@ namespace Content.Scripts.IslandGame.Services
             var localZoomPos = Vector3.Lerp(minZoomPoint.localPosition, maxZoomPoint.localPosition, zoom);
             
             zoomTransform.localPosition = Vector3.Lerp(zoomTransform.localPosition, localZoomPos, TimeService.UnscaledDelta * 5f);
+        }
+
+        private void MoveCamera(Vector2 dir)
+        {
+            cameraPosition += new Vector3(dir.x, 0, dir.y) * TimeService.UnscaledDelta * cameraSpeed;
+
+
+            if (Physics.Raycast(cameraPosition + Vector3.up * 300, Vector3.down, out RaycastHit hit, Mathf.Infinity, mask))
+            {
+                var y = hit.point.y;
+                if (y < 0)
+                {
+                    y = 0;
+                }
+
+                cameraPosition.y = y;
+            }
         }
 
 

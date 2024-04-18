@@ -155,7 +155,6 @@ namespace Content.Scripts.BoatGame.Characters.States
             if (selectedItem == null || selectedItem.GetComponent<WaterItem>().IsOnDeath)
             {
                 EndState();
-                return;
             }
         }
         

@@ -85,8 +85,6 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
         {
             if (item != null)
             {
-                
-                Debug.LogError("Start Drag");
                 window.ChangeTabToInventory();
                 inventorySubWindow.DragManager.DragStart += OnDragManagerDragStart;
                 inventorySubWindow.DragManager.DragEnd += OnDragManagerDragEnd;
@@ -98,8 +96,6 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
         private void OnDragManagerDragEnd()
         {
             image.DOFade(1, 0.2f);
-            
-            Debug.LogError("End Drag");
             
             inventorySubWindow.DragManager.DragStart -= OnDragManagerDragStart;
             inventorySubWindow.DragManager.DragEnd -= OnDragManagerDragEnd;

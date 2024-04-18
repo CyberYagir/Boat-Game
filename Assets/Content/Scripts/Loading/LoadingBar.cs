@@ -46,7 +46,11 @@ namespace Loading
 
         public void Start()
         {
+#if UNITY_EDITOR
             Application.targetFrameRate = 60;
+#else
+            Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
+#endif
         }
     }
 }
