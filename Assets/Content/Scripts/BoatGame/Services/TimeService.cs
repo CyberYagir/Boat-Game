@@ -28,7 +28,7 @@ namespace Content.Scripts.BoatGame.Services
 
         public static void AddPlayedTime()
         {
-            playedTime += DeltaTime * TimeRate;
+            playedTime += UnscaledDelta;
         }
 
         public static void SetTimeRate(float rate)

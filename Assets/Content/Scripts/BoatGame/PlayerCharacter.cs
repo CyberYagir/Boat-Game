@@ -165,7 +165,7 @@ namespace Content.Scripts.BoatGame
 
         private void NeedsManagerTick(float delta)
         {
-            if (saveDataObject.Global.TotalSecondsOnRaft + TimeService.PlayedBoatTime >= gameData.ConfigData.StartNeedsActiveTime)
+            if (saveDataObject.Global.TotalSecondsInGame + TimeService.PlayedTime >= gameData.ConfigData.StartNeedsActiveTime)
             {
                 needsManager.OnTick(delta);
             }

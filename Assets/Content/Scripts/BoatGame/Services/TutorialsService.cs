@@ -23,14 +23,21 @@ namespace Content.Scripts.BoatGame.Services
         private RaftBuildService raftBuildService;
 
         [Inject]
-        private void Construct(TickService tickService, GameDataObject gameDataObject, SaveDataObject saveData, CharacterService characterService, RaftBuildService raftBuildService)
+        private void Construct(
+            TickService tickService, 
+            GameDataObject gameDataObject, 
+            SaveDataObject saveData, 
+            CharacterService characterService, 
+            RaftBuildService raftBuildService)
         {
+            this.characterService = characterService;
             this.raftBuildService = raftBuildService;
             this.saveData = saveData;
             this.gameDataObject = gameDataObject;
 
-            
 
+            tutorialsDisplay.Init(tickService);
+            
             time = saveData.Global.TotalSecondsOnRaft;
             
             tickService.OnTick += TickServiceOnOnTick;
@@ -43,7 +50,6 @@ namespace Content.Scripts.BoatGame.Services
             if (characterService.SpawnedCharacters.Count >= 1)
             {
                 playerCharacter = characterService.SpawnedCharacters[0];
-                
                 if (!saveData.Tutorials.LevelUpTutorial)
                 {
                     playerCharacter.Character.SkillData.OnLevelUp += SkillDataOnOnLevelUp;
@@ -77,6 +83,8 @@ namespace Content.Scripts.BoatGame.Services
         }
 
         private bool waitForDisplayStorageTutorial = false;
+        private CharacterService characterService;
+
         private void OnStorageUpdate()
         {
             var max = raftBuildService.Storages.Sum(x => x.MaxItemsCount);
@@ -150,7 +158,6 @@ namespace Content.Scripts.BoatGame.Services
             {
                 if (time >= gameDataObject.ConfigData.StartNeedsActiveTime)
                 {
-                    if (playerCharacter == null) return;
                     if (playerCharacter.NeedManager.Hunger < PlayerCharacter.NeedsManager.minimalScores || playerCharacter.NeedManager.Thirsty < PlayerCharacter.NeedsManager.minimalScores)
                     {
                         tutorialsDisplay.DrawDialogue(eatTutorial);

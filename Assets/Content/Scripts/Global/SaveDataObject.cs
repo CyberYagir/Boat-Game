@@ -417,16 +417,19 @@ namespace Content.Scripts.Global
             public void EatTutorialSet()
             {
                 eatTutorial = true;
+                Debug.LogError("Complete Eat Tutorial");
             }
             
             public void StorageTutorialSet()
             {
                 storageTutorial = true;
+                Debug.LogError("Complete Storage Tutorial");
             }
             
             public void LevelUpTutorialSet()
             {
                 levelUpTutorial = true;
+                Debug.LogError("Complete LevelUp Tutorial");
             }
         }
         

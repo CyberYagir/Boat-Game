@@ -1,5 +1,7 @@
 using System.Collections;
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -9,7 +11,8 @@ namespace Content.Scripts.BoatGame.UI
     {
         [SerializeField] private GameObject rendererPart;
         [SerializeField] private GameObject canvas;
-
+        [SerializeField] private CanvasGroup canvasGroup;
+        
         [SerializeField] private TMP_Text text;
         [SerializeField] private string highlightColor;
 
@@ -18,16 +21,31 @@ namespace Content.Scripts.BoatGame.UI
         private bool nextPhraseFlag = false;
         
         private TutorialDialogObject textObject;
+        private TickService tickService;
 
         public bool IsTextDisplayed => isTextDisplayed;
 
+        
+        public void Init(TickService tickService)
+        {
+            this.tickService = tickService;
+        }
+        
+        
         public void DrawDialogue(TutorialDialogObject textObject)
         {
             this.textObject = textObject;
             rendererPart.gameObject.SetActive(true);
             canvas.gameObject.SetActive(true);
 
-            StartCoroutine(DrawPhrases());
+            tickService.ChangeTimeScale(1);
+            
+            text.text = "";
+            canvasGroup.alpha = 0;
+            canvasGroup.DOFade(1f, 0.25f).onComplete += delegate
+            {
+                StartCoroutine(DrawPhrases());
+            };
         }
 
 
@@ -46,9 +64,13 @@ namespace Content.Scripts.BoatGame.UI
                 nextPhraseFlag = false;
             }
             
-            rendererPart.gameObject.SetActive(false);
-            canvas.gameObject.SetActive(false);
-            isTextDisplayed = false;
+            canvasGroup.DOFade(0, 0.25f).onComplete += delegate
+            {
+                rendererPart.gameObject.SetActive(false);
+                canvas.gameObject.SetActive(false);
+                isTextDisplayed = false;
+            };
+            
         }
 
         IEnumerator DrawPhrase(int phraseID)
@@ -92,5 +114,7 @@ namespace Content.Scripts.BoatGame.UI
         {
             nextPhraseFlag = true;
         }
+
+
     }
 }

@@ -255,6 +255,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1812828082300587351}
+  - component: {fileID: 8120112739516128852}
   m_Layer: 0
   m_Name: Dialog
   m_TagString: Untagged
@@ -284,6 +285,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &8120112739516128852
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617341742722333261}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2344819764139197277
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.654088, g: 0.654088, b: 0.654088, a: 0.023529412}
+  m_Color: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 0.11372549}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -635,7 +648,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 531.1028, y: -93.04079}
+  m_AnchoredPosition: {x: 581, y: -103.8}
   m_SizeDelta: {x: 206.6897, y: 145.919}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7461681390068164959
@@ -933,6 +946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rendererPart: {fileID: 5028087234215845082}
   canvas: {fileID: 7948294757260708010}
+  canvasGroup: {fileID: 8120112739516128852}
   text: {fileID: 4668211846691960913}
   highlightColor: '#3483eb'
 --- !u!1 &7948294757260708010
@@ -1073,7 +1087,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 406.17926, y: 165.99998}
+  m_AnchoredPosition: {x: 406.17926, y: 176.59}
   m_SizeDelta: {x: 1163.436, y: 1163.436}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &6535973517581815662

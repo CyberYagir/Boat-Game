@@ -33,6 +33,7 @@ namespace Content.Scripts.BoatGame
                 if (actionsCount >= gameData.ConfigData.ActionsCountToTutorial)
                 {
                     saveData.Tutorials.ClickTutorialSet();
+                    stateMachine.OnChangeState -= OnChangeState;
                 }
             }
         }
