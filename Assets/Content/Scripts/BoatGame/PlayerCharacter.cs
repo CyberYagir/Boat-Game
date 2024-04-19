@@ -49,6 +49,7 @@ namespace Content.Scripts.BoatGame
         public RaftBuildService BuildService => raftBuildService;
 
         public Action OnChangeState;
+        private SaveDataObject saveDataObject;
 
 
         public void Init(
@@ -59,9 +60,11 @@ namespace Content.Scripts.BoatGame
             TickService tickService,
             SelectionService selectionService,
             PrefabSpawnerFabric prefabSpawnerFabric,
-            INavMeshProvider navMeshProvider
+            INavMeshProvider navMeshProvider, 
+            SaveDataObject saveDataObject
         )
         {
+            this.saveDataObject = saveDataObject;
             this.gameData = gameData;
             this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.raftBuildService = raftBuildService;
@@ -75,7 +78,7 @@ namespace Content.Scripts.BoatGame
 
             aiManager.Init(raftBuildService, navMeshProvider);
             animationsManager.Init(weatherService, appearanceManager);
-            needsManager.Init(character, weatherService, gameData, this.selectionService);
+            needsManager.Init(character, weatherService, this.selectionService);
             actionsHolder.Construct(selectionService, gameData);
 
             raftBuildService.OnChangeRaft += CheckGround;
@@ -156,8 +159,16 @@ namespace Content.Scripts.BoatGame
         private void OnTick(float delta)
         {
             if (onlyVisuals) return;
-            needsManager.OnTick(delta);
 
+            NeedsManagerTick(delta);
+        }
+
+        private void NeedsManagerTick(float delta)
+        {
+            if (saveDataObject.Global.TotalSecondsOnRaft + TimeService.PlayedBoatTime >= gameData.ConfigData.StartNeedsActiveTime)
+            {
+                needsManager.OnTick(delta);
+            }
         }
 
         private void Update()

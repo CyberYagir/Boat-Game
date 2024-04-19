@@ -12,7 +12,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public void Init(GameDataObject gameDataObject)
         {
-            character.Init(new Character(), gameDataObject, null, null, null, null, null, new NavMeshService());
+            character.Init(new Character(), gameDataObject, null, null, null, null, null, new NavMeshService(), null);
         }
 
         private void OnEquipmentChange()

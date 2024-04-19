@@ -100,13 +100,13 @@ namespace Content.Scripts.BoatGame
             private SelectionService selectionService;
             private Character selfCharacter;
             private bool godMode;
-            
+
             public bool IsDead => isDead;
             public float Health => health;
             public float Hunger => hunger;
             public float Thirsty => thirsty;
 
-            public void Init(Character character, WeatherService weatherService, GameDataObject gameDataObject, SelectionService selectionService)
+            public void Init(Character character, WeatherService weatherService, SelectionService selectionService)
             {
                 selfCharacter = character;
                 this.selectionService = selectionService;
@@ -130,7 +130,6 @@ namespace Content.Scripts.BoatGame
                 if (!IsDead)
                 {
                     delta *= rate;
-
                     var vitalityModify = selfCharacter.GetSkillMultiply(vitalitySkill.SkillID);
                     RemoveParameters(delta, vitalityModify);
                     CalculateHealth(delta, vitalityModify);

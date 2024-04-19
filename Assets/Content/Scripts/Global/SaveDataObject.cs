@@ -357,6 +357,8 @@ namespace Content.Scripts.Global
 
             public int IslandSeed => islandSeed;
 
+            public float TotalSecondsOnRaft => totalSecondsOnRaft;
+
             public void SetTimePlayed(float value)
             {
                 totalSecondsInGame = value;
@@ -369,7 +371,7 @@ namespace Content.Scripts.Global
             
             public void AddTimeOnRaft(float value)
             {
-                totalSecondsOnRaft += value;
+                totalSecondsOnRaft = TotalSecondsOnRaft + value;
             }
 
             public void SetDamagersData(RaftDamagerData getDamagersDataData)
@@ -388,10 +390,55 @@ namespace Content.Scripts.Global
             }
         }
         
+        [System.Serializable]
+        public class TutorialsData
+        {
+            [SerializeField] private bool clickTutorial;
+            [SerializeField] private bool eatTutorial;
+            [SerializeField] private bool storageTutorial;
+            [SerializeField] private bool levelUpTutorial;
+
+            public bool StorageTutorial => storageTutorial;
+
+            public bool EatTutorial => eatTutorial;
+
+            public bool ClickTutorial => clickTutorial;
+
+            public bool LevelUpTutorial => levelUpTutorial;
+
+
+            public void ClickTutorialSet()
+            {
+                clickTutorial = true;
+                
+                Debug.LogError("Complete Action Tutorial");
+            }
+            
+            public void EatTutorialSet()
+            {
+                eatTutorial = true;
+            }
+            
+            public void StorageTutorialSet()
+            {
+                storageTutorial = true;
+            }
+            
+            public void LevelUpTutorialSet()
+            {
+                levelUpTutorial = true;
+            }
+        }
+        
+        
         [SerializeField] private CharactersData charactersData = new CharactersData();
         [SerializeField] private RaftsData raftsData = new RaftsData();
         [SerializeField] private MapData mapData = new MapData();
         [SerializeField] private GlobalData globalData = new GlobalData();
+        [SerializeField] private TutorialsData tutorialsData = new TutorialsData();
+        
+
+
         public CharactersData Characters => charactersData;
 
         public RaftsData Rafts => raftsData;
@@ -399,6 +446,8 @@ namespace Content.Scripts.Global
         public MapData Map => mapData;
 
         public GlobalData Global => globalData;
+
+        public TutorialsData Tutorials => tutorialsData;
 
 
         public override void InstallBindings()

@@ -42,7 +42,7 @@ namespace Content.Scripts.BoatGame.Services
             {
                 var character = saveData.Characters.GetCharacter(i);
                 character.ClearEvents();
-                
+
                 Instantiate(prefab, Vector3.zero, Quaternion.identity, raftBuildService.Holder)
                     .With(x => x.Init(
                         character,
@@ -52,10 +52,12 @@ namespace Content.Scripts.BoatGame.Services
                         tickService,
                         selectionService,
                         prefabSpawnerFabric,
-                        navMeshProvider
+                        navMeshProvider,
+                        saveData
                     ))
                     .With(x => SpawnedCharacters.Add(x))
-                    .With(x => x.NeedManager.OnDeath += OnDeath);
+                    .With(x => x.NeedManager.OnDeath += OnDeath)
+                    .With(x => x.GetComponent<PlayerCharacterTutorial>()?.Init(gameDataObject, this.saveData));
             }
             
             

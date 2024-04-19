@@ -32,6 +32,7 @@ namespace Content.Scripts.Global
 
 
         [SerializeField] private ActionsDataSO actionsData;
+        [SerializeField] private ConfigDataObject configData;
         [SerializeField] private List<string> namesList;
         [SerializeField] private List<SkillObject> skillsList;
         [SerializeField] private List<Material> skinColors;
@@ -60,6 +61,8 @@ namespace Content.Scripts.Global
 
         public List<RandomStructureMaterialsBase.MatsByBiome> StructuresMaterials => structuresMaterials;
         public List<RandomStructureMaterialsBase.MatsByBiome> StructuresRoofMaterials => structuresRoofMaterials;
+
+        public ConfigDataObject ConfigData => configData;
 
 
         public ItemObject GetItem(string id)

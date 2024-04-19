@@ -78,6 +78,7 @@ namespace Content.Scripts.BoatGame
                 if (levelUpParticlesPrefab)
                 {
                     levelUpParticlesPrefab.Play(true);
+                    WorldPopupService.StaticSpawnPopup(GetBone(EBones.Hips).transform.position, "Level Up!");
                 }
             }
 

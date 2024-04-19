@@ -49,7 +49,7 @@ namespace Content.Scripts.BoatGame.Services
         {
             this.scenesService = scenesService;
             this.gameStateService = gameStateService;
-            raycasters = uiService.GetComponentsInChildren<GraphicRaycaster>(true).ToList();
+            raycasters = uiService.transform.parent.GetComponentsInChildren<GraphicRaycaster>(true).ToList();
             scenesService.OnChangeActiveScene += ScenesServiceOnOnChangeActiveScene;  
             print("execute " + transform.name);
         }
