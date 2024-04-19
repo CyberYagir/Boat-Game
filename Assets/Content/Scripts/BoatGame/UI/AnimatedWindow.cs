@@ -10,8 +10,9 @@ namespace Content.Scripts.BoatGame.UI
 
         private bool isOpen;
 
-        public bool IsOpen => isOpen;        
-        
+        public bool IsOpen => isOpen;
+
+        public event Action<AnimatedWindow> OnOpen;
         public event Action<AnimatedWindow> OnClose;
 
 
@@ -22,6 +23,7 @@ namespace Content.Scripts.BoatGame.UI
             window.transform.localScale = Vector3.zero;
             window.transform.DOScale(Vector3.one, 0.2f);
             isOpen = true;
+            OnOpen?.Invoke(this);
         }
 
         public virtual void CloseWindow()

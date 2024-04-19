@@ -6,6 +6,7 @@ using Content.Scripts.BoatGame.UI;
 using Content.Scripts.Boot;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.Global;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +14,22 @@ namespace Content.Scripts.BoatGame.Services
 {
     public class UIService : MonoBehaviour
     {
+        [System.Serializable]
+        public class WindowsManager
+        {
+            [SerializeField, ReadOnly] private List<AnimatedWindow> openedWindows = new List<AnimatedWindow>(2);
+            public bool isAnyWindowOpened => openedWindows.Count != 0;
+            
+            public void Init(params AnimatedWindow[] windows)
+            {
+                for (int i = 0; i < windows.Length; i++)
+                {
+                    windows[i].OnOpen += delegate(AnimatedWindow window) { openedWindows.Add(window); };
+                    windows[i].OnClose += delegate(AnimatedWindow window) { openedWindows.Remove(window); };
+                }
+            }
+        }
+
         [SerializeField] private UIActionManager actionManager;
         [SerializeField] private UIRewindButton rewindButton;
         [SerializeField] private UIExitIslandButton exitIslandButton;
@@ -28,10 +45,13 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIResourcesCounter resourcesList;
         [SerializeField] private UIStoragesCounter storagesCounter;
         
+        [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
+        
         private PlayerCharacter targetCharacter;
-        private TickService tickService;
         private ResourcesService resourcesService;
         private GameStateService gameState;
+
+        public WindowsManager WindowManager => windowsManager;
 
         [Inject]
         private void Construct(
@@ -50,7 +70,6 @@ namespace Content.Scripts.BoatGame.Services
         {
             this.gameState = gameState;
             this.resourcesService = resourcesService;
-            this.tickService = tickService;
 
 
             deathWindow.Init(characterService, saveDataObject, scenesService);
@@ -70,7 +89,9 @@ namespace Content.Scripts.BoatGame.Services
             
             resourcesList.Init(raftBuildService, gameDataObject, resourcesService, tickService);
             storagesCounter.Init(raftBuildService);
-            
+
+
+            windowsManager.Init(craftsWindow, characterWindow, craftingTableWindow);
             
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
             resourcesService.OnChangeResources += OnChangeResources;

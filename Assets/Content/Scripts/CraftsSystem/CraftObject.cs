@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame;
+using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace Content.Scripts.CraftsSystem
         [SerializeField] private string craftName;
         [SerializeField] private ECraftType type;
         [SerializeField, ReadOnly] private string uid;
+        [SerializeField] private TooltipDataObject tooltip;
         [SerializeField, PreviewField] private Sprite icon;
         [SerializeField] private List<CraftItem> ingredients;
         [SerializeField] private float craftTime;
@@ -48,6 +50,8 @@ namespace Content.Scripts.CraftsSystem
         public ECraftType CraftType => type;
 
         public CraftItem FinalItem => finalItem;
+
+        public TooltipDataObject Tooltip => tooltip;
 
         [Button]
         public void GenerateID()

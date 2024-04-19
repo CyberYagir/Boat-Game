@@ -1,4 +1,5 @@
 using System;
+using Content.Scripts.Global;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Content.Scripts.SkillsSystem
     {
         [SerializeField] private string skillName;
         [SerializeField] private Sprite skillIcon;
+        [SerializeField] private TooltipDataObject tooltipData;
 
         [SerializeField, ReadOnly] private string skillID;
 
@@ -19,6 +21,8 @@ namespace Content.Scripts.SkillsSystem
         public Sprite SkillIcon => skillIcon;
 
         public string SkillName => skillName;
+
+        public TooltipDataObject TooltipData => tooltipData;
 
 
 #if UNITY_EDITOR

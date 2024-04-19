@@ -13,5 +13,6 @@ namespace Content.Scripts.BoatGame.Services
         public static Vector2 MouseAxis => new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
         public static float MouseWheel => -Input.GetAxis("Mouse ScrollWheel");
+        public static Vector3 MousePosition => Input.mousePosition;
     }
 }

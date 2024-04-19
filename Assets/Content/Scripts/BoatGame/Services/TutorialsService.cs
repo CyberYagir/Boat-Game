@@ -9,6 +9,7 @@ namespace Content.Scripts.BoatGame.Services
 {
     public class TutorialsService : MonoBehaviour
     {
+        [SerializeField] private UIService uiService;
         [SerializeField] private UITutorialsDisplay tutorialsDisplay;
         [SerializeField] private TutorialDialogObject actionsTutorial;
         [SerializeField] private TutorialDialogObject eatTutorial;
@@ -104,6 +105,7 @@ namespace Content.Scripts.BoatGame.Services
 
         private void TickServiceOnOnTick(float delta)
         {
+            if (uiService.WindowManager.isAnyWindowOpened) return;
             ActionsTutorial();
             EatingTutorial();
             StorageTutorial();

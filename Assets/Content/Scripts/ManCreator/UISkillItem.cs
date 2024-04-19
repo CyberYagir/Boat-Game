@@ -1,4 +1,5 @@
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.BoatGame.UI;
 using Content.Scripts.SkillsSystem;
 using TMPro;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace Content.Scripts.ManCreator
     {
         [SerializeField] private TMP_Text skillNameText;
         [SerializeField] private TMP_Text valueText;
-        
+        [SerializeField] private UITooltip tooltip;
         private SkillObject skill;
         private CharacterCustomizationService characterCustomizationService;
 
@@ -18,6 +19,8 @@ namespace Content.Scripts.ManCreator
             this.characterCustomizationService = characterCustomizationService;
             this.skill = skill;
 
+            tooltip.Init(skill.TooltipData);
+            
             skillNameText.text = skill.SkillName;
             UpdateText();
         }

@@ -97,7 +97,10 @@ namespace Content.Scripts.BoatGame.UI
         {
             foreach (var uiCraftsItem in craftsItems)
             {
-                uiCraftsItem.UpdateItem();
+                if (uiCraftsItem.UpdateItem())
+                {
+                    uiCraftsItem.transform.SetSiblingIndex(0);
+                }
             }
         }
     }

@@ -14,7 +14,8 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private TMP_Text text;
         [SerializeField] private UICraftSubItem subItem;
         [SerializeField] protected Button button;
-
+        [SerializeField] private UITooltip tooltip;
+        
         protected List<UICraftSubItem> subItems = new List<UICraftSubItem>(10);
         protected ResourcesService resourcesService;
         protected CraftObject item;
@@ -32,6 +33,18 @@ namespace Content.Scripts.BoatGame.UI
             
             icon.sprite = item.Icon;
             text.text = item.CraftName;
+
+            if (tooltip != null)
+            {
+                if (item.Tooltip)
+                {
+                    tooltip.Init(item.Tooltip);
+                }
+                else
+                {
+                    tooltip.gameObject.SetActive(false);
+                }
+            }
 
             subItem.gameObject.SetActive(true);
             foreach (var ing in item.Ingredients)
