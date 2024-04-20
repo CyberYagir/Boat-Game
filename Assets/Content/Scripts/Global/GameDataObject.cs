@@ -18,8 +18,6 @@ namespace Content.Scripts.Global
     [CreateAssetMenu(menuName = "Scriptable/GameData", fileName = "Game Data", order = 0)]
     public class GameDataObject : ScriptableObjectInstaller
     {
-
-
         public override void InstallBindings()
         {
             Container.Bind<GameDataObject>().FromInstance(this).AsSingle();

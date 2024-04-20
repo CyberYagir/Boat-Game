@@ -55,7 +55,7 @@ namespace Content.Scripts.BoatGame
         private (WaterItem, Vector3, Vector3) SpawnItem()
         {
             var (start, end) = GetPoses(pointsHolders.GetRandomIndex());
-            var spawned = _prefabSpawnerFabric.SpawnItem<WaterItem>(itemsData.GetRandomItem(), start, Quaternion.identity, null)
+            var spawned = _prefabSpawnerFabric.SpawnItem(itemsData.GetRandomItem(), start, Quaternion.identity, null)
                 .With(x => x.Init(end - start, maxDistance, itemSpeed.RandomWithin()));
 
             spawnedItems.Add(spawned);

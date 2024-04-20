@@ -1,10 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Content.Scripts.BoatGame.UI
 {
@@ -13,14 +15,18 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private GameObject tooltip;
         [SerializeField] private TMP_Text text;
         [SerializeField] private CanvasGroup group;
+        [SerializeField] private List<ContentSizeFitter> contentSizeFitters;
+        
         private float timer;
         private IEnumerator loop;
         private float tooltipShowTime = 0.5f;
+        private TooltipDataObject tooltipData;
+        private bool isStartAnimation;
 
         public void Init(TooltipDataObject tooltipData)
         {
+            this.tooltipData = tooltipData;
             tooltip.gameObject.SetActive(false);
-            text.text = tooltipData.Text;
         }
         
 
@@ -35,13 +41,32 @@ namespace Content.Scripts.BoatGame.UI
             while (timer <= tooltipShowTime)
             {
                 timer += Time.unscaledDeltaTime;
-                tooltip.transform.position = InputService.MousePosition;
+                SetPosition();
                 yield return null;
-                
+
             }
 
+            StartCoroutine(StartTooltip());
+        }
+
+        IEnumerator StartTooltip()
+        {
+            if (isStartAnimation) yield break;
+
+            isStartAnimation = true;
             group.alpha = 0;
             tooltip.gameObject.SetActive(true);
+            text.text = tooltipData.Text;
+
+            for (int i = 0; i < contentSizeFitters.Count; i++)
+            {
+                contentSizeFitters[i].SetLayoutHorizontal();
+                contentSizeFitters[i].SetLayoutVertical();
+            }
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
+            
+            SetPosition();
             
             yield return null;
             yield return null;
@@ -53,7 +78,18 @@ namespace Content.Scripts.BoatGame.UI
             {
                 yield return null;
 
-                tooltip.transform.position = InputService.MousePosition;
+                SetPosition();
+            }
+        }
+
+        private void SetPosition()
+        {
+            tooltip.transform.position = InputService.MousePosition;
+
+            var pos = tooltip.transform.position.x + tooltip.GetComponent<RectTransform>().sizeDelta.x;
+            if (pos > Screen.width)
+            {
+                tooltip.transform.position += Vector3.right * (Screen.width - pos);
             }
         }
 
@@ -63,6 +99,8 @@ namespace Content.Scripts.BoatGame.UI
             {
                 StopCoroutine(loop);
             }
+            
+            isStartAnimation = false;
             group.DOFade(0f, 0.25f).onComplete += delegate
             {
                 tooltip.gameObject.SetActive(false);
@@ -72,7 +110,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public void OnClick()
         {
-            tooltip.gameObject.SetActive(true);
+            StartCoroutine(StartTooltip());
         }
         
     }

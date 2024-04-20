@@ -10,6 +10,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private TMP_Text skillNameText;
         [SerializeField] private TMP_Text currentSkillText;
         [SerializeField] private GameObject button;
+        [SerializeField] private UITooltip tooltip;
         private SkillObject skillObject;
         private UISkillsSubWindow window;
 
@@ -18,6 +19,7 @@ namespace Content.Scripts.BoatGame.UI
             this.window = window;
             this.skillObject = skillObject;
             skillNameText.text = skillObject.SkillName;
+            tooltip.Init(skillObject.TooltipData);
         }
 
 
