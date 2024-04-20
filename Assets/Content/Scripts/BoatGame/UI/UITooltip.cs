@@ -15,6 +15,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private GameObject tooltip;
         [SerializeField] private TMP_Text text;
         [SerializeField] private CanvasGroup group;
+        [SerializeField] private RectTransform rightPoint;
         [SerializeField] private List<ContentSizeFitter> contentSizeFitters;
         
         private float timer;
@@ -46,7 +47,8 @@ namespace Content.Scripts.BoatGame.UI
 
             }
 
-            StartCoroutine(StartTooltip());
+            loop = StartTooltip();
+            StartCoroutine(loop);
         }
 
         IEnumerator StartTooltip()
@@ -86,10 +88,11 @@ namespace Content.Scripts.BoatGame.UI
         {
             tooltip.transform.position = InputService.MousePosition;
 
-            var pos = tooltip.transform.position.x + tooltip.GetComponent<RectTransform>().sizeDelta.x;
-            if (pos > Screen.width)
+            var pos = tooltip.transform.TransformPoint(new Vector3(tooltip.GetComponent<RectTransform>().sizeDelta.x, 0, 0));
+            
+            if (pos.x > Screen.width)
             {
-                tooltip.transform.position += Vector3.right * (Screen.width - pos);
+                tooltip.transform.position += Vector3.right * (Screen.width - pos.x);
             }
         }
 
@@ -110,8 +113,9 @@ namespace Content.Scripts.BoatGame.UI
 
         public void OnClick()
         {
-            StartCoroutine(StartTooltip());
+            loop = StartTooltip();
+            StartCoroutine(loop);
         }
-        
+
     }
 }
