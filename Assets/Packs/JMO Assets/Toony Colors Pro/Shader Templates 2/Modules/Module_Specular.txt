@@ -1,5 +1,5 @@
 // Toony Colors Pro+Mobile 2
-// (c) 2014-2020 Jean Moreno
+// (c) 2014-2023 Jean Moreno
 
 // Shader Generator Module: Specular
 
@@ -68,7 +68,7 @@ sngl	lbl="Make Optional"			kw=SPECULAR_SHADER_FEATURE															needs=SPECUL
 
 #SHADER_FEATURES_BLOCK
 /// IF SPECULAR && SPECULAR_SHADER_FEATURE
-	#pragma shader_feature TCP2_SPECULAR
+	#pragma shader_feature_local_fragment TCP2_SPECULAR
 ///
 #END
 
@@ -130,7 +130,7 @@ sngl	lbl="Make Optional"			kw=SPECULAR_SHADER_FEATURE															needs=SPECUL
 
 //================================================================
 
-#VARIABLES
+#VARIABLES_OUTSIDE_CBUFFER
 /// IF SPECULAR_RAMP && (SPEC_LEGACY || SPECULAR_ANISOTROPIC)
 	sampler2D _SpecularRamp;
 ///
@@ -169,8 +169,8 @@ sngl	lbl="Make Optional"			kw=SPECULAR_SHADER_FEATURE															needs=SPECUL
 	/// ELIF SPEC_PBR_GGX
 
 		//GGX
-		#define TCP2_PI 3.14159265359
-		#define TCP2_INV_PI        0.31830988618f
+		#define TCP2_PI			3.14159265359
+		#define TCP2_INV_PI		0.31830988618f
 		#if defined(SHADER_API_MOBILE)
 			#define TCP2_EPSILON 1e-4f
 		#else
@@ -301,7 +301,7 @@ sngl	lbl="Make Optional"			kw=SPECULAR_SHADER_FEATURE															needs=SPECUL
 		/// ELIF SPECULAR_TOON
 		float spec = smoothstep([[VALUE:Specular Toon Size]] + [[VALUE:Specular Toon Smoothness]], [[VALUE:Specular Toon Size]] - [[VALUE:Specular Toon Smoothness]],1 - (ndh / (1+[[VALUE:Specular Toon Smoothness]])));
 		/// ELSE
-		float spec = pow(ndh, [[VALUE:Specular Smoothness]] * 128.0);
+		float spec = pow(ndh, 1e-4h + [[VALUE:Specular Smoothness]] * 128.0);
 		///
 		/// IF SPECULAR_TOON_BAND
 		spec = floor(spec * [[VALUE:Specular Toon Bands]]) / [[VALUE:Specular Toon Bands]];

@@ -1,5 +1,5 @@
 // Toony Colors Pro+Mobile 2
-// (c) 2014-2020 Jean Moreno
+// (c) 2014-2023 Jean Moreno
 
 // Shader Generator Module: Rim Lighting
 
@@ -71,10 +71,18 @@ sngl	lbl="Make Optional"			kw=RIM_SHADER_FEATURE													needsOr=RIM,RIM_OUT
 
 #SHADER_FEATURES_BLOCK
 /// IF RIM_SHADER_FEATURE
-	/// IF RIM
-		#pragma shader_feature TCP2_RIM_LIGHTING
-	/// ELIF RIM_OUTLINE
-		#pragma shader_feature TCP2_RIM_OUTLINE
+	/// IF RIM_VERTEX
+		/// IF RIM
+			#pragma shader_feature_local TCP2_RIM_LIGHTING
+		/// ELIF RIM_OUTLINE
+			#pragma shader_feature_local TCP2_RIM_OUTLINE
+		///
+	/// ELSE
+		/// IF RIM
+			#pragma shader_feature_local_fragment TCP2_RIM_LIGHTING
+		/// ELIF RIM_OUTLINE
+			#pragma shader_feature_local_fragment TCP2_RIM_OUTLINE
+		///
 	///
 ///
 #END
@@ -130,7 +138,7 @@ sngl	lbl="Make Optional"			kw=RIM_SHADER_FEATURE													needsOr=RIM,RIM_OUT
 //================================================================
 
 #VERTEX(float ndv, float3 viewDir, float3 normal, struct output)
-/// IF RIM || RIM_OUTLINE
+/// IF (RIM || RIM_OUTLINE) && RIM_VERTEX
 	/// IF RIM_SHADER_FEATURE
 		/// IF RIM
 		#if defined(TCP2_RIM_LIGHTING)
@@ -138,7 +146,6 @@ sngl	lbl="Make Optional"			kw=RIM_SHADER_FEATURE													needsOr=RIM,RIM_OUT
 		#if defined(TCP2_RIM_OUTLINE)
 		///
 	///
-	/// IF RIM_VERTEX
 	/// IF RIM_DIR
 		half3 rViewDir = viewDir;
 		half3 rimDir = [[VALUE:Rim Dir Vert]];
@@ -149,7 +156,6 @@ sngl	lbl="Make Optional"			kw=RIM_SHADER_FEATURE													needsOr=RIM,RIM_OUT
 	///
 		rim = smoothstep([[VALUE:Rim Min Vert]], [[VALUE:Rim Max Vert]], rim);
 		output.[[INPUT_VALUE:rim]] = rim;
-	///
 	/// IF RIM_SHADER_FEATURE
 		#endif
 	///

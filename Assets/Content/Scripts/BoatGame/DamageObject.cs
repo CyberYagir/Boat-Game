@@ -23,9 +23,11 @@ namespace Content.Scripts.BoatGame
 
         public Transform AttackPoint => attackPoint == null ? transform : attackPoint.transform;
 
+        public float MaxHealth => maxHealth;
+
         protected void SetHealth()
         {
-            health = maxHealth;
+            health = MaxHealth;
         }
         public void SetHealth(float value)
         {

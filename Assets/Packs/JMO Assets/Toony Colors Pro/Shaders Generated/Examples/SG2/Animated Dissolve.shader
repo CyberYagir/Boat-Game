@@ -1,5 +1,5 @@
 ﻿// Toony Colors Pro+Mobile 2
-// (c) 2014-2020 Jean Moreno
+// (c) 2014-2023 Jean Moreno
 
 Shader "Toony Colors Pro 2/Examples/SG2/Animated Dissolve"
 {
@@ -44,9 +44,9 @@ Shader "Toony Colors Pro 2/Examples/SG2/Animated Dissolve"
 
 		#include "UnityCG.cginc"
 		#include "UnityLightingCommon.cginc"	// needed for LightColor
-	
+
 		// Custom Material Properties
-		
+
 		// Shader Properties
 		sampler2D _MainTex;
 		sampler2D _DissolveMap;
@@ -57,7 +57,7 @@ Shader "Toony Colors Pro 2/Examples/SG2/Animated Dissolve"
 		// Shader Properties
 		float4 _MainTex_ST;
 		float4 _DissolveMap_ST;
-		float4 _DissolveMap_SC;
+		half4 _DissolveMap_SC;
 		float _DissolveGradientWidth;
 		half4 _DissolveGradientTexture;
 		fixed4 _Color;
@@ -65,7 +65,7 @@ Shader "Toony Colors Pro 2/Examples/SG2/Animated Dissolve"
 		float _RampSmoothing;
 		fixed4 _HColor;
 		fixed4 _SColor;
-		
+
 		float4 _TriplanarSamplingStrength;
 
 		float4 tex2D_triplanar(sampler2D samp, float4 tiling_offset, float3 worldPos, float3 worldNormal)
@@ -88,7 +88,7 @@ Shader "Toony Colors Pro 2/Examples/SG2/Animated Dissolve"
 
 		CGPROGRAM
 
-		#pragma surface surf ToonyColorsCustom vertex:vertex_surface exclude_path:deferred exclude_path:prepass keepalpha nolightmap nofog nolppv
+		#pragma surface surf ToonyColorsCustom vertex:vertex_surface exclude_path:deferred exclude_path:prepass keepalpha addshadow nolightmap nofog nolppv
 		#pragma target 3.0
 
 		//================================================================
@@ -255,6 +255,7 @@ Shader "Toony Colors Pro 2/Examples/SG2/Animated Dissolve"
 
 			surface.atten = data.atten; // transfer attenuation to lighting function
 			gi.light.color = _LightColor0.rgb; // remove attenuation
+
 		}
 
 		ENDCG
@@ -265,5 +266,5 @@ Shader "Toony Colors Pro 2/Examples/SG2/Animated Dissolve"
 	CustomEditor "ToonyColorsPro.ShaderGenerator.MaterialInspector_SG2"
 }
 
-/* TCP_DATA u config(unity:"2018.4.11f1";ver:"2.5.2";tmplt:"SG2_Template_Default";features:list["UNITY_5_4","UNITY_5_5","UNITY_5_6","UNITY_2017_1","UNITY_2018_1","UNITY_2018_2","UNITY_2018_3","DISSOLVE","DISSOLVE_CLIP","DISSOLVE_GRADIENT"];flags:list[];flags_extra:dict[];keywords:dict[RENDER_TYPE="Opaque",RampTextureDrawer="[TCP2Gradient]",RampTextureLabel="Ramp Texture",SHADER_TARGET="3.0"];shaderProperties:list[,,,,,,,,sp(name:"Dissolve Map";imps:list[imp_mp_texture(uto:True;tov:"";tov_lbl:"";gto:False;sbt:False;scr:True;scv:"";scv_lbl:"";gsc:False;roff:False;goff:False;notile:False;triplanar_local:True;def:"gray";locked_uv:False;uv:6;cc:1;chan:"R";mip:-1;mipprop:False;ssuv_vert:False;ssuv_obj:True;uv_type:Triplanar;uv_chan:"XZ";uv_shaderproperty:__NULL__;prop:"_DissolveMap";md:"";custom:False;refs:"";guid:"1bce4e69-5aa9-4194-8383-1f8da882010d";op:Multiply;lbl:"Map";gpu_inst:False;locked:False;impl_index:0)]),sp(name:"Dissolve Value";imps:list[imp_ct(lct:"_DissolveValue";cc:1;chan:"X";avchan:"X";guid:"60d36b91-8298-42c4-b1a6-116eb6e231f4";op:Multiply;lbl:"Value";gpu_inst:False;locked:False;impl_index:-1)]),sp(name:"Dissolve Gradient Texture";imps:list[imp_mp_color(def:RGBA(1.000, 1.000, 1.000, 1.000);hdr:True;cc:4;chan:"RGBA";prop:"_DissolveGradientTexture";md:"";custom:False;refs:"";guid:"9cb5f671-20e0-4192-bfb3-38a15cbe6b6e";op:Multiply;lbl:"Gradient Texture";gpu_inst:False;locked:False;impl_index:-1)]),,,,sp(name:"Vertex Position World";imps:list[imp_hook(guid:"e8830166-30da-4b68-8ec9-0b3c84d446dd";op:Multiply;lbl:"worldPos.xyz";gpu_inst:False;locked:False;impl_index:0),imp_customcode(prepend_type:Disabled;prepend_code:"";prepend_file:"";prepend_file_block:"";preprend_params:dict[];code:"+ pow({3}, 2) * v.vertex.y * float3(0,1,0)";guid:"7685fcb2-f26c-40f4-bf85-aa7470960080";op:Multiply;lbl:"Vertex Position World";gpu_inst:False;locked:False;impl_index:-1),imp_ct(lct:"_DissolveValue";cc:3;chan:"XXX";avchan:"X";guid:"6c6d296d-84e4-4ba5-acdd-2b1004ced2bb";op:Multiply;lbl:"Vertex Position World";gpu_inst:False;locked:False;impl_index:-1)])];customTextures:list[ct(cimp:imp_mp_range(def:0.5;min:0;max:1;prop:"_DissolveValue";md:"";custom:True;refs:"Dissolve Value, Vertex Position World";guid:"d25d99c3-bceb-4a5b-a3d0-8d46322040aa";op:Multiply;lbl:"Dissolve Value";gpu_inst:False;locked:False;impl_index:-1);exp:False;uv_exp:False;imp_lbl:"Range")]) */
-/* TCP_HASH 1b5e94a2c2ff2a65b5089d7c6cd28cb1 */
+/* TCP_DATA u config(unity:"2018.4.11f1";ver:"2.5.2";tmplt:"SG2_Template_Default";features:list["UNITY_5_4","UNITY_5_5","UNITY_5_6","UNITY_2017_1","UNITY_2018_1","UNITY_2018_2","UNITY_2018_3","DISSOLVE","DISSOLVE_CLIP","DISSOLVE_GRADIENT"];flags:list["addshadow"];flags_extra:dict[];keywords:dict[RENDER_TYPE="Opaque",RampTextureDrawer="[TCP2Gradient]",RampTextureLabel="Ramp Texture",SHADER_TARGET="3.0"];shaderProperties:list[,,,,,,,,sp(name:"Dissolve Map";imps:list[imp_mp_texture(uto:True;tov:"";tov_lbl:"";gto:False;sbt:False;scr:True;scv:"";scv_lbl:"";gsc:False;roff:False;goff:False;sin_anm:False;sin_anmv:"";sin_anmv_lbl:"";gsin:False;notile:False;triplanar_local:True;def:"gray";locked_uv:False;uv:6;cc:1;chan:"R";mip:-1;mipprop:False;ssuv_vert:False;ssuv_obj:True;uv_type:Triplanar;uv_chan:"XZ";uv_shaderproperty:__NULL__;prop:"_DissolveMap";md:"";custom:False;refs:"";guid:"1bce4e69-5aa9-4194-8383-1f8da882010d";op:Multiply;lbl:"Map";gpu_inst:False;locked:False;impl_index:0)];layers:list[];unlocked:list[];clones:dict[];isClone:False),sp(name:"Dissolve Value";imps:list[imp_ct(lct:"_DissolveValue";cc:1;chan:"X";avchan:"X";guid:"60d36b91-8298-42c4-b1a6-116eb6e231f4";op:Multiply;lbl:"Value";gpu_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];clones:dict[];isClone:False),sp(name:"Dissolve Gradient Texture";imps:list[imp_mp_color(def:RGBA(1, 1, 1, 1);hdr:True;cc:4;chan:"RGBA";prop:"_DissolveGradientTexture";md:"";custom:False;refs:"";guid:"9cb5f671-20e0-4192-bfb3-38a15cbe6b6e";op:Multiply;lbl:"Gradient Texture";gpu_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];clones:dict[];isClone:False),,,,sp(name:"Vertex Position World";imps:list[imp_hook(guid:"e8830166-30da-4b68-8ec9-0b3c84d446dd";op:Multiply;lbl:"worldPos.xyz";gpu_inst:False;locked:False;impl_index:0),imp_customcode(prepend_type:Disabled;prepend_code:"";prepend_file:"";prepend_file_block:"";preprend_params:dict[];code:"+ pow({3}, 2) * v.vertex.y * float3(0,1,0)";guid:"7685fcb2-f26c-40f4-bf85-aa7470960080";op:Multiply;lbl:"Vertex Position World";gpu_inst:False;locked:False;impl_index:-1),imp_ct(lct:"_DissolveValue";cc:3;chan:"XXX";avchan:"X";guid:"6c6d296d-84e4-4ba5-acdd-2b1004ced2bb";op:Multiply;lbl:"Vertex Position World";gpu_inst:False;locked:False;impl_index:-1)];layers:list[];unlocked:list[];clones:dict[];isClone:False)];customTextures:list[ct(cimp:imp_mp_range(def:0.5;min:0;max:1;prop:"_DissolveValue";md:"";custom:True;refs:"Dissolve Value, Vertex Position (World Space)";guid:"d25d99c3-bceb-4a5b-a3d0-8d46322040aa";op:Multiply;lbl:"Dissolve Value";gpu_inst:False;locked:False;impl_index:-1);exp:False;uv_exp:False;imp_lbl:"Range")];codeInjection:codeInjection(injectedFiles:list[];mark:False);matLayers:list[]) */
+/* TCP_HASH 529b80387a0843e948acc8bbd0f4be64 */
