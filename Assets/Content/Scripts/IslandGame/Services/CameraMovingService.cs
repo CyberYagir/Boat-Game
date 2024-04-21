@@ -43,32 +43,54 @@ namespace Content.Scripts.IslandGame.Services
                 .onComplete += () => zoomWait = false;
         }
 
+        private Vector2 lastMouseVel;
+        
         private void LateUpdate()
         {
             if (zoomWait) return;
             if (selectionService.IsUIBlocked) return;
             
-            if (InputService.IsRMBPressed)
-            {
-                var dir = -InputService.MouseAxis;
+            if (CameraMove()) return;
+            CameraZoom();
+        }
 
-                if(dir.magnitude > 20 ) return;
-                
-                MoveCamera(dir);
-            }else if (InputService.MoveAxis.magnitude != 0)
+        private void CameraZoom()
+        {
+            zoom += InputService.MouseWheel * TimeService.UnscaledDelta * cameraZoomSpeed;
+            zoom = Mathf.Clamp01(zoom);
+            cameraSpeed = Mathf.Lerp(minCameraSpeed, maxCameraSpeed, zoom);
+
+            cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraPosition + offcet, TimeService.UnscaledDelta * cameraSpeed);
+
+            var localZoomPos = Vector3.Lerp(minZoomPoint.localPosition, maxZoomPoint.localPosition, zoom);
+
+            zoomTransform.localPosition = Vector3.Lerp(zoomTransform.localPosition, localZoomPos, TimeService.UnscaledDelta * 5f);
+        }
+
+        private bool CameraMove()
+        {
+            if (InputService.IsRMBPressed || lastMouseVel.magnitude != 0)
+            {
+                if (!InputService.IsRMBPressed)
+                {
+                    lastMouseVel = Vector2.Lerp(lastMouseVel, Vector2.zero, 10 * Time.deltaTime);
+                }
+                else
+                {
+                    var dir = -InputService.MouseAxis;
+                    lastMouseVel = dir;
+                }
+
+                if (lastMouseVel.magnitude > 20) return true;
+
+                MoveCamera(lastMouseVel);
+            }
+            else if (InputService.MoveAxis.magnitude != 0)
             {
                 MoveCamera(InputService.MoveAxis);
             }
 
-            zoom += InputService.MouseWheel * TimeService.UnscaledDelta * cameraZoomSpeed;
-            zoom = Mathf.Clamp01(zoom);
-            cameraSpeed = Mathf.Lerp(minCameraSpeed, maxCameraSpeed, zoom);
-            
-            cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraPosition + offcet, TimeService.UnscaledDelta * cameraSpeed);
-
-            var localZoomPos = Vector3.Lerp(minZoomPoint.localPosition, maxZoomPoint.localPosition, zoom);
-            
-            zoomTransform.localPosition = Vector3.Lerp(zoomTransform.localPosition, localZoomPos, TimeService.UnscaledDelta * 5f);
+            return false;
         }
 
         private void MoveCamera(Vector2 dir)
