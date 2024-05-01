@@ -65,7 +65,8 @@ namespace Content.Scripts.BoatGame.Services
             RaftBuildService raftBuildService, 
             SaveDataObject saveDataObject,
             ScenesService scenesService,
-            SaveService saveService
+            SaveService saveService,
+            PrefabSpawnerFabric spawnerFabric
         )
         {
             this.gameState = gameState;
@@ -83,7 +84,7 @@ namespace Content.Scripts.BoatGame.Services
             chestShow.Init(gameDataObject, selectionService);
             craftsWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
             craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
-            characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager);
+            characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager, spawnerFabric);
             charactersList?.Init(characterService, tickService, selectionService);
             
             

@@ -74,8 +74,11 @@ namespace Content.Scripts.Map.UI
 
             for (var i = 0; i < mapIslandCollector.IslandsInRadius.Count; i++)
             {
-                var rectTransform = marksPool[i];
-                rectTransform.transform.position = camera.WorldToScreenPoint(mapIslandCollector.IslandsInRadius[i].transform.position);
+                if (i < marksPool.Count)
+                {
+                    var rectTransform = marksPool[i];
+                    rectTransform.transform.position = camera.WorldToScreenPoint(mapIslandCollector.IslandsInRadius[i].transform.position);
+                }
             }
         }
     }

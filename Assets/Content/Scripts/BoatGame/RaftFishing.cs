@@ -14,7 +14,7 @@ namespace Content.Scripts.BoatGame
 
         [SerializeField] private WaterSpawnItemsObject itemsData;
         [SerializeField, ReadOnly] private int maxTicks;
-        [SerializeField, ReadOnly] private int timer;
+        [SerializeField, ReadOnly] private int regenerationTimer;
         [SerializeField] private int maxItemsInNet = 3;
         [SerializeField, Range(0f, 1f)] private float spawnChance;
 
@@ -37,14 +37,14 @@ namespace Content.Scripts.BoatGame
         private void ResetTimer()
         {
             maxTicks = (int) getItemTicksRage.RandomWithin();
-            timer = 0;
+            regenerationTimer = 0;
         }
 
         private void OnTick(float delta)
         {
-            timer++;
+            regenerationTimer++;
 
-            if (timer >= maxTicks)
+            if (regenerationTimer >= maxTicks)
             {
                 var empty = items.FindIndex(x => x == null);
                 if (empty != -1)

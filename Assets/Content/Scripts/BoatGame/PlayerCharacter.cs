@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 namespace Content.Scripts.BoatGame
 {
-    public partial class PlayerCharacter : MonoBehaviour, ICharacter
+    public partial class PlayerCharacter : MonoBehaviour, ICharacter, IDamagable
     {
         [SerializeField, ReadOnly] private Character character;
         [SerializeField] private AppearanceManager appearanceManager;
@@ -189,7 +189,7 @@ namespace Content.Scripts.BoatGame
                 playerPos.y = 0;
             }
 
-            if (Physics.Raycast(playerPos + Vector3.up, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default", "Raft", "Terrain")))
+            if (Physics.Raycast(playerPos + Vector3.up * 2f, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default", "Raft", "Terrain"), QueryTriggerInteraction.Ignore))
             {
                 if (hit.point.y >= 0)
                 {
@@ -254,6 +254,12 @@ namespace Content.Scripts.BoatGame
         public ItemObject GetEquipmentWeapon()
         {
             return gameData.GetItem(character.Equipment.WeaponID);
+        }
+
+        public void Damage(float dmg)
+        {
+            animationsManager.TriggerGetDamage();
+            needsManager.Damage(dmg);
         }
     }
 }

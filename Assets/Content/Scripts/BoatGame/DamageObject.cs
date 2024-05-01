@@ -4,7 +4,12 @@ using UnityEngine;
 
 namespace Content.Scripts.BoatGame
 {
-    public abstract class DamageObject : MonoBehaviour
+    public interface IDamagable
+    {
+        void Damage(float dmg);
+    }
+
+    public abstract class DamageObject : MonoBehaviour, IDamagable
     {
         [SerializeField, FoldoutGroup("Damage Object Data")] 
         private float maxHealth;

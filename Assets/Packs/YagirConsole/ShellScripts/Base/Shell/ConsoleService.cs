@@ -41,7 +41,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             else
             {
                 Instance = this;
-                transform.parent = null;
+                transform.SetParent(null);
                 DontDestroyOnLoad(gameObject);
             }
             

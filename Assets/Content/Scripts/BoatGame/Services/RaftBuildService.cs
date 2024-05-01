@@ -84,7 +84,6 @@ namespace Content.Scripts.BoatGame.Services
             }
             
             gameStateService.OnChangeEState += GameStateServiceOnOnChangeEState;  
-            print("execute " + transform.name);
         }
 
         private void LoadPlayerRaft(

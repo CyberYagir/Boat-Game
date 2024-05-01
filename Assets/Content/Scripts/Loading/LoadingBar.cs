@@ -1,19 +1,15 @@
-using System;
 using System.Collections;
 using Content.Scripts.Boot;
 using Content.Scripts.Global;
-using Content.Scripts.Loading;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace Loading
+namespace Content.Scripts.Loading
 {
     public class LoadingBar : MonoBehaviour
     {
         [SerializeField] private RectTransform bar;
-        [SerializeField] private Fader fader;
         private SaveDataObject saveData;
         private ScenesService scenesService;
 

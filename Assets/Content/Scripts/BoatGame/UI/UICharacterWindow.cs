@@ -14,9 +14,6 @@ namespace Content.Scripts.BoatGame.UI
 {
     public class UICharacterWindow : AnimatedWindow
     {
-        
-      
-        
         [SerializeField] private UICharacterPreview characterPreview;
         [SerializeField] private TMP_Text charNameText;
         [SerializeField] private UIBar expBar, healthBar, thirstyBar, hungerBar;
@@ -36,14 +33,15 @@ namespace Content.Scripts.BoatGame.UI
             GameDataObject gameDataObject, 
             TickService tickService,
             RaftBuildService raftBuildService,
-            UIMessageBoxManager uiMessageBoxManager)
+            UIMessageBoxManager uiMessageBoxManager,
+            PrefabSpawnerFabric spawnerFabric)
         {
             this.raftBuildService = raftBuildService;
             this.gameDataObject = gameDataObject;
             this.tickService = tickService;
             this.selectionService = selectionService;
          
-            characterPreview.Init(gameDataObject);
+            spawnerFabric.InjectComponent(characterPreview);
             
             skillsSubWindow.Init(gameDataObject, selectionService, uiMessageBoxManager);
             inventorySubWindow.Init(this.gameDataObject, selectionService, raftBuildService);

@@ -75,7 +75,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         protected override void OnMoveEnded()
         {
-            if (Vector3.Distance(attackObject.AttackPoint.position, transform.position) < 0.5f)
+            if (Vector3.Distance(new Vector3(attackObject.AttackPoint.position.x, transform.position.y, attackObject.AttackPoint.position.z), transform.position) < 0.5f)
             {
                 Machine.AnimationManager.ResetAllTriggers();
                 attack = true;

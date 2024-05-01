@@ -1,73 +1,41 @@
-using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.IslandGame.Mobs;
-using DG.Tweening;
+using Content.Scripts.Mobs.Mob;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Content.Scripts.Mobs.MobCrab
 {
-    public partial class Mob_Crab : SpawnedMob
+    public class Mob_Crab : SpawnedMob
     {
-        [SerializeField] private CrabAnimator crabAnimator;
-        [SerializeField] private CrabStateMachine stateMachine;
-        [SerializeField] private Collider collider;
-        [SerializeField] private ParticleSystem deadPoofParticles;
-        [SerializeField] private float speed;
+        protected int groundMask;
 
-        public CrabAnimator Animations => crabAnimator;
-        
-        private int groundMask;
-        private Quaternion targetQuaternion;
+        [SerializeField, FoldoutGroup("Other")] private GameObject crabShell;
         public override void Init(BotSpawner botSpawner)
         {
             base.Init(botSpawner);
             groundMask = LayerMask.GetMask("Default", "Terrain");
-            stateMachine.Init(this);
+
+            crabShell.gameObject.SetActive(Random.value < 0.35f);
+
+        }
+
+        public override void OnOnAttackedEnd()
+        {
+            base.OnOnAttackedEnd();
+            ChangeStateTo(EMobsState.Idle);
+        }
+
+        public override void OnOnAttackedStart()
+        {
+            base.OnOnAttackedStart();
+            Animations.StopMove();
+        }
+
+        public override void MoveToPoint(Vector3 lastPoint)
+        {
+            base.MoveToPoint(lastPoint);
             
-            OnAttackedStart += OnOnAttackedStart;
-            OnAttackedEnd += OnOnAttackedEnd;
-            OnDamage += OnOnDamage;
-            OnDeath += OnOnDeath;
-        }
-
-        private void OnOnDeath(DamageObject obj)
-        {
-            stateMachine.enabled = false;
-            crabAnimator.TriggerDeath();
-            collider.enabled = false;
-
-            DOVirtual.DelayedCall(2f, delegate
-            {
-                var item = MobDropTable.GetItem();
-                spawner.SpawnItem(item);
-                spawner.RespawnByCooldown();
-                gameObject.SetActive(false);
-                deadPoofParticles.transform.parent = null;
-                deadPoofParticles.Play(true);
-                Destroy(deadPoofParticles.gameObject, 2f);
-            }).onComplete += delegate
-            {
-                Destroy(gameObject, 2f);
-            };
-        }
-
-        private void OnOnDamage(float obj)
-        {
-            ChangeStateTo(ECrabState.TakeDamage);
-        }
-
-        private void OnOnAttackedEnd()
-        {
-            ChangeStateTo(ECrabState.Idle);
-        }
-
-        private void OnOnAttackedStart()
-        {
-            crabAnimator.StopMove();
-        }
-
-        public void MoveToPoint(Vector3 lastPoint)
-        {
             if (IsAttacked) return;
             
             transform.position = Vector3.MoveTowards(transform.position, lastPoint, speed * TimeService.DeltaTime);
@@ -82,11 +50,6 @@ namespace Content.Scripts.Mobs.MobCrab
                 targetQuaternion = transform.rotation;
                 transform.rotation = old;
             }
-        }
-
-        public void ChangeStateTo(ECrabState pointsMove)
-        {
-            stateMachine.StartAction(pointsMove);
         }
     }
 }

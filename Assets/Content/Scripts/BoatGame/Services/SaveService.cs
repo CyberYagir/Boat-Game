@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Content.Scripts.Global;
 using UnityEngine;
 using Zenject;
@@ -58,6 +59,22 @@ namespace Content.Scripts.BoatGame.Services
 
         public void SaveWorld()
         {
+            if (characterService.SpawnedCharacters.Count == 0) return;
+            
+            
+            List<bool> notDead = new List<bool>();
+
+            for (int i = 0; i < characterService.SpawnedCharacters.Count; i++)
+            {
+                if (!characterService.SpawnedCharacters[i].NeedManager.IsDead)
+                {
+                    notDead.Add(true);
+                }
+            }
+            
+            if (characterService.SpawnedCharacters.Count == 1 && notDead.Count == 0) return;
+            
+
             characterService.SaveCharacters();
 
             var raftsData = new SaveDataObject.RaftsData();

@@ -173,11 +173,16 @@ namespace Content.Scripts.BoatGame
                         health = 100;
                     }
 
-                    if (Health <= 0)
-                    {
-                        popUp.ShowNeedPopup(false, 0, 0);
-                        Death();
-                    }
+                    HealthCheck();
+                }
+            }
+
+            private void HealthCheck()
+            {
+                if (Health <= 0 && !godMode)
+                {
+                    popUp.ShowNeedPopup(false, 0, 0);
+                    Death();
                 }
             }
 
@@ -221,6 +226,12 @@ namespace Content.Scripts.BoatGame
             {
                 isActive = popUp.isActive;
                 return popUp.GetSprite(thirsty, hunger);
+            }
+
+            public void Damage(float dmg)
+            {
+                health -= dmg;
+                HealthCheck();
             }
         }
     }

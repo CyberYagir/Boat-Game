@@ -3,6 +3,7 @@ using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using Content.Scripts.Mobs;
+using Content.Scripts.Mobs.Mob;
 using DG.DemiLib;
 using DG.Tweening;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Content.Scripts.IslandGame.Mobs
 {
     public class BotSpawner : MonoBehaviour
     {
-        [SerializeField] private MobObject.MobType mobType;
+        [SerializeField] private MobObject.EMobType mobType;
         [SerializeField] private float radius;
         [SerializeField] private Range respawnCooldown;
 
@@ -104,7 +105,7 @@ namespace Content.Scripts.IslandGame.Mobs
             if (biomes.Contains(biome))
             {
                 var mob = gameData.GetMob(mobType);
-                spawnedMob = spawner.SpawnItemOnGround(mob.Prefab, GetRandomPointInRange(), Quaternion.identity, transform, LayerMask.GetMask("Default"), 0);
+                spawnedMob = spawner.SpawnItemOnGround(mob.Prefab, GetRandomPointInRange(), Quaternion.identity, transform, LayerMask.GetMask("Default", "Terrain"), 0);
                 spawnedMob.Init(this);
             }
         }

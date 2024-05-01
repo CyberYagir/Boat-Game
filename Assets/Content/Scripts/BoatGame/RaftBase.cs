@@ -59,6 +59,10 @@ namespace Content.Scripts.BoatGame
         public void LoadData(float raftHealth, string id)
         {
             SetHealth(raftHealth);
+            if (Health < MaxHealth)
+            {
+                TryStartHealthRegeneration(0);
+            }
             uid = id;
         }
     }

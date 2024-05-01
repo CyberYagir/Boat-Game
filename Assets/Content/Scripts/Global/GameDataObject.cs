@@ -62,10 +62,12 @@ namespace Content.Scripts.Global
 
         public ConfigDataObject ConfigData => configData;
 
+        public List<ItemObject> Items => items;
+
 
         public ItemObject GetItem(string id)
         {
-            return items.Find(x => x.ID == id);
+            return Items.Find(x => x.ID == id);
         }
 
 
@@ -90,7 +92,7 @@ namespace Content.Scripts.Global
             return levelXps[Mathf.Clamp(skillDataLevel, 0, levelXps.Count - 1)];
         }
 
-        public MobObject GetMob(MobObject.MobType mobType)
+        public MobObject GetMob(MobObject.EMobType mobType)
         {
             return mobs.Find(x => x.Type == mobType);
         }

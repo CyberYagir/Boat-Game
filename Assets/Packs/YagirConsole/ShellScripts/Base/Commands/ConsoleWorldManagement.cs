@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Global;
+using Content.Scripts.ItemsSystem;
 using OmniSARTechnologies.LiteFPSCounter;
 using Packs.YagirConsole.ShellScripts.Base.Shell;
 using Unity.VisualScripting;
@@ -14,6 +17,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
             SpawnDamager();
             ShowFPS();
             Quit();
+            GetAllResources();
         }
 
         private void Quit()
@@ -71,7 +75,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
 
                     if (item)
                     {
-                        Debug.Log("Summon " + item.transform.name);
+                        ConsoleLogger.Log("Summon " + item.transform.name, ELogType.CmdSuccess);
                     }
                     else
                     {
@@ -79,6 +83,78 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
                     }
                 }
             );
+        }
+
+        private void GetAllResources()
+        {
+            AddCommand("/res_add", new List<Argument>()
+                {
+                    new Argument("item_name_with_underscores", ArgumentType.String, true),
+                    new Argument("item_count", ArgumentType.Number, false, 1),
+                    new Argument("check_storage_size", ArgumentType.Bool, false, 0, "", true)
+                },
+                delegate(ArgumentsShell shell)
+                {
+
+                    var resourceName = shell.GetString("item_name_with_underscores").Replace("_", " ");
+                    var count = (int) shell.GetInteger("item_count");
+                    var checkStorageSize = shell.GetBool("check_storage_size");
+                        
+                        
+                    var gameData = Resources.Load<GameDataObject>("GameData");
+                    var item = gameData.Items.Find(x => x.ItemName.ToLower().Trim() == resourceName);
+                    
+                    AddResourceToRaft(item, count, checkStorageSize);
+                    
+                });
+
+            AddCommand("/res_list", new List<Argument>(), delegate(ArgumentsShell shell)
+            {
+                var gameData = Resources.Load<GameDataObject>("GameData");
+
+                ConsoleLogger.Log("Items: ", ELogType.Log);
+                foreach (var it in gameData.Items)
+                {
+                    ConsoleLogger.Log(it.ItemName.Trim().Replace(" ", "_").ToLower(), ELogType.Log);
+                }
+            });
+
+            AddCommand("/res_creative", new List<Argument>(), delegate(ArgumentsShell shell)
+            {
+                var gameData = Resources.Load<GameDataObject>("GameData");
+
+                foreach (var it in gameData.Items)
+                {
+                    if (it.Type != EResourceTypes.Other)
+                    {
+                        AddResourceToRaft(it, 100, false);
+                    }
+                }
+            });
+        }
+
+        private static void AddResourceToRaft(ItemObject item, int count, bool checkStorageSize)
+        {
+            if (item)
+            {
+                var storages = Object.FindObjectOfType<RaftBuildService>().Storages;
+
+                for (int i = 0; i < storages.Count; i++)
+                {
+                    if (storages[i].IsEmptyStorage(count) || !checkStorageSize)
+                    {
+                        storages[i].AddToStorage(item, count);
+                        ConsoleLogger.Log($"  {item.ItemName} [{count}] item added to storage", ELogType.CmdSuccess);
+                        return;
+                    }
+                }
+
+                ConsoleLogger.Log("Cant Find Empty Storage", ELogType.CmdException);
+            }
+            else
+            {
+                ConsoleLogger.Log("Item not found", ELogType.CmdException);
+            }
         }
     }
 }

@@ -27,11 +27,14 @@ namespace Content.Scripts.BoatGame
             private static readonly int TG_ChopTree = Animator.StringToHash("TG_TreeChop");
             private static readonly int TG_Pickup = Animator.StringToHash("TG_Pickup");
             private static readonly int TG_Mine = Animator.StringToHash("TG_Mining");
+            private static readonly int TG_GetDamage = Animator.StringToHash("TG_Damaged");
             private static readonly int HugFish = Animator.StringToHash("HugFish");
+            private static readonly int DamageType = Animator.StringToHash("DamageType");
 
             
             [SerializeField] private Animator animator;
             [SerializeField] private Animation hoodAnimations;
+            [SerializeField] private ParticleSystem bloodParticles;
             [SerializeField] private CharAnimationEvents animationEvents;
             
             [SerializeField] private Transform rightHand;
@@ -184,6 +187,13 @@ namespace Content.Scripts.BoatGame
                 animator.SetBool(IsLegAttack, isLegPunch);
             }
 
+            public void TriggerGetDamage()
+            {
+                animator.ResetTrigger(TG_GetDamage);
+                animator.SetInteger(DamageType, Random.Range(0, 3));
+                animator.SetTrigger(TG_GetDamage);
+                bloodParticles.Play();
+            }
         }
     }
 }

@@ -34,7 +34,6 @@ namespace Content.Scripts.BoatGame.Services
                 spawnedRaft.OnStorageChange -= OnAnyStorageChange;
                 spawnedRaft.OnStorageChange += OnAnyStorageChange;
             }  
-            print("execute " + transform.name);
         }
 
         private void OnAnyStorageChange()

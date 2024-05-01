@@ -101,7 +101,6 @@ namespace Content.Scripts.BoatGame.Services
             }
 
             PlayStartWeather();  
-            print("execute " + transform.name);
         }
 
         private void PlayStartWeather()

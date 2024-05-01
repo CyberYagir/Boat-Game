@@ -7,6 +7,7 @@
         Warning,
         Log,
         Exception,
-        CmdException
+        CmdException,
+        CmdSuccess
     }
 }

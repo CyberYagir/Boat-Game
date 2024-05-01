@@ -59,6 +59,9 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                 case ELogType.CmdException:
                     Debug.Log(GetLog(message, type) + notFormattingFlag);
                     break;
+                case ELogType.CmdSuccess:
+                    Debug.Log(GetLog(message, type) + notFormattingFlag);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

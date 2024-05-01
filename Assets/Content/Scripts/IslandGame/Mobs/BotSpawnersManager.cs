@@ -9,15 +9,10 @@ namespace Content.Scripts.IslandGame.Mobs
 {
     public class BotSpawnersManager : MonoBehaviour
     {
-        [SerializeField] private List<BotSpawner> spawners;
-
-        private void OnValidate()
-        {
-            spawners = GetComponentsInChildren<BotSpawner>().ToList();
-        }
-
+        private List<BotSpawner> spawners;
         public void Init(GameDataObject gameData, PrefabSpawnerFabric prefabSpawner, TerrainBiomeSO biome)
         {
+            spawners = GetComponentsInChildren<BotSpawner>().ToList();
             for (int i = 0; i < spawners.Count; i++)
             {
                 spawners[i].Init(gameData, prefabSpawner, biome);

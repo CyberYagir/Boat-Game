@@ -51,7 +51,6 @@ namespace Content.Scripts.BoatGame.Services
             this.gameStateService = gameStateService;
             raycasters = uiService.transform.parent.GetComponentsInChildren<GraphicRaycaster>(true).ToList();
             scenesService.OnChangeActiveScene += ScenesServiceOnOnChangeActiveScene;  
-            print("execute " + transform.name);
         }
 
         private void ScenesServiceOnOnChangeActiveScene(ESceneName obj)
@@ -124,6 +123,7 @@ namespace Content.Scripts.BoatGame.Services
                     var selectable = hit.transform.GetComponent<ISelectable>();
                     if (selectable != null)
                     {
+                        print(hit.transform.name);
                         selectedObject = selectable;
                         OnChangeSelectObject?.Invoke(selectable);
                     }

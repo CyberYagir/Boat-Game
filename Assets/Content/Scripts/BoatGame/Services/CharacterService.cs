@@ -70,7 +70,6 @@ namespace Content.Scripts.BoatGame.Services
             }
 
             OnCharactersChange?.Invoke();            
-            print("execute " + transform.name);
 
         }
 
@@ -105,7 +104,10 @@ namespace Content.Scripts.BoatGame.Services
         {
             foreach (var sp in spawnedCharacters)
             {
-                sp.Character.SetParameters(sp.NeedManager.GetParameters());
+                if (!sp.NeedManager.IsDead)
+                {
+                    sp.Character.SetParameters(sp.NeedManager.GetParameters());
+                }
             }
         }
 

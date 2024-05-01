@@ -75,7 +75,11 @@ namespace Content.Scripts.BoatGame.Characters.States
                     Machine.AddExp(1);
                     WorldPopupService.StaticSpawnPopup(droppedItem.transform.position, droppedItem.Item, 1);
                     droppedItem.DeleteItem();
-
+                }
+                else
+                {
+                    
+                    WorldPopupService.StaticSpawnCantPopup(droppedItem.transform.position);
                 }
             }
         }

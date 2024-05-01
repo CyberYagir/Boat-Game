@@ -28,7 +28,7 @@ namespace Content.Scripts.Map
 
         private void MovePlayer()
         {
-            Player.transform.position = mapSpawnerService.Path.GetPointAtTime((float) mapSpawnerService.StartTime + ((TimeService.PlayedBoatTime + saveDataObject.Global.TotalSecondsInGame) / divider), EndOfPathInstruction.Loop);
+            Player.transform.position = mapSpawnerService.Path.GetPointAtTime((float) mapSpawnerService.StartTime + ((saveDataObject.Global.TotalSecondsOnRaft + TimeService.PlayedBoatTime) / divider), EndOfPathInstruction.Loop);
         }
 
         void Update()

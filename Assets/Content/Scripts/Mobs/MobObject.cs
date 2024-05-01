@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Content.Scripts.Mobs.Mob;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -6,17 +8,21 @@ namespace Content.Scripts.Mobs
     [CreateAssetMenu(menuName = "Create MobObject", fileName = "MobObject", order = 0)] 
     public class MobObject : ScriptableObject
     {
-        public enum MobType
+        public enum EMobType
         {
-            Crab
+            Crab,
+            Snake,
+            Bighorn,
+            GoldenEagle,
+            Peacock,
+            Pronghorn,
+            Gaur
         }
 
-        [SerializeField] private MobType type;
-        [SerializeField, PreviewField] private SpawnedMob prefab;
-        [SerializeField] private float maxHealth = 50;
+        [SerializeField] private EMobType type;
+        [SerializeField, PreviewField] private List<SpawnedMob> prefabVariants;
 
-        public float MaxHealth => maxHealth;
-        public SpawnedMob Prefab => prefab;
-        public MobType Type => type;
+        public SpawnedMob Prefab => prefabVariants.GetRandomItem();
+        public EMobType Type => type;
     }
 }
