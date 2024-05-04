@@ -23,19 +23,7 @@ namespace Content.Scripts.Mobs.MobSnake
         public override void MoveToPoint(Vector3 lastPoint)
         {
             base.MoveToPoint(lastPoint);
-
-            if (IsAttacked) return;
-
-            Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit, Mathf.Infinity, groundMask);
-
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(lastPoint - transform.position), 10f * TimeService.DeltaTime);
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-
-
-            var pos = Vector3.MoveTowards(transform.position, lastPoint, speed * TimeService.DeltaTime);
-            pos.y = hit.point.y;
-
-            transform.position = pos;
+            BaseMovement(lastPoint, groundMask);
         }
     }
 }

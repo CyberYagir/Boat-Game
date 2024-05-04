@@ -1,4 +1,5 @@
 ﻿using Content.Scripts.BoatGame;
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.IslandGame.Mobs;
 using Content.Scripts.Mobs.MobCrab;
 using DG.Tweening;
@@ -91,6 +92,22 @@ namespace Content.Scripts.Mobs.Mob
         
         public virtual void MoveToPoint(Vector3 lastPoint)
         {
+        }
+        
+        protected void BaseMovement(Vector3 lastPoint, int groundMask)
+        {
+            if (IsAttacked) return;
+
+            Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit, Mathf.Infinity, groundMask);
+
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(lastPoint - transform.position), 10f * TimeService.DeltaTime);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+
+
+            var pos = Vector3.MoveTowards(transform.position, lastPoint, speed * TimeService.DeltaTime);
+            pos.y = hit.point.y;
+
+            transform.position = pos;
         }
     }
 }

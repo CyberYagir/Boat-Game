@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
@@ -48,9 +49,9 @@ namespace Content.Scripts.IslandGame.Mobs
             if (lastPos != transform.position || lastRadius != radius) 
             {
                 gizmosPoints.Clear();
-                for (float x = -radius; x < radius; x++)
+                for (float x = -radius; x < radius; x+=3)
                 {
-                    for (float y = -radius; y < radius; y++)
+                    for (float y = -radius; y < radius; y+=3)
                     {
                         if (Physics.Raycast(transform.position + new Vector3(x, radius / 2f, y), Vector3.down, out RaycastHit hit, radius, ~0, QueryTriggerInteraction.Ignore))
                         {
@@ -67,7 +68,8 @@ namespace Content.Scripts.IslandGame.Mobs
 
             for (int i = 0; i < gizmosPoints.Count; i++)
             {
-                Gizmos.DrawSphere(gizmosPoints[i], 0.2f);
+                Gizmos.DrawSphere(gizmosPoints[i], 0.4f);
+
             }
         }
 #endif
@@ -105,6 +107,7 @@ namespace Content.Scripts.IslandGame.Mobs
             if (biomes.Contains(biome))
             {
                 var mob = gameData.GetMob(mobType);
+                print(mob + " " + mobType);
                 spawnedMob = spawner.SpawnItemOnGround(mob.Prefab, GetRandomPointInRange(), Quaternion.identity, transform, LayerMask.GetMask("Default", "Terrain"), 0);
                 spawnedMob.Init(this);
             }

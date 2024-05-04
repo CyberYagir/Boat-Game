@@ -1,35 +1,19 @@
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.IslandGame.Mobs;
-using Content.Scripts.Mobs.Mob;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Content.Scripts.Mobs.MobCrab
 {
-    public class Mob_Crab : SpawnedMob
+    public class Mob_Crab : Mob_Peaceful
     {
-        protected int groundMask;
 
         [SerializeField, FoldoutGroup("Other")] private GameObject crabShell;
+
         public override void Init(BotSpawner botSpawner)
         {
             base.Init(botSpawner);
-            groundMask = LayerMask.GetMask("Default", "Terrain");
-
             crabShell.gameObject.SetActive(Random.value < 0.35f);
-
-        }
-
-        public override void OnOnAttackedEnd()
-        {
-            base.OnOnAttackedEnd();
-            ChangeStateTo(EMobsState.Idle);
-        }
-
-        public override void OnOnAttackedStart()
-        {
-            base.OnOnAttackedStart();
-            Animations.StopMove();
         }
 
         public override void MoveToPoint(Vector3 lastPoint)
