@@ -62,6 +62,7 @@ namespace Content.Scripts.Mobs.Mob.Stats
                 timer += TimeService.DeltaTime;
                 if (timer >= attackTime)
                 {
+                    Machine.Animations.SetMoving(0);
                     Machine.transform.rotation = Quaternion.LookRotation(new Vector3(aggressiveMob.AttackedTransform.position.x, Machine.transform.position.y, aggressiveMob.AttackedTransform.position.z) - Machine.transform.position);
                     Machine.Animations.TriggerAttack();
                     timer = 0;
@@ -71,6 +72,7 @@ namespace Content.Scripts.Mobs.Mob.Stats
             {
                 if (!aggressiveMob.IsAttacked)
                 {
+                    Machine.Animations.SetMoving(1);
                     Machine.MoveToPoint(aggressiveMob.AttackedTransform.position);
                 }
 

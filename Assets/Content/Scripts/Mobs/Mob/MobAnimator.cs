@@ -33,8 +33,11 @@ namespace Content.Scripts.Mobs.Mob
 
         public void StartMove()
         {
-            StopTweener();
-            tweener = DOVirtual.Float(moving, 1f, animationTransitionTime, OnChangeMovingValue);
+            if (moving < 0.95f)
+            {
+                StopTweener();
+                tweener = DOVirtual.Float(moving, 1f, animationTransitionTime, OnChangeMovingValue);
+            }
         }
 
 
@@ -73,6 +76,12 @@ namespace Content.Scripts.Mobs.Mob
             animator.SetTrigger(TG_GetHit);
             animator.SetFloat(Moving, 0);
             damageParticles.Play(true);
+        }
+
+        public void SetMoving(float i)
+        {
+            StopTweener();
+            OnChangeMovingValue(i);
         }
     }
 }
