@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 355212780382386245}
   - component: {fileID: 865523795622308933}
   - component: {fileID: 4516325252100625973}
+  - component: {fileID: 8218297396166876737}
+  - component: {fileID: 8250842251647374651}
   m_Layer: 6
   m_Name: RaftFurnace
   m_TagString: Untagged
@@ -102,6 +104,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1025d1801e51347a53478e160547cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8218297396166876737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381718275450421327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b6c306f5c403546b1510f0aabe50d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActions:
+  - {fileID: 8250842251647374651}
+--- !u!114 &8250842251647374651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381718275450421327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcab04373f66ec7459602886d87131f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 15
 --- !u!1 &1916637735727385095
 GameObject:
   m_ObjectHideFlags: 0

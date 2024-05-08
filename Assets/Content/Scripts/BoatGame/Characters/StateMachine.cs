@@ -22,7 +22,8 @@ namespace Content.Scripts.BoatGame.Characters
         StoneChop,
         GetGrass,
         PickupItem,
-        BuildingFromItem
+        BuildingFromItem,
+        Furnace
     }
 
     

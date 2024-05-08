@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static Content.Scripts.BoatGame.UI.UIInventorySubWindow.Dragger;
 
 namespace Content.Scripts.BoatGame.UI
 {
@@ -15,29 +14,29 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private ItemObject item;
         
         
-        private UIInventorySubWindow window;
+        private DragAreaWindow window;
         
         public ItemObject Item => item;
 
 
-        public void Init(ItemObject item, UIInventorySubWindow window)
+        public void Init(ItemObject item, DragAreaWindow window)
         {
             this.window = window;
             this.item = item;
             image.sprite = item.ItemIcon;
             text.text = item.ItemName;
         }
-
-        public void OnDrag(PointerEventData eventData)
+        
+        public void SetValue(int stackedValue)
         {
-            
+            text.text += $" x" + stackedValue;  
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
             window.DragManager.DragStart += OnDragStartEvent;
             window.DragManager.DragEnd += OnDragStopEvent;
-            window.StartDrag(item, gameObject, EDragType.ToEquipment);
+            window.StartDrag(item, gameObject, Dragger.EDragType.ToDestination);
         }
         
         private void OnDragStopEvent()
@@ -72,5 +71,12 @@ namespace Content.Scripts.BoatGame.UI
             window.DragManager.DragStart -= OnDragStartEvent;
             window.DragManager.DragEnd -= OnDragStopEvent;
         }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            // use to scroll view
+        }
+
+
     }
 }

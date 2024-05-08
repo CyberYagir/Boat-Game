@@ -21,12 +21,40 @@ namespace Content.Scripts.ItemsSystem
         Sword = 1,
     }
 
+    [Flags]
+    public enum EItemFurnaceType
+    {
+        CanFuel = 8,
+        CanSmelt = 16
+    }
+
     [System.Serializable]
     public class ItemsParameters : Character.ParametersData
     {
         [SerializeField] private float damage;
 
         public float Damage => damage;
+
+    }
+
+    [System.Serializable]
+    public class ItemFurnaceParameters
+    {        
+        [SerializeField] private EItemFurnaceType furnaceFlags;
+        [SerializeField, ShowIf("@furnaceFlags.HasFlag(EItemFurnaceType.CanFuel)")] 
+        private float fuelSeconds;
+        [SerializeField, ShowIf("@furnaceFlags.HasFlag(EItemFurnaceType.CanSmelt)")] 
+        private float smeltSeconds;
+
+        [SerializeField, ShowIf("@furnaceFlags.HasFlag(EItemFurnaceType.CanSmelt)")] 
+        private ItemObject afterSmeltItem;
+        public float FuelSeconds => fuelSeconds;
+
+        public float SmeltSeconds => smeltSeconds;
+
+        public EItemFurnaceType FurnaceFlags => furnaceFlags;
+
+        public ItemObject AfterSmeltItem => afterSmeltItem;
     }
     public class ItemObject : ScriptableObject
     {
@@ -36,10 +64,11 @@ namespace Content.Scripts.ItemsSystem
         [SerializeField] private EItemType itemType;
         [SerializeField, PreviewField] private Sprite itemIcon;
         [SerializeField] private ItemsParameters parametersData;
+        [SerializeField] private ItemFurnaceParameters furnaceData;
         [SerializeField, ShowIf("@itemType == EItemType.Item")] private DroppedItem dropPrefab;
         [SerializeField, ShowIf("@itemType == EItemType.Armor")] private GameObject prefab;
-        [SerializeField, ShowIf("@itemType == EItemType.Armor")] private UIEquipmentBase.EEquipmentType equipment;
-        [SerializeField, ShowIf("@equipment == UIEquipmentBase.EEquipmentType.Weapon")] private EWeaponAnimationType animationType;
+        [SerializeField, ShowIf("@itemType == EItemType.Armor")] private EEquipmentType equipment;
+        [SerializeField, ShowIf("@equipment == EEquipmentType.Weapon")] private EWeaponAnimationType animationType;
         public Sprite ItemIcon => itemIcon;
 
         public string ItemName => itemName;
@@ -52,13 +81,15 @@ namespace Content.Scripts.ItemsSystem
 
         public EItemType ItemType => itemType;
 
-        public UIEquipmentBase.EEquipmentType Equipment => equipment;
+        public EEquipmentType Equipment => equipment;
 
         public GameObject Prefab => prefab;
 
         public EWeaponAnimationType AnimationType => animationType;
 
         public DroppedItem DropPrefab => dropPrefab;
+
+        public ItemFurnaceParameters FurnaceData => furnaceData;
 
 
         [Button]

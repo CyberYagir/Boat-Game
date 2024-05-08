@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 2542574049417944875}
   - component: {fileID: 3506137984772891433}
   - component: {fileID: 6868929300847780835}
+  - component: {fileID: 4137218691028439410}
   - component: {fileID: 303708654671696803}
   - component: {fileID: 4245383191857746893}
   - component: {fileID: 6387675816536107232}
@@ -321,6 +322,8 @@ MonoBehaviour:
     stateAction: {fileID: 3506137984772891433}
   - stateType: 8
     stateAction: {fileID: 6868929300847780835}
+  - stateType: 15
+    stateAction: {fileID: 4137218691028439410}
   startAction: 0
   currentAction: {fileID: 0}
 --- !u!114 &751144816067325089
@@ -484,6 +487,20 @@ MonoBehaviour:
   isEnded: 0
   machine: {fileID: 0}
   baseDamage: 15
+--- !u!114 &4137218691028439410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4325884780641852090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4882d9106d2dffa43a094fc407e17596, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnded: 0
+  machine: {fileID: 0}
 --- !u!114 &303708654671696803
 MonoBehaviour:
   m_ObjectHideFlags: 0

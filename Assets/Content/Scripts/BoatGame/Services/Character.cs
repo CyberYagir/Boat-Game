@@ -155,32 +155,32 @@ namespace Content.Scripts.BoatGame.Services
                 OnEquipmentChange?.Invoke();
             }
 
-            public string GetEquipment(UIEquipmentBase.EEquipmentType eEquipmentType)
+            public string GetEquipment(EEquipmentType eEquipmentType)
             {
                 switch (eEquipmentType)
                 {
-                    case UIEquipmentBase.EEquipmentType.Helmet:
+                    case EEquipmentType.Helmet:
                         return HelmetID;
-                    case UIEquipmentBase.EEquipmentType.Armor:
+                    case EEquipmentType.Armor:
                         return ArmorID;
-                    case UIEquipmentBase.EEquipmentType.Weapon:
+                    case EEquipmentType.Weapon:
                         return WeaponID;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(eEquipmentType), eEquipmentType, null);
                 }
             }
 
-            public void SetEquipment(ItemObject item, UIEquipmentBase.EEquipmentType type)
+            public void SetEquipment(ItemObject item, EEquipmentType type)
             {
                 switch (type)
                 {
-                    case UIEquipmentBase.EEquipmentType.Helmet:
+                    case EEquipmentType.Helmet:
                         SetHelmet(item);
                         break;
-                    case UIEquipmentBase.EEquipmentType.Armor:
+                    case EEquipmentType.Armor:
                         SetArmor(item);
                         break;
-                    case UIEquipmentBase.EEquipmentType.Weapon:
+                    case EEquipmentType.Weapon:
                         SetWeapon(item);
                         break;
                 }

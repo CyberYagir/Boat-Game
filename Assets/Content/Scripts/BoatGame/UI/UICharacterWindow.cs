@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Characters.States;
 using Content.Scripts.BoatGame.Services;
@@ -7,8 +6,6 @@ using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
-using Zenject;
 
 namespace Content.Scripts.BoatGame.UI
 {
@@ -18,9 +15,9 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private TMP_Text charNameText;
         [SerializeField] private UIBar expBar, healthBar, thirstyBar, hungerBar;
         [SerializeField] private UISkillsSubWindow skillsSubWindow;
-        [SerializeField] private UIInventorySubWindow inventorySubWindow;
+        [SerializeField] private UICharacterInventorySubWindow inventorySubWindow;
         [SerializeField] private UITabManager uiTabManager;
-        [SerializeField] private List<UIEquipmentBase> equipmentBases;
+        [SerializeField] private List<UIEquipmentDestination> equipmentBases;
 
         private PlayerCharacter selectedCharacter;
         private SelectionService selectionService;
@@ -44,7 +41,7 @@ namespace Content.Scripts.BoatGame.UI
             spawnerFabric.InjectComponent(characterPreview);
             
             skillsSubWindow.Init(gameDataObject, selectionService, uiMessageBoxManager);
-            inventorySubWindow.Init(this.gameDataObject, selectionService, raftBuildService);
+            inventorySubWindow.Init(raftBuildService);
             
             
             selectionService.OnChangeSelectCharacter += OnChangeSelectCharacter;
@@ -118,25 +115,58 @@ namespace Content.Scripts.BoatGame.UI
             }
         }
 
-        public void ChangeEquipment(ItemObject item, UIEquipmentBase.EEquipmentType type)
+        public bool ChangeEquipment(ItemObject item, EEquipmentType type)
         {
             if (item != null)
             {
-                if (item.Type != EResourceTypes.Other) return;
-                if (type != item.Equipment) return;
+                if (item.Type != EResourceTypes.Other) return false;
+                if (type != item.Equipment) return false;
             }
 
             var equipment = gameDataObject.GetItem(selectedCharacter.Character.Equipment.GetEquipment(type));
 
-            selectedCharacter.Character.Equipment.SetEquipment(item, type);
-            RemoveFromStorage(item);
+
 
             if (equipment != null)
             {
-                AddToStorage(equipment);
+                if (AddToStorage(equipment))
+                {
+                    selectedCharacter.Character.Equipment.SetEquipment(item, type);
+                    RemoveFromStorage(item);
+                    Redraw();
+                    return true;
+                }
+                else if (item != null) //for creative items overflow
+                {
+                    SwapToStorage(item, equipment);
+                    selectedCharacter.Character.Equipment.SetEquipment(item, type);
+                    Redraw();
+                    return true;
+                }
             }
-            
+            else
+            {
+                selectedCharacter.Character.Equipment.SetEquipment(item, type);
+                RemoveFromStorage(item);
+                Redraw();
+                return true;
+            }
+
             Redraw();
+            return false;
+        }
+
+        private void SwapToStorage(ItemObject item, ItemObject equipment)
+        {
+            foreach (var raftStorage in raftBuildService.Storages)
+            {
+                if (raftStorage.HaveItem(item))
+                {
+                    raftStorage.RemoveFromStorage(item);
+                    raftStorage.AddToStorage(equipment, 1);
+                    return;
+                }
+            }
         }
 
         public void RemoveFromStorage(ItemObject item)
@@ -150,16 +180,18 @@ namespace Content.Scripts.BoatGame.UI
                 }
             }
         }
-        public void AddToStorage(ItemObject item)
+        public bool AddToStorage(ItemObject item)
         {
             foreach (var raftStorage in raftBuildService.Storages)
             {
                 if (raftStorage.IsEmptyStorage(1))
                 {
                     raftStorage.AddToStorage(item, 1);
-                    break;
+                    return true;
                 }
             }
+
+            return false;
         }
 
         public void ChangeTabToInventory()

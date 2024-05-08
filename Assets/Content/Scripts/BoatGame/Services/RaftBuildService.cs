@@ -210,7 +210,16 @@ namespace Content.Scripts.BoatGame.Services
                     Storages.Add(storage);
                 }
             }
-            
+
+            if (type == RaftItem.ERaftType.Furnace)
+            {
+                var furnace = rf.GetComponent<Furnace>();
+                if (furnace)
+                {
+                    //furnace.Init(tickService);
+                }
+            }
+
             rf.OnDeath += OnRaftDeath;
             OnChangeRaft?.Invoke();
             return rf;

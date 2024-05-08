@@ -44,6 +44,8 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UICharactersList charactersList;
         [SerializeField] private UIResourcesCounter resourcesList;
         [SerializeField] private UIStoragesCounter storagesCounter;
+        [SerializeField] private UIFurnaceWindow furnaceWindow;
+        
         
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
         
@@ -85,14 +87,14 @@ namespace Content.Scripts.BoatGame.Services
             craftsWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
             craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
             characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager, spawnerFabric);
+            furnaceWindow.Init(selectionService, raftBuildService);
             charactersList?.Init(characterService, tickService, selectionService);
-            
             
             resourcesList.Init(raftBuildService, gameDataObject, resourcesService, tickService);
             storagesCounter.Init(raftBuildService);
 
 
-            windowsManager.Init(craftsWindow, characterWindow, craftingTableWindow);
+            windowsManager.Init(craftsWindow, characterWindow, craftingTableWindow, furnaceWindow);
             
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
             resourcesService.OnChangeResources += OnChangeResources;

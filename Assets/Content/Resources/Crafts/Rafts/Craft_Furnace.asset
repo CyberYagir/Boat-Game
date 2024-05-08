@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8f93f690eacda47a0d515e8545ef73, type: 3}
+  m_Name: Craft_Furnace
+  m_EditorClassIdentifier: 
+  craftName: Furnace
+  type: 0
+  uid: 4dbe403a-a3e4-45e6-ac24-efdda376eb2c
+  tooltip: {fileID: 11400000, guid: 186248ed23e315949a5528aa1f8feccf, type: 2}
+  icon: {fileID: -997047527, guid: a1bef9985b15bb8489fae37491568c2e, type: 3}
+  ingredients:
+  - item: {fileID: 11400000, guid: 0973b02eec891c24e8a0fa1391d2ecc3, type: 2}
+    count: 10
+  - item: {fileID: 11400000, guid: 3ae08fe751a81344e999c0108837d08d, type: 2}
+    count: 1
+  - item: {fileID: 11400000, guid: daaa4afecb96cf447bd8e24c996f2a78, type: 2}
+    count: 4
+  craftTime: 200
+  finalItem:
+    item: {fileID: 0}
+    count: 0
