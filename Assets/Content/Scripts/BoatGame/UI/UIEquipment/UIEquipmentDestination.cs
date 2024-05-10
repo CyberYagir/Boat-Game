@@ -15,7 +15,7 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
             dragAreaWindow = uiInventorySubWindow;
             this.window = uiCharacterWindow;
 
-            switch (type)
+            switch (Type)
             {
                 case EEquipmentType.Helmet:
                     item = gameDataObject.GetItem(character.Equipment.HelmetID);
@@ -39,7 +39,7 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
         public override bool ChangeItem(ItemObject item)
         {
             image.transform.DOKill();
-            var state = window.ChangeEquipment(item, type);
+            var state = window.ChangeEquipment(item, Type);
             
             if (item == null && state != false)
             {

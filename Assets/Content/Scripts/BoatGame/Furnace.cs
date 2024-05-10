@@ -16,8 +16,14 @@ namespace Content.Scripts.BoatGame
         [SerializeField, ReadOnly] private int currentFuelTicks = 0;
         [SerializeField, ReadOnly] private int currentProgressTicks = 0;
 
+        public RaftStorage.StorageItem ResultItem => resultItem;
+
+        public RaftStorage.StorageItem FuelItem => fuelItem;
+
+        public RaftStorage.StorageItem SmeltedItem => smeltedItem;
+
         public float FuelPercent => currentFuelTicks / (float) currentMaxFuelTicks;
-        public float ProgressPercent => currentProgressTicks;
+        public float ProgressPercent => smeltedItem.Item != null && smeltedItem.Count != 0 ? currentProgressTicks / (float)(SmeltedItem.Item.FurnaceData.SmeltSeconds * TimeService.Ticks) : 0;
 
         [Inject]
         private void Construct(TickService tickService)
@@ -45,7 +51,18 @@ namespace Content.Scripts.BoatGame
                 return;
             }
 
-            currentProgressTicks++;
+            if (currentFuelTicks > 0)
+            {
+                currentProgressTicks++;
+            }
+            else
+            {
+                currentProgressTicks--;
+                if (currentProgressTicks < 0)
+                {
+                    currentProgressTicks = 0;
+                }
+            }
 
             if (currentProgressTicks > smeltedItem.Item.FurnaceData.SmeltSeconds * TimeService.Ticks)
             {
@@ -78,6 +95,21 @@ namespace Content.Scripts.BoatGame
                 }
             }
 
+        }
+
+        public void LoadStorage()
+        {
+            
+        }
+
+        public void SetFuel(RaftStorage.StorageItem storageItem)
+        {
+            fuelItem = storageItem;
+        }
+
+        public void SetSmelt(RaftStorage.StorageItem storageItem)
+        {
+            smeltedItem = storageItem;
         }
     }
 }

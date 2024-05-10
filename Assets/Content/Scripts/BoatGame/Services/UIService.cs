@@ -86,8 +86,8 @@ namespace Content.Scripts.BoatGame.Services
             chestShow.Init(gameDataObject, selectionService);
             craftsWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
             craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
-            characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager, spawnerFabric);
-            furnaceWindow.Init(selectionService, raftBuildService);
+            characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager, spawnerFabric, resourcesService);
+            furnaceWindow.Init(selectionService, raftBuildService, tickService, resourcesService);
             charactersList?.Init(characterService, tickService, selectionService);
             
             resourcesList.Init(raftBuildService, gameDataObject, resourcesService, tickService);

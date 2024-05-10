@@ -35,7 +35,7 @@ namespace Content.Scripts.BoatGame.UI
             
         }
 
-        public void StartDrag(ItemObject item, GameObject sender, Dragger.EDragType type)
+        public void StartDrag(ItemObject item, int count, GameObject sender, Dragger.EDragType type)
         {
             if (!dragger.IsOnDrag)
             {

@@ -24,6 +24,7 @@ namespace Content.Scripts.BoatGame.UI
         private TickService tickService;
         private GameDataObject gameDataObject;
         private RaftBuildService raftBuildService;
+        private ResourcesService resourcesService;
 
         public void Init(
             SelectionService selectionService, 
@@ -31,8 +32,10 @@ namespace Content.Scripts.BoatGame.UI
             TickService tickService,
             RaftBuildService raftBuildService,
             UIMessageBoxManager uiMessageBoxManager,
-            PrefabSpawnerFabric spawnerFabric)
+            PrefabSpawnerFabric spawnerFabric,
+            ResourcesService resourcesService)
         {
+            this.resourcesService = resourcesService;
             this.raftBuildService = raftBuildService;
             this.gameDataObject = gameDataObject;
             this.tickService = tickService;
@@ -125,14 +128,12 @@ namespace Content.Scripts.BoatGame.UI
 
             var equipment = gameDataObject.GetItem(selectedCharacter.Character.Equipment.GetEquipment(type));
 
-
-
             if (equipment != null)
             {
-                if (AddToStorage(equipment))
+                if (resourcesService.AddToAnyStorage(equipment))
                 {
+                    resourcesService.RemoveItemFromAnyRaft(item);
                     selectedCharacter.Character.Equipment.SetEquipment(item, type);
-                    RemoveFromStorage(item);
                     Redraw();
                     return true;
                 }
@@ -144,10 +145,10 @@ namespace Content.Scripts.BoatGame.UI
                     return true;
                 }
             }
-            else
+            else if (item != null)
             {
                 selectedCharacter.Character.Equipment.SetEquipment(item, type);
-                RemoveFromStorage(item);
+                resourcesService.RemoveItemFromAnyRaft(item);
                 Redraw();
                 return true;
             }
@@ -158,41 +159,9 @@ namespace Content.Scripts.BoatGame.UI
 
         private void SwapToStorage(ItemObject item, ItemObject equipment)
         {
-            foreach (var raftStorage in raftBuildService.Storages)
-            {
-                if (raftStorage.HaveItem(item))
-                {
-                    raftStorage.RemoveFromStorage(item);
-                    raftStorage.AddToStorage(equipment, 1);
-                    return;
-                }
-            }
+            resourcesService.TrySwapItems(new RaftStorage.StorageItem(item, 1), new RaftStorage.StorageItem(equipment, 1));
         }
 
-        public void RemoveFromStorage(ItemObject item)
-        {
-            if (item == null) return;
-            foreach (var raftStorage in raftBuildService.Storages)
-            {
-                if (raftStorage.RemoveFromStorage(item))
-                {
-                    break;
-                }
-            }
-        }
-        public bool AddToStorage(ItemObject item)
-        {
-            foreach (var raftStorage in raftBuildService.Storages)
-            {
-                if (raftStorage.IsEmptyStorage(1))
-                {
-                    raftStorage.AddToStorage(item, 1);
-                    return true;
-                }
-            }
-
-            return false;
-        }
 
         public void ChangeTabToInventory()
         {

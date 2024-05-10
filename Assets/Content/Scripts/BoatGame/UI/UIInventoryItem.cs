@@ -29,14 +29,14 @@ namespace Content.Scripts.BoatGame.UI
         
         public void SetValue(int stackedValue)
         {
-            text.text += $" x" + stackedValue;  
+            text.text = $"{item.ItemName} x" + stackedValue;  
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
             window.DragManager.DragStart += OnDragStartEvent;
             window.DragManager.DragEnd += OnDragStopEvent;
-            window.StartDrag(item, gameObject, Dragger.EDragType.ToDestination);
+            window.StartDrag(item, window.DragManager.ItemsInStack, gameObject, Dragger.EDragType.ToDestination);
         }
         
         private void OnDragStopEvent()

@@ -2,6 +2,7 @@ using System;
 using Content.Scripts.ItemsSystem;
 using DG.Tweening;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,10 +13,16 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
     {
         [SerializeField] protected Image image;
         [SerializeField] protected Image background;
+        [SerializeField] protected TMP_Text itemCounter;
         [SerializeField, ReadOnly] protected ItemObject item;
+        [SerializeField, ReadOnly] protected int count = 1;
         [SerializeField] protected T type;
 
         protected DragAreaWindow dragAreaWindow;
+
+        public T Type => type;
+
+        public int Count => count;
 
         public virtual bool ChangeItem(ItemObject item)
         {
@@ -24,12 +31,12 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
         
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (item != null)
+            if (item != null && count != 0)
             {
-                OnDragStart();
                 dragAreaWindow.DragManager.DragStart += OnDragManagerDragStart;
                 dragAreaWindow.DragManager.DragEnd += OnDragManagerDragEnd;
-                dragAreaWindow.StartDrag(item, gameObject, Dragger.EDragType.ToInventory);
+                dragAreaWindow.StartDrag(item, Count, gameObject, Dragger.EDragType.ToInventory);
+                OnDragStart();
             }
         }
 
@@ -54,6 +61,11 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
         public void OnDrag(PointerEventData eventData)
         {
             // use to scroll view
+        }
+
+        public void Add(int i)
+        {
+            count += i;
         }
     }
 }

@@ -98,14 +98,25 @@ namespace Content.Scripts.BoatGame.Services
 
                 spawned.LoadData(raft.Health, raft.Uid);
 
-                var storage = spawned.GetComponent<RaftStorage>();
-                if (storage)
+                if (spawned.RaftType == RaftItem.ERaftType.Storage)
                 {
-                    storage.LoadStorage(saveData.Rafts.Storages.Find(x => x.RaftUid == raft.Uid), gamedata);
+                    var storage = spawned.GetComponent<RaftStorage>();
+                    if (storage)
+                    {
+                        storage.LoadStorage(saveData.Rafts.Storages.Find(x => x.RaftUid == raft.Uid), gamedata);
+                    }
+                }
+
+                if (spawned.RaftType == RaftItem.ERaftType.Furnace)
+                {
+                    var furnace = spawned.GetComponent<Furnace>();
+                    if (furnace)
+                    {
+                        furnace.LoadStorage();
+                    }
                 }
 
                 var building = spawned.GetComponent<RaftBuild>();
-
                 if (building)
                 {
                     building.LoadBuild(saveData.Rafts.RaftsInBuild.Find(x => x.RaftUid == raft.Uid), gamedata, selectionService, this);
@@ -208,15 +219,6 @@ namespace Content.Scripts.BoatGame.Services
                 if (storage)
                 {
                     Storages.Add(storage);
-                }
-            }
-
-            if (type == RaftItem.ERaftType.Furnace)
-            {
-                var furnace = rf.GetComponent<Furnace>();
-                if (furnace)
-                {
-                    //furnace.Init(tickService);
                 }
             }
 

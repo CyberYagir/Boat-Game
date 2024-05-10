@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.BoatGame.UI.UIEquipment;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using UnityEngine;
@@ -13,9 +14,11 @@ namespace Content.Scripts.BoatGame.UI
         private Dictionary<ItemObject, int> stackedItems = new Dictionary<ItemObject, int>(50);
         private List<UIInventoryItem> items = new List<UIInventoryItem>();
         private RaftBuildService raftBuildService;
+        private UIFurnaceWindow furnaceWindow;
 
-        public void Init(RaftBuildService raftBuildService)
+        public void Init(RaftBuildService raftBuildService, UIFurnaceWindow furnaceWindow)
         {
+            this.furnaceWindow = furnaceWindow;
             this.raftBuildService = raftBuildService;
             Redraw();
         }
@@ -23,18 +26,44 @@ namespace Content.Scripts.BoatGame.UI
 
         protected override void AddItemToStack()
         {
-            if (stackedItems[DragManager.DraggedItem] > DragManager.ItemsInStack)
+            if (DragManager.DragType == Dragger.EDragType.ToDestination)
             {
-                DragManager.SetStack(DragManager.ItemsInStack + 1);
-                UpdateStackText();
+                if (stackedItems[DragManager.DraggedItem] > DragManager.ItemsInStack)
+                {
+                    DragManager.SetStack(DragManager.ItemsInStack + 1);
+                    UpdateStackText();
+                }
+            }
+            else if (DragManager.DragType == Dragger.EDragType.ToInventory)
+            {
+                var destination = DragManager.GetDestinationUnderMouse();
+
+                if (destination != null)
+                {
+                    var dst = destination as UIDragDestinationBase<EFurnaceSlotsType>;
+                    if (dst != null)
+                    {
+                        if (dst.Count > 0)
+                        {
+                            DragManager.SetStack(DragManager.ItemsInStack + 1);
+                            furnaceWindow.RemoveFromSlot(-1, dst.Type);
+                        }
+                    }
+                }
             }
         }
 
         private void UpdateStackText()
         {
-            var spawnedItem = items.Find(x => x.Item == DragManager.DraggedItem);
-            spawnedItem.With(x => x.Init(DragManager.DraggedItem, this))
-                .With(x => x.SetValue(stackedItems[DragManager.DraggedItem] - DragManager.ItemsInStack));
+            if (DragManager.IsOnDrag)
+            {
+                if (stackedItems.ContainsKey(DragManager.DraggedItem))
+                {
+                    var spawnedItem = items.Find(x => x.Item == DragManager.DraggedItem);
+                    spawnedItem.With(x => x.Init(DragManager.DraggedItem, this))
+                        .With(x => x.SetValue(stackedItems[DragManager.DraggedItem] - DragManager.ItemsInStack));
+                }
+            }
         }
 
 
@@ -54,10 +83,8 @@ namespace Content.Scripts.BoatGame.UI
             for (int i = 0; i < items.Count; i++)
             {
                 items[i].DisableItem();
-                Destroy(items[i].gameObject);
             }
-
-            items.Clear();
+            
             item.gameObject.SetActive(true);
             foreach (var raftStorage in raftBuildService.Storages)
             {
@@ -75,13 +102,35 @@ namespace Content.Scripts.BoatGame.UI
                 }
             }
 
+            int count = 0;
             foreach (var stacked in stackedItems)
             {
-                Instantiate(item, item.transform.parent)
-                    .With(x => x.Init(stacked.Key, this))
-                    .With(x => x.SetValue(stacked.Value))
-                    .With(x => items.Add(x));
+                if (stacked.Value > 0)
+                {
+                    if (count >= items.Count)
+                    {
+                        Instantiate(item, item.transform.parent)
+                            .With(x => x.Init(stacked.Key, this))
+                            .With(x => x.SetValue(stacked.Value))
+                            .With(x => items.Add(x));
+                    }
+                    else
+                    {
+                        items[count].Init(stacked.Key, this);
+                        items[count].SetValue(stacked.Value);
+                        items[count].gameObject.SetActive(true);
+                    }
+
+                    count++;
+                }
             }
+
+            for (int i = count; i < items.Count; i++)
+            {
+                items[i].gameObject.SetActive(false);
+            }
+
+            UpdateStackText();
             
             item.gameObject.SetActive(false);
         }

@@ -38,7 +38,7 @@ namespace Content.Scripts.BoatGame
         [SerializeField] private int maxItemsCount;
         
         
-        public Action OnStorageChange;
+        public event Action OnStorageChange;
 
         public List<StorageItem> Items => items;
 

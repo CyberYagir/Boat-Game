@@ -30,12 +30,15 @@ namespace Content.Scripts.BoatGame.UI
         private bool isDragged = false;
         private ItemObject itemObject;
         private int itemsInStack = 1;
+        private EDragType type;
         
         public bool IsOnDrag => isDragged;
 
         public ItemObject DraggedItem => itemObject;
 
         public int ItemsInStack => itemsInStack;
+
+        public EDragType DragType => type;
 
         public void SetStack(int value)
         {
@@ -69,7 +72,6 @@ namespace Content.Scripts.BoatGame.UI
         }
 
         private List<RaycastResult> result = new List<RaycastResult>(20);
-        private EDragType type;
         private GameObject sender;
 
         public void MoveTo()
@@ -92,7 +94,7 @@ namespace Content.Scripts.BoatGame.UI
                 raycaster.Raycast(new PointerEventData(EventSystem.current) {position = Input.mousePosition}, result);
                 foreach (var raycastResult in result)
                 {
-                    if (type == EDragType.ToDestination)
+                    if (DragType == EDragType.ToDestination)
                     {
                         var equipment = raycastResult.gameObject.GetComponent<IDragDestination>();
                         if (equipment != null)
@@ -121,6 +123,22 @@ namespace Content.Scripts.BoatGame.UI
                 item.transform.DOScale(Vector3.zero, 0.25f).onComplete += Disable;
                 ResetEvents();
             }
+        }
+
+        public IDragDestination GetDestinationUnderMouse()
+        {
+            result.Clear();
+            raycaster.Raycast(new PointerEventData(EventSystem.current) {position = Input.mousePosition}, result);
+            
+            foreach (var raycastResult in result)
+            {
+                var equipment = raycastResult.gameObject.GetComponent<IDragDestination>();
+                if (equipment != null)
+                {
+                    return equipment;
+                }
+            }
+            return null;
         }
 
         private void ResetEvents()
