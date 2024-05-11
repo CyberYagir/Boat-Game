@@ -36,7 +36,7 @@ namespace Content.Scripts.BoatGame.UI
         {
             window.DragManager.DragStart += OnDragStartEvent;
             window.DragManager.DragEnd += OnDragStopEvent;
-            window.StartDrag(item, window.DragManager.ItemsInStack, gameObject, Dragger.EDragType.ToDestination);
+            window.StartDrag(item, window.DragManager.ItemsInStack, window.gameObject);
         }
         
         private void OnDragStopEvent()

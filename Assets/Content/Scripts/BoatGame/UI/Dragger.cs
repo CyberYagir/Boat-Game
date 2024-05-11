@@ -13,11 +13,6 @@ namespace Content.Scripts.BoatGame.UI
     [System.Serializable]
     public class Dragger
     {
-        public enum EDragType
-        {
-            ToDestination,
-            ToInventory
-        }
 
         [SerializeField] private Image image;
         [SerializeField] private Transform item;
@@ -26,11 +21,11 @@ namespace Content.Scripts.BoatGame.UI
 
         public Action DragStart;
         public Action DragEnd;
+        public Action OnNotInAreaDrop;
 
         private bool isDragged = false;
         private ItemObject itemObject;
         private int itemsInStack = 1;
-        private EDragType type;
         
         public bool IsOnDrag => isDragged;
 
@@ -38,24 +33,22 @@ namespace Content.Scripts.BoatGame.UI
 
         public int ItemsInStack => itemsInStack;
 
-        public EDragType DragType => type;
 
         public void SetStack(int value)
         {
             itemsInStack = value;
         }
 
-        public void Init(ItemObject obj, GameObject sender, EDragType type)
+        public void Init(ItemObject obj, GameObject sender)
         {
             this.sender = sender;
-            Init(obj, type);
+            Init(obj);
 
             DragStart?.Invoke();
         }
 
-        private void Init(ItemObject obj, EDragType type)
+        private void Init(ItemObject obj)
         {
-            this.type = type;
             itemObject = obj;
             if (raycaster == null)
             {
@@ -92,31 +85,46 @@ namespace Content.Scripts.BoatGame.UI
             {
                 result.Clear();
                 raycaster.Raycast(new PointerEventData(EventSystem.current) {position = Input.mousePosition}, result);
+                
+                bool isDropped = false;
                 foreach (var raycastResult in result)
                 {
-                    if (DragType == EDragType.ToDestination)
+                    var equipment = raycastResult.gameObject.GetComponent<IDragDestination>();
+                    if (equipment != null)
                     {
-                        var equipment = raycastResult.gameObject.GetComponent<IDragDestination>();
+                        equipment.ChangeItem(DraggedItem);
+                        isDropped = true;
+                        Debug.LogError("IDragDestination");
+                        break;
+                    }
+                    
+                   
+                    var inventory = raycastResult.gameObject.GetComponent<IDragDropArea>();
+                    if (inventory != null)
+                    {
+                        equipment = sender.GetComponent<IDragDestination>();
                         if (equipment != null)
                         {
-                            equipment.ChangeItem(DraggedItem);
+                            equipment.ChangeItem(null);
+                            isDropped = true;
+                            Debug.LogError("IDragDropArea>IDragDestination");
                             break;
                         }
-                    }
-                    else
-                    {
-                        var inventory = raycastResult.gameObject.GetComponent<IDragDropArea>();
-                        if (inventory != null)
+                        var hoverInventory = sender.GetComponent<IDragDropArea>();
+                        if (hoverInventory != null)
                         {
-                            var equipment = sender.GetComponent<IDragDestination>();
-                            if (equipment != null)
-                            {
-                                equipment.ChangeItem(null);
-                            }
-
+                            hoverInventory.AddToInventory(DraggedItem);
+                            isDropped = true;
+                            Debug.LogError("IDragDropArea");
                             break;
                         }
+
                     }
+                }
+
+                if (!isDropped)
+                {
+                    OnNotInAreaDrop?.Invoke();
                 }
 
                 DragEnd?.Invoke();
@@ -124,7 +132,7 @@ namespace Content.Scripts.BoatGame.UI
                 ResetEvents();
             }
         }
-
+        
         public IDragDestination GetDestinationUnderMouse()
         {
             result.Clear();
@@ -140,7 +148,21 @@ namespace Content.Scripts.BoatGame.UI
             }
             return null;
         }
-
+        public IDragDropArea GetInventoryUnderMouse()
+        {
+            result.Clear();
+            raycaster.Raycast(new PointerEventData(EventSystem.current) {position = Input.mousePosition}, result);
+            
+            foreach (var raycastResult in result)
+            {
+                var dropArea = raycastResult.gameObject.GetComponent<IDragDropArea>();
+                if (dropArea != null)
+                {
+                    return dropArea;
+                }
+            }
+            return null;
+        }
         private void ResetEvents()
         {
             isDragged = false;

@@ -36,7 +36,7 @@ namespace Content.Scripts.BoatGame.UI
             this.resourceService = resourceService;
             this.tickService = tickService;
             this.selectionService = selectionService;
-            inventorySubWindow.Init(raftBuildService, this);
+            inventorySubWindow.Init(raftBuildService, this, resourceService);
             slotsMap = slots.ToDictionary(x => x.Type);
             
             
@@ -132,6 +132,7 @@ namespace Content.Scripts.BoatGame.UI
                     });
                     break;
                 case EFurnaceSlotsType.Result:
+                    return false;
                     break;
             }
 
@@ -142,7 +143,6 @@ namespace Content.Scripts.BoatGame.UI
         {
             if (slot.Item == null || slot.Count == 0)
             {
-                resourceService.RemoveItemsFromAnyRaft(storageItem);
                 SetItem?.Invoke();
                 Redraw();
                 return true;
@@ -151,7 +151,7 @@ namespace Content.Scripts.BoatGame.UI
             {
                 if (storageItem.Item != targetFurnace.FuelItem.Item)
                 {
-                    if (resourceService.TrySwapItems(storageItem, slot))
+                    if (resourceService.TrySwapItemsWithDrop(storageItem, slot))
                     {
                         SetItem?.Invoke();
                         Redraw();
@@ -160,7 +160,6 @@ namespace Content.Scripts.BoatGame.UI
                 }
                 else
                 {
-                    resourceService.RemoveItemsFromAnyRaft(storageItem);
                     slot.Add(storageItem.Count);
                     Redraw();
                     return true;
@@ -176,7 +175,6 @@ namespace Content.Scripts.BoatGame.UI
             {
                 case EFurnaceSlotsType.Fuel:
                     RemoveFromSlot(targetFurnace.FuelItem, dstType, i);
-
                     break;
                 case EFurnaceSlotsType.Smelt:
                     RemoveFromSlot(targetFurnace.SmeltedItem, dstType, i);

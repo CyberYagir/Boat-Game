@@ -35,11 +35,12 @@ namespace Content.Scripts.BoatGame.UI
             
         }
 
-        public void StartDrag(ItemObject item, int count, GameObject sender, Dragger.EDragType type)
+        public void StartDrag(ItemObject item, int count, GameObject sender)
         {
             if (!dragger.IsOnDrag)
             {
-                dragger.Init(item, sender, type);
+                dragger.Init(item, sender);
+                dragger.SetStack(count);
                 OnDragStarted();
             }
         }
@@ -58,5 +59,9 @@ namespace Content.Scripts.BoatGame.UI
             dragger.Disable();
         }
 
+        public virtual void AddToInventory(ItemObject draggedItem)
+        {
+            
+        }
     }
 }

@@ -30,7 +30,15 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
         {
             if (IsCanPlace(item))
             {
-                return uiFurnaceWindow.SetItem(new RaftStorage.StorageItem(item, dragAreaWindow.DragManager.ItemsInStack), type);
+                if (uiFurnaceWindow.SetItem(new RaftStorage.StorageItem(item, dragAreaWindow.DragManager.ItemsInStack), type))
+                {
+                    return true;
+                }
+                else
+                {
+                    dragAreaWindow.AddToInventory(dragAreaWindow.DragManager.DraggedItem);
+                    return false;
+                }
             }
 
             return true;
@@ -43,23 +51,24 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
 
         public bool IsCanPlace(ItemObject item)
         {
-            if (dragAreaWindow.DragManager.DragType == Dragger.EDragType.ToInventory)
+            var storageItem = new RaftStorage.StorageItem(dragAreaWindow.DragManager.DraggedItem, dragAreaWindow.DragManager.ItemsInStack);
+            if (item == null)
             {
-                var storageItem = new RaftStorage.StorageItem(dragAreaWindow.DragManager.DraggedItem, dragAreaWindow.DragManager.ItemsInStack);
-                if (item == null)
+                if (uiFurnaceWindow.AddToInventory(storageItem))
                 {
-                    if (uiFurnaceWindow.AddToInventory(storageItem))
-                    {
-                        uiFurnaceWindow.SetItem(storageItem, type);
-                    }
-
-                    return false;
+                    uiFurnaceWindow.SetItem(storageItem, type);
                 }
+
+                return false;
             }
 
+            
             if (item.FurnaceData.FurnaceFlags.HasFlag(EItemFurnaceType.CanSmelt) && Type == EFurnaceSlotsType.Smelt) return true;
             if (item.FurnaceData.FurnaceFlags.HasFlag(EItemFurnaceType.CanFuel) && Type == EFurnaceSlotsType.Fuel) return true;
 
+            
+            uiFurnaceWindow.AddToInventory(storageItem);
+            
             return false;
         }
 

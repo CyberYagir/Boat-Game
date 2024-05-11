@@ -118,6 +118,23 @@ namespace Content.Scripts.BoatGame.Services
             return false;
         }
 
+        public bool TrySwapItemsWithDrop(RaftStorage.StorageItem newItem, RaftStorage.StorageItem oldItem)
+        {
+            var calculateSpace = GetEmptySpace() + oldItem.Count;
+            var maxItemsCount = 0;
+            for (int i = 0; i < raftBuildService.Storages.Count; i++)
+            {
+                maxItemsCount += raftBuildService.Storages[i].MaxItemsCount;
+            }
+            if (calculateSpace <= maxItemsCount)
+            {
+                AddItemsToAnyRafts(oldItem);
+                return true;
+            }
+
+            return false;
+        }
+        
         public void AddItemsToAnyRafts(RaftStorage.StorageItem oldItem)
         {
             for (int j = 0; j < raftBuildService.Storages.Count; j++)

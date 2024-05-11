@@ -14,6 +14,7 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
         [SerializeField] protected Image image;
         [SerializeField] protected Image background;
         [SerializeField] protected TMP_Text itemCounter;
+        [SerializeField] protected bool isCanPlace = true;
         [SerializeField, ReadOnly] protected ItemObject item;
         [SerializeField, ReadOnly] protected int count = 1;
         [SerializeField] protected T type;
@@ -23,6 +24,8 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
         public T Type => type;
 
         public int Count => count;
+
+        public bool IsCanPlaceInside => isCanPlace;
 
         public virtual bool ChangeItem(ItemObject item)
         {
@@ -35,7 +38,7 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
             {
                 dragAreaWindow.DragManager.DragStart += OnDragManagerDragStart;
                 dragAreaWindow.DragManager.DragEnd += OnDragManagerDragEnd;
-                dragAreaWindow.StartDrag(item, Count, gameObject, Dragger.EDragType.ToInventory);
+                dragAreaWindow.StartDrag(item, 1, gameObject);
                 OnDragStart();
             }
         }

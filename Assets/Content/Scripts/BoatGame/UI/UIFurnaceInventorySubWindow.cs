@@ -15,42 +15,61 @@ namespace Content.Scripts.BoatGame.UI
         private List<UIInventoryItem> items = new List<UIInventoryItem>();
         private RaftBuildService raftBuildService;
         private UIFurnaceWindow furnaceWindow;
+        private ResourcesService resourcesService;
 
-        public void Init(RaftBuildService raftBuildService, UIFurnaceWindow furnaceWindow)
+        public void Init(RaftBuildService raftBuildService, UIFurnaceWindow furnaceWindow, ResourcesService resourcesService)
         {
+            this.resourcesService = resourcesService;
             this.furnaceWindow = furnaceWindow;
             this.raftBuildService = raftBuildService;
+            
+            DragManager.OnNotInAreaDrop += OnNotInAreaDrop;
+            
             Redraw();
         }
-        
+
+        private void OnNotInAreaDrop()
+        {
+            AddToInventory(DragManager.DraggedItem);
+        }
+
 
         protected override void AddItemToStack()
         {
-            if (DragManager.DragType == Dragger.EDragType.ToDestination)
+            if (!DragManager.IsOnDrag) return;
+
+            if (DragManager.GetInventoryUnderMouse() != null)
             {
-                if (stackedItems[DragManager.DraggedItem] > DragManager.ItemsInStack)
+                if (stackedItems[DragManager.DraggedItem] > 0)
                 {
+                    RemoveItemFromInventory();
                     DragManager.SetStack(DragManager.ItemsInStack + 1);
                     UpdateStackText();
                 }
-            }
-            else if (DragManager.DragType == Dragger.EDragType.ToInventory)
-            {
-                var destination = DragManager.GetDestinationUnderMouse();
 
-                if (destination != null)
+                return;
+            }
+
+            var destination = DragManager.GetDestinationUnderMouse();
+
+            if (destination != null)
+            {
+                var dst = destination as UIDragDestinationBase<EFurnaceSlotsType>;
+                if (dst != null)
                 {
-                    var dst = destination as UIDragDestinationBase<EFurnaceSlotsType>;
-                    if (dst != null)
+                    if (dst.Count > 0)
                     {
-                        if (dst.Count > 0)
-                        {
-                            DragManager.SetStack(DragManager.ItemsInStack + 1);
-                            furnaceWindow.RemoveFromSlot(-1, dst.Type);
-                        }
+                        DragManager.SetStack(DragManager.ItemsInStack + 1);
+                        furnaceWindow.RemoveFromSlot(-1, dst.Type);
                     }
                 }
             }
+        }
+
+        private void RemoveItemFromInventory()
+        {
+            stackedItems[DragManager.DraggedItem]--;
+            resourcesService.RemoveItemFromAnyRaft(DragManager.DraggedItem);
         }
 
         private void UpdateStackText()
@@ -61,7 +80,7 @@ namespace Content.Scripts.BoatGame.UI
                 {
                     var spawnedItem = items.Find(x => x.Item == DragManager.DraggedItem);
                     spawnedItem.With(x => x.Init(DragManager.DraggedItem, this))
-                        .With(x => x.SetValue(stackedItems[DragManager.DraggedItem] - DragManager.ItemsInStack));
+                        .With(x => x.SetValue(stackedItems[DragManager.DraggedItem]));
                 }
             }
         }
@@ -69,6 +88,20 @@ namespace Content.Scripts.BoatGame.UI
 
         public override void OnDragStarted()
         {
+            if (DragManager.GetInventoryUnderMouse() != null)
+            {
+                stackedItems[DragManager.DraggedItem]--;
+                resourcesService.RemoveItemFromAnyRaft(DragManager.DraggedItem);
+            }
+
+            UpdateStackText();
+        }
+
+        public override void AddToInventory(ItemObject draggedItem)
+        {
+            base.AddToInventory(draggedItem);
+            stackedItems[DragManager.DraggedItem] += DragManager.ItemsInStack;
+            resourcesService.AddItemsToAnyRafts(new RaftStorage.StorageItem(draggedItem, DragManager.ItemsInStack));
             UpdateStackText();
         }
 
