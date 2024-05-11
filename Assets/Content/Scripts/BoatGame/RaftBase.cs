@@ -11,12 +11,14 @@ namespace Content.Scripts.BoatGame
         [SerializeField, ReadOnly] private Vector3Int coords;
         [SerializeField] private RaftBuildService.RaftItem.ERaftType raftType;
         [SerializeField, ReadOnly] private string uid;
-        
+        [SerializeField] private bool isWalkableRaft;
 
         public Vector3Int Coords => coords;
         public RaftBuildService.RaftItem.ERaftType RaftType => raftType;
 
         public string Uid => uid;
+
+        public bool IsWalkableRaft => isWalkableRaft;
 
         public virtual void Init()
         {

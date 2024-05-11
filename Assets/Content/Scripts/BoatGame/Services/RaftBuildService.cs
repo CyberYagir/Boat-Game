@@ -258,7 +258,7 @@ namespace Content.Scripts.BoatGame.Services
             coords.Clear();
             for (int i = 0; i < spawnedRafts.Count; i++)
             {
-                if (!(spawnedRafts[i] is RaftBuild))
+                if (spawnedRafts[i].IsWalkableRaft)
                 {
                     IsEmptyCell(spawnedRafts[i].Coords + Vector3Int.forward);
                     IsEmptyCell(spawnedRafts[i].Coords + Vector3Int.back);
