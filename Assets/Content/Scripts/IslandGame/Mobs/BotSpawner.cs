@@ -107,7 +107,6 @@ namespace Content.Scripts.IslandGame.Mobs
             if (biomes.Contains(biome))
             {
                 var mob = gameData.GetMob(mobType);
-                print(mob + " " + mobType);
                 spawnedMob = spawner.SpawnItemOnGround(mob.Prefab, GetRandomPointInRange(), Quaternion.identity, transform, LayerMask.GetMask("Default", "Terrain"), 0);
                 spawnedMob.Init(this);
             }

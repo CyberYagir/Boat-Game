@@ -68,11 +68,14 @@ namespace Content.Scripts.IslandGame.Services
             var id = -1;
             for (int i = 0; i < raftBuildService.SpawnedRafts.Count; i++)
             {
-                var dst = Vector3.Distance(spawnPoint.LadderPoint.position, raftBuildService.SpawnedRafts[i].transform.position);
-                if (dst < minDist)
+                if (raftBuildService.SpawnedRafts[i].IsWalkableRaft)
                 {
-                    minDist = dst;
-                    id = i;
+                    var dst = Vector3.Distance(spawnPoint.LadderPoint.position, raftBuildService.SpawnedRafts[i].transform.position);
+                    if (dst < minDist)
+                    {
+                        minDist = dst;
+                        id = i;
+                    }
                 }
             }
 

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.BoatGame.Services;
-using Content.Scripts.Global;
 using Content.Scripts.IslandGame.WorldStructures;
 using Content.Scripts.Map;
 using UnityEngine;
@@ -60,23 +59,18 @@ namespace Content.Scripts.IslandGame
         public VillageData Data => villageData;
 
 
-        public void Init(
-            int seed,
+        public void Init(int seed,
             Random rnd,
-            SaveDataObject saveDataObject,
             TerrainBiomeSO biome,
             PrefabSpawnerFabric spawner,
             IslandData targetTerrain,
-            IslandGenerator islandGenerator
-        )
+            IslandGenerator islandGenerator, 
+            MapIsland.IslandData islandData)
         {
             this.islandGenerator = islandGenerator;
             this.targetTerrain = targetTerrain;
 
-            var island = saveDataObject.Map.Islands.Find(x => x.IslandSeed == seed);
-            var newData = new MapIsland.IslandData(island.IslandPos);
-
-            var targetChance = islandLevelChance.Evaluate(newData.Level);
+            var targetChance = islandLevelChance.Evaluate(islandData.Level);
 
             if (rnd.NextDouble() < targetChance)
             {

@@ -97,6 +97,7 @@ namespace Content.Scripts.BoatGame.Services
                 }
             }
         }
+
         private void NormalStateSelectionLogic()
         {
             var hit = Camera.MouseRaycast(out bool isHit, Input.mousePosition, Mathf.Infinity, LayerMask.GetMask("Default", "Raft", "Builds", "Water", "Trees", "Player", "Drop", "Terrain"));
@@ -123,7 +124,6 @@ namespace Content.Scripts.BoatGame.Services
                     var selectable = hit.transform.GetComponent<ISelectable>();
                     if (selectable != null)
                     {
-                        print(hit.transform.name);
                         selectedObject = selectable;
                         OnChangeSelectObject?.Invoke(selectable);
                     }

@@ -40,11 +40,14 @@ namespace Content.Scripts.BoatGame.UI
 
             if (DragManager.GetInventoryUnderMouse() != null)
             {
-                if (stackedItems[DragManager.DraggedItem] > 0)
+                if (stackedItems.ContainsKey(DragManager.DraggedItem))
                 {
-                    RemoveItemFromInventory();
-                    DragManager.SetStack(DragManager.ItemsInStack + 1);
-                    UpdateStackText();
+                    if (stackedItems[DragManager.DraggedItem] > 0)
+                    {
+                        RemoveItemFromInventory();
+                        DragManager.SetStack(DragManager.ItemsInStack + 1);
+                        UpdateStackText();
+                    }
                 }
 
                 return;
@@ -115,7 +118,7 @@ namespace Content.Scripts.BoatGame.UI
             stackedItems.Clear();
             for (int i = 0; i < items.Count; i++)
             {
-                items[i].DisableItem();
+                items[i].SetState(false, false);
             }
 
             item.gameObject.SetActive(true);

@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158ea5aa8d974a38b8db2ac5b37884c4, type: 3}
+  m_Name: Copper Ore
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 6337129489047227120, guid: e56a6ed347ecf934aa9cee2991d27496, type: 3}
+  - {fileID: 8859086457452508910, guid: f2e7bf3870519584ca9f6fe5c0b7dadb, type: 3}
+  - {fileID: 7949271923894772901, guid: 30a9655bbf9e3384ebc2f6a0062be85f, type: 3}
+  - {fileID: 8010975977963950507, guid: e13436b9e0b25cc41a3efeb5dbe1dc94, type: 3}
+  - {fileID: 487039263989172401, guid: 63ea9d3cd8210b24d8732659da77b75a, type: 3}
+  - {fileID: 3278523531281746158, guid: 5d6aecc02d1b888429283dfe585782c3, type: 3}
+  activeLayers:
+  - {fileID: 8574412962073106934, guid: 9900121e85ffe6844b406557758d03bc, type: 2}
+  - {fileID: 8574412962073106934, guid: 60f92a00750767b4cbcab5ac916a57b0, type: 2}
+  - {fileID: 8574412962073106934, guid: 34e0bb1e605ca8b458854eaba6cdd227, type: 2}
+  - {fileID: 8574412962073106934, guid: c3c581171dd08754ba772ff1a336e549, type: 2}
+  - {fileID: 8574412962073106934, guid: a28af33e7a12c224f94e34c4dee01cba, type: 2}
+  - {fileID: 8574412962073106934, guid: c5f8f21a44cb6ef4eb76b421e19eec15, type: 2}
+  - {fileID: 8574412962073106934, guid: b288854cd1f9db945804e2a3c005fa02, type: 2}
+  scaleRange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.06483335
+      outSlope: 0.06483335
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.5714294
+    - serializedVersion: 3
+      time: 0.77221525
+      value: 1.0537995
+      inSlope: 0.017463468
+      outSlope: 0.017463468
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.29694226
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.83781695
+      value: 1.1922352
+      inSlope: 0.43368092
+      outSlope: 0.43368092
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1.2
+      inSlope: 0.12766038
+      outSlope: 0.12766038
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.4234233
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scalePower: 1
+  maxAngle: 80
+  treesDensity: 1
+  minLevel: 2
+  noise:
+    mapWidth: 1024
+    mapHeight: 1024
+    scale: 0.19
+    octaves: 1
+    persistance: 1
+    lacunarity: 1
+    offset: {x: 1965, y: 2254}
+    clamp:
+      min: 0.89
+      max: 1
+    texture: {fileID: 0}

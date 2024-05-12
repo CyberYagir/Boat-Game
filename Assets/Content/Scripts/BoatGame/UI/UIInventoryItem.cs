@@ -36,7 +36,7 @@ namespace Content.Scripts.BoatGame.UI
         {
             window.DragManager.DragStart += OnDragStartEvent;
             window.DragManager.DragEnd += OnDragStopEvent;
-            window.StartDrag(item, window.DragManager.ItemsInStack, window.gameObject);
+            window.StartDrag(item, 1, window.gameObject);
         }
         
         private void OnDragStopEvent()
@@ -49,15 +49,17 @@ namespace Content.Scripts.BoatGame.UI
             SetState(true);
         }
 
-        public void SetState(bool state)
+        public void SetState(bool state, bool withPunch = true)
         {
             image.DOFade(state ? 0.2f : 1f, 0.2f);
             text.DOFade(state ? 0.2f : 1f, 0.2f);
 
-            transform.DOKill();
-            transform.localScale = Vector3.one;
-            transform.DOPunchScale(Vector3.one * 0.1f, 0.2f);
-
+            if (withPunch)
+            {
+                transform.DOKill();
+                transform.localScale = Vector3.one;
+                transform.DOPunchScale(Vector3.one * 0.1f, 0.2f);
+            }
 
             if (state == false)
             {

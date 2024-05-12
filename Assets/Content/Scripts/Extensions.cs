@@ -647,6 +647,11 @@ namespace Content.Scripts
             Ray ray = camera.ScreenPointToRay(mousePos);
             RaycastHit hit;
             isHit = Physics.Raycast(ray, out hit, maxDist, layerMask, triggers);
+            if (hit.collider == null)
+            {
+                isHit = false;
+            }
+            
             return hit;
         }
 

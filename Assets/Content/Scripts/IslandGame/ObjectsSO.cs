@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DG.DemiLib;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Content.Scripts.IslandGame
@@ -7,7 +8,7 @@ namespace Content.Scripts.IslandGame
     public class ObjectsSO : ScriptableObject
     {
         
-        [SerializeField] protected List<GameObject> prefabs;
+        [SerializeField, PreviewField] protected List<GameObject> prefabs;
         [SerializeField] protected List<TerrainLayer> activeLayers;
         [SerializeField] protected AnimationCurve scaleRange;
         [SerializeField] protected float scalePower = 1f;

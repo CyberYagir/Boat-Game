@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Content.Scripts.BoatGame.UI.UIEquipment;
 using Content.Scripts.ItemsSystem;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,9 +24,9 @@ namespace Content.Scripts.BoatGame.UI
         public Action DragEnd;
         public Action OnNotInAreaDrop;
 
-        private bool isDragged = false;
-        private ItemObject itemObject;
-        private int itemsInStack = 1;
+        [SerializeField, ReadOnly] private bool isDragged = false;
+        [SerializeField, ReadOnly] private ItemObject itemObject;
+        [SerializeField, ReadOnly] private int itemsInStack = 1;
         
         public bool IsOnDrag => isDragged;
 

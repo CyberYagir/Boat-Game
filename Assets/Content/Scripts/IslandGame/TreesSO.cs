@@ -8,8 +8,11 @@ namespace Content.Scripts.IslandGame
     public class TreesSO : ObjectsSO
     {
         [SerializeField] private float treesDensity = 1;
+        [SerializeField] private int minLevel;
         [SerializeField] private NoiseGenerator noise;
         public NoiseGenerator Noise => noise;
+
+        public int MinLevel => minLevel;
 
         public List<TreePrototype> GetTreePrototypes()
         {

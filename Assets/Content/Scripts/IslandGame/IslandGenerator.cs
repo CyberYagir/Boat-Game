@@ -5,6 +5,7 @@ using System.Linq;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using Content.Scripts.Map;
 using UnityEngine;
 using Zenject;
 using Random = System.Random;
@@ -111,26 +112,29 @@ namespace Content.Scripts.IslandGame
             
             targetTerrain.Terrain.terrainData.terrainLayers = targetBiome.Layers;
             
-            PlaceAll(targetTerrain, targetBiome, rnd);
+            var island = saveDataObject.Map.Islands.Find(x => x.IslandSeed == seed);
+            var newData = new MapIsland.IslandData(island.IslandPos);
+
+            PlaceAll(targetTerrain, targetBiome, rnd, newData.Level);
 
 
-            SpawnVillage(seed, rnd, targetBiome);
+            SpawnVillage(seed, rnd, targetBiome, newData);
             targetTerrain.Terrain.terrainData.SetTreeInstances(treesInstsances.ToArray(), true);
             currentIslandData = targetTerrain;
 
             CurrentIslandData.Init(gameDataObject, prefabSpawnerFabric, targetBiome);
         }
 
-        private void SpawnVillage(int seed, Random rnd, TerrainBiomeSO targetBiome)
+        private void SpawnVillage(int seed, Random rnd, TerrainBiomeSO targetBiome, MapIsland.IslandData islandData)
         {
             islandNativesData.Init(
                 seed,
                 rnd,
-                saveDataObject,
                 targetBiome,
                 prefabSpawnerFabric,
                 targetTerrain,
-                this);
+                this,
+                islandData);
 
 
             if (islandNativesData.Data.IsSpawned)
@@ -172,7 +176,7 @@ namespace Content.Scripts.IslandGame
             }
         }
 
-        private void PlaceAll(IslandData terr, TerrainBiomeSO biome, Random rnd)
+        private void PlaceAll(IslandData terr, TerrainBiomeSO biome, Random rnd, int islandLevel)
         {
             var terrainToPopulate = terr.Terrain;
             var terrainData = terrainToPopulate.terrainData;
@@ -220,7 +224,7 @@ namespace Content.Scripts.IslandGame
 
                         GetOrCacheData(biome, isFirstLoopEnded, terrainData, percentX, percentY, y, x, out height, out angle, out textureLayer);
                         PlaceGrass(detailData, height, textureLayer, angle, y, x);
-                        PlaceTrees(terr, biome, rnd, isFirstLoopEnded, y, x, height, textureLayer, angle, percentX, percentY, islandData);
+                        PlaceTrees(terr, biome, rnd, isFirstLoopEnded, y, x, height, textureLayer, angle, percentX, percentY, islandData, islandLevel);
                         
                     }
                 }
@@ -234,18 +238,21 @@ namespace Content.Scripts.IslandGame
 
         }
 
-        private void PlaceTrees(IslandData terr, TerrainBiomeSO biome, Random rnd, bool isFirstLoopEnded, int y, int x, float height, TerrainLayer textureLayer, float angle, float percentX, float percentY, SaveDataObject.MapData.IslandData islandData)
+        private void PlaceTrees(IslandData terr, TerrainBiomeSO biome, Random rnd, bool isFirstLoopEnded, int y, int x, float height, TerrainLayer textureLayer, float angle, float percentX, float percentY, SaveDataObject.MapData.IslandData islandData, int islandLevel)
         {
             if (!isFirstLoopEnded)
             {
                 spawnedObjects[y, x] = -1;
                 for (int j = 0; j < biome.TreesData.Count; j++)
                 {
-                    if (IsCanPlaceGrass(biome.TreesData[j], height, textureLayer, angle))
+                    if (islandLevel >= biome.TreesData[j].MinLevel)
                     {
-                        if (PlaceTree(terr.Terrain, biome, j, biome.TreesData[j], rnd, biome.TreesData[j].Noise.GeneratedNoise, x, y, percentX, percentY, treesInstsances, height, islandData))
+                        if (IsCanPlaceGrass(biome.TreesData[j], height, textureLayer, angle))
                         {
-                            break;
+                            if (PlaceTree(terr.Terrain, biome, j, biome.TreesData[j], rnd, biome.TreesData[j].Noise.GeneratedNoise, x, y, percentX, percentY, treesInstsances, height, islandData))
+                            {
+                                break;
+                            }
                         }
                     }
                 }

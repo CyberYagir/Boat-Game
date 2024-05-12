@@ -34,7 +34,7 @@ namespace Content.Scripts.BoatGame
         private bool isOnDeath;
         private FloatingTransform floatingTransform;
         private int maxDistance;
-
+        private Collider collider;
         public DropData Drop => dropData;
 
         public bool IsStopped => isStopped;
@@ -49,6 +49,7 @@ namespace Content.Scripts.BoatGame
             startVelocity = dir.normalized * itemSpeed;
             rb.AddForce(startVelocity, ForceMode.VelocityChange);
             floatingTransform = GetComponent<FloatingTransform>();
+            collider = GetComponent<Collider>();
             StartCoroutine(Loop());
         }
 
@@ -92,16 +93,24 @@ namespace Content.Scripts.BoatGame
             floatingTransform.enabled = false;
             isStopped = true;
             rb.isKinematic = true;
+            if (collider)
+            {
+                collider.enabled = false;
+            }
         }
 
         public void EnableItem()
         {
-            
+
             if (isStaticInited) return;
             floatingTransform.enabled = true;
             rb.isKinematic = false;
             isStopped = false;
             rb.velocity = startVelocity;
+            if (collider)
+            {
+                collider.enabled = true;
+            }
         }
 
         public void InitStaticItem()

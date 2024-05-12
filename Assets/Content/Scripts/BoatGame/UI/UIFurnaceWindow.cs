@@ -149,8 +149,9 @@ namespace Content.Scripts.BoatGame.UI
             }
             else
             {
-                if (storageItem.Item != targetFurnace.FuelItem.Item)
+                if (storageItem.Item != slot.Item)
                 {
+                    Debug.LogError("swap?");
                     if (resourceService.TrySwapItemsWithDrop(storageItem, slot))
                     {
                         SetItem?.Invoke();
