@@ -10,7 +10,7 @@ namespace Content.Scripts.BoatGame.UI
     public class UIFurnaceInventorySubWindow : DragAreaWindow
     {
         [SerializeField] private UIInventoryItem item;
-        
+
         private Dictionary<ItemObject, int> stackedItems = new Dictionary<ItemObject, int>(50);
         private List<UIInventoryItem> items = new List<UIInventoryItem>();
         private RaftBuildService raftBuildService;
@@ -22,9 +22,9 @@ namespace Content.Scripts.BoatGame.UI
             this.resourcesService = resourcesService;
             this.furnaceWindow = furnaceWindow;
             this.raftBuildService = raftBuildService;
-            
+
             DragManager.OnNotInAreaDrop += OnNotInAreaDrop;
-            
+
             Redraw();
         }
 
@@ -117,7 +117,7 @@ namespace Content.Scripts.BoatGame.UI
             {
                 items[i].DisableItem();
             }
-            
+
             item.gameObject.SetActive(true);
             foreach (var raftStorage in raftBuildService.Storages)
             {
@@ -128,7 +128,7 @@ namespace Content.Scripts.BoatGame.UI
                 {
                     CalculateItemToStack(item);
                 }
-                
+
                 foreach (var item in build)
                 {
                     CalculateItemToStack(item);
@@ -164,13 +164,17 @@ namespace Content.Scripts.BoatGame.UI
             }
 
             UpdateStackText();
-            
+
             item.gameObject.SetActive(false);
         }
 
         private void CalculateItemToStack(RaftStorage.StorageItem item)
         {
-            if (item.Item.FurnaceData.FurnaceFlags.HasFlag(EItemFurnaceType.CanFuel) || item.Item.FurnaceData.FurnaceFlags.HasFlag(EItemFurnaceType.CanSmelt))
+            if (
+                item.Item.FurnaceData.FurnaceFlags.HasFlag(EItemFurnaceType.CanFuel) ||
+                item.Item.FurnaceData.FurnaceFlags.HasFlag(EItemFurnaceType.CanSmelt) ||
+                item.Item.FurnaceData.FurnaceFlags.HasFlag(EItemFurnaceType.CanDisplay)
+            )
             {
                 if (!stackedItems.ContainsKey(item.Item))
                 {

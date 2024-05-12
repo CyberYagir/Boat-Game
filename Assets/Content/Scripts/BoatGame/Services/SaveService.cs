@@ -98,7 +98,7 @@ namespace Content.Scripts.BoatGame.Services
 
             saveDataObject.SaveFile();
             
-            Debug.LogError("Save World");
+            Debug.Log("Save World");
         }
 
         public void ExitFromIsland()

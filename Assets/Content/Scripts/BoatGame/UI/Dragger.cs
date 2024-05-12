@@ -94,7 +94,7 @@ namespace Content.Scripts.BoatGame.UI
                     {
                         equipment.ChangeItem(DraggedItem);
                         isDropped = true;
-                        Debug.LogError("IDragDestination");
+                        Debug.Log("IDragDestination");
                         break;
                     }
                     
@@ -107,7 +107,7 @@ namespace Content.Scripts.BoatGame.UI
                         {
                             equipment.ChangeItem(null);
                             isDropped = true;
-                            Debug.LogError("IDragDropArea>IDragDestination");
+                            Debug.Log("IDragDropArea>IDragDestination");
                             break;
                         }
                         var hoverInventory = sender.GetComponent<IDragDropArea>();
@@ -115,7 +115,7 @@ namespace Content.Scripts.BoatGame.UI
                         {
                             hoverInventory.AddToInventory(DraggedItem);
                             isDropped = true;
-                            Debug.LogError("IDragDropArea");
+                            Debug.Log("IDragDropArea");
                             break;
                         }
 

@@ -84,7 +84,9 @@ namespace Content.Scripts.BoatGame.Services
             }
             
             gameStateService.OnChangeEState += GameStateServiceOnOnChangeEState;  
+            
         }
+        
 
         private void LoadPlayerRaft(
             SaveDataObject saveData, 
@@ -291,6 +293,8 @@ namespace Content.Scripts.BoatGame.Services
 
             return false;
         }
+        
+        
 
         public void SetTargetCraft(CraftObject item)
         {

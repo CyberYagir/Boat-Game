@@ -25,7 +25,8 @@ namespace Content.Scripts.ItemsSystem
     public enum EItemFurnaceType
     {
         CanFuel = 8,
-        CanSmelt = 16
+        CanSmelt = 16,
+        CanDisplay = 32
     }
 
     [System.Serializable]

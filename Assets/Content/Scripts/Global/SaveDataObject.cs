@@ -411,25 +411,25 @@ namespace Content.Scripts.Global
             {
                 clickTutorial = true;
                 
-                Debug.LogError("Complete Action Tutorial");
+                Debug.Log("Complete Action Tutorial");
             }
             
             public void EatTutorialSet()
             {
                 eatTutorial = true;
-                Debug.LogError("Complete Eat Tutorial");
+                Debug.Log("Complete Eat Tutorial");
             }
             
             public void StorageTutorialSet()
             {
                 storageTutorial = true;
-                Debug.LogError("Complete Storage Tutorial");
+                Debug.Log("Complete Storage Tutorial");
             }
             
             public void LevelUpTutorialSet()
             {
                 levelUpTutorial = true;
-                Debug.LogError("Complete LevelUp Tutorial");
+                Debug.Log("Complete LevelUp Tutorial");
             }
         }
         
