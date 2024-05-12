@@ -147,7 +147,7 @@ namespace Content.Scripts.BoatGame
             return false;
         }
 
-        public void LoadStorage(SaveDataObject.RaftsData.RaftStorage data, GameDataObject gameData)
+        public void LoadStorage(SaveDataObject.RaftsData.RaftStorageData data, GameDataObject gameData)
         {
             items.Clear();
             for (int i = 0; i < data.StoragesData.Count; i++)

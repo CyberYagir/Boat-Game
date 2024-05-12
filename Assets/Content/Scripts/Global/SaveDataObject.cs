@@ -17,7 +17,7 @@ namespace Content.Scripts.Global
     [CreateAssetMenu(menuName = "Scriptable/SaveData", fileName = "SaveDataObject", order = 0)]
     public class SaveDataObject : ScriptableObjectInstaller
     {
-        [System.Serializable]
+        [Serializable]
         public class CharactersData
         {
             [SerializeField] private List<Character> characters = new List<Character>();
@@ -40,10 +40,10 @@ namespace Content.Scripts.Global
             }
         }
         
-        [System.Serializable]
+        [Serializable]
         public class RaftsData
         {
-            [System.Serializable]
+            [Serializable]
             public class RaftData
             {
                 [SerializeField] private string uid;
@@ -68,16 +68,23 @@ namespace Content.Scripts.Global
                 public string Uid => uid;
             }
 
-            [System.Serializable]
-            public class RaftStorage
+            [Serializable]
+            public class RaftAdditionalData
             {
-                [System.Serializable]
-                public class StorageItem
+                [SerializeField] protected string raftUid;
+                public string RaftUid => raftUid;
+            }
+
+            [Serializable]
+            public class RaftStorageData : RaftAdditionalData
+            {
+                [Serializable]
+                public class StorageItemData
                 {
                     [SerializeField] private string itemID;
                     [SerializeField] private int count;
 
-                    public StorageItem(string itemID, int count)
+                    public StorageItemData(string itemID, int count)
                     {
                         this.itemID = itemID;
                         this.count = count;
@@ -87,25 +94,22 @@ namespace Content.Scripts.Global
 
                     public string ItemID => itemID;
                 }
-                [SerializeField] private string raftUid;
-                [SerializeField] private List<StorageItem> storagesData;
+
+                [SerializeField] private List<StorageItemData> storagesData;
 
 
-                public RaftStorage(string raftUid, List<StorageItem> storagesData)
+                public RaftStorageData(string raftUid, List<StorageItemData> storagesData)
                 {
                     this.raftUid = raftUid;
                     this.storagesData = storagesData;
                 }
 
-                public List<StorageItem> StoragesData => storagesData;
-
-                public string RaftUid => raftUid;
+                public List<StorageItemData> StoragesData => storagesData;
             }
             
-            [System.Serializable]
-            public class RaftCraft
+            [Serializable]
+            public class RaftCraft : RaftAdditionalData
             {
-                [SerializeField] private string raftUid;
                 [SerializeField] private string craftID;
                 [SerializeField] private float buildedTime;
 
@@ -119,21 +123,67 @@ namespace Content.Scripts.Global
                 public float BuildedTime => buildedTime;
 
                 public string CraftID => craftID;
+            }
+            
+            [Serializable]
+            public class RaftFurnace : RaftAdditionalData
+            {
+                [SerializeField] private RaftStorageData.StorageItemData smeltItem, fuelItem, resultItem;
+                [SerializeField] private int progressTicks;
+                [SerializeField] private int fuelTicks;
+                [SerializeField] private int maxFuelTicks;
 
-                public string RaftUid => raftUid;
+                public RaftFurnace(string uid, RaftStorage.StorageItem furnaceSmeltedItem, RaftStorage.StorageItem furnaceFuelItem, RaftStorage.StorageItem furnaceResultItem, int furnaceProgressionTicks, int furnaceFuelTicks, int furnaceMaxFuelTicks)
+                {
+                    raftUid = uid;
+                    
+                    if (furnaceSmeltedItem.Item != null)
+                    {
+                        smeltItem = new RaftStorageData.StorageItemData(furnaceSmeltedItem.Item.ID, furnaceSmeltedItem.Count);
+                    }
+
+                    if (furnaceFuelItem.Item != null)
+                    {
+                        fuelItem = new RaftStorageData.StorageItemData(furnaceFuelItem.Item.ID, furnaceFuelItem.Count);
+                    }
+
+                    if (furnaceResultItem.Item != null)
+                    {
+                        resultItem = new RaftStorageData.StorageItemData(furnaceResultItem.Item.ID, furnaceResultItem.Count);
+                    }
+
+                    progressTicks = furnaceProgressionTicks;
+                    fuelTicks = furnaceFuelTicks;
+                    maxFuelTicks = furnaceMaxFuelTicks;
+                }
+
+                public int MaxFuelTicks => maxFuelTicks;
+
+                public int FuelTicks => fuelTicks;
+
+                public int ProgressTicks => progressTicks;
+
+                public RaftStorageData.StorageItemData ResultItem => resultItem;
+
+                public RaftStorageData.StorageItemData FuelItem => fuelItem;
+
+                public RaftStorageData.StorageItemData SmeltItem => smeltItem;
             }
             
             [SerializeField] private List<RaftData> rafts = new List<RaftData>();
-            [SerializeField] private List<RaftStorage> storages = new List<RaftStorage>();
+            [SerializeField] private List<RaftStorageData> storages = new List<RaftStorageData>();
+            [SerializeField] private List<RaftFurnace> furnaces = new List<RaftFurnace>();
             [SerializeField] private List<RaftCraft> raftsInBuild = new List<RaftCraft>();
 
             public List<RaftCraft> RaftsInBuild => raftsInBuild;
 
-            public List<RaftStorage> Storages => storages;
+            public List<RaftStorageData> Storages => storages;
 
             public List<RaftData> Rafts => rafts;
 
             public int RaftsCount => rafts.Count;
+
+            public List<RaftFurnace> Furnaces => furnaces;
 
             public void AddSpawnedRaft(RaftBase spawnedRaft)
             {
@@ -146,38 +196,59 @@ namespace Content.Scripts.Global
                     ));
                 
                 
-                BoatGame.RaftStorage raftStorage = spawnedRaft.GetComponent<BoatGame.RaftStorage>();
-                if (raftStorage != null)
+                ConfigureStorage();
+                ConfigureBuildRaft();
+                ConfigureFurnaceRaft();
+
+                void ConfigureStorage()
                 {
-                    List<RaftStorage.StorageItem> raftStorages = new List<RaftStorage.StorageItem>();
-
-
-                    for (int i = 0; i < raftStorage.Items.Count; i++)
+                    RaftStorage raftStorage = spawnedRaft.GetComponent<RaftStorage>();
+                    if (raftStorage != null)
                     {
-                        if (raftStorage.Items[i].Item != null)
-                        {
-                            raftStorages.Add(new RaftStorage.StorageItem(raftStorage.Items[i].Item.ID, raftStorage.Items[i].Count));
-                        }
-                    }
+                        List<RaftStorageData.StorageItemData> raftStorages = new List<RaftStorageData.StorageItemData>();
 
-                    storages.Add(new RaftStorage(spawnedRaft.Uid, raftStorages));
+
+                        for (int i = 0; i < raftStorage.Items.Count; i++)
+                        {
+                            if (raftStorage.Items[i].Item != null)
+                            {
+                                raftStorages.Add(new RaftStorageData.StorageItemData(raftStorage.Items[i].Item.ID, raftStorage.Items[i].Count));
+                            }
+                        }
+
+                        storages.Add(new RaftStorageData(spawnedRaft.Uid, raftStorages));
+                    }
                 }
 
-                var raftBuild = spawnedRaft.GetComponent<RaftBuild>();
-                if (raftBuild != null)
+                void ConfigureBuildRaft()
                 {
-                    raftsInBuild.Add(new RaftCraft(spawnedRaft.Uid, raftBuild.Craft.Uid, raftBuild.Time));
+                    var raftBuild = spawnedRaft.GetComponent<RaftBuild>();
+                    if (raftBuild != null)
+                    {
+                        raftsInBuild.Add(new RaftCraft(spawnedRaft.Uid, raftBuild.Craft.Uid, raftBuild.Time));
+                    }
+                }
+                
+                void ConfigureFurnaceRaft()
+                {
+                    var furnace = spawnedRaft.GetComponent<Furnace>();
+                    if (furnace != null)
+                    {
+                        furnaces.Add(new RaftFurnace(furnace.GetComponent<RaftBase>().Uid, furnace.SmeltedItem, furnace.FuelItem, furnace.ResultItem, furnace.ProgressionTicks, furnace.FuelTicks, furnace.MaxFuelTicks));
+                    }
                 }
             }
+
+            
         }
 
-        [System.Serializable]
+        [Serializable]
         public class MapData
         {
-            [System.Serializable]
+            [Serializable]
             public class IslandData
             {
-                [System.Serializable]
+                [Serializable]
                 public class DroppedItemData
                 {
                     [SerializeField] private Vector3 pos;
@@ -275,18 +346,18 @@ namespace Content.Scripts.Global
             }
         }
         
-        [System.Serializable]
+        [Serializable]
         public class GlobalData
         {
-            [System.Serializable]
+            [Serializable]
             public class RaftDamagerData
             {
-                [System.Serializable]
+                [Serializable]
                 public class SpawnedItem
                 {
                     [SerializeField] private int itemIndex;
                     [SerializeField] private string raftID;
-                    [SerializeField] private List<RaftDamager.RaftDamagerDataKey> keys = new List<BoatGame.RaftDamagers.RaftDamager.RaftDamagerDataKey>(); 
+                    [SerializeField] private List<RaftDamager.RaftDamagerDataKey> keys = new List<RaftDamager.RaftDamagerDataKey>(); 
                     public SpawnedItem(int itemIndex, string raftID, List<RaftDamager.RaftDamagerDataKey> keys)
                     {
                         this.itemIndex = itemIndex;
@@ -320,7 +391,7 @@ namespace Content.Scripts.Global
                 public float TickCount => tickCount;
             }
             
-            [System.Serializable]
+            [Serializable]
             public class WeatherData
             {
                 [SerializeField] private float tickCount, maxTickCount;
@@ -390,7 +461,7 @@ namespace Content.Scripts.Global
             }
         }
         
-        [System.Serializable]
+        [Serializable]
         public class TutorialsData
         {
             [SerializeField] private bool clickTutorial;
@@ -521,7 +592,7 @@ namespace Content.Scripts.Global
             }
 #endif
             
-            JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(ScriptableObject.CreateInstance<SaveDataObject>()), this);
+            JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(CreateInstance<SaveDataObject>()), this);
             SaveFile();
 
         }

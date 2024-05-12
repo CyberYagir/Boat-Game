@@ -24,11 +24,14 @@ namespace Content.Scripts.BoatGame
         public RaftStorage.StorageItem SmeltedItem => smeltedItem;
 
         public float FuelPercent => currentFuelTicks / (float) currentMaxFuelTicks;
-        public float ProgressPercent => smeltedItem.Item != null && smeltedItem.Count != 0 ? currentProgressTicks / (float)(SmeltedItem.Item.FurnaceData.SmeltSeconds * TimeService.Ticks) : 0;
+        public float ProgressPercent => smeltedItem.Item != null && smeltedItem.Count != 0 ? currentProgressTicks / (float) (SmeltedItem.Item.FurnaceData.SmeltSeconds * TimeService.Ticks) : 0;
+        public int ProgressionTicks => currentProgressTicks;
+        public int FuelTicks => currentFuelTicks;
+        public int MaxFuelTicks => currentMaxFuelTicks;
 
         public event Action<bool> OnFurnaceStateChange;
-        
-        
+
+
         [Inject]
         private void Construct(TickService tickService)
         {
@@ -48,10 +51,12 @@ namespace Content.Scripts.BoatGame
             {
                 fuelItem = new RaftStorage.StorageItem(null, 0);
             }
+
             if (resultItem.Item != null && resultItem.Count == 0)
             {
                 resultItem = new RaftStorage.StorageItem(null, 0);
             }
+
             if (smeltedItem.Item != null && smeltedItem.Count == 0)
             {
                 smeltedItem = new RaftStorage.StorageItem(null, 0);
@@ -60,7 +65,7 @@ namespace Content.Scripts.BoatGame
 
         private void ProgressUpdate()
         {
-            
+
 
             if (smeltedItem.Item == null || smeltedItem.Count == 0)
             {
@@ -112,6 +117,7 @@ namespace Content.Scripts.BoatGame
             {
                 OnFurnaceStateChange?.Invoke(false);
             }
+
             currentFuelTicks--;
             if (currentFuelTicks <= 0)
             {
@@ -123,19 +129,13 @@ namespace Content.Scripts.BoatGame
                         fuelItem.Add(-1);
                         currentFuelTicks = (int) (fuelItem.Item.FurnaceData.FuelSeconds * TimeService.Ticks);
                         currentMaxFuelTicks = currentFuelTicks;
-                        
+
                         OnFurnaceStateChange?.Invoke(true);
                     }
                 }
             }
 
         }
-
-        public void LoadStorage()
-        {
-            
-        }
-
         public void SetFuel(RaftStorage.StorageItem storageItem)
         {
             fuelItem = storageItem;
@@ -144,6 +144,24 @@ namespace Content.Scripts.BoatGame
         public void SetSmelt(RaftStorage.StorageItem storageItem)
         {
             smeltedItem = storageItem;
+        }
+
+        public void LoadStorage(SaveDataObject.RaftsData.RaftFurnace item, GameDataObject gameData)
+        {
+            if (item == null) return;
+            
+            currentFuelTicks = item.FuelTicks;
+            currentMaxFuelTicks = item.MaxFuelTicks;
+            currentProgressTicks = item.ProgressTicks;
+
+            smeltedItem = new RaftStorage.StorageItem(gameData.GetItem(item.SmeltItem.ItemID), item.SmeltItem.Count);
+            fuelItem = new RaftStorage.StorageItem(gameData.GetItem(item.FuelItem.ItemID), item.FuelItem.Count);
+            resultItem = new RaftStorage.StorageItem(gameData.GetItem(item.ResultItem.ItemID), item.ResultItem.Count);
+
+            if (currentFuelTicks > 0)
+            {
+                OnFurnaceStateChange?.Invoke(true);
+            }
         }
     }
 }

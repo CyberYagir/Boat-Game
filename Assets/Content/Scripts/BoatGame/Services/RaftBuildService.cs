@@ -114,7 +114,7 @@ namespace Content.Scripts.BoatGame.Services
                     var furnace = spawned.GetComponent<Furnace>();
                     if (furnace)
                     {
-                        furnace.LoadStorage();
+                        furnace.LoadStorage(saveData.Rafts.Furnaces.Find(x => x.RaftUid == raft.Uid), gamedata);
                     }
                 }
 

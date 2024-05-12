@@ -9,7 +9,9 @@ namespace Content.Scripts.BoatGame
 
         private void Awake()
         {
-            GetComponent<Furnace>().OnFurnaceStateChange += OnChangeState;
+            var furnace = GetComponent<Furnace>();
+            furnace.OnFurnaceStateChange += OnChangeState;
+            OnChangeState(furnace.FuelTicks > 0);
         }
 
         private void OnChangeState(bool state)
