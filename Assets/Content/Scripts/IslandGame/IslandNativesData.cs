@@ -120,7 +120,7 @@ namespace Content.Scripts.IslandGame
                             break;
                         }
 
-                        if (!Physics.Raycast(spawned.transform.position + Vector3.up * 500, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default")))
+                        if (!Physics.Raycast(spawned.transform.position + Vector3.up * 500, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default", "Terrain")))
                         {
                             isAllOk = false;
                             DrawDebugIndicator(village, Color.red);

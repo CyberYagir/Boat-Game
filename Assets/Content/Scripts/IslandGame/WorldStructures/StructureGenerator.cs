@@ -75,7 +75,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
 
             var spawnPos = roadBuilder.transform.position;
-            if (Physics.Raycast(roadBuilder.transform.position + Vector3.up * 100, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(roadBuilder.transform.position + Vector3.up * 100, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default", "Terrain"), QueryTriggerInteraction.Ignore))
             {
                 spawnPos = hit.point + Vector3.up * 0.2f;
             }

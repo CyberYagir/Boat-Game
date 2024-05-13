@@ -17,7 +17,7 @@ MonoBehaviour:
     - name: Yaroslav
       uid: 8b4e7be6-e17c-4ccd-9541-687d1ef9143e
       skillsData:
-        xp: 11
+        xp: 16
         scores: 0
         level: 6
         skills:
@@ -31,8 +31,8 @@ MonoBehaviour:
           value: 4
       parametersData:
         health: 100
-        hunger: 87.97455
-        thirsty: 66.42357
+        hunger: 87.67944
+        thirsty: 75.35889
       equipmentData:
         helmetID: 
         armorID: 
@@ -80,18 +80,30 @@ MonoBehaviour:
     storages:
     - raftUid: 7991fa7a-de8f-407d-a091-462ea755e425
       storagesData:
-      - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
+      - itemID: e86a8926-37ac-4ee1-97ef-677896eeaf2f
         count: 1
-      - itemID: 2d53373e-7568-4eb4-9046-d4ba410de85a
-        count: 1
+      - itemID: dfc3d1a9-a26f-4dd9-8e78-bdd940d75b95
+        count: 4
     - raftUid: f87960b5-2a5c-4264-9745-a42eff94c09a
       storagesData:
       - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
         count: 3
-      - itemID: 2d53373e-7568-4eb4-9046-d4ba410de85a
-        count: 1
     - raftUid: 3c76e4ab-98a3-4296-8837-9393c69993ac
       storagesData: []
+    furnaces:
+    - raftUid: 4156c5c0-a211-496f-9bad-298d2348ce2c
+      smeltItem:
+        itemID: 
+        count: 0
+      fuelItem:
+        itemID: 
+        count: 0
+      resultItem:
+        itemID: 
+        count: 0
+      progressTicks: 0
+      fuelTicks: 272
+      maxFuelTicks: 400
     raftsInBuild: []
   mapData:
     worldSeed: 162117319
@@ -176,8 +188,14 @@ MonoBehaviour:
       droppedItems: []
     - islandPos: {x: 117, y: 318}
       islandSeed: 162117770
-      removedTrees: []
-      droppedItems: []
+      removedTrees:
+      - {x: 94, y: 330}
+      - {x: 140, y: 364}
+      droppedItems:
+      - pos: {x: -163.6315, y: 12.276123, z: 64.6178}
+        rot: {x: 0.053959783, y: 359.84784, z: 359.29657}
+        itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
+        dropID: 035cd327-b537-4127-af91-7aa21a296500
     - islandPos: {x: 146, y: 363}
       islandSeed: 162117845
       removedTrees: []
@@ -339,16 +357,16 @@ MonoBehaviour:
       removedTrees: []
       droppedItems: []
   globalData:
-    totalSecondsInGame: 1893.3326
-    totalSecondsOnRaft: 3552.7617
-    islandSeed: 0
+    totalSecondsInGame: 2321.9387
+    totalSecondsOnRaft: 3803.3745
+    islandSeed: 162117770
     damagersData:
-      tickCount: 1176
-      maxTickCount: 7501.5
+      tickCount: 19
+      maxTickCount: 5629.5
       spawnedItems: []
     weathersData:
-      tickCount: 1154
-      maxTickCount: 1198
+      tickCount: 307
+      maxTickCount: 1691
       currentWeather: 0
   tutorialsData:
     clickTutorial: 1
