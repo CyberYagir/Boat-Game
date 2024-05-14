@@ -109,7 +109,7 @@ namespace Content.Scripts.BoatGame.Services
         }
         private void CheckNodes()
         {
-            var parts = raftNodeSystem.CalculateParts(spawnedRafts, worldGridService);
+            var parts = raftNodeSystem.CalculateParts(spawnedRafts, worldGridService, gamedata);
             if (parts.Count > 1)
             {
                 for (int i = 0; i < parts.Count; i++)

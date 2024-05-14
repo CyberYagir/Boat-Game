@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Content.Scripts.BoatGame.Scriptable;
+using Content.Scripts.Global;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.Services
@@ -14,6 +16,13 @@ namespace Content.Scripts.BoatGame.Services
         {
             private List<RaftBase> rafts = new List<RaftBase>(10);
             private int priorityIndex;
+            private RaftsPriorityObject raftsData;
+
+            public Part(RaftsPriorityObject raftsData)
+            {
+                this.raftsData = raftsData;
+            }
+
             public List<RaftBase> Rafts => rafts;
 
             public int PriorityIndex => priorityIndex;
@@ -25,33 +34,7 @@ namespace Content.Scripts.BoatGame.Services
             {
                 for (int i = 0; i < rafts.Count; i++)
                 {
-                    switch (rafts[i].RaftType)
-                    {
-                        case RaftBuildService.RaftItem.ERaftType.Default:
-                            priorityIndex += 1;
-                            break;
-                        case RaftBuildService.RaftItem.ERaftType.Storage:
-                            priorityIndex += 5;
-                            break;
-                        case RaftBuildService.RaftItem.ERaftType.Building:
-                            priorityIndex += 0;
-                            break;
-                        case RaftBuildService.RaftItem.ERaftType.CraftTable:
-                            priorityIndex += 4;
-                            break;
-                        case RaftBuildService.RaftItem.ERaftType.Moored:
-                            priorityIndex += 4;
-                            break;
-                        case RaftBuildService.RaftItem.ERaftType.Fishing:
-                            priorityIndex += 4;
-                            break;
-                        case RaftBuildService.RaftItem.ERaftType.Furnace:
-                            priorityIndex += 3;
-                            break;
-                        default:
-                            priorityIndex += 1;
-                            break;
-                    }
+                    priorityIndex += raftsData.GetIndex(rafts[i].RaftType);
                 }
             }
 
@@ -63,14 +46,16 @@ namespace Content.Scripts.BoatGame.Services
                 }
             }
         }
-
+        
         [SerializeField] private List<Part> parts = new List<Part>();
         [SerializeField] private List<RaftBase> calculatedRafts = new List<RaftBase>(10);
         private WorldGridService worldGridService;
+        private RaftsPriorityObject raftsData;
         private Dictionary<Vector3Int, RaftBase> raftsMap;
 
-        public List<Part> CalculateParts(List<RaftBase> rafts, WorldGridService worldGridService)
+        public List<Part> CalculateParts(List<RaftBase> rafts, WorldGridService worldGridService, GameDataObject gameDataObject)
         {
+            raftsData = gameDataObject.RaftsPriorityData;
             parts.Clear();
             calculatedRafts.Clear();
 
@@ -88,7 +73,7 @@ namespace Content.Scripts.BoatGame.Services
                 
                 calculatedRafts.Add(start);
                 
-                var part = new Part();
+                var part = new Part(raftsData);
                 part.AddRaft(start);
 
                 CalculateRaftsRecursive(start, part);

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Characters;
+using Content.Scripts.BoatGame.Scriptable;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.IslandGame.WorldStructures;
@@ -26,11 +27,14 @@ namespace Content.Scripts.Global
             items = Resources.LoadAll<ItemObject>("Item").ToList();
 
             ActionsData.Init();
+            RaftsPriorityData.Init();
         }
 
 
         [SerializeField] private ActionsDataSO actionsData;
         [SerializeField] private ConfigDataObject configData;
+        [SerializeField] private RaftsPriorityObject raftsPriorityData;
+        
         [SerializeField] private List<string> namesList;
         [SerializeField] private List<SkillObject> skillsList;
         [SerializeField] private List<Material> skinColors;
@@ -63,6 +67,8 @@ namespace Content.Scripts.Global
         public ConfigDataObject ConfigData => configData;
 
         public List<ItemObject> Items => items;
+
+        public RaftsPriorityObject RaftsPriorityData => raftsPriorityData;
 
 
         public ItemObject GetItem(string id)
