@@ -1,9 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.Global;
-using Content.Scripts.ItemsSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -40,7 +40,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private List<RaftBase> spawnedRafts;
         [SerializeField] private Transform holder;
         [SerializeField] private RaftTapToBuild tapToBuildRaftPrefab;
-        
+        [SerializeField] private RaftNodesChecker raftNodeSystem;
         
         [SerializeField, ReadOnly] private List<RaftStorage> storages = new List<RaftStorage>();
         [SerializeField, ReadOnly] private Transform raftEndPoint;
@@ -85,8 +85,48 @@ namespace Content.Scripts.BoatGame.Services
             
             gameStateService.OnChangeEState += GameStateServiceOnOnChangeEState;  
             
+            OnChangeRaft += CheckNodesSemaphoreStart;
         }
-        
+
+        private void CheckNodesSemaphoreStart()
+        {
+            if (!isCheckNodesSemaphore)
+            {
+                StartCoroutine(CheckNodesSemaphore());
+            }
+        }
+
+        private bool isCheckNodesSemaphore = false;
+        IEnumerator CheckNodesSemaphore()
+        {
+            if (!isCheckNodesSemaphore)
+            {
+                isCheckNodesSemaphore = true;
+                yield return null;
+                CheckNodes();
+                isCheckNodesSemaphore = false;
+            }
+        }
+        private void CheckNodes()
+        {
+            var parts = raftNodeSystem.CalculateParts(spawnedRafts, worldGridService);
+            if (parts.Count > 1)
+            {
+                for (int i = 0; i < parts.Count; i++)
+                {
+                    parts[i].CalculatePriorityIndex();
+                }
+
+                var minPriority = parts.Min(x => x.PriorityIndex);
+                var part = parts.Find(x => x.PriorityIndex == minPriority);
+
+                if (part != null)
+                {
+                    part.KillRafts();
+                }
+            }
+        }
+
 
         private void LoadPlayerRaft(
             SaveDataObject saveData, 
@@ -362,5 +402,6 @@ namespace Content.Scripts.BoatGame.Services
         {
             raftEndPoint = spawnPointLadderPoint;
         }
+
     }
 }
