@@ -2,6 +2,7 @@ using System.Collections;
 using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +11,7 @@ namespace Content.Scripts.Loading
     public class LoadingBar : MonoBehaviour
     {
         [SerializeField] private RectTransform bar;
+        [SerializeField] private TMP_Text version; 
         private SaveDataObject saveData;
         private ScenesService scenesService;
 
@@ -19,6 +21,7 @@ namespace Content.Scripts.Loading
         {
             this.scenesService = scenesService;
             this.saveData = saveData;
+            version.text = Application.version;
             bar.DORotate(new Vector3(0, 0, 360f), 0.5f, RotateMode.WorldAxisAdd).SetLoops(-1, LoopType.Restart).SetLink(bar.gameObject);
             StartCoroutine(LoadingLoop());
         }
