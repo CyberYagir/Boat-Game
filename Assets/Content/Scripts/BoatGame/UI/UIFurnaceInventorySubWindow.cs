@@ -126,6 +126,7 @@ namespace Content.Scripts.BoatGame.UI
             {
                 var other = raftStorage.GetItem(EResourceTypes.Eat);
                 var build = raftStorage.GetItem(EResourceTypes.Build);
+                var money = raftStorage.GetItem(EResourceTypes.Money);
 
                 foreach (var item in other)
                 {
@@ -133,6 +134,11 @@ namespace Content.Scripts.BoatGame.UI
                 }
 
                 foreach (var item in build)
+                {
+                    CalculateItemToStack(item);
+                }
+                
+                foreach (var item in money)
                 {
                     CalculateItemToStack(item);
                 }

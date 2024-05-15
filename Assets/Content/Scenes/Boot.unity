@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 655363406}
   - component: {fileID: 655363405}
   - component: {fileID: 655363407}
+  - component: {fileID: 655363408}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -201,6 +202,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScene: 1
+--- !u!205 &655363408
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655363404}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.53877515
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.2588104
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.1
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

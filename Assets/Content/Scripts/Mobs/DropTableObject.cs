@@ -5,9 +5,11 @@ using UnityEngine;
 
 namespace Content.Scripts.Mobs
 {
+    
+    
     [CreateAssetMenu(menuName = "Create DropTable", fileName = "DropTable", order = 0)]
     [System.Serializable]
-    public class DropTableObject : ScriptableObject
+    public class DropTableObject : ScriptableObject, ITableObject
     {
         public static List<float> weights = new List<float>(10);
 
@@ -20,6 +22,11 @@ namespace Content.Scripts.Mobs
             public float Weight => weight;
 
             public ItemObject Item => item;
+
+            public void SetWeight(float targetWeight)
+            {
+                weight = targetWeight;
+            }
         }
 
         [SerializeField, TableList] private List<DropItem> table;
@@ -39,6 +46,33 @@ namespace Content.Scripts.Mobs
             var index = weights.ChooseRandomIndexFromWeights();
 
             return table[index].Item;
+        }
+
+        public Dictionary<string, float> GetWeights()
+        {
+            var dic = new Dictionary<string, float>();
+
+            for (int i = 0; i < table.Count; i++)
+            {
+                if (table[i].Item != null)
+                {
+                    dic.Add(table[i].Item.ItemName, table[i].Weight);
+                }
+                else
+                {
+                    dic.Add("Empty", table[i].Weight);
+                }
+            }
+
+            return dic;
+        }
+
+        public void ChangeWeights(List<float> targetWeights)
+        {
+            for (int i = 0; i < table.Count; i++)
+            {
+                table[i].SetWeight(targetWeights[i]);
+            }
         }
     }
 }

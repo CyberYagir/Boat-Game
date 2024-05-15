@@ -5,6 +5,7 @@ using Content.Scripts.Global;
 using Content.Scripts.SkillsSystem;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Content.Scripts.ManCreator
 {
@@ -34,7 +35,8 @@ namespace Content.Scripts.ManCreator
             this.saveData = saveData;
             this.gameData = gameData;
             ChangeName();
-            ChangeSkin(0);
+            ChangeHat(Random.Range(0, hatsHolder.HatsCount));
+            ChangeSkin(Random.Range(0, gameData.SkinColors.Count));
         }
 
         public Vector3 GetNamePoint()

@@ -171,7 +171,10 @@ namespace Content.Scripts.IslandGame
 
                 for (int i = 0; i < spawnedTerrainObjects.Count; i++)
                 {
-                    spawnedTerrainObjects[i].ChangeInstanceID(i);
+                    if (spawnedTerrainObjects[i] != null)
+                    {
+                        spawnedTerrainObjects[i].ChangeInstanceID(i);
+                    }
                 }
             }
         }
