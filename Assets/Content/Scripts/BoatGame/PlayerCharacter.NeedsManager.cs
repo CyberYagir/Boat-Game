@@ -186,7 +186,7 @@ namespace Content.Scripts.BoatGame
                 }
             }
 
-            private void ClampValues()
+            public void ClampValues()
             {
                 health = Mathf.Clamp(Health, 0, 100);
                 hunger = Mathf.Clamp(Hunger, 0, 100);

@@ -3,10 +3,11 @@ using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Content.Scripts.BoatGame.UI.UIEquipment
 {
-    public class UIEquipmentDestination : UIDragDestinationBase<EEquipmentType>
+    public class UIEquipmentDestination : UIDragDestinationBase<EEquipmentType>, IPointerClickHandler
     {
         private UICharacterWindow window;
         
@@ -75,6 +76,10 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
                 background.enabled = true;
             }
         }
-        
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            window.ChangeTabToInventory();
+        }
     }
 }

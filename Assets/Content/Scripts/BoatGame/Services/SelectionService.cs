@@ -22,6 +22,8 @@ namespace Content.Scripts.BoatGame.Services
         
         private Vector3 lastWorldClick;
         private bool isUIBlocked;
+        private GameObject lastBlocked;
+        
         private List<GraphicRaycaster> raycasters = new List<GraphicRaycaster>(10);
         private List<RaycastResult> raycastResults = new List<RaycastResult>(10);
         
@@ -43,6 +45,8 @@ namespace Content.Scripts.BoatGame.Services
         public ISelectable SelectedObject => selectedObject;
 
         public bool IsUIBlocked => isUIBlocked;
+        public GameObject LastUIBlockedTransform => lastBlocked;
+        
 
         [Inject]
         private void Construct(GameStateService gameStateService, ScenesService scenesService)
@@ -145,6 +149,7 @@ namespace Content.Scripts.BoatGame.Services
 
                 if (raycastResults.Count > 0)
                 {
+                    lastBlocked = raycastResults[0].gameObject;
                     isUIBlocked = true;
                     return true;
                 }

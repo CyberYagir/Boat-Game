@@ -1,6 +1,7 @@
 using System;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.BoatGame.UI;
 using DG.Tweening;
 using UnityEngine;
 using Zenject;
@@ -48,7 +49,7 @@ namespace Content.Scripts.IslandGame.Services
         private void LateUpdate()
         {
             if (zoomWait) return;
-            if (selectionService.IsUIBlocked) return;
+            if (selectionService.IsUIBlocked && selectionService.LastUIBlockedTransform.GetComponentInParent<UIActionManager>() == null) return;
             
             if (CameraMove()) return;
             CameraZoom();

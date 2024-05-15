@@ -169,6 +169,10 @@ namespace Content.Scripts.BoatGame
             {
                 needsManager.OnTick(delta);
             }
+            else
+            {
+                needsManager.ClampValues();
+            }
         }
 
         private void Update()

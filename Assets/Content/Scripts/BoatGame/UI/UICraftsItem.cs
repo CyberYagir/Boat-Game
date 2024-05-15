@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -79,6 +80,7 @@ namespace Content.Scripts.BoatGame.UI
             }
 
             button.interactable = canCraft;
+            button.image.DOColor(button.interactable ? new Color(0.3380358f, 1f, 0, 1f) : new Color(0.4f, 0.4f, 0.4f, 1f), 0.2f).SetLink(button.gameObject);
 
             return canCraft;
         }

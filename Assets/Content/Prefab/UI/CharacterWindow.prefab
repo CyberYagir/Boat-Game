@@ -2395,7 +2395,12 @@ MonoBehaviour:
   dragger:
     image: {fileID: 1357649933733306898}
     item: {fileID: 7697747622104049389}
+    stackCounter: {fileID: 0}
     raycaster: {fileID: 0}
+    isDragged: 0
+    itemObject: {fileID: 0}
+    itemsInStack: 1
+  canStackItems: 0
   item: {fileID: 828600814418537418}
 --- !u!222 &4642868764028233642
 CanvasRenderer:
@@ -3192,7 +3197,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7288349364868439150}
   m_HandleRect: {fileID: 4548786844896849334}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
