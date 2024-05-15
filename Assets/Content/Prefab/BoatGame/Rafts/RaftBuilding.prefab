@@ -81,11 +81,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92e458a62d992341945dc2cb87278b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 100
   health: 0
+  attackPoint: {fileID: 0}
   coords: {x: 0, y: 0, z: 0}
   raftType: 2
   uid: 
+  isWalkableRaft: 0
   craft: {fileID: 0}
   progress: 0
   actionsHolder: {fileID: 623634380619670209}
@@ -155,7 +157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcab04373f66ec7459602886d87131f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: -711957492, guid: 8e87fa800e2f4964f839bfaa91666b12, type: 3}
   state: 5
 --- !u!114 &1305508282702208577
 MonoBehaviour:

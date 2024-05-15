@@ -214,18 +214,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf338ca618c4ac5933f952170c88ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 100
   health: 0
   attackPoint: {fileID: 0}
   coords: {x: 0, y: 0, z: 0}
   raftType: 5
   uid: 
+  isWalkableRaft: 0
   getItemTicksRage:
     min: 100
     max: 300
   itemsData: {fileID: 11400000, guid: 0e8239df2d80f1a45a94d0dfc7597528, type: 2}
   maxTicks: 0
-  timer: 0
+  regenerationTimer: 0
   maxItemsInNet: 3
   spawnChance: 0.75
 --- !u!114 &6983561393009038822
