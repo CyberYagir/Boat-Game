@@ -100,9 +100,12 @@ namespace Content.Scripts.BoatGame.UI
             int id = 0;
             for (int i = 0; i < selectedStorage.Items.Count; i++)
             {
-                items[id].gameObject.SetActive(true);
-                items[id].Init(selectedStorage, selectedStorage.Items[i].Item, selectedStorage.Items[i].Count);
-                id++;
+                if (id < items.Count)
+                {
+                    items[id].gameObject.SetActive(true);
+                    items[id].Init(selectedStorage, selectedStorage.Items[i].Item, selectedStorage.Items[i].Count);
+                    id++;
+                }
             }
 
             emptyText.gameObject.SetActive(id == 0);

@@ -1,5 +1,4 @@
 using System;
-using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI.UIEquipment;
 using Content.Scripts.IslandGame;

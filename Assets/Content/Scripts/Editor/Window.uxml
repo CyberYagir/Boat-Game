@@ -1,0 +1,31 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/Content/Scripts/Editor/selected-tab.uss?fileID=7433441132597879392&amp;guid=80104113e2316db4db798a4d0032aa9b&amp;type=3#selected-tab" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgb(56, 56, 56);">
+        <uie:Toolbar name="Toolbar" style="justify-content: flex-start; align-self: stretch;">
+            <uie:ToolbarButton text="Create" parse-escape-sequences="true" display-tooltip-when-elided="true" class="create-btn" />
+            <uie:ToolbarButton text="Change" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ToolbarButton" />
+            <uie:ToolbarButton text="Find" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ToolbarButton" />
+        </uie:Toolbar>
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1">
+            <ui:VisualElement name="Tab0" style="flex-grow: 1; display: none;">
+                <ui:TextField picking-mode="Ignore" label="Path: " value="Content/Resources/Item/Item_" name="PathField" />
+                <ui:TextField picking-mode="Ignore" label="Name" name="NameField" />
+                <ui:Button text="Create New" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CreateAssetBtn" />
+                <ui:Label tabindex="-1" text="Asset is exists" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ErrorLabel" style="-unity-text-align: upper-center; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; color: rgb(255, 39, 39); display: flex; opacity: 0; transition-duration: 0.2s;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Tab1" style="flex-grow: 1;">
+                <uie:ObjectField label="Object Field" name="SelectedObject" style="height: 20px;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ID" style="align-items: auto; align-self: auto; -unity-text-align: upper-center;" />
+                <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                    <ui:VisualElement style="flex-grow: 1;">
+                        <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="ItemName" />
+                        <ui:EnumField label="Enum" type="Content.Scripts.BoatGame.Services.EResourceTypes, Assembly-CSharp" name="Type" />
+                        <ui:EnumField label="Enum" type="Content.Scripts.ItemsSystem.EItemType, Assembly-CSharp" name="itemType" />
+                        <uie:ObjectField label="Object Field" type="UnityEngine.Sprite, UnityEngine.CoreModule" style="height: 20px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 1; width: 100px; height: 100px; margin-top: 32px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>
