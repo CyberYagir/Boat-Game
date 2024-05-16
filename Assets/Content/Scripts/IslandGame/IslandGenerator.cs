@@ -18,7 +18,7 @@ namespace Content.Scripts.IslandGame
         [SerializeField] private int seed;
         [SerializeField] private IslandData[] terrains;
         [SerializeField] private TerrainBiomeSO[] biomesDatas;
-        [SerializeField] private IslandNativesData islandNativesData;
+        [SerializeField] private List<IslandGeneratorModule> spawnModules;
         [SerializeField] private Range temperaturesRange;
         [SerializeField] private float minGrassHeight;
         
@@ -36,11 +36,15 @@ namespace Content.Scripts.IslandGame
 
         private Dictionary<int, DetailsSO> detailsIds = new Dictionary<int, DetailsSO>(10);
         private List<TerrainObject> spawnedTerrainObjects = new List<TerrainObject>(1024);
-        private List<TreeInstance> treesInstsances = new List<TreeInstance>(1000);
+        private List<TreeInstance> treesInstances = new List<TreeInstance>(1000);
         private IslandData targetTerrain;
         private bool isNavMeshBuilded = false;
         private float grassY;
+        private Random random;
+        private TerrainBiomeSO targetBiome;
+        private MapIsland.IslandData islandData;
 
+        
         private IslandData currentIslandData;
         private SelectionService selectionService;
         private GameDataObject gameDataObject;
@@ -48,11 +52,24 @@ namespace Content.Scripts.IslandGame
         private PrefabSpawnerFabric prefabSpawnerFabric;
         private INavMeshProvider navMeshProvider;
         private TickService tickService;
+        
+        
 
         public IslandData CurrentIslandData => currentIslandData;
 
         public int Seed => seed;
 
+        public Random TargetRandom => random;
+
+        public TerrainBiomeSO TargetBiome => targetBiome;
+
+        public MapIsland.IslandData TargetIslandData => islandData;
+
+        public IslandData TargetTerrain => targetTerrain;
+
+        public List<TreeInstance> TreesInstances => treesInstances;
+
+        public List<TerrainObject> SpawnedTerrainObjects => spawnedTerrainObjects;
 
 
         [Inject]
@@ -95,12 +112,12 @@ namespace Content.Scripts.IslandGame
 
         public void Init(int seed)
         {
-            Random rnd = new Random(seed);
+            random = new Random(seed);
 
-            targetTerrain = SelectTargetTerrain(rnd);
-            grassY = targetTerrain.transform.InverseTransformPoint(new Vector3(0, minGrassHeight, 0)).y;
-            var temperature = rnd.Next((int) temperaturesRange.min, (int) temperaturesRange.max) + targetTerrain.TemperatureAdd;
-            var targetBiome = SelectBiome(temperature);
+            targetTerrain = SelectTargetTerrain(TargetRandom);
+            grassY = TargetTerrain.transform.InverseTransformPoint(new Vector3(0, minGrassHeight, 0)).y;
+            var temperature = TargetRandom.Next((int) temperaturesRange.min, (int) temperaturesRange.max) + TargetTerrain.TemperatureAdd;
+            targetBiome = SelectBiome(temperature);
 
 #if UNITY_EDITOR
 
@@ -110,74 +127,79 @@ namespace Content.Scripts.IslandGame
             }
 #endif
             
-            targetTerrain.Terrain.terrainData.terrainLayers = targetBiome.Layers;
+            TargetTerrain.Terrain.terrainData.terrainLayers = TargetBiome.Layers;
             
             var island = saveDataObject.Map.Islands.Find(x => x.IslandSeed == seed);
-            var newData = new MapIsland.IslandData(island.IslandPos);
+            islandData = new MapIsland.IslandData(island.IslandPos);
 
-            PlaceAll(targetTerrain, targetBiome, rnd, newData.Level);
-
-
-            SpawnVillage(seed, rnd, targetBiome, newData);
-            targetTerrain.Terrain.terrainData.SetTreeInstances(treesInstsances.ToArray(), true);
-            currentIslandData = targetTerrain;
-
-            CurrentIslandData.Init(gameDataObject, prefabSpawnerFabric, targetBiome);
-        }
-
-        private void SpawnVillage(int seed, Random rnd, TerrainBiomeSO targetBiome, MapIsland.IslandData islandData)
-        {
-            islandNativesData.Init(
-                seed,
-                rnd,
-                targetBiome,
-                prefabSpawnerFabric,
-                targetTerrain,
-                this,
-                islandData);
+            PlaceAll(TargetTerrain, TargetBiome, TargetRandom, TargetIslandData.Level);
 
 
-            if (islandNativesData.Data.IsSpawned)
+            for (int i = 0; i < spawnModules.Count; i++)
             {
-                List<int> ids = new List<int>();
-                var terrainData = targetTerrain.Terrain.terrainData;
-                for (int i = 0; i < treesInstsances.Count; i++)
-                {
-                    var treeInstancePos = treesInstsances[i].position;
-                    
-                    var localPos = new Vector3(treeInstancePos.x * terrainData.size.x, treeInstancePos.y * terrainData.size.y, treeInstancePos.z * terrainData.size.z);
-                    var worldPos = Terrain.activeTerrain.transform.TransformPoint(localPos);
-
-                    if (islandNativesData.Data.Bounds.Contains(new Vector3(worldPos.x, 5, worldPos.z)))
-                    {
-                        ids.Add(i);
-                    }
-                }
-
-
-                int n = 0;
-                while (ids.Count != 0)
-                {
-                    treesInstsances.RemoveAt(ids[0]-n);
-                    if (spawnedTerrainObjects[ids[0] - n] != null)
-                    {
-                        Destroy(spawnedTerrainObjects[ids[0] - n].gameObject);
-                    }
-                    spawnedTerrainObjects.RemoveAt(ids[0] - n);
-
-                    ids.RemoveAt(0);
-                    n++;
-                }
-
-                for (int i = 0; i < spawnedTerrainObjects.Count; i++)
-                {
-                    if (spawnedTerrainObjects[i] != null)
-                    {
-                        spawnedTerrainObjects[i].ChangeInstanceID(i);
-                    }
-                }
+                prefabSpawnerFabric.InjectComponent(spawnModules[i]);
+                spawnModules[i].Init(this);
             }
+            // SpawnVillage(seed, TargetRandom, TargetBiome, TargetIslandData);
+            TargetTerrain.Terrain.terrainData.SetTreeInstances(TreesInstances.ToArray(), true);
+            currentIslandData = TargetTerrain;
+
+            CurrentIslandData.Init(gameDataObject, prefabSpawnerFabric, TargetBiome);
         }
+
+        // private void SpawnVillage(int seed, Random rnd, TerrainBiomeSO targetBiome, MapIsland.IslandData islandData)
+        // {
+        //     islandNativesData.Init(
+        //         seed,
+        //         rnd,
+        //         targetBiome,
+        //         prefabSpawnerFabric,
+        //         TargetTerrain,
+        //         this,
+        //         islandData);
+        //
+        //
+        //     if (islandNativesData.Data.IsSpawned)
+        //     {
+        //         List<int> ids = new List<int>();
+        //         var terrainData = TargetTerrain.Terrain.terrainData;
+        //         for (int i = 0; i < TreesInstances.Count; i++)
+        //         {
+        //             var treeInstancePos = TreesInstances[i].position;
+        //             
+        //             var localPos = new Vector3(treeInstancePos.x * terrainData.size.x, treeInstancePos.y * terrainData.size.y, treeInstancePos.z * terrainData.size.z);
+        //             var worldPos = Terrain.activeTerrain.transform.TransformPoint(localPos);
+        //
+        //             if (islandNativesData.Data.Bounds.Contains(new Vector3(worldPos.x, 5, worldPos.z)))
+        //             {
+        //                 ids.Add(i);
+        //             }
+        //         }
+        //
+        //
+        //         int n = 0;
+        //         while (ids.Count != 0)
+        //         {
+        //             TreesInstances.RemoveAt(ids[0]-n);
+        //             if (SpawnedTerrainObjects[ids[0] - n] != null)
+        //             {
+        //                 Destroy(SpawnedTerrainObjects[ids[0] - n].gameObject);
+        //             }
+        //             SpawnedTerrainObjects.RemoveAt(ids[0] - n);
+        //
+        //             ids.RemoveAt(0);
+        //             n++;
+        //         }
+        //
+        //         for (int i = 0; i < SpawnedTerrainObjects.Count; i++)
+        //         {
+        //             if (SpawnedTerrainObjects[i] != null)
+        //             {
+        //                 SpawnedTerrainObjects[i].ChangeInstanceID(i);
+        //             }
+        //         }
+        //     }
+        // }
 
         private void PlaceAll(IslandData terr, TerrainBiomeSO biome, Random rnd, int islandLevel)
         {
@@ -252,7 +274,7 @@ namespace Content.Scripts.IslandGame
                     {
                         if (IsCanPlaceGrass(biome.TreesData[j], height, textureLayer, angle))
                         {
-                            if (PlaceTree(terr.Terrain, biome, j, biome.TreesData[j], rnd, biome.TreesData[j].Noise.GeneratedNoise, x, y, percentX, percentY, treesInstsances, height, islandData))
+                            if (PlaceTree(terr.Terrain, biome, j, biome.TreesData[j], rnd, biome.TreesData[j].Noise.GeneratedNoise, x, y, percentX, percentY, TreesInstances, height, islandData))
                             {
                                 break;
                             }
@@ -362,7 +384,7 @@ namespace Content.Scripts.IslandGame
                 {
                     Instantiate(terrainObjectIndicator, terrain.transform.position + new Vector3(percentX * terrain.terrainData.size.x, height, percentY * terrain.terrainData.size.z), Quaternion.identity)
                         .With(z => z.transform.localScale *= scale)
-                        .With(z => spawnedTerrainObjects.Add(z))
+                        .With(z => SpawnedTerrainObjects.Add(z))
                         .With(z => z.Init(
                             treesInstsances.Count - 1,
                             treeData,
@@ -376,7 +398,7 @@ namespace Content.Scripts.IslandGame
                 }
                 else
                 {
-                    spawnedTerrainObjects.Add(null);
+                    SpawnedTerrainObjects.Add(null);
                 }
             }
 
@@ -445,13 +467,13 @@ namespace Content.Scripts.IslandGame
 
         public TreeInstance RemoveTree(int id, out float size)
         {
-            var instance = targetTerrain.Terrain.terrainData.GetTreeInstance(id);
+            var instance = TargetTerrain.Terrain.terrainData.GetTreeInstance(id);
 
             size = instance.heightScale;
             
             instance.widthScale = 0;
             instance.heightScale = 0;
-            targetTerrain.Terrain.terrainData.SetTreeInstance(id, instance);
+            TargetTerrain.Terrain.terrainData.SetTreeInstance(id, instance);
 
             return instance;
         }
@@ -461,12 +483,7 @@ namespace Content.Scripts.IslandGame
             var island = saveDataObject.Map.GetIslandData(Seed);
             island.AddDestroyedTreePos(pos);
         }
-
-        private void OnDrawGizmos()
-        {
-            islandNativesData.Gizmo();
-        }
-
+        
         public float GetAngle(int x, int y)
         {
             return angles[y, x];

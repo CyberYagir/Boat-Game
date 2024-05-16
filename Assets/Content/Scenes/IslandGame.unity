@@ -729,15 +729,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379296136701591964, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1175.7544
+      value: 1011.2822
       objectReference: {fileID: 0}
     - target: {fileID: 1379296136701591964, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 587.8772
+      value: 505.6411
       objectReference: {fileID: 0}
     - target: {fileID: 1379296136993171072, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -19.09967
+      value: -19.09964
       objectReference: {fileID: 0}
     - target: {fileID: 1379296137250888706, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchorMax.x
@@ -761,19 +761,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1564723253941064572, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1564723253941064572, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1564723253941064572, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 101.0266
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1564723253941064572, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -83.95
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1738069054953074655, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2873,6 +2873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1737859042}
   - component: {fileID: 1737859043}
+  - component: {fileID: 1737859044}
   m_Layer: 0
   m_Name: IsalndGeneratorService
   m_TagString: Untagged
@@ -2931,6 +2932,26 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 53d2210f122b9da4cbb66b7bc9a3ff64, type: 2}
   - {fileID: 11400000, guid: e47b9893e1a0c0448800304f14c89e95, type: 2}
   - {fileID: 11400000, guid: 66a58010519935e4994a8ebf41d9f6a9, type: 2}
+  spawnModules:
+  - {fileID: 1737859044}
+  temperaturesRange:
+    min: 0
+    max: 60
+  minGrassHeight: 1
+  terrainObjectIndicator: {fileID: 4269952700949134826, guid: 82630f472df92514c9d75deed26c6060, type: 3}
+  debugBiome: {fileID: 11400000, guid: 53d2210f122b9da4cbb66b7bc9a3ff64, type: 2}
+--- !u!114 &1737859044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737859040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8904bdbab14796ac5a295e58451da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   islandNativesData:
     structures:
     - biomes:
@@ -2987,12 +3008,6 @@ MonoBehaviour:
     maxAngle: 15
     minY: 1
     terrainBorder: 0.1
-  temperaturesRange:
-    min: 0
-    max: 60
-  minGrassHeight: 1
-  terrainObjectIndicator: {fileID: 4269952700949134826, guid: 82630f472df92514c9d75deed26c6060, type: 3}
-  debugBiome: {fileID: 11400000, guid: 53d2210f122b9da4cbb66b7bc9a3ff64, type: 2}
 --- !u!1 &1787757237
 GameObject:
   m_ObjectHideFlags: 0
