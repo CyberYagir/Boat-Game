@@ -1,3 +1,4 @@
+using Content.Scripts.IslandGame;
 using UnityEngine;
 
 namespace Content.Scripts.Global
@@ -8,11 +9,13 @@ namespace Content.Scripts.Global
         [SerializeField] private float startNeedsActiveTime;
         [SerializeField] private float actionsTutorialActiveTime;
         [SerializeField] private int actionsCountToTutorial;
-
+        [SerializeField] private NoiseGenerator mapNoisePreset;
+        
         public float StartNeedsActiveTime => startNeedsActiveTime;
         public int ActionsCountToTutorial => actionsCountToTutorial;
 
         public float ActionsTutorialActiveTime => actionsTutorialActiveTime;
-        
+
+        public NoiseGenerator MapNoisePreset => mapNoisePreset;
     }
 }

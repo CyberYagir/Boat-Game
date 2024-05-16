@@ -337,7 +337,7 @@ namespace Content.Scripts.Global
                     return;
                 }
 
-                islands = MapNoiseGenerator.GetIslandPoints(worldSeed, gameDataObject.MapPaths);
+                islands = MapNoiseGenerator.GetIslandPoints(worldSeed, gameDataObject.MapPaths, gameDataObject.ConfigData.MapNoisePreset);
             }
 
             public IslandData GetIslandData(int seed)
