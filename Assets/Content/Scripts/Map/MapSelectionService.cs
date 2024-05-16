@@ -35,16 +35,20 @@ namespace Content.Scripts.Map
 
 
             scenesService.OnChangeActiveScene += OnChangeScene;
-            scenesService.OnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
-            
+            scenesService.OnLoadOtherScene += ScenesServiceOnOnUnLoadOtherScene;
+            scenesService.OnUnLoadOtherScene += ScenesServiceOnOnUnLoadOtherScene;
             
             OnChangeScene(scenesService.GetActiveScene());
         }
 
-        private void ScenesServiceOnOnLoadOtherScene(ESceneName obj)
+        private void ScenesServiceOnOnUnLoadOtherScene(ESceneName obj)
         {
-            scenesService.OnChangeActiveScene -= OnChangeScene;
-            scenesService.OnLoadOtherScene -= ScenesServiceOnOnLoadOtherScene;
+            if (obj == ESceneName.Map)
+            {
+                scenesService.OnChangeActiveScene -= OnChangeScene;
+                scenesService.OnLoadOtherScene -= ScenesServiceOnOnUnLoadOtherScene;
+                scenesService.OnUnLoadOtherScene -= ScenesServiceOnOnUnLoadOtherScene;
+            }
         }
 
         private void OnChangeScene(ESceneName scene)

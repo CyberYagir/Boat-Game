@@ -19,6 +19,7 @@ namespace Content.Scripts.Map
             marksContainer.Init(mapIslandCollector);
             scenesService.OnChangeActiveScene += OnChangeScene;
             scenesService.OnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
+            scenesService.OnUnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
             OnChangeScene(scenesService.GetActiveScene());
 
             islandWindow.Init(mapSelectionService);
@@ -28,12 +29,16 @@ namespace Content.Scripts.Map
         {
             scenesService.OnChangeActiveScene -= OnChangeScene;
             scenesService.OnLoadOtherScene -= ScenesServiceOnOnLoadOtherScene;
+            scenesService.OnUnLoadOtherScene -= ScenesServiceOnOnLoadOtherScene;
         }
-        
+
 
         private void OnChangeScene(ESceneName state)
         {
-            gameObject.SetActive(state == ESceneName.Map);
+            if (gameObject != null)
+            {
+                gameObject.SetActive(state == ESceneName.Map);
+            }
         }
 
         private void LateUpdate()

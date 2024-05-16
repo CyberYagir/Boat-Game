@@ -24,6 +24,7 @@ namespace Content.Scripts.Boot
 
         public event Action<ESceneName> OnChangeActiveScene;
         public event Action<ESceneName> OnLoadOtherScene;
+        public event Action<ESceneName> OnUnLoadOtherScene;
         
         public void ChangeScene(ESceneName name)
         {
@@ -59,6 +60,7 @@ namespace Content.Scripts.Boot
         {
             if (overlayLoadedScenes.Contains(name))
             {
+                OnUnLoadOtherScene?.Invoke(name);
                 SceneManager.UnloadSceneAsync(name.ToString());
                 overlayLoadedScenes.Remove(name);
             }
