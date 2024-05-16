@@ -42,9 +42,9 @@ namespace Content.Scripts.BoatGame.Characters
 
         public bool IsArrived()
         {
-            var destWithoutY = new Vector3(Destination.x, 0, Destination.z);
+            var destWithoutY = new Vector3(TargetPoint.x, 0, TargetPoint.z);
             var trnsWithoutY = new Vector3(Transform.position.x, 0, Transform.position.z);
-            
+            print((aiPath.remainingDistance <= StoppingDistance) + " " + (destWithoutY.ToDistance(trnsWithoutY) <= StoppingDistance) + "/" + destWithoutY.ToDistance(trnsWithoutY) + " - " + StoppingDistance);
             return aiPath.remainingDistance <= StoppingDistance && destWithoutY.ToDistance(trnsWithoutY) <= StoppingDistance;
         }
 
@@ -59,14 +59,13 @@ namespace Content.Scripts.BoatGame.Characters
 
         public bool TryBuildPath(Vector3 target, out Vector3 newPoint)
         {
-            var constraint = NNConstraint.None;
+            var constraint = NNConstraint.Default;
             constraint.constrainWalkability = true;
             constraint.walkable = true;
             constraint.constrainTags = true;
             constraint.tags = ~0;
             constraint.graphMask = seeker.graphMask;
             NNInfo info = new NNInfo();
-
 
             info = AstarPath.active.GetNearest(target, constraint);
             

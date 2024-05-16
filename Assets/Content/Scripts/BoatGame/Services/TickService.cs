@@ -16,6 +16,7 @@ namespace Content.Scripts.BoatGame.Services
         }
 
 
+
         IEnumerator Loop()
         {
             while (true)

@@ -27,7 +27,6 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         public EHungerState CurrentState => state;
 
-
         public override void ResetState()
         {
             timer = 0;

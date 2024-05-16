@@ -49,7 +49,7 @@ namespace Content.Scripts.IslandGame.Services
         private void LateUpdate()
         {
             if (zoomWait) return;
-            if (selectionService.IsUIBlocked && selectionService.LastUIBlockedTransform.GetComponentInParent<UIActionManager>() == null) return;
+            if (selectionService.IsUIBlocked && (selectionService.LastUIBlockedTransform == null || selectionService.LastUIBlockedTransform.GetComponentInParent<UIActionManager>() == null)) return;
             
             if (CameraMove()) return;
             CameraZoom();

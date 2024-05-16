@@ -729,15 +729,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379296136701591964, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1011.2822
+      value: 1187.456
       objectReference: {fileID: 0}
     - target: {fileID: 1379296136701591964, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 505.6411
+      value: 593.728
       objectReference: {fileID: 0}
     - target: {fileID: 1379296136993171072, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -19.09964
+      value: -19.09967
       objectReference: {fileID: 0}
     - target: {fileID: 1379296137250888706, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1450,6 +1450,10 @@ PrefabInstance:
     - target: {fileID: 8469792358145293389, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8672158747324163359, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -58.899902
       objectReference: {fileID: 0}
     - target: {fileID: 8957159722528433427, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_IsActive
@@ -2874,6 +2878,7 @@ GameObject:
   - component: {fileID: 1737859042}
   - component: {fileID: 1737859043}
   - component: {fileID: 1737859044}
+  - component: {fileID: 1737859045}
   m_Layer: 0
   m_Name: IsalndGeneratorService
   m_TagString: Untagged
@@ -2934,12 +2939,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66a58010519935e4994a8ebf41d9f6a9, type: 2}
   spawnModules:
   - {fileID: 1737859044}
+  - {fileID: 1737859045}
   temperaturesRange:
     min: 0
     max: 60
   minGrassHeight: 1
   terrainObjectIndicator: {fileID: 4269952700949134826, guid: 82630f472df92514c9d75deed26c6060, type: 3}
-  debugBiome: {fileID: 11400000, guid: 53d2210f122b9da4cbb66b7bc9a3ff64, type: 2}
+  debugBiome: {fileID: 0}
 --- !u!114 &1737859044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2953,6 +2959,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   islandNativesData:
+    accuracy: 50
+    maxGap: 5
+    maxAngle: 15
+    minY: 1
+    terrainBorder: 0.1
     structures:
     - biomes:
       - {fileID: 11400000, guid: d2e198e62bb93e940bd50a61de3f55dc, type: 2}
@@ -3003,11 +3014,30 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    accuracy: 50
+--- !u!114 &1737859045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737859040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09998978bbb22b640bd2a5ca05ead2b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterSourcePrefab: {fileID: 3183626552847265487, guid: d023bceecf3fac6429a757c6ad72518a, type: 3}
+  generateObjectCalculator:
+    accuracy: 60
     maxGap: 5
-    maxAngle: 15
+    maxAngle: 50
     minY: 1
     terrainBorder: 0.1
+  allowedLayers:
+  - {fileID: 8574412962073106934, guid: 9900121e85ffe6844b406557758d03bc, type: 2}
+  - {fileID: 8574412962073106934, guid: a28af33e7a12c224f94e34c4dee01cba, type: 2}
+  - {fileID: 8574412962073106934, guid: c5f8f21a44cb6ef4eb76b421e19eec15, type: 2}
+  - {fileID: 8574412962073106934, guid: b288854cd1f9db945804e2a3c005fa02, type: 2}
 --- !u!1 &1787757237
 GameObject:
   m_ObjectHideFlags: 0

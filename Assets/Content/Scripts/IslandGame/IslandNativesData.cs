@@ -9,7 +9,7 @@ using Random = System.Random;
 namespace Content.Scripts.IslandGame
 {
     [System.Serializable]
-    public class IslandNativesData
+    public class IslandNativesData : GenerateObjectCalculator
     {
         [System.Serializable]
         public class VillageData
@@ -48,13 +48,6 @@ namespace Content.Scripts.IslandGame
 
         private VillageData villageData;
         private IslandData targetTerrain;
-        private IslandGenerator islandGenerator;
-        
-        [SerializeField] private int accuracy = 50;
-        [SerializeField] private float maxGap = 5;
-        [SerializeField] private float maxAngle = 15;
-        [SerializeField] private float minY = 1f;
-        [SerializeField] private float terrainBorder = 0.1f;
 
         public VillageData Data => villageData;
 
@@ -99,7 +92,7 @@ namespace Content.Scripts.IslandGame
             {
                 for (int lenY = 0; lenY < accuracy; lenY++)
                 {
-                    RandomPos(rnd, village, startSize);
+                    RandomPos(rnd, village.transform, bounds);
 
                     if (!bounds.Contains(village.transform.position))
                     {
@@ -110,47 +103,15 @@ namespace Content.Scripts.IslandGame
                     bool isAllOk = true;
                     foreach (var spawned in village.HousePoints)
                     {
-                        var pos = targetTerrain.Terrain.transform.InverseTransformPoint(spawned.transform.position);
-
-                        var onTerrainPos = pos.DevideVector3(startSize);
-
-                        if (onTerrainPos.x > 1f - terrainBorder || onTerrainPos.x < terrainBorder || onTerrainPos.z > 1f - terrainBorder || onTerrainPos.z < terrainBorder)
+                        if (!CalculateSurface(spawned.transform, holder.TerrainLayers, biome, out Vector3 hitPoint))
                         {
                             isAllOk = false;
                             break;
                         }
-
-                        if (!Physics.Raycast(spawned.transform.position + Vector3.up * 500, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default", "Terrain")))
+                        
+                        if (hitPoint != default)
                         {
-                            isAllOk = false;
-                            DrawDebugIndicator(village, Color.red);
-                            break;
-                        }
-
-                        if (hit.point.y < minY)
-                        {
-                            isAllOk = false;
-                            DrawDebugIndicator(village, Color.blue);
-                            break;
-                        }
-
-                        points.Add(hit.point);
-
-                        var layer = islandGenerator.GetTextureLayerID(targetTerrain.Terrain.terrainData, onTerrainPos.x, onTerrainPos.z, biome, out int i);
-                        if (!holder.TerrainLayers.Contains(layer))
-                        {
-                            DrawDebugIndicator(village, Color.magenta);
-                            isAllOk = false;
-                            break;
-                        }
-
-                        if (islandGenerator.GetAngle(
-                            (int) (onTerrainPos.x * targetTerrain.Terrain.terrainData.detailResolution),
-                            (int) (onTerrainPos.z * targetTerrain.Terrain.terrainData.detailResolution)) > maxAngle)
-                        {
-                            DrawDebugIndicator(village, Color.yellow);
-                            isAllOk = false;
-                            break;
+                            points.Add(hitPoint);
                         }
                     }
 
@@ -166,7 +127,7 @@ namespace Content.Scripts.IslandGame
 
                                 if (maxCalGap > maxGap)
                                 {
-                                    DrawDebugIndicator(village, Color.white);
+                                    DrawDebugIndicator(village.transform, Color.white);
                                     isAllOk = false;
                                     break;
                                 }
@@ -189,20 +150,6 @@ namespace Content.Scripts.IslandGame
 
             Object.Destroy(village.gameObject);
 
-        }
-
-        private static void DrawDebugIndicator(StructureGenerator village, Color color)
-        {
-            var end = village.transform.position + Vector3.down * 500;
-            end.y = 0;
-            Debug.DrawLine(village.transform.position + Vector3.up * 50, end, color, 5);
-        }
-
-        private void RandomPos(Random rnd, StructureGenerator village, Vector3 startSize)
-        {
-            var percentPos = (new Vector3((float)rnd.NextDouble(), 0, (float)rnd.NextDouble()));
-            village.transform.position = targetTerrain.Terrain.transform.TransformPoint(percentPos.MultiplyVector3(startSize));
-            
         }
 
 

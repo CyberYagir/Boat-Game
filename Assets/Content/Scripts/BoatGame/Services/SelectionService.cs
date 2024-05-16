@@ -17,7 +17,7 @@ namespace Content.Scripts.BoatGame.Services
         
         
         [SerializeField, ReadOnly] private PlayerCharacter selectedCharacter;
-        [SerializeField] private ISelectable selectedObject;
+        private ISelectable selectedObject;
 
         
         private Vector3 lastWorldClick;

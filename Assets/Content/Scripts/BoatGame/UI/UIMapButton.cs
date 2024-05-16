@@ -37,6 +37,7 @@ namespace Content.Scripts.BoatGame.UI
             }
             else
             {
+                scenesService.ChangeActiveScene(ESceneName.BoatGame);
                 scenesService.UnloadScene(ESceneName.Map);
             }
         }

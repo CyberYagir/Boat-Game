@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.size
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[10].stateType
@@ -75,6 +75,10 @@ PrefabInstance:
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[15].stateType
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: statesList.Array.data[16].stateType
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[0].stateAction
@@ -104,6 +108,10 @@ PrefabInstance:
       propertyPath: statesList.Array.data[15].stateAction
       value: 
       objectReference: {fileID: 6362251938529261962}
+    - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: statesList.Array.data[16].stateAction
+      value: 
+      objectReference: {fileID: 5575436633873550413}
     - target: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: m_Name
       value: CharacterIsland Variant
@@ -126,11 +134,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5672849462563406846, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: moveToStorage
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5872485453627549057, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: moveToStorage
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 751144816067325089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
@@ -158,6 +166,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6362251938529261962}
+    - targetCorrespondingSourceObject: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5575436633873550413}
   m_SourcePrefab: {fileID: 100100000, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
 --- !u!1 &9047022263986236250 stripped
 GameObject:
@@ -273,3 +284,17 @@ MonoBehaviour:
   handTool: {fileID: 8543075843789491833, guid: 2eb5def58b9eae74a962ff5eb6d63f99, type: 3}
   damage: 5
   damageSkill: {fileID: 11400000, guid: c545583ae52e42846b44c6b02b5d28db, type: 2}
+--- !u!114 &5575436633873550413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9047022263986236250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e0b1b18c469c24ca1fdece796677ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnded: 0
+  machine: {fileID: 0}
