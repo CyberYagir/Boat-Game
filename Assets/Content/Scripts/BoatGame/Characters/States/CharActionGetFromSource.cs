@@ -6,17 +6,31 @@ using UnityEngine;
 
 namespace Content.Scripts.BoatGame.Characters.States
 {
-    public class CharActionGetFromSource : CharActionPickup
+
+    public class CharActionGetFromSource : CharActionMoveTo
     {
-        private Vector3 lastPoint;
+
+        private float pickUpTime;
+        private bool isMoving;
+        protected Vector3 currentTarget;
         private ISourceObject targetSource;
-        
+
+
+        public override void ResetState()
+        {
+            base.ResetState();
+
+            pickUpTime = 0;
+            isMoving = true;
+        }
+
+
         public override void StartState()
         {
-            Agent.SetStopped(false);
-            
-            dontStartIfDroppedItemNull = false;
-            lastPoint = SelectionService.LastWorldClick;
+            base.StartState();
+
+            currentTarget = SelectionService.LastWorldClick;
+
             targetSource = SelectionService.SelectedObject.Transform.GetComponent<ISourceObject>();
 
             if (targetSource == null)
@@ -24,35 +38,70 @@ namespace Content.Scripts.BoatGame.Characters.States
                 EndState();
                 return;
             }
-            
+
             if (!MoveToPoint(SelectionService.SelectedObject.Transform.position))
             {
                 EndState();
             }
         }
 
-        public override void AddToInventory()
+        public override void ProcessState()
+        {
+            base.ProcessState();
+
+            if (!isMoving)
+            {
+                pickUpTime += TimeService.DeltaTime;
+
+                if (targetSource == null)
+                {
+                    EndState();
+                }
+
+                if (pickUpTime >= 1f)
+                {
+                    AddToInventory();
+
+                    EndState();
+                }
+            }
+        }
+
+        public virtual void AddToInventory()
         {
             ItemObject item = targetSource.GetFromItem();
-            if (item != null)
+            if (item)
             {
                 var storage = Machine.AIMoveManager.GoToEmptyStorage(1);
+
                 if (storage != null)
                 {
                     storage.AddToStorage(item, 1, false);
-                    WorldPopupService.StaticSpawnPopup(lastPoint, item, 1);
                     Machine.AddExp(1);
-
+                    WorldPopupService.StaticSpawnPopup(currentTarget, item, 1);
                 }
                 else
                 {
+
                     WorldPopupService.StaticSpawnCantPopup(currentTarget);
                 }
             }
-            else
+        }
+
+
+        protected override void OnMoveEnded()
+        {
+            if (isMoving)
             {
-                WorldPopupService.StaticSpawnCantPopup(currentTarget);
+                Machine.AnimationManager.TriggerPickUpAnim();
+                isMoving = false;
             }
+        }
+
+        public override void EndState()
+        {
+            base.EndState();
+            ToIdleAnimation();
         }
     }
 }

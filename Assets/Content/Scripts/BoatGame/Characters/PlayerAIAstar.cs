@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Pathfinding;
 using UnityEngine;
@@ -42,9 +44,8 @@ namespace Content.Scripts.BoatGame.Characters
 
         public bool IsArrived()
         {
-            var destWithoutY = new Vector3(TargetPoint.x, 0, TargetPoint.z);
+            var destWithoutY = new Vector3(Destination.x, 0, Destination.z);
             var trnsWithoutY = new Vector3(Transform.position.x, 0, Transform.position.z);
-            print((aiPath.remainingDistance <= StoppingDistance) + " " + (destWithoutY.ToDistance(trnsWithoutY) <= StoppingDistance) + "/" + destWithoutY.ToDistance(trnsWithoutY) + " - " + StoppingDistance);
             return aiPath.remainingDistance <= StoppingDistance && destWithoutY.ToDistance(trnsWithoutY) <= StoppingDistance;
         }
 
@@ -85,11 +86,18 @@ namespace Content.Scripts.BoatGame.Characters
             {
                 aiPath.constrainInsideGraph = constrainInGraph;
                 seeker.graphMask = newMask;
-                if (TryBuildPath(targetPoint, out Vector3 newPoint))
-                {
-                    SetDestination(newPoint);
-                    SetTargetPoint(newPoint);
-                }
+                StartCoroutine(SkipFrame());
+            }
+        }
+  
+        IEnumerator SkipFrame()
+        {
+            yield return null;
+            if (TryBuildPath(targetPoint, out Vector3 newPoint))
+            {
+                debugPoints.Clear();
+                SetDestination(newPoint);
+                SetTargetPoint(newPoint);
             }
         }
         
@@ -103,11 +111,18 @@ namespace Content.Scripts.BoatGame.Characters
             targetPoint = point;
         }
 
+        [SerializeField] private List<Vector3> debugPoints = new List<Vector3>();
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(Destination, 0.2f);
-            
+            if (TryBuildPath(targetPoint, out Vector3 newPoint))
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(newPoint + Vector3.up * 0.4f, 0.2f);
+                debugPoints.Add(newPoint);
+            }   
             
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(TargetPoint + Vector3.up * 0.2f, 0.2f);
