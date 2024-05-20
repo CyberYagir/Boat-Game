@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50fe539d27fbb014288ff8978f8cd18c, type: 3}
+  m_Name: Item_Sword_Metal
+  m_EditorClassIdentifier: 
+  id: aae02b6f-48b6-4f54-b237-0c8fd778f02c
+  itemName: Metal Sword
+  type: 4
+  itemType: 1
+  itemIcon: {fileID: -916040582, guid: a1bef9985b15bb8489fae37491568c2e, type: 3}
+  parametersData:
+    health: 100
+    hunger: 100
+    thirsty: 100
+    damage: 25
+  furnaceData:
+    furnaceFlags: 16
+    fuelSeconds: 2
+    smeltSeconds: 4
+    afterSmeltItem: {fileID: 11400000, guid: 86aa26c545faded4ea4af0d2eb430464, type: 2}
+  dropPrefab: {fileID: 0}
+  prefab: {fileID: 1240442292765646569, guid: a9454189544efc94eb7d72f9482eba58, type: 3}
+  equipment: 2
+  animationType: 1

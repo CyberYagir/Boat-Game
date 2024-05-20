@@ -104,7 +104,7 @@ namespace Content.Scripts.BoatGame
 
         private void CheckGround()
         {
-            if (!aiManager.IsOnGround())
+            if (!aiManager.IsOnGround() && !needsManager.IsDead)
             {
                 needsManager.Death();
             }
@@ -118,7 +118,7 @@ namespace Content.Scripts.BoatGame
             GetComponent<Collider>().enabled = false;
             appearanceManager.ChangeSelection(false);
             gameObject.ChangeLayerWithChilds(LayerMask.NameToLayer("PlayerDead"));
-            
+            this.enabled = false;
             
             StartCoroutine(UnderWaterDeath());
 

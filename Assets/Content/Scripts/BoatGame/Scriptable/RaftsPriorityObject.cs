@@ -45,7 +45,7 @@ namespace Content.Scripts.BoatGame.Scriptable
 
         public void Init()
         {
-            priorities.Clear();
+            prioritiesMap.Clear();
             for (int i = 0; i < priorities.Count; i++)
             {
                 prioritiesMap.Add(priorities[i].RaftType, priorities[i].PriorityIndex);

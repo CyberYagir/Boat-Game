@@ -6,6 +6,7 @@ namespace Content.Scripts.BoatGame.Equipment
     class EquipmentWorkerArmor : EquipmentWorker
     {
         [SerializeField] private GameObject epauletLeft, epauletRight;
+        [SerializeField] private GameObject kneePadLeft, kneePadRight;
 
         public override void Init(PlayerCharacter.AppearanceManager appearanceManager)
         {
@@ -13,6 +14,10 @@ namespace Content.Scripts.BoatGame.Equipment
 
             SetEpaulet(epauletLeft, appearanceManager.GetBone(EBones.LeftShoulder));
             SetEpaulet(epauletRight, appearanceManager.GetBone(EBones.RightShoulder));
+            
+            
+            SetEpaulet(kneePadLeft, appearanceManager.GetBone(EBones.LeftLeg));
+            SetEpaulet(kneePadRight, appearanceManager.GetBone(EBones.RightLeg));
         }
 
         public void SetEpaulet(GameObject obj, Transform bone)
@@ -39,6 +44,16 @@ namespace Content.Scripts.BoatGame.Equipment
             if (epauletRight != null)
             {
                 Destroy(epauletRight);
+            }
+            
+            if (kneePadLeft != null)
+            {
+                Destroy(kneePadLeft);
+            }
+            
+            if (kneePadRight != null)
+            {
+                Destroy(kneePadRight);
             }
         }
     }

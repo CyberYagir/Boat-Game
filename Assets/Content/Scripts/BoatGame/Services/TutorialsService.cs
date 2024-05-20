@@ -106,6 +106,9 @@ namespace Content.Scripts.BoatGame.Services
         private void TickServiceOnOnTick(float delta)
         {
             if (uiService.WindowManager.isAnyWindowOpened) return;
+            if (characterService.SpawnedCharacters.Count > 1) return;
+            if (playerCharacter == null || playerCharacter.NeedManager.IsDead) return;
+            
             ActionsTutorial();
             EatingTutorial();
             StorageTutorial();
@@ -160,10 +163,13 @@ namespace Content.Scripts.BoatGame.Services
             {
                 if (time >= gameDataObject.ConfigData.StartNeedsActiveTime)
                 {
-                    if (playerCharacter.NeedManager.Hunger < PlayerCharacter.NeedsManager.minimalScores || playerCharacter.NeedManager.Thirsty < PlayerCharacter.NeedsManager.minimalScores)
+                    if (!playerCharacter.NeedManager.IsDead)
                     {
-                        tutorialsDisplay.DrawDialogue(eatTutorial);
-                        saveData.Tutorials.EatTutorialSet();
+                        if (playerCharacter.NeedManager.Hunger < PlayerCharacter.NeedsManager.MINIMAL_SCORES || playerCharacter.NeedManager.Thirsty < PlayerCharacter.NeedsManager.MINIMAL_SCORES)
+                        {
+                            tutorialsDisplay.DrawDialogue(eatTutorial);
+                            saveData.Tutorials.EatTutorialSet();
+                        }
                     }
                 }
             }

@@ -78,6 +78,8 @@ namespace Content.Scripts.BoatGame.Characters
         public void Disable()
         {
             aiPath.canMove = false;
+            aiPath.enabled = false;
+            seeker.enabled = false;
         }
 
         public void ChangeMask(int newMask, bool constrainInGraph)
@@ -95,7 +97,6 @@ namespace Content.Scripts.BoatGame.Characters
             yield return null;
             if (TryBuildPath(targetPoint, out Vector3 newPoint))
             {
-                debugPoints.Clear();
                 SetDestination(newPoint);
                 SetTargetPoint(newPoint);
             }
@@ -111,8 +112,6 @@ namespace Content.Scripts.BoatGame.Characters
             targetPoint = point;
         }
 
-        [SerializeField] private List<Vector3> debugPoints = new List<Vector3>();
-
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;
@@ -121,7 +120,6 @@ namespace Content.Scripts.BoatGame.Characters
             {
                 Gizmos.color = Color.blue;
                 Gizmos.DrawSphere(newPoint + Vector3.up * 0.4f, 0.2f);
-                debugPoints.Add(newPoint);
             }   
             
             Gizmos.color = Color.red;

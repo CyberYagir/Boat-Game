@@ -1833,6 +1833,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 7685259320487811664}
+  defaultAnimation: {fileID: -203655887218126122, guid: 48af80d4d2c824a4ea5d42965d7d652c, type: 3}
+  animations:
+  - items:
+    - {fileID: 11400000, guid: 3c5a27a512626434ebfe5a85f2a4d3e8, type: 2}
+    animationName: {fileID: -203655887218126122, guid: 8864e00da1bdc774e862c121ee1ee7a8, type: 3}
 --- !u!1 &6914152485933680362
 GameObject:
   m_ObjectHideFlags: 0
@@ -3031,7 +3036,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9138305252140181296}
   m_HandleRect: {fileID: 3163427618692537316}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3377,6 +3382,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1349104748021026184, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: af7177f71e57c874eadaf6d4a225b3d4, type: 2}
     - target: {fileID: 1371098191490334041, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -4556,11 +4565,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1021016630031712865, guid: 2f78e6564c8ea894597f493f06211063, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 935.308
+      value: 1418.9161
       objectReference: {fileID: 0}
     - target: {fileID: 1021016630031712865, guid: 2f78e6564c8ea894597f493f06211063, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 467.654
+      value: 709.45807
       objectReference: {fileID: 0}
     - target: {fileID: 1021016630175656726, guid: 2f78e6564c8ea894597f493f06211063, type: 3}
       propertyPath: m_BlockingMask.m_Bits

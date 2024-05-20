@@ -26,9 +26,15 @@ namespace Content.Scripts.CraftsSystem
             Raft,
             Item
         }
+        
+        public enum ECraftTable{
+            CraftingTable,
+            Forge
+        }
 
         [SerializeField] private string craftName;
         [SerializeField] private ECraftType type;
+        [SerializeField, ShowIf("@type == ECraftType.Item")] private ECraftTable table;
         [SerializeField, ReadOnly] private string uid;
         [SerializeField] private TooltipDataObject tooltip;
         [SerializeField, PreviewField] private Sprite icon;

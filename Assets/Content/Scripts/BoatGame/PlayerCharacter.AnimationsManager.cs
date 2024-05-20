@@ -194,6 +194,11 @@ namespace Content.Scripts.BoatGame
                 animator.SetTrigger(TG_GetDamage);
                 bloodParticles.Play();
             }
+
+            public Animator GetAnimator()
+            {
+                return animator;
+            }
         }
     }
 }

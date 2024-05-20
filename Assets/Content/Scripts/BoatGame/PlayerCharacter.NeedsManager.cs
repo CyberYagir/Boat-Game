@@ -15,8 +15,8 @@ namespace Content.Scripts.BoatGame
         public class NeedsManager
         {
             
-            public const int minimalScores = 40;
-            public const int regenScores = 40;
+            public const int MINIMAL_SCORES = 40;
+            public const int REGEN_SCORES = 40;
             [System.Serializable]
             public class PopUp
             {
@@ -66,15 +66,15 @@ namespace Content.Scripts.BoatGame
 
                 public Sprite GetSprite(float thirsty, float hunger)
                 {
-                    if (hunger < minimalScores && thirsty < minimalScores || (hunger <= 0 || thirsty <= 0))
+                    if (hunger < MINIMAL_SCORES && thirsty < MINIMAL_SCORES || (hunger <= 0 || thirsty <= 0))
                     {
                         return skull;
                     }
-                    if (hunger < minimalScores)
+                    if (hunger < MINIMAL_SCORES)
                     {
                         return eat;
                     }
-                    if (thirsty < minimalScores)
+                    if (thirsty < MINIMAL_SCORES)
                     {
                         return water;
                     }
@@ -151,13 +151,13 @@ namespace Content.Scripts.BoatGame
                 hunger -= (delta * currentModifiers.Hunger * vitalityModify);
                 thirsty -= (delta * currentModifiers.Thirsty * vitalityModify);
 
-                popUp.ShowNeedPopup(Hunger < minimalScores || Thirsty < minimalScores, Thirsty, Hunger);
+                popUp.ShowNeedPopup(Hunger < MINIMAL_SCORES || Thirsty < MINIMAL_SCORES, Thirsty, Hunger);
             }
 
             private void CalculateHealth(float delta, float vitalityModify)
             {
                 
-                if (Thirsty > regenScores && Hunger > regenScores)
+                if (Thirsty > REGEN_SCORES && Hunger > REGEN_SCORES)
                 {
                     health += delta * (1 + (1f - vitalityModify));
                 }
