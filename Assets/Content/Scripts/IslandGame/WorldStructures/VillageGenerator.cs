@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Global;
+using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 using Random = System.Random;
 
 namespace Content.Scripts.IslandGame.WorldStructures
 {
-    public class StructureGenerator : MonoBehaviour
+    public class VillageGenerator : MonoBehaviour
     {
         [System.Serializable]
         public class SubStructures
@@ -33,19 +36,31 @@ namespace Content.Scripts.IslandGame.WorldStructures
         [SerializeField] private RoadsGenerator roadsGenerator;
         [SerializeField] private List<SubStructures> structures = new List<SubStructures>();
         [SerializeField] private List<SubStructures> startStructure;
+        [SerializeField] private VillagePopulation population;
+        [SerializeField, ReadOnly] private string uid;
+        
         private TerrainBiomeSO biome;
         private Random rnd;
         private PrefabSpawnerFabric spawnerFabric;
+        private List<StructureDataBase> structuresData = new List<StructureDataBase>(10);
+        private SaveDataObject saveDataObject;
+        private GameDataObject gameDataObject;
 
         public List<RoadBuilder> HousePoints => roadsGenerator.Ends;
 
+        public string Uid => uid;
 
-        public void Init(TerrainBiomeSO biome, Random rnd, int seed, PrefabSpawnerFabric spawnerFabric)
+
+        public void Init(TerrainBiomeSO biome, Random rnd, int seed, PrefabSpawnerFabric spawnerFabric, SaveDataObject saveDataObject, GameDataObject gameDataObject)
         {
+            this.gameDataObject = gameDataObject;
+            this.saveDataObject = saveDataObject;
             this.spawnerFabric = spawnerFabric;
             this.rnd = rnd;
             this.biome = biome;
             roadsGenerator.SpawnRoad(seed);
+
+            uid = Extensions.GenerateSeededGuid(rnd).ToString();
         }
 
         public void SpawnHouses()
@@ -56,6 +71,11 @@ namespace Content.Scripts.IslandGame.WorldStructures
             }
 
             SpawnStructure(biome, rnd, spawnerFabric, transform, startStructure);
+
+            if (population)
+            {
+                population.Init(structuresData, rnd, saveDataObject, gameDataObject.NativesListData, spawnerFabric, uid, GetBounds());
+            }
         }
 
         private void SpawnStructure(TerrainBiomeSO biome, Random rnd, PrefabSpawnerFabric spawnerFabric, Transform roadBuilder, List<SubStructures> list)
@@ -83,6 +103,12 @@ namespace Content.Scripts.IslandGame.WorldStructures
             var spawned = Instantiate(structure.Structure, spawnPos, roadBuilder.transform.rotation, transform);
             spawnerFabric.InjectComponent(spawned.GetComponent<ActionsHolder>());
             spawned.Init(rnd, biome);
+
+            var data = spawned.GetComponent<StructureDataBase>();
+            if (data)
+            {
+                structuresData.Add(data);
+            }
         }
 
         public Bounds GetBounds()

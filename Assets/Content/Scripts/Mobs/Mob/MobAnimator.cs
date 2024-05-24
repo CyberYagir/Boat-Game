@@ -43,6 +43,7 @@ namespace Content.Scripts.Mobs.Mob
 
         public void StopMove()
         {
+            
             StopTweener();
             tweener = DOVirtual.Float(moving, 0, animationTransitionTime, OnChangeMovingValue);
         }
@@ -58,6 +59,7 @@ namespace Content.Scripts.Mobs.Mob
         private void OnChangeMovingValue(float value)
         {
             animator.SetFloat(Moving, value);
+            moving = value;
         }
 
         public void TriggerDeath()

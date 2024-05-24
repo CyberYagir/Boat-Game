@@ -31,7 +31,9 @@ namespace Content.Scripts.IslandGame
                 spawnerFabricService,
                 islandGenerator.TargetTerrain,
                 islandGenerator,
-                islandGenerator.TargetIslandData);
+                islandGenerator.TargetIslandData,
+                islandGenerator.SaveData,
+                islandGenerator.GameData);
 
             if (islandNativesData.Data.IsSpawned)
             {

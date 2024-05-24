@@ -9879,7 +9879,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6284458569680925439}
   - component: {fileID: 2981258762978825706}
-  m_Layer: 0
+  - component: {fileID: 1823699762822781755}
+  m_Layer: 14
   m_Name: Big Campfire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9923,6 +9924,25 @@ MonoBehaviour:
   - {fileID: 858508464262101870}
   - {fileID: 8936568585069788553}
   - {fileID: 6480315685609804061}
+  OnAfterInitBiome:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1823699762822781755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2877610425397739939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4163238bfa493fa343d939dd5fd613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  habitable: 1
+  maxPeoples: 4
+  seed: 0
+  girlChange: 0.75
 --- !u!1 &3343921618117394664
 GameObject:
   m_ObjectHideFlags: 0

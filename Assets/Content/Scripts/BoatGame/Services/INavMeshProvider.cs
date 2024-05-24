@@ -1,9 +1,11 @@
-﻿using Pathfinding;
+﻿using System;
+using Pathfinding;
 
 namespace Content.Scripts.BoatGame.Services
 {
     public interface INavMeshProvider
     {
+        public event Action OnNavMeshBuild;
         public void BuildNavMesh();
         public void BuildNavMeshAsync();
 

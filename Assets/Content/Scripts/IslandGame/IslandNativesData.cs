@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Global;
 using Content.Scripts.IslandGame.WorldStructures;
 using Content.Scripts.Map;
 using UnityEngine;
@@ -33,11 +34,11 @@ namespace Content.Scripts.IslandGame
         public class Villages
         {
             [SerializeField] private TerrainBiomeSO[] biomes;
-            [SerializeField] private List<StructureGenerator> structures;
+            [SerializeField] private List<VillageGenerator> structures;
             [SerializeField] private List<TerrainLayer> terrainLayers;
 
             public List<TerrainLayer> TerrainLayers => terrainLayers;
-            public List<StructureGenerator> Structures => structures;
+            public List<VillageGenerator> Structures => structures;
 
             public TerrainBiomeSO[] Biomes => biomes;
         }
@@ -48,6 +49,8 @@ namespace Content.Scripts.IslandGame
 
         private VillageData villageData;
         private IslandData targetTerrain;
+        private SaveDataObject saveData;
+        private GameDataObject gameDataObject;
 
         public VillageData Data => villageData;
 
@@ -58,8 +61,11 @@ namespace Content.Scripts.IslandGame
             PrefabSpawnerFabric spawner,
             IslandData targetTerrain,
             IslandGenerator islandGenerator, 
-            MapIsland.IslandData islandData)
+            MapIsland.IslandData islandData,
+            SaveDataObject saveDataObject,
+            GameDataObject gameDataObject)
         {
+            saveData = saveDataObject;
             this.islandGenerator = islandGenerator;
             this.targetTerrain = targetTerrain;
 
@@ -67,11 +73,11 @@ namespace Content.Scripts.IslandGame
 
             if (rnd.NextDouble() < targetChance)
             {
-                SpawnVillage(biome, rnd, seed, spawner);
+                SpawnVillage(biome, rnd, seed, spawner, gameDataObject);
             }
         }
 
-        private void SpawnVillage(TerrainBiomeSO biome, Random rnd, int seed, PrefabSpawnerFabric spawner)
+        private void SpawnVillage(TerrainBiomeSO biome, Random rnd, int seed, PrefabSpawnerFabric spawner, GameDataObject gameData)
         {
             var holder = structures.Find(x => x.Biomes.Contains(biome));
             
@@ -80,7 +86,7 @@ namespace Content.Scripts.IslandGame
             
             var village = Object.Instantiate(holder.Structures.GetRandomItem(rnd));
             village.transform.SetYPosition(0);
-            village.Init(biome, rnd, seed, spawner);
+            village.Init(biome, rnd, seed, spawner, saveData, gameData);
             var startSize = new Vector3(targetTerrain.Terrain.terrainData.size.x, 0, targetTerrain.Terrain.terrainData.size.z);
 
             villageData = new VillageData(false, new Bounds());
@@ -139,6 +145,7 @@ namespace Content.Scripts.IslandGame
                     
                     if (isAllOk)
                     {
+                        saveData.GetTargetIsland().AddVillage(village.Uid);
                         village.SpawnHouses();
                         villageData = new VillageData(true, village.GetBounds());
                         return;

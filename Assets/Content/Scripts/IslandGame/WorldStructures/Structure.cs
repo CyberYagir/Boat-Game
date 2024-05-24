@@ -9,7 +9,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
     public class Structure : MonoBehaviour
     {
         
-        [SerializeField] private List<StructureGenerator.SubStructures> structures = new List<StructureGenerator.SubStructures>();
+        [SerializeField] private List<VillageGenerator.SubStructures> structures = new List<VillageGenerator.SubStructures>();
         [SerializeField] private List<GameObject> randomVisuals;
 
         [SerializeField] private UnityEvent<TerrainBiomeSO> OnAfterInitBiome;

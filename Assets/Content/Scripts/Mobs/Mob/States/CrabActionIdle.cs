@@ -4,7 +4,7 @@ using DG.DemiLib;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Content.Scripts.Mobs.Mob.Stats
+namespace Content.Scripts.Mobs.Mob.States
 {
     public class CrabActionIdle : StateAction<SpawnedMob>
     {

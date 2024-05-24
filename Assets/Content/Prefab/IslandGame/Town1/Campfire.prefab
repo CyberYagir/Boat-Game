@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1561766145772907018}
   - component: {fileID: 7396589637012324721}
   - component: {fileID: 3245452227155641474}
-  m_Layer: 0
+  - component: {fileID: -8997342209785859796}
+  m_Layer: 14
   m_Name: Campfire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,6 +76,25 @@ MonoBehaviour:
   randomVisuals:
   - {fileID: 5799140410001666498}
   - {fileID: 4729915853317230298}
+  OnAfterInitBiome:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-8997342209785859796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6154392158127456889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4163238bfa493fa343d939dd5fd613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  habitable: 1
+  maxPeoples: 2
+  seed: 0
+  girlChange: 0.75
 --- !u!1 &7057078800321467171
 GameObject:
   m_ObjectHideFlags: 0

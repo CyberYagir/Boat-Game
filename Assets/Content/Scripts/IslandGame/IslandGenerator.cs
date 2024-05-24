@@ -70,6 +70,8 @@ namespace Content.Scripts.IslandGame
         public List<TreeInstance> TreesInstances => treesInstances;
 
         public List<TerrainObject> SpawnedTerrainObjects => spawnedTerrainObjects;
+        public SaveDataObject SaveData => saveDataObject;
+        public GameDataObject GameData => gameDataObject;
 
 
         [Inject]

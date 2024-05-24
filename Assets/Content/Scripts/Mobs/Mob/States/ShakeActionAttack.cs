@@ -1,10 +1,9 @@
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Mobs.MobSnake;
-using DG.Tweening;
 using UnityEngine;
 
-namespace Content.Scripts.Mobs.Mob.Stats
+namespace Content.Scripts.Mobs.Mob.States
 {
     public class ShakeActionAttack : StateAction<SpawnedMob>
     {

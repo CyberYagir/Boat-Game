@@ -116,11 +116,6 @@ namespace Content.Scripts.BoatGame.Characters
         {
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(Destination, 0.2f);
-            if (TryBuildPath(targetPoint, out Vector3 newPoint))
-            {
-                Gizmos.color = Color.blue;
-                Gizmos.DrawSphere(newPoint + Vector3.up * 0.4f, 0.2f);
-            }   
             
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(TargetPoint + Vector3.up * 0.2f, 0.2f);

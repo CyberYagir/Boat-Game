@@ -1,8 +1,7 @@
 using Content.Scripts.BoatGame.Characters;
-using Content.Scripts.Mobs.MobCrab;
 using UnityEngine;
 
-namespace Content.Scripts.Mobs.Mob.Stats
+namespace Content.Scripts.Mobs.Mob.States
 {
     public class CrabActionPointMove : StateAction<SpawnedMob>
     {

@@ -70,15 +70,19 @@ namespace Content.Scripts.Mobs.Mob
             Animations.TriggerDeath();
             collider.enabled = false;
 
+            
             DOVirtual.DelayedCall(2f, delegate
             {
-                var item = MobDropTable.GetItem();
-                spawner.SpawnItem(item);
-                spawner.RespawnByCooldown();
-                gameObject.SetActive(false);
-                deadPoofParticles.transform.parent = null;
-                deadPoofParticles.Play(true);
-                Destroy(deadPoofParticles.gameObject, 2f);
+                if (spawner)
+                {
+                    var item = MobDropTable.GetItem();
+                    spawner.SpawnItem(item);
+                    spawner.RespawnByCooldown();
+                    gameObject.SetActive(false);
+                    deadPoofParticles.transform.parent = null;
+                    deadPoofParticles.Play(true);
+                    Destroy(deadPoofParticles.gameObject, 2f);
+                }
             }).onComplete += delegate
             {
                 Destroy(gameObject, 2f);

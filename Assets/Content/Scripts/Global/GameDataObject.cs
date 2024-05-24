@@ -5,6 +5,7 @@ using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Scriptable;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
+using Content.Scripts.IslandGame.Natives;
 using Content.Scripts.IslandGame.WorldStructures;
 using Content.Scripts.ItemsSystem;
 using Content.Scripts.Map;
@@ -28,12 +29,14 @@ namespace Content.Scripts.Global
 
             ActionsData.Init();
             RaftsPriorityData.Init();
+            NativesListData.Init();
         }
 
 
         [SerializeField] private ActionsDataSO actionsData;
         [SerializeField] private ConfigDataObject configData;
         [SerializeField] private RaftsPriorityObject raftsPriorityData;
+        [SerializeField] private NativesListSO nativesListData;
         
         [SerializeField] private List<string> namesList;
         [SerializeField] private List<SkillObject> skillsList;
@@ -69,6 +72,8 @@ namespace Content.Scripts.Global
         public List<ItemObject> Items => items;
 
         public RaftsPriorityObject RaftsPriorityData => raftsPriorityData;
+
+        public NativesListSO NativesListData => nativesListData;
 
 
         public ItemObject GetItem(string id)

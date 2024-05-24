@@ -94,7 +94,8 @@ GameObject:
   - component: {fileID: 7137615098904846498}
   - component: {fileID: 6008145698205317502}
   - component: {fileID: -7363437034877036161}
-  m_Layer: 0
+  - component: {fileID: 6459190816114179623}
+  m_Layer: 14
   m_Name: LeatherBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,6 +171,25 @@ MonoBehaviour:
   - {fileID: 189051065288956982}
   - {fileID: 6061070403576697303}
   - {fileID: 2385730186851073985}
+  OnAfterInitBiome:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6459190816114179623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765338799425318096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4163238bfa493fa343d939dd5fd613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  habitable: 1
+  maxPeoples: 2
+  seed: 0
+  girlChange: 0.65
 --- !u!1 &919858033797760484
 GameObject:
   m_ObjectHideFlags: 0

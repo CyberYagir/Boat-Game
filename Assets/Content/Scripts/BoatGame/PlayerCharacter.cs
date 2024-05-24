@@ -25,7 +25,8 @@ namespace Content.Scripts.BoatGame
         [SerializeField] private ActionsHolder actionsHolder;
 
         [SerializeField] private bool onlyVisuals;
-        
+
+        private CharacterGrounder characterGrounder = new CharacterGrounder();
         private SelectionService selectionService;
         private TickService tickService;
         private RaftBuildService raftBuildService;
@@ -76,6 +77,7 @@ namespace Content.Scripts.BoatGame
 
             if (onlyVisuals) return;
 
+            characterGrounder.Init(transform);
             aiManager.Init(raftBuildService, navMeshProvider);
             animationsManager.Init(weatherService, appearanceManager);
             needsManager.Init(character, weatherService, this.selectionService);
@@ -182,26 +184,7 @@ namespace Content.Scripts.BoatGame
             aiManager.ExtraRotation();
             needsManager.Update();
 
-            PlaceUnitOnGround();
-        }
-
-        private void PlaceUnitOnGround()
-        {
-            var playerPos = transform.position;
-            if (playerPos.y < 0)
-            {
-                playerPos.y = 0;
-            }
-
-            if (Physics.Raycast(playerPos + Vector3.up * 2f, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Default", "Raft", "Terrain"), QueryTriggerInteraction.Ignore))
-            {
-                if (hit.point.y >= 0)
-                {
-                    var pos = transform.position;
-                    pos.y = hit.point.y;
-                    transform.position = pos;
-                }
-            }
+            characterGrounder.PlaceUnitOnGround();
         }
 
         public void Select(bool state)

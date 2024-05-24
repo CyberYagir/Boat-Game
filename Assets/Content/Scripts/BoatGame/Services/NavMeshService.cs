@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Pathfinding;
@@ -6,8 +7,10 @@ namespace Content.Scripts.BoatGame.Services
 {
     public class NavMeshService : MonoBehaviour, INavMeshProvider
     {
-        
+
         [SerializeField] private AstarPath navMesh;
+
+        public event Action OnNavMeshBuild;
 
         public void BuildNavMesh()
         {
@@ -38,6 +41,8 @@ namespace Content.Scripts.BoatGame.Services
         {
             yield return null;
             navMesh.Scan();
+            yield return null;
+            OnNavMeshBuild?.Invoke();
         }
 
         private bool isInProgress = false;
@@ -52,7 +57,10 @@ namespace Content.Scripts.BoatGame.Services
                 {
                     yield return null;
                 }
+
                 isInProgress = false;
+                yield return null;
+                OnNavMeshBuild?.Invoke();
             }
         }
 
@@ -66,7 +74,10 @@ namespace Content.Scripts.BoatGame.Services
                 {
                     yield return null;
                 }
+
                 isInProgress = false;
+                yield return null;
+                OnNavMeshBuild?.Invoke();
             }
         }
     }

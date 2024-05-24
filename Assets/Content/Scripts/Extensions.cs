@@ -665,6 +665,12 @@ namespace Content.Scripts
             Array A = Enum.GetValues(typeof(T));
             return (T)A.GetValue(Random.Range(0, A.Length));
         }
+        
+        public static T GetRandomEnum<T>(System.Random rnd)
+        {
+            Array A = Enum.GetValues(typeof(T));
+            return (T)A.GetValue(rnd.Next(0, A.Length));
+        }
 		
         public static T GetRandomEnumExceptFirst<T>()
         {
@@ -749,7 +755,17 @@ namespace Content.Scripts
             rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, value);
         }
         #endregion
+        
+        public static Guid GenerateSeededGuid(System.Random rnd)
+        {
+            var guid = new byte[16];
+            rnd.NextBytes(guid);
+            return new Guid(guid);
+        }
 
-
+        public static Vector3 GetRandomPoint(this Bounds bounds)
+        {
+            return new Vector3(Random.Range(bounds.min.x, bounds.max.x), Random.Range(bounds.min.y, bounds.max.y), Random.Range(bounds.min.z, bounds.max.z));
+        }
     }
 }

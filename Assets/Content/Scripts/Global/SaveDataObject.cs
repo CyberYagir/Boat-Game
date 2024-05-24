@@ -275,11 +275,49 @@ namespace Content.Scripts.Global
                     public string DropID => dropID;
                 }
 
+                [Serializable]
+                public class VillageData
+                {
+                    [Serializable]
+                    public class VillagerData
+                    {
+                        [SerializeField] private string uid;
+                        [SerializeField] private bool isDead;
+
+                        public VillagerData(string uid)
+                        {
+                            this.uid = uid;
+                        }
+
+                        public bool IsDead => isDead;
+
+                        public string Uid => uid;
+                    }
+
+                    [SerializeField] private string uid;
+                    [SerializeField] private List<VillagerData> villagers = new List<VillagerData>();
+
+                    public string Uid => uid;
+                    
+
+                    public VillageData(string villageUid)
+                    {
+                        uid = villageUid;
+                    }
+
+
+                    public void AddVillager(string uid) => villagers.Add(new VillagerData(uid));
+
+                    public VillagerData GetVillager(string uid) => villagers.Find(x => x.Uid == uid);
+
+                }
+                
                 [SerializeField] private Vector2Int islandPos;
                 [SerializeField] private int islandSeed;
                 [SerializeField] private List<Vector2Int> removedTrees = new List<Vector2Int>();
                 [SerializeField] private List<DroppedItemData> droppedItems = new List<DroppedItemData>();
-
+                [SerializeField] private List<VillageData> villagesData = new List<VillageData>();
+                
                 public IslandData(Vector2Int islandPos, int islandSeed)
                 {
                     this.islandPos = islandPos;
@@ -291,6 +329,8 @@ namespace Content.Scripts.Global
                 public Vector2Int IslandPos => islandPos;
 
                 public List<DroppedItemData> DroppedItems => droppedItems;
+
+                public List<VillageData> VillagesData => villagesData;
 
 
                 public void AddDestroyedTreePos(Vector2Int pos)
@@ -316,6 +356,20 @@ namespace Content.Scripts.Global
                 {
                     droppedItems.RemoveAll(x=>x.DropID == droppedItem.DropID);
                 }
+
+                public VillageData AddVillage(string villageUid)
+                {
+                    var village = VillagesData.Find(x => x.Uid == villageUid);
+                    if (village == null)
+                    {
+                        village = new VillageData(villageUid);
+                        VillagesData.Add(village);
+                    }
+
+                    return village;
+                }
+
+                public VillageData GetVillage(string uid) => villagesData.Find(x => x.Uid == uid);
             }
 
             [SerializeField] private int worldSeed = 0;
