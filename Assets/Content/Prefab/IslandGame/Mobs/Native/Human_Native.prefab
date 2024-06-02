@@ -1151,10 +1151,14 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 4db6461ca9751294d883c5f922849171, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: aad2bc29d2193d84181ec7e2c25978ea, type: 2}
+      objectReference: {fileID: 9100000, guid: 202a36ee27bb5fb40aafc3d49e65dc63, type: 2}
     - target: {fileID: 5866666021909216657, guid: 4db6461ca9751294d883c5f922849171, type: 3}
       propertyPath: m_WarningMessage
-      value: 
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Armature'\n\tTransform 'Armature'\n\tTransform
+        'Armature'\n\tFrom animation clip 'Armature|CrabDamaged'\n\tFrom animation
+        clip 'Armature|CrabIdle'\n\tFrom animation clip 'Armature|CrabMove'"
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 4db6461ca9751294d883c5f922849171, type: 3}
       propertyPath: m_ApplyRootMotion

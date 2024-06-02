@@ -69,6 +69,10 @@ namespace Content.Scripts.Mobs.Natives
                 if (isMove)
                 {
                     Machine.Animations.StopMove();
+                    if (subState == EIdleSubState.GoToSeat)
+                    {
+                        Controller.Animations.TriggerSit();
+                    }
                     isMove = false;
                 }
 
@@ -76,9 +80,16 @@ namespace Content.Scripts.Mobs.Natives
 
                 if (timer <= 0)
                 {
-                    StartState();
+                    EndState();
                 }
             }
+        }
+
+        public override void EndState()
+        {
+            base.EndState();
+            Machine.Animations.StopMove();
+            Machine.Animations.ResetTriggers();
         }
     }
 }
