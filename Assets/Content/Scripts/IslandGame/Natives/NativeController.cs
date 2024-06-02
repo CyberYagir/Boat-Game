@@ -5,6 +5,7 @@ using Content.Scripts.BoatGame.Services;
 using Content.Scripts.IslandGame.Mobs;
 using Content.Scripts.IslandGame.WorldStructures;
 using Content.Scripts.Mobs.Mob;
+using Content.Scripts.Mobs.MobCrab;
 using Pathfinding;
 using UnityEngine;
 using Zenject;
@@ -33,6 +34,7 @@ namespace Content.Scripts.IslandGame.Natives
 
             public void Init(Transform transform, INavMeshProvider navMeshProvider)
             {
+                navMesh = navMeshProvider;
                 this.transform = transform;
                 agent = transform.GetComponent<INavAgentProvider>();
             }
@@ -42,7 +44,10 @@ namespace Content.Scripts.IslandGame.Natives
                 this.bounds = bounds;
             }
 
-            public Vector3 WalkToAnyPoint() => bounds.GetRandomPoint();
+            public Vector3 WalkToAnyPoint()
+            {
+                return bounds.GetRandomPoint();
+            }
 
             public bool IsAvailablePoint(Vector3 pos)
             {
@@ -76,29 +81,28 @@ namespace Content.Scripts.IslandGame.Natives
             
             IEnumerator FrameSkip()
             {
-                yield return null;
-                GetComponent<AIPath>().enabled = true;
-                var point = AIManager.WalkToAnyPoint();
-                if (AIManager.NavMeshAgent.TryBuildPath(point, out Vector3 newPos))
+                while (!navMeshProvider.GetNavMeshByID(0).isScanned) // wait for async scan if this in process
                 {
-                    transform.position = newPos;
+                    yield return null;
                 }
+                GetComponent<AIPath>().enabled = true;
+                StateMachine.StartAction(EMobsState.Idle);
             }
         }
-
+        
+        
+        
         public override void Init(BotSpawner botSpawner)
         {
             characterGrounder.Init(transform);
             navigationManager.Init(transform, navMeshProvider);
             villageData = GetComponentInParent<VillageDataCollector>();
+            
+            navigationManager.SetBounds(villageData.Bounds());
             base.Init(botSpawner);
             
         }
-
-        public void SetVillageBounds(Bounds bounds)
-        {
-            navigationManager.SetBounds(bounds);
-        }
+        
 
         public void OnUpdate()
         {

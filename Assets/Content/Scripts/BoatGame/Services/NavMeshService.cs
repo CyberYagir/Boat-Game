@@ -39,10 +39,8 @@ namespace Content.Scripts.BoatGame.Services
 
         public bool IsAvailablePoint(Vector3 pos)
         {
-            var graph = AstarPath.active.data.gridGraph as GridGraph;
-            // bool isInside = graph.gra (some position);
-
-            return true;
+            var graph = navMesh.data.gridGraph;
+            return graph.IsInsideBounds(pos);
         }
 
         IEnumerator RebuildSkipFrame()

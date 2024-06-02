@@ -9,14 +9,13 @@ namespace Content.Scripts.IslandGame.WorldStructures
     {
         [SerializeField, ReadOnly] private List<StructureDataBase> spawnedActiveStructures;
         [SerializeField, ReadOnly] private List<NativesSit> spawnedSits;
-        [SerializeField, ReadOnly] private List<NativeController> spawnedNatives;
+        private Bounds villageBounds;
 
 
-        public void Init(List<StructureDataBase> spawnedActiveStructures, List<NativeController> spawnedNatives)
+        public void Init(List<StructureDataBase> spawnedActiveStructures, Bounds villageBounds)
         {
+            this.villageBounds = villageBounds;
             this.spawnedActiveStructures = spawnedActiveStructures;
-            this.spawnedNatives = spawnedNatives;
-
             foreach (var item in spawnedActiveStructures)
             {
                 spawnedSits.AddRange(item.NativeSits);
@@ -25,7 +24,18 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
         public NativesSit GetRandomAvailableSit()
         {
-            return spawnedSits.FindAll(x => x.IsNotEmpty).GetRandomItem();
+            if (spawnedSits.Count != 0)
+            {
+                var empty = spawnedSits.FindAll(x => !x.IsNotEmpty);
+                if (empty.Count != 0)
+                {
+                    return empty.GetRandomItem();
+                }
+            }
+
+            return null;
         }
+
+        public Bounds Bounds() => villageBounds;
     }
 }

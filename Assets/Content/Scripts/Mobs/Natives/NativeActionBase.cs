@@ -17,6 +17,7 @@ namespace Content.Scripts.Mobs.Natives
         {
             base.StartState();
             nativeController = Machine as NativeController;
+            nativeController.AIManager.NavMeshAgent.SetStopped(false);
         }
 
         protected bool MoveToPoint(Vector3 point)

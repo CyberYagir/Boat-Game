@@ -74,15 +74,14 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
             if (population)
             {
-                population.Init(structuresData, rnd, saveDataObject, gameDataObject.NativesListData, spawnerFabric, uid, GetBounds());
-                
+                var bounds = GetBounds();
                 if (dataCollector)
                 {
-                    dataCollector.Init(structuresData, population.SpawnedNatives);
+                    dataCollector.Init(structuresData, bounds);
                 }
-            }
 
-           
+                population.Init(structuresData, rnd, saveDataObject, gameDataObject.NativesListData, spawnerFabric, uid, bounds);
+            }
         }
 
         private void SpawnStructure(TerrainBiomeSO biome, Random rnd, PrefabSpawnerFabric spawnerFabric, Transform roadBuilder, List<SubStructures> list)

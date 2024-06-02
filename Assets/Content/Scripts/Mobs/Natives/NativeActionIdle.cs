@@ -11,7 +11,7 @@ namespace Content.Scripts.Mobs.Natives
         public enum EIdleSubState
         {
             GoToPoint,
-            GoToSeat,
+            GoToSeat
         }
         private float timer;
         private bool isMove;
@@ -24,8 +24,7 @@ namespace Content.Scripts.Mobs.Natives
         {
             base.StartState();
 
-            subState = EIdleSubState.GoToPoint;
-
+            subState = Extensions.GetRandomEnum<EIdleSubState>();
             Vector3 pos = Vector3.zero;
             switch (subState)
             { 
@@ -33,14 +32,25 @@ namespace Content.Scripts.Mobs.Natives
                     pos = Controller.AIManager.WalkToAnyPoint();
                     break;
                 case EIdleSubState.GoToSeat:
-                    pos = Controller.VillageData.GetRandomAvailableSit().transform.position;
-                    Controller.AIManager.IsAvailablePoint(pos);
+                    var sit = Controller.VillageData.GetRandomAvailableSit();
+                    if (sit)
+                    {
+                        pos = Controller.VillageData.GetRandomAvailableSit().transform.position;
+                        Controller.AIManager.IsAvailablePoint(pos);
+                    }
+                    else
+                    {
+                        pos = Controller.AIManager.WalkToAnyPoint();
+                    }
+
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
 
-            MoveToPoint(pos);
+            if (!MoveToPoint(pos))
+            {
+                EndState();
+                return;
+            }
             
             Machine.Animations.StartMove();
             timer = idleTime.RandomWithin();

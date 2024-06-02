@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
@@ -63,11 +64,11 @@ namespace Content.Scripts.IslandGame.WorldStructures
         {
             var prefab = nativesList.GetByType(type, charRnd);
             var enemy = spawnerFabric.SpawnItemOnGround(prefab, structure.transform.position, default, structure.transform, LayerMask.GetMask("Terrain"), 0);
-            enemy.SetVillageBounds(bounds);
+            
             enemy.Init(null);
             SpawnedNatives.Add(enemy);
         }
-
+        
         private void GenerateVillagersIds(List<StructureDataBase> structuresData, Random rnd)
         {
             for (int i = 0; i < structuresData.Count; i++)
