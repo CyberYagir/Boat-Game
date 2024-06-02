@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 7608059944942176831}
   - component: {fileID: 5822134694900191741}
   - component: {fileID: 5020286664383241109}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2972693111910738719
 Transform:
   m_ObjectHideFlags: 0
@@ -98,6 +98,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   structures: []
   randomVisuals: []
+  OnAfterInitBiome:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &573880378399554230
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +111,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2923672596545272933}
   - component: {fileID: -3555736148441166704}
-  m_Layer: 0
+  - component: {fileID: -1498604868261142202}
+  m_Layer: 14
   m_Name: Barrel v2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,6 +158,26 @@ MonoBehaviour:
     - structure: {fileID: 5020286664383241109}
       weight: 1
   randomVisuals: []
+  OnAfterInitBiome:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-1498604868261142202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573880378399554230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5bf24b4a084302af9492be0f02d60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 32768
+  keepRotation: 1
+  rotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &5616324370856621440
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +190,7 @@ GameObject:
   - component: {fileID: 4931334944736758073}
   - component: {fileID: 4124064397960607730}
   - component: {fileID: 7220958218527749236}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cylinder.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Shell
+namespace ConsoleShell
 {
     public class ConsoleHintItem : MonoBehaviour
     {

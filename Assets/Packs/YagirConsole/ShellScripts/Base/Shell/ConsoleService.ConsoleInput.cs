@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Shell
+namespace ConsoleShell
 {
     public partial class ConsoleService
     {
@@ -20,13 +20,15 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             private int selectedHint = -1;
             private TMP_InputField inputField;
             private ESelectionState state;
+            private int maxHintsCount;
 
             public Action<ESelectionState> OnUserAction;
+
             public int SelectedHint => selectedHint;
 
-
-            public void Init(TMP_InputField inputField)
+            public void Init(TMP_InputField inputField, int maxHintsCount)
             {
+                this.maxHintsCount = maxHintsCount;
                 this.inputField = inputField;
             }
 
@@ -67,6 +69,10 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                 {
                     selectedHint++;
                     state = ESelectionState.Down;
+                    if (selectedHint >= maxHintsCount)
+                    {
+                        selectedHint = 0;
+                    }
                 }
 
 

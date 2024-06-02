@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Shell
+namespace ConsoleShell
 {
     public partial class ConsoleService
     {
@@ -18,11 +18,10 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             
             private ConsoleInput consoleInput;
             private HintsSolver hintsSolver;
-            private ConsoleVisuals consoleVisuals;
+            public int HintsCount => hintsList.Count;
 
             public void Init(HintsSolver hintsSolver, ConsoleInput consoleInput, ConsoleVisuals consoleVisuals)
             {
-                this.consoleVisuals = consoleVisuals;
                 this.hintsSolver = hintsSolver;
                 this.consoleInput = consoleInput;
 

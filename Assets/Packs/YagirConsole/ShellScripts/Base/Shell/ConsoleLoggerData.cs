@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Shell
+namespace ConsoleShell
 {
     [CreateAssetMenu(menuName = "Scriptable/ConsoleLogger", fileName = "ConsoleLogger", order = 0)]
     public class ConsoleLoggerData : ScriptableObject
@@ -29,12 +29,14 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
 
         public float MaxLogNameLength => maxLogNameLength;
 
+        public List<LogColors> Colors => colors;
+
 
         private void OnValidate()
         {
-            for (int i = 0; i < colors.Count; i++)
+            for (int i = 0; i < Colors.Count; i++)
             {
-                colors[i].Init();
+                Colors[i].Init();
             }
             maxLogNameLength = Enum.GetNames(typeof(ELogType)).Max(x => x.Length);
         }
@@ -42,7 +44,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
 
         public string GetHex(ELogType type)
         {
-            return colors.Find(x => x.Type == type).ColorHex;
+            return Colors.Find(x => x.Type == type).ColorHex;
         }
     } 
 }

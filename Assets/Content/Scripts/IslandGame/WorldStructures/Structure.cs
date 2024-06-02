@@ -13,6 +13,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
         [SerializeField] private List<GameObject> randomVisuals;
 
         [SerializeField] private UnityEvent<TerrainBiomeSO> OnAfterInitBiome;
+        private float spawnRandomItemChance = 0.75f;
 
         public void Init(Random rnd, TerrainBiomeSO biome)
         {
@@ -43,15 +44,13 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
             if (randomVisuals.Count != 0)
             {
-                var count = rnd.Next(0, randomVisuals.Count - 1);
-
-                for (int i = 0; i < count; i++)
+                for (int i = 0; i < randomVisuals.Count; i++)
                 {
-                    randomItem = rnd.Next(0, randomVisuals.Count - 1);
-                    if (randomItem > -1)
+                    if (rnd.NextDouble() <= spawnRandomItemChance)
                     {
-                        randomVisuals[randomItem].gameObject.SetActive(true);
-                        randomVisuals.RemoveAt(randomItem);
+                        // randomItem = randomVisuals.GetRandomIndex(rnd);
+                        randomVisuals[i].gameObject.SetActive(true);
+                        // randomVisuals.RemoveAt(randomItem);
                     }
                 }
             }

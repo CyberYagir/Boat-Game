@@ -15,6 +15,9 @@ namespace Content.Scripts.IslandGame.WorldStructures
         private Dictionary<StructureDataBase, List<int>> unitsSeeds = new Dictionary<StructureDataBase, List<int>>(20);
         private List<int> tmpSeeds = new List<int>(10);
         private List<NativeController> spawnedNatives = new List<NativeController>();
+
+        public List<NativeController> SpawnedNatives => spawnedNatives;
+
         public void Init(
             List<StructureDataBase> structuresData, 
             System.Random rnd, 
@@ -62,7 +65,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
             var enemy = spawnerFabric.SpawnItemOnGround(prefab, structure.transform.position, default, structure.transform, LayerMask.GetMask("Terrain"), 0);
             enemy.SetVillageBounds(bounds);
             enemy.Init(null);
-            spawnedNatives.Add(enemy);
+            SpawnedNatives.Add(enemy);
         }
 
         private void GenerateVillagersIds(List<StructureDataBase> structuresData, Random rnd)
@@ -98,9 +101,9 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
         private void Update()
         {
-            for (int i = 0; i < spawnedNatives.Count; i++)
+            for (int i = 0; i < SpawnedNatives.Count; i++)
             {
-                spawnedNatives[i].OnUpdate();
+                SpawnedNatives[i].OnUpdate();
             }
         }
     }

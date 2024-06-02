@@ -37,6 +37,14 @@ namespace Content.Scripts.BoatGame.Services
             return AstarPath.active.graphs.Length;
         }
 
+        public bool IsAvailablePoint(Vector3 pos)
+        {
+            var graph = AstarPath.active.data.gridGraph as GridGraph;
+            // bool isInside = graph.gra (some position);
+
+            return true;
+        }
+
         IEnumerator RebuildSkipFrame()
         {
             yield return null;

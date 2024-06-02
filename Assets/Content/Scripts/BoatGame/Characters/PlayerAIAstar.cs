@@ -46,7 +46,7 @@ namespace Content.Scripts.BoatGame.Characters
         {
             var destWithoutY = new Vector3(Destination.x, 0, Destination.z);
             var trnsWithoutY = new Vector3(Transform.position.x, 0, Transform.position.z);
-            return aiPath.remainingDistance <= StoppingDistance && destWithoutY.ToDistance(trnsWithoutY) <= StoppingDistance;
+            return aiPath.remainingDistance <= StoppingDistance + 0.1f && destWithoutY.ToDistance(trnsWithoutY) <= StoppingDistance + 0.1f;
         }
 
         public void ExtraRotation()

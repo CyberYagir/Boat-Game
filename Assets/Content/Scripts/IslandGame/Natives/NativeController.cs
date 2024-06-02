@@ -5,6 +5,7 @@ using Content.Scripts.BoatGame.Services;
 using Content.Scripts.IslandGame.Mobs;
 using Content.Scripts.IslandGame.WorldStructures;
 using Content.Scripts.Mobs.Mob;
+using Pathfinding;
 using UnityEngine;
 using Zenject;
 
@@ -24,12 +25,13 @@ namespace Content.Scripts.IslandGame.Natives
         public class NavigationManager
         {
             private INavAgentProvider agent;
+            private INavMeshProvider navMesh;
             private Transform transform;
             private Bounds bounds;
 
             public INavAgentProvider NavMeshAgent => agent;
 
-            public void Init(Transform transform)
+            public void Init(Transform transform, INavMeshProvider navMeshProvider)
             {
                 this.transform = transform;
                 agent = transform.GetComponent<INavAgentProvider>();
@@ -41,8 +43,14 @@ namespace Content.Scripts.IslandGame.Natives
             }
 
             public Vector3 WalkToAnyPoint() => bounds.GetRandomPoint();
+
+            public bool IsAvailablePoint(Vector3 pos)
+            {
+                return navMesh.IsAvailablePoint(pos);
+            }
         }
 
+        private VillageDataCollector villageData;
         private NavigationManager navigationManager = new NavigationManager();
         private CharacterGrounder characterGrounder = new CharacterGrounder();
         [SerializeField] private ENativeType type;
@@ -52,28 +60,27 @@ namespace Content.Scripts.IslandGame.Natives
 
         public NavigationManager AIManager => navigationManager;
 
+        public VillageDataCollector VillageData => villageData;
+
         [Inject]
         private void Construct(INavMeshProvider navMeshProvider)
         {
             this.navMeshProvider = navMeshProvider;
             navMeshProvider.OnNavMeshBuild += OnNavMeshBuilded;
-            print("Construct");
         }
 
         private void OnNavMeshBuilded()
         {
-            print("Event");
             navMeshProvider.OnNavMeshBuild -= OnNavMeshBuilded;
-
             StartCoroutine(FrameSkip());
             
             IEnumerator FrameSkip()
             {
                 yield return null;
+                GetComponent<AIPath>().enabled = true;
                 var point = AIManager.WalkToAnyPoint();
                 if (AIManager.NavMeshAgent.TryBuildPath(point, out Vector3 newPos))
                 {
-                    print("move to point");
                     transform.position = newPos;
                 }
             }
@@ -82,7 +89,8 @@ namespace Content.Scripts.IslandGame.Natives
         public override void Init(BotSpawner botSpawner)
         {
             characterGrounder.Init(transform);
-            navigationManager.Init(transform);
+            navigationManager.Init(transform, navMeshProvider);
+            villageData = GetComponentInParent<VillageDataCollector>();
             base.Init(botSpawner);
             
         }

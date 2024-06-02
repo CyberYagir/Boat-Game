@@ -2,13 +2,15 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Shell
+namespace ConsoleShell
 {
     [System.Serializable]
     public class ConsoleLogger
     {
         private static ConsoleLogger instance;
         public static ConsoleLogger Instance => instance;
+
+        public ConsoleLoggerData LoggerData => loggerData;
 
         [SerializeField] private ConsoleLoggerData loggerData;
 
@@ -22,8 +24,8 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             if (message.Length == 0) return "Empty String";
             if (message.Last() == notFormattingFlag) return message.Replace(notFormattingFlag.ToString(), "");
 
-            var color = Instance.loggerData.GetHex(type);
-            var spaces = Instance.loggerData.MaxLogNameLength - type.ToString().Length;
+            var color = Instance.LoggerData.GetHex(type);
+            var spaces = Instance.LoggerData.MaxLogNameLength - type.ToString().Length;
             var str = $"<color={color}>[{type.ToString()}]";
             for (int i = 0; i < spaces; i++)
             {

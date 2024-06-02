@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Packs.YagirConsole.ShellScripts.Base.Commands;
 using Packs.YagirConsole.ShellScripts.Base.Shell;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Base.Shell
+namespace ConsoleShell
 {
     public class ConsoleSpawnManagement : ConsoleManagementBase
     {
@@ -51,7 +50,7 @@ namespace Base.Shell
         {
             AddCommand("/createprimitive", new List<Argument>()
                 {
-                    new Argument("type", ArgumentType.String)
+                    new Argument("type", EArgumentType.String)
                 },
                 delegate(ArgumentsShell shell)
                 {

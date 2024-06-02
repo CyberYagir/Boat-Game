@@ -4,7 +4,7 @@ using Packs.YagirConsole.ShellScripts.Base.Shell;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Commands
+namespace ConsoleShell
 {
     public class ConsoleSceneManagement : ConsoleManagementBase
     {
@@ -19,9 +19,9 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
         {
             AddCommand("/sceneload", new List<Argument>()
                 {
-                    new Argument("sceneName", ArgumentType.String),
-                    new Argument("async", ArgumentType.Bool, false),
-                    new Argument("addative", ArgumentType.Bool, false),
+                    new Argument("sceneName", EArgumentType.String),
+                    new Argument("async", EArgumentType.Bool, false),
+                    new Argument("addative", EArgumentType.Bool, false),
                 },
                 delegate(ArgumentsShell shell)
                 {
@@ -46,7 +46,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
         {
             AddCommand("/sceneunload", new List<Argument>()
                 {
-                    new Argument("sceneName", ArgumentType.String)
+                    new Argument("sceneName", EArgumentType.String)
                 },
                 delegate(ArgumentsShell shell)
                 {

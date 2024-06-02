@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Packs.YagirConsole.ShellScripts.Base.Shell;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Commands
+namespace ConsoleShell
 {
     public class ConsoleManagementBase : ICommandExecutable
     {

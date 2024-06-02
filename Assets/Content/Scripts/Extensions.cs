@@ -755,6 +755,11 @@ namespace Content.Scripts
             rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, value);
         }
         #endregion
+
+        public static Quaternion ToRotation(this Vector3 normal, Transform transform)
+        {
+            return Quaternion.FromToRotation(transform.up, normal) * transform.rotation;
+        }
         
         public static Guid GenerateSeededGuid(System.Random rnd)
         {

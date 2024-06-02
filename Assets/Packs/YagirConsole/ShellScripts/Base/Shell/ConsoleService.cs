@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Shell
+namespace ConsoleShell
 {
     public partial class ConsoleService : MonoBehaviour
     {
@@ -18,18 +19,17 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
         [SerializeField] private ConsoleHintsVisuals consoleHintsVisuals;
         [SerializeField] private ConsoleHistory consoleHistory;
         [SerializeField] private ConsoleLogger consoleLogger;
+        [SerializeField] private ConsoleOutput consoleOutput = new ConsoleOutput();
         
-        private ConsoleOutput consoleOutput = new ConsoleOutput();
         private HintsSolver hintsSolver = new HintsSolver();
         private ConsoleInput consoleInput = new ConsoleInput();
-
-    
 
         private bool cursorVisible;
         private CursorLockMode cursorMode;
 
         private bool isOpened;
 
+        public event Action<string> OnShowMessage;
         
         private void Awake()
         {
@@ -51,7 +51,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             consoleVisuals.Input.onSubmit.AddListener(OnSubmit);
             consoleVisuals.Input.onValueChanged.AddListener(OnChangeText);
             
-            consoleInput.Init(consoleVisuals.Input);
+            consoleInput.Init(consoleVisuals.Input, consoleHintsVisuals.HintsCount);
             consoleInput.OnUserAction += consoleHistory.CheckInput;
             consoleInput.OnUserAction += OnUserInput;
             
@@ -59,7 +59,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             consoleHistory.Init(consoleInput);
             consoleHintsVisuals.Init(hintsSolver, consoleInput, consoleVisuals);
             
-            consoleOutput.Init(consoleVisuals.OutputText);
+            consoleOutput.Init();
             
             Application.logMessageReceived -= consoleOutput.OnReceivedUnityMessage;
             Application.logMessageReceived += consoleOutput.OnReceivedUnityMessage;
@@ -80,6 +80,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
 
         private void OnChangeText(string text)
         {
+            text = text.Replace("\n", "");
             if (text.Trim() == string.Empty)
             {
                 consoleHistory.ResetHistory();
@@ -187,22 +188,72 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
         {
             if (Input.GetKeyDown(consoleKey))
             {
-                isOpened = !isOpened;
-                if (isOpened)
-                {
-                    Instance.consoleVisuals.AnimateShow();
-                   
-                    cursorVisible = Cursor.visible;
-                    cursorMode = Cursor.lockState;
+                OpenCloseToggle();
+            }
+        }
 
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-                }
-                else
+        public void OpenCloseToggle()
+        {
+            isOpened = !isOpened;
+            if (isOpened)
+            {
+                Instance.consoleVisuals.AnimateShow();
+
+                cursorVisible = Cursor.visible;
+                cursorMode = Cursor.lockState;
+
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                HideConsole();
+            }
+        }
+
+        public void CopyTextFromItem(TMP_Text text)
+        {
+            var textToCopy = GetTextWithoutFormatting(text.text);
+            GUIUtility.systemCopyBuffer = textToCopy;
+            OnShowMessage?.Invoke("Message copied");
+        }
+
+
+        public void ToggleErrors()
+        {
+            consoleOutput.ToggleLogType(ConsoleOutput.EAcceptedLogTypes.Errors);
+        }
+
+        public void ToggleWarnings()
+        {
+            consoleOutput.ToggleLogType(ConsoleOutput.EAcceptedLogTypes.Warnings);
+        }
+
+        public void ToggleLogs()
+        {
+            consoleOutput.ToggleLogType(ConsoleOutput.EAcceptedLogTypes.Logs);
+        }
+        
+
+        public static string GetTextWithoutFormatting(string text)
+        {
+            var textToCopy = text;
+            if (textToCopy.Length >= 1)
+            {
+                if (textToCopy.Last() == '\n')
                 {
-                    HideConsole();
+                    textToCopy = textToCopy.Substring(0, textToCopy.Length - 1);
                 }
             }
+            
+            foreach (var loggerDataColor in Instance.consoleLogger.LoggerData.Colors)
+            {
+                textToCopy = textToCopy.Replace($"<color={loggerDataColor.ColorHex}>", "");
+            }
+
+            textToCopy = textToCopy.Replace("</color>", "");
+
+            return textToCopy;
         }
 
         public static void HideConsole()
@@ -229,6 +280,15 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
         public static void ClearText()
         {
             Instance.consoleOutput.ClearOutput();
+        }
+
+        public static List<string> GetTextStatic()
+        {
+            for (int i = 0; i < Instance.consoleOutput.AllMessages.Count; i++)
+            {
+                Instance.consoleOutput.AllMessages[i] = GetTextWithoutFormatting(Instance.consoleOutput.AllMessages[i]);
+            }
+            return Instance.consoleOutput.AllMessages; 
         }
     }
 }

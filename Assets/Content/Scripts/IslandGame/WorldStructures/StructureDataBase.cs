@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Content.Scripts.IslandGame.Natives;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,11 +12,22 @@ namespace Content.Scripts.IslandGame.WorldStructures
         [SerializeField] private bool habitable;
         [SerializeField] private int maxPeoples;
         [SerializeField, ReadOnly] private int seed;
+        [SerializeField] private List<NativesSit> nativeSits;
+
         public int MaxPeoples => maxPeoples;
         public bool Habitable => habitable;
 
         public int Seed => seed;
 
+        public List<NativesSit> NativeSits => nativeSits;
+
+#if UNITY_EDITOR
+        
+        private void OnValidate()
+        {
+            nativeSits = GetComponentsInChildren<NativesSit>().ToList();
+        }
+#endif
 
         public void Init(System.Random rnd)
         {

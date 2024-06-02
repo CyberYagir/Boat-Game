@@ -3,7 +3,7 @@ using Content.Scripts.BoatGame.Services;
 using Packs.YagirConsole.ShellScripts.Base.Shell;
 using UnityEngine;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Commands
+namespace ConsoleShell
 {
     public class ConsoleCharactersManagement : ConsoleManagementBase
     {

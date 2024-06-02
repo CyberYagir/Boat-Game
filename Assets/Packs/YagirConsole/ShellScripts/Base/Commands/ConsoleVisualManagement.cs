@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using Packs.YagirConsole.ShellScripts.Base.Commands;
-using Packs.YagirConsole.ShellScripts.Base.Shell;
 using UnityEngine;
 
-namespace Base.Shell.Visual
+namespace ConsoleShell
 {
     public class ConsoleVisualManagement : ConsoleManagementBase
     {

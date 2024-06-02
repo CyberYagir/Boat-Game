@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 188114445543750590}
   - component: {fileID: 8464480685597009468}
   - component: {fileID: 1320768051969588570}
+  - component: {fileID: 5820150359053987666}
   m_Layer: 0
   m_Name: Village v1
   m_TagString: Untagged
@@ -47,6 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadsGenerator: {fileID: 8065085997805193419}
+  population: {fileID: 1320768051969588570}
+  dataCollector: {fileID: 5820150359053987666}
   structures:
   - biome: {fileID: 11400000, guid: d2e198e62bb93e940bd50a61de3f55dc, type: 2}
     structures:
@@ -149,7 +152,6 @@ MonoBehaviour:
       weight: 50
     - structure: {fileID: 3245452227155641474, guid: e5e4f149deacada44ac1e240e5a23994, type: 3}
       weight: 25
-  population: {fileID: 1320768051969588570}
   uid: 
 --- !u!114 &1320768051969588570
 MonoBehaviour:
@@ -163,6 +165,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e67bfe57e09664fb03ade38543b2dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allSeeds: 
+--- !u!114 &5820150359053987666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7205524565812392221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ebcab56aaebee4c92b3c9e2964e402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnedActiveStructures: []
+  spawnedSits: []
+  spawnedNatives: []
 --- !u!1001 &100686726587987908
 PrefabInstance:
   m_ObjectHideFlags: 0

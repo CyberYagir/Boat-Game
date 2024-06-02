@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Packs.YagirConsole.ShellScripts.Base.Commands;
-using Packs.YagirConsole.ShellScripts.Base.Shell;
 using UnityEditor;
 using UnityEngine;
 
-namespace Packs.YagirConsole.ShellScripts.Editor
+namespace ConsoleShell.Editor
 {
     [CustomEditor(typeof(ConsoleService))]
     public class ConsoleShellEditor : UnityEditor.Editor
@@ -34,7 +32,7 @@ namespace Packs.YagirConsole.ShellScripts.Editor
         {
             base.OnInspectorGUI();
 
-            foldoutIsOpen = EditorGUILayout.Foldout(foldoutIsOpen, "ConsoleCommands", true);
+            foldoutIsOpen = EditorGUILayout.Foldout(foldoutIsOpen, "Console Commands", true);
 
             if (foldoutIsOpen)
             {

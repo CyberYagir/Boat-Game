@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Shell
+namespace ConsoleShell
 {
     public class CursorManager : MonoBehaviour
     {

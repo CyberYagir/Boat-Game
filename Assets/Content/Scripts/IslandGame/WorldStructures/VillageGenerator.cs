@@ -34,9 +34,10 @@ namespace Content.Scripts.IslandGame.WorldStructures
         }
 
         [SerializeField] private RoadsGenerator roadsGenerator;
+        [SerializeField] private VillagePopulation population;
+        [SerializeField] private VillageDataCollector dataCollector;
         [SerializeField] private List<SubStructures> structures = new List<SubStructures>();
         [SerializeField] private List<SubStructures> startStructure;
-        [SerializeField] private VillagePopulation population;
         [SerializeField, ReadOnly] private string uid;
         
         private TerrainBiomeSO biome;
@@ -47,7 +48,6 @@ namespace Content.Scripts.IslandGame.WorldStructures
         private GameDataObject gameDataObject;
 
         public List<RoadBuilder> HousePoints => roadsGenerator.Ends;
-
         public string Uid => uid;
 
 
@@ -75,7 +75,14 @@ namespace Content.Scripts.IslandGame.WorldStructures
             if (population)
             {
                 population.Init(structuresData, rnd, saveDataObject, gameDataObject.NativesListData, spawnerFabric, uid, GetBounds());
+                
+                if (dataCollector)
+                {
+                    dataCollector.Init(structuresData, population.SpawnedNatives);
+                }
             }
+
+           
         }
 
         private void SpawnStructure(TerrainBiomeSO biome, Random rnd, PrefabSpawnerFabric spawnerFabric, Transform roadBuilder, List<SubStructures> list)

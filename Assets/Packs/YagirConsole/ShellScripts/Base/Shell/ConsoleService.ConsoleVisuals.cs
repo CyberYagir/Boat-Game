@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Shell
+namespace ConsoleShell
 {
     public partial class ConsoleService
     {
@@ -15,7 +15,6 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
             [SerializeField] private Canvas canvas;
 
             [SerializeField] private TMP_InputField input;
-            [SerializeField] private TMP_Text outputText;
 
             [Space] [SerializeField] private Color consoleColor;
             [SerializeField] private Color selectedColor;
@@ -28,8 +27,6 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
 
             public TMP_InputField Input => input;
 
-            public TMP_Text OutputText => outputText;
-
             public Color SelectedColor => selectedColor;
 
             public Color SelectedColorText => selectedColorText;
@@ -40,7 +37,6 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                 rectTransform = canvas.GetComponent<RectTransform>();
                 canvas.enabled = false;
                 rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, 0);
-                OutputText.gameObject.SetActive(false);
 
 
                 for (int i = 0; i < backgrounds.Count; i++)
@@ -58,17 +54,15 @@ namespace Packs.YagirConsole.ShellScripts.Base.Shell
                 consoleService.StartCoroutine(LerpSize(new Vector2(rectTransform.sizeDelta.x, 0), delegate
                 {
                     canvas.enabled = false;
-                    outputText.gameObject.SetActive(false);
                 }));
             }
 
             public void AnimateShow()
             {
                 canvas.enabled = true;
-                outputText.gameObject.SetActive(true);
                 
                 consoleService.StopAllCoroutines();
-                consoleService.StartCoroutine(LerpSize(new Vector2(rectTransform.sizeDelta.x, 500), null));
+                consoleService.StartCoroutine(LerpSize(new Vector2(rectTransform.sizeDelta.x, 800), null));
 
                 input.Select();
             }

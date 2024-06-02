@@ -363,7 +363,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7725357607379444773}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
   m_Name: 
@@ -393,7 +393,7 @@ MonoBehaviour:
   rotationSpeed: 720
   slowdownDistance: 0.6
   pickNextWaypointDist: 0.5
-  endReachedDistance: 0.25
+  endReachedDistance: 0.3
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -468,8 +468,8 @@ MonoBehaviour:
   isEnded: 0
   machine: {fileID: 0}
   idleTime:
-    min: 1
-    max: 5
+    min: 5
+    max: 25
 --- !u!1001 &1687387985253687887
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using System;
 using Pathfinding;
+using UnityEngine;
 
 namespace Content.Scripts.BoatGame.Services
 {
@@ -12,5 +13,6 @@ namespace Content.Scripts.BoatGame.Services
         public void BuildNavMeshAsync(int id);
         NavGraph GetNavMeshByID(int i);
         int GetGraphsCount();
+        bool IsAvailablePoint(Vector3 pos);
     }
 }

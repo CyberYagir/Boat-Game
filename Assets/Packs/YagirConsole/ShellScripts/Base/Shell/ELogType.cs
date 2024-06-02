@@ -1,4 +1,4 @@
-﻿namespace Packs.YagirConsole.ShellScripts.Base.Shell
+﻿namespace ConsoleShell
 {
     public enum ELogType
     {

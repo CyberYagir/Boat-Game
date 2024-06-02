@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8062291577081730602}
   - component: {fileID: 6023109213781222358}
-  m_Layer: 0
+  - component: {fileID: -1090214110513326144}
+  m_Layer: 14
   m_Name: Barrel v1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +48,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   structures: []
   randomVisuals: []
+  OnAfterInitBiome:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-1090214110513326144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7936665828554159265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5bf24b4a084302af9492be0f02d60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 32768
+  keepRotation: 1
+  rotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &9000360044155323975
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +80,7 @@ GameObject:
   - component: {fileID: 1728951685893278115}
   - component: {fileID: 1860158539213031007}
   - component: {fileID: 3840125914058206272}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cylinder.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}

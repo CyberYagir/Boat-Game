@@ -54,7 +54,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             }
             else
             {
-                state = EHungerState.Eating;
+                StartEat();
             }
         }
 
@@ -76,13 +76,18 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             if (Machine.AIMoveManager.NavMeshAgent.IsArrived())
             {
-                Machine.AIMoveManager.NavMeshAgent.SetStopped(true);
-                Animation();
-
-                spawnedItem = Instantiate(itemPrefab, Machine.AnimationManager.RightHand);
-                
-                state = EHungerState.Eating;
+                StartEat();
             }
+        }
+
+        private void StartEat()
+        {
+            Machine.AIMoveManager.NavMeshAgent.SetStopped(true);
+            Animation();
+
+            spawnedItem = Instantiate(itemPrefab, Machine.AnimationManager.RightHand);
+
+            state = EHungerState.Eating;
         }
 
         private void EatingLogic()

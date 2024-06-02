@@ -8,7 +8,7 @@ using Packs.YagirConsole.ShellScripts.Base.Shell;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Commands
+namespace ConsoleShell
 {
     public class ConsoleWorldManagement : ConsoleManagementBase
     {
@@ -18,6 +18,21 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
             ShowFPS();
             Quit();
             GetAllResources();
+            DebugMessage();
+        }
+
+        private void DebugMessage()
+        {
+            AddCommand("/log_debug_message", new List<Argument>(), delegate(ArgumentsShell shell)
+            {
+                var str = "";
+                for (int i = 0; i < 20; i++)
+                {
+                    str += i + "\n";
+                }
+                
+                Debug.LogError(str);
+            });
         }
 
         private void Quit()
@@ -38,7 +53,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
         {
             AddCommand("/showfps", new List<Argument>()
                 {
-                    new Argument("state", ArgumentType.Bool, false, 0f, "", true)
+                    new Argument("state", EArgumentType.Bool, false, 0f, "", true)
                 },
                 delegate(ArgumentsShell shell)
                 {
@@ -58,7 +73,7 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
             AddCommand("/summon",
                 new List<Argument>()
                 {
-                    new Argument("damager_id", ArgumentType.Number)
+                    new Argument("damager_id", EArgumentType.Number)
                 },
                 delegate(ArgumentsShell shell)
                 {
@@ -89,9 +104,9 @@ namespace Packs.YagirConsole.ShellScripts.Base.Commands
         {
             AddCommand("/res_add", new List<Argument>()
                 {
-                    new Argument("item_name_with_underscores", ArgumentType.String, true),
-                    new Argument("item_count", ArgumentType.Number, false, 1),
-                    new Argument("check_storage_size", ArgumentType.Bool, false, 0, "", true)
+                    new Argument("item_name_with_underscores", EArgumentType.String, true),
+                    new Argument("item_count", EArgumentType.Number, false, 1),
+                    new Argument("check_storage_size", EArgumentType.Bool, false, 0, "", true)
                 },
                 delegate(ArgumentsShell shell)
                 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Packs.YagirConsole.ShellScripts.Base.Shell
+namespace ConsoleShell
 {
     public interface ICommandExecutable
     {

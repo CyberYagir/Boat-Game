@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Content.Scripts.IslandGame.WorldStructures
 {
-    public class PrimitiveVillageStructure : StructureDataBase
+    public class PrimitiveVillageStructureData : StructureDataBase
     {
-        [SerializeField, Range(0, 1f)] private float girlChange;
+        [SerializeField, Range(0, 1f)] private float girlChance = 0.75f;
         public override List<ENativeType> GetTypes(int count)
         {
             var rnd = new System.Random(Seed);
@@ -20,7 +20,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
                 }
                 else
                 {
-                    list.Add(rnd.NextDouble() < girlChange ? ENativeType.Female : ENativeType.Man);
+                    list.Add(rnd.NextDouble() < girlChance ? ENativeType.Female : ENativeType.Man);
                 }
             }
 
