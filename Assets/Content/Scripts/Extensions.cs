@@ -7,6 +7,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using Range = DG.DemiLib.Range;
 
 namespace Content.Scripts
 {
@@ -771,6 +772,12 @@ namespace Content.Scripts
         public static Vector3 GetRandomPoint(this Bounds bounds)
         {
             return new Vector3(Random.Range(bounds.min.x, bounds.max.x), Random.Range(bounds.min.y, bounds.max.y), Random.Range(bounds.min.z, bounds.max.z));
+        }
+
+
+        public static bool IsInRange(this Range range, float value)
+        {
+            return value >= range.min && value <= range.max;
         }
     }
 }

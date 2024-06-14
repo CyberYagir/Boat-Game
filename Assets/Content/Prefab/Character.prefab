@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 3506137984772891433}
   - component: {fileID: 6868929300847780835}
   - component: {fileID: 4137218691028439410}
+  - component: {fileID: 5990812057066189286}
   - component: {fileID: 303708654671696803}
   - component: {fileID: 4245383191857746893}
   - component: {fileID: 6387675816536107232}
@@ -195,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 1
+  version: 1073741824
   drawGizmos: 1
   detailedGizmos: 0
   startEndModifier:
@@ -223,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 1073741824
   radius: 0.2
   height: 2
   canMove: 1
@@ -232,6 +233,14 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 65
+  endReachedDistance: 0.2
+  whenCloseToDestination: 0
+  rvoDensityBehavior:
+    enabled: 0
+    densityThreshold: 0.5
+    returnAfterBeingPushedAway: 0
+    progressAverage: 0
+    lastJobDensityResult: 0
   centerOffsetCompatibility: NaN
   repathRateCompatibility: NaN
   canSearchCompability: 0
@@ -248,10 +257,9 @@ MonoBehaviour:
   rotationSpeed: 720
   slowdownDistance: 0.6
   pickNextWaypointDist: 0.5
-  endReachedDistance: 0.2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 0
+  preventMovingBackwards: 0
   constrainInsideGraph: 1
 --- !u!114 &7754769542972447928
 MonoBehaviour:
@@ -324,6 +332,8 @@ MonoBehaviour:
     stateAction: {fileID: 6868929300847780835}
   - stateType: 15
     stateAction: {fileID: 4137218691028439410}
+  - stateType: 17
+    stateAction: {fileID: 5990812057066189286}
   startAction: 0
   currentAction: {fileID: 0}
 --- !u!114 &751144816067325089
@@ -497,6 +507,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4882d9106d2dffa43a094fc407e17596, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnded: 0
+  machine: {fileID: 0}
+--- !u!114 &5990812057066189286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4325884780641852090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffaced379ad0b948b9134ca996c82f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isEnded: 0

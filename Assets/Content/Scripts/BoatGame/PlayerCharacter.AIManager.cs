@@ -96,7 +96,7 @@ namespace Content.Scripts.BoatGame
                 }
             }
 
-            public List<RaftStorage> GoToEmptyStorages(int value)
+            public List<RaftStorage> GoToEmptyStorages(int value = 1)
             {
                 var storages = raftBuildService.FindEmptyStorages(value);
                 if (storages.Count == 0)

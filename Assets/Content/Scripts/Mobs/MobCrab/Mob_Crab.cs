@@ -10,9 +10,9 @@ namespace Content.Scripts.Mobs.MobCrab
 
         [SerializeField, FoldoutGroup("Other")] private GameObject crabShell;
 
-        public override void Init(BotSpawner botSpawner)
+        public override void Init(BotSpawner botSpawner, bool initStateMachine = true)
         {
-            base.Init(botSpawner);
+            base.Init(botSpawner, initStateMachine);
             crabShell.gameObject.SetActive(Random.value < 0.35f);
         }
 

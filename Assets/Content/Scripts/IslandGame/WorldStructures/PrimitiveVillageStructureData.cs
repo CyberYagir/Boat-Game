@@ -7,6 +7,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
     public class PrimitiveVillageStructureData : StructureDataBase
     {
         [SerializeField, Range(0, 1f)] private float girlChance = 0.75f;
+        [SerializeField] private bool haveShaman;
         public override List<ENativeType> GetTypes(int count)
         {
             var rnd = new System.Random(Seed);
@@ -16,7 +17,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
             {
                 if (i == 0)
                 {
-                    list.Add(ENativeType.Man);
+                    list.Add(haveShaman ? ENativeType.Shaman : ENativeType.Man);
                 }
                 else
                 {

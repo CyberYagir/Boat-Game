@@ -51,6 +51,7 @@ namespace Content.Scripts.IslandGame
         private IslandData targetTerrain;
         private SaveDataObject saveData;
         private GameDataObject gameDataObject;
+        private MapIsland.IslandData islandData;
 
         public VillageData Data => villageData;
 
@@ -65,7 +66,8 @@ namespace Content.Scripts.IslandGame
             SaveDataObject saveDataObject,
             GameDataObject gameDataObject)
         {
-            saveData = saveDataObject;
+            this.saveData = saveDataObject;
+            this.islandData = islandData;
             this.islandGenerator = islandGenerator;
             this.targetTerrain = targetTerrain;
 
@@ -86,7 +88,7 @@ namespace Content.Scripts.IslandGame
             
             var village = Object.Instantiate(holder.Structures.GetRandomItem(rnd));
             village.transform.SetYPosition(0);
-            village.Init(biome, rnd, seed, spawner, saveData, gameData);
+            village.Init(biome, rnd, seed, spawner, saveData, gameData, islandData);
             var startSize = new Vector3(targetTerrain.Terrain.terrainData.size.x, 0, targetTerrain.Terrain.terrainData.size.z);
 
             villageData = new VillageData(false, new Bounds());

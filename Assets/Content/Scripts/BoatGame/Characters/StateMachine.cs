@@ -24,7 +24,8 @@ namespace Content.Scripts.BoatGame.Characters
         PickupItem,
         BuildingFromItem,
         Furnace,
-        GetFromSourceWater
+        GetFromSourceWater,
+        VillageViewInfo
     }
 
     

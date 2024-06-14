@@ -14,7 +14,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text text;
         [SerializeField] private UICraftSubItem subItem;
-        [SerializeField] protected Button button;
+        [SerializeField] protected UICustomButton button;
         [SerializeField] private UITooltip tooltip;
         
         protected List<UICraftSubItem> subItems = new List<UICraftSubItem>(10);
@@ -79,8 +79,7 @@ namespace Content.Scripts.BoatGame.UI
                 subItems[i].UpdateItem(count);
             }
 
-            button.interactable = canCraft;
-            button.image.DOColor(button.interactable ? new Color(0.3380358f, 1f, 0, 1f) : new Color(0.4f, 0.4f, 0.4f, 1f), 0.2f).SetLink(button.gameObject);
+            button.SetInteractable(canCraft);
 
             return canCraft;
         }

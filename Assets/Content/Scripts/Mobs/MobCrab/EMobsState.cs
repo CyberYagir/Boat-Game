@@ -5,6 +5,7 @@
         Idle,
         PointsMove,
         TakeDamage,
-        Attack
+        Attack,
+        Stop
     }
 }

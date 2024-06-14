@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Content.Scripts.BoatGame.PlayerActions;
+using Content.Scripts.BoatGame.Services;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = System.Random;
@@ -17,7 +19,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
         public void Init(Random rnd, TerrainBiomeSO biome)
         {
-
+            
             foreach (var s in structures)
             {
                 for (int i = 0; i < s.Structures.Count; i++)
@@ -47,10 +49,8 @@ namespace Content.Scripts.IslandGame.WorldStructures
                 for (int i = 0; i < randomVisuals.Count; i++)
                 {
                     if (rnd.NextDouble() <= spawnRandomItemChance)
-                    {
-                        // randomItem = randomVisuals.GetRandomIndex(rnd);
+                    {;
                         randomVisuals[i].gameObject.SetActive(true);
-                        // randomVisuals.RemoveAt(randomItem);
                     }
                 }
             }

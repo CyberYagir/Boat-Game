@@ -9,7 +9,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
         public bool IsNotEmpty => isNotEmpty;
 
-        public void SetSitState(bool state)
+        public void SetState(bool state)
         {
             isNotEmpty = isNotEmpty;
         }

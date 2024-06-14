@@ -20,15 +20,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
         public int Seed => seed;
 
         public List<NativesSit> NativeSits => nativeSits;
-
-#if UNITY_EDITOR
         
-        private void OnValidate()
-        {
-            nativeSits = GetComponentsInChildren<NativesSit>().ToList();
-        }
-#endif
-
         public void Init(System.Random rnd)
         {
             seed = rnd.Next(-100000, 100000);

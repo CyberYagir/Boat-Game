@@ -8,9 +8,9 @@ namespace Content.Scripts.Mobs.MobSnake
     {
         private int groundMask = ~0;
 
-        public override void Init(BotSpawner botSpawner)
+        public override void Init(BotSpawner botSpawner, bool initStateMachine = true)
         {
-            base.Init(botSpawner);
+            base.Init(botSpawner, initStateMachine);
             groundMask = LayerMask.GetMask("Default", "Terrain");
         }
 

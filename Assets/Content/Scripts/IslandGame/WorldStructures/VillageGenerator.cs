@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using Content.Scripts.Map;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -46,13 +47,23 @@ namespace Content.Scripts.IslandGame.WorldStructures
         private List<StructureDataBase> structuresData = new List<StructureDataBase>(10);
         private SaveDataObject saveDataObject;
         private GameDataObject gameDataObject;
+        private MapIsland.IslandData islandData;
 
         public List<RoadBuilder> HousePoints => roadsGenerator.Ends;
         public string Uid => uid;
 
 
-        public void Init(TerrainBiomeSO biome, Random rnd, int seed, PrefabSpawnerFabric spawnerFabric, SaveDataObject saveDataObject, GameDataObject gameDataObject)
+        public void Init(
+            TerrainBiomeSO biome,
+            Random rnd,
+            int seed,
+            PrefabSpawnerFabric spawnerFabric,
+            SaveDataObject saveDataObject,
+            GameDataObject gameDataObject,
+            MapIsland.IslandData islandData
+        )
         {
+            this.islandData = islandData;
             this.gameDataObject = gameDataObject;
             this.saveDataObject = saveDataObject;
             this.spawnerFabric = spawnerFabric;
@@ -77,7 +88,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
                 var bounds = GetBounds();
                 if (dataCollector)
                 {
-                    dataCollector.Init(structuresData, bounds);
+                    dataCollector.Init(structuresData, bounds, uid, islandData);
                 }
 
                 population.Init(structuresData, rnd, saveDataObject, gameDataObject.NativesListData, spawnerFabric, uid, bounds);
@@ -107,8 +118,14 @@ namespace Content.Scripts.IslandGame.WorldStructures
             }
 
             var spawned = Instantiate(structure.Structure, spawnPos, roadBuilder.transform.rotation, transform);
-            spawnerFabric.InjectComponent(spawned.GetComponent<ActionsHolder>());
             spawned.Init(rnd, biome);
+            
+            var actionsHolders = spawned.GetComponentsInChildren<ActionsHolder>();
+
+            for (int i = 0; i < actionsHolders.Length; i++)
+            {
+                spawnerFabric.InjectComponent(actionsHolders[i]);
+            }
 
             var data = spawned.GetComponent<StructureDataBase>();
             if (data)

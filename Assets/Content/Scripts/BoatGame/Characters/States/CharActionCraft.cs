@@ -104,19 +104,20 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         private void AddCraftToStorage()
         {
-            var storage = Machine.AIMoveManager.GoToEmptyStorages(1);
+
+            for (int i = 0; i < targetCraftingTable.CurrentCraft.Ingredients.Count; i++)
+            {
+                for (int j = 0; j < targetCraftingTable.CurrentCraft.Ingredients[i].Count; j++)
+                {
+                    Machine.AIMoveManager.RemoveFromAnyStorage(targetCraftingTable.CurrentCraft.Ingredients[i].ResourceName);
+                }
+            }
+
+            int finalCount = targetCraftingTable.CurrentCraft.FinalItem.Count;
+            var storage = Machine.AIMoveManager.GoToEmptyStorages();
+            
             if (storage.Count != 0)
             {
-                for (int i = 0; i < targetCraftingTable.CurrentCraft.Ingredients.Count; i++)
-                {
-                    for (int j = 0; j < targetCraftingTable.CurrentCraft.Ingredients[i].Count; j++)
-                    {
-                        Machine.AIMoveManager.RemoveFromAnyStorage(targetCraftingTable.CurrentCraft.Ingredients[i].ResourceName);
-                    }
-                }
-
-                int finalCount = targetCraftingTable.CurrentCraft.FinalItem.Count;
-
                 for (int i = 0; i < storage.Count; i++)
                 {
                     if (finalCount != 0)

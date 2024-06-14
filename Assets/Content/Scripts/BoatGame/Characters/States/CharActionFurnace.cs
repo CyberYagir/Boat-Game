@@ -5,7 +5,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 {
     public class CharActionFurnace : CharActionMoveTo
     {
-        public Action OnOpenWindow;
+        public event Action OnOpenWindow;
 
         public override void StartState()
         {

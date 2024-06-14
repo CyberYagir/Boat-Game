@@ -36,13 +36,16 @@ namespace Content.Scripts.Mobs.Mob
         public MobStateMachine StateMachine => stateMachine;
 
 
-        public virtual void Init(BotSpawner botSpawner)
+        public virtual void Init(BotSpawner botSpawner, bool initStateMachine = true)
         {
             spawner = botSpawner;
             SetHealth();
 
-            StateMachine.Init(this);
-            
+            if (initStateMachine)
+            {
+                StateMachine.Init(this);
+            }
+
             OnAttackedStart += OnOnAttackedStart;
             OnAttackedEnd += OnOnAttackedEnd;
             OnDamage += OnOnDamage;

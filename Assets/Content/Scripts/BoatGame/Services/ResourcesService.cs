@@ -23,13 +23,21 @@ namespace Content.Scripts.BoatGame.Services
 
         private RaftBuildService raftBuildService;
 
-        public Action OnChangeResources;
+        public event Action OnChangeResources;
         public List<RaftStorage.StorageItem> AllItemsList => allItemsList;
 
         [Inject]
         private void Construct(RaftBuildService raftBuildService, GameDataObject gameData)
         {
             this.raftBuildService = raftBuildService;
+            
+            raftBuildService.OnChangeRaft += OnRaftsChanges;
+
+            OnRaftsChanges();
+        }
+
+        private void OnRaftsChanges()
+        {
             foreach (var spawnedRaft in raftBuildService.Storages)
             {
                 spawnedRaft.OnStorageChange -= OnAnyStorageChange;
@@ -80,7 +88,7 @@ namespace Content.Scripts.BoatGame.Services
             return GetEmptySpace() >= storageItem.Count;
         }
 
-        private int GetEmptySpace()
+        public int GetEmptySpace()
         {
             int emptySpace = 0;
             foreach (var storage in raftBuildService.Storages)
@@ -168,6 +176,18 @@ namespace Content.Scripts.BoatGame.Services
                         return true;
                     }
                 }
+            }
+
+            return false;
+        }
+
+        public bool IsHaveItem(RaftStorage.StorageItem sellItem)
+        {
+            var item = allItemsList.Find(x => x.Item == sellItem.Item);
+
+            if (item != null)
+            {
+                return item.Count >= sellItem.Count;
             }
 
             return false;

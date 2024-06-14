@@ -404,7 +404,7 @@ MonoBehaviour:
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   preventMovingBackwards: 0
-  constrainInsideGraph: 1
+  constrainInsideGraph: 0
 --- !u!114 &7588036676806119792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,6 +477,7 @@ MonoBehaviour:
   idleTime:
     min: 5
     max: 25
+  waterBucket: {fileID: 6232756510366212439}
 --- !u!1001 &1687387985253687887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1154,11 +1155,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 202a36ee27bb5fb40aafc3d49e65dc63, type: 2}
     - target: {fileID: 5866666021909216657, guid: 4db6461ca9751294d883c5f922849171, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Armature'\n\tTransform 'Armature'\n\tTransform
-        'Armature'\n\tFrom animation clip 'Armature|CrabDamaged'\n\tFrom animation
-        clip 'Armature|CrabIdle'\n\tFrom animation clip 'Armature|CrabMove'"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 4db6461ca9751294d883c5f922849171, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -1383,6 +1380,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7208261743932278219, guid: 4db6461ca9751294d883c5f922849171, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1563905313846506302}
+    - targetCorrespondingSourceObject: {fileID: 2412161367050800168, guid: 4db6461ca9751294d883c5f922849171, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3954554890836645457}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4db6461ca9751294d883c5f922849171, type: 3}
       insertIndex: -1
@@ -2885,6 +2885,77 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5631343165658275865, guid: 64f08f7d85a7c4f4994633d5ba35f14e, type: 3}
   m_PrefabInstance: {fileID: 6598502830599312167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6874146484485686057
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 319755950357760397}
+    m_Modifications:
+    - target: {fileID: 656097041723990654, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+      propertyPath: m_Name
+      value: WaterBucket
+      objectReference: {fileID: 0}
+    - target: {fileID: 656097041723990654, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603405987715683704, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603405987715683704, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603405987715683704, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603405987715683704, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603405987715683704, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603405987715683704, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603405987715683704, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603405987715683704, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603405987715683704, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603405987715683704, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+--- !u!4 &3954554890836645457 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7603405987715683704, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+  m_PrefabInstance: {fileID: 6874146484485686057}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6232756510366212439 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 656097041723990654, guid: b5aa1ed3528fdea4c9093e0fa4cf4737, type: 3}
+  m_PrefabInstance: {fileID: 6874146484485686057}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8255294509551217177
 PrefabInstance:

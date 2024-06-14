@@ -86,20 +86,20 @@ namespace Content.Scripts.IslandGame.Natives
                     yield return null;
                 }
                 GetComponent<AIPath>().enabled = true;
-                StateMachine.StartAction(EMobsState.Idle);
+                StateMachine.Init(this);
             }
         }
         
         
         
-        public override void Init(BotSpawner botSpawner)
+        public override void Init(BotSpawner botSpawner, bool initStateMachine = true)
         {
             characterGrounder.Init(transform);
             navigationManager.Init(transform, navMeshProvider);
             villageData = GetComponentInParent<VillageDataCollector>();
             
             navigationManager.SetBounds(villageData.Bounds());
-            base.Init(botSpawner);
+            base.Init(botSpawner, false);
             
         }
         

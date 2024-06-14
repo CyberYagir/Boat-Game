@@ -21,15 +21,17 @@ namespace Content.Scripts.BoatGame.UI
             if (base.UpdateItem())
             {
                 transform.SetSiblingIndex(0);
-                int canHoldItems = 0;
-                foreach (var raftStorage in raftBuildService.Storages)
+                int canHoldItems = resourcesService.GetEmptySpace();
+
+                for (int i = 0; i < item.Ingredients.Count; i++)
                 {
-                    canHoldItems += raftStorage.GetEmptySlots();
+                    canHoldItems += item.Ingredients[i].Count;
                 }
+
 
                 if (canHoldItems < item.FinalItem.Count)
                 {
-                    button.interactable = false;
+                    button.SetTransparent();
                 }
             }
 

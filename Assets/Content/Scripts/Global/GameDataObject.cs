@@ -6,6 +6,7 @@ using Content.Scripts.BoatGame.Scriptable;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.IslandGame.Natives;
+using Content.Scripts.IslandGame.Scriptable;
 using Content.Scripts.IslandGame.WorldStructures;
 using Content.Scripts.ItemsSystem;
 using Content.Scripts.Map;
@@ -37,6 +38,7 @@ namespace Content.Scripts.Global
         [SerializeField] private ConfigDataObject configData;
         [SerializeField] private RaftsPriorityObject raftsPriorityData;
         [SerializeField] private NativesListSO nativesListData;
+        [SerializeField] private TradesDataObject tradesData;
         
         [SerializeField] private List<string> namesList;
         [SerializeField] private List<SkillObject> skillsList;
@@ -74,6 +76,8 @@ namespace Content.Scripts.Global
         public RaftsPriorityObject RaftsPriorityData => raftsPriorityData;
 
         public NativesListSO NativesListData => nativesListData;
+
+        public TradesDataObject TradesData => tradesData;
 
 
         public ItemObject GetItem(string id)

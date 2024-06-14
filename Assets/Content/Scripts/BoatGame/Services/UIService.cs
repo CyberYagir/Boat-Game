@@ -45,7 +45,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIResourcesCounter resourcesList;
         [SerializeField] private UIStoragesCounter storagesCounter;
         [SerializeField] private UIFurnaceWindow furnaceWindow;
-        
+        [SerializeField] private UIVillageOptionsWindow villageWindow;
         
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
         
@@ -89,6 +89,7 @@ namespace Content.Scripts.BoatGame.Services
             characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager, spawnerFabric, resourcesService);
             furnaceWindow.Init(selectionService, raftBuildService, tickService, resourcesService);
             charactersList?.Init(characterService, tickService, selectionService);
+            villageWindow?.Init(selectionService, raftBuildService, saveDataObject, gameDataObject, resourcesService);
             
             resourcesList.Init(raftBuildService, gameDataObject, resourcesService, tickService);
             storagesCounter.Init(raftBuildService);

@@ -295,10 +295,16 @@ namespace Content.Scripts.Global
                     }
 
                     [SerializeField] private string uid;
+                    [SerializeField] private int socialRating = 0;
                     [SerializeField] private List<VillagerData> villagers = new List<VillagerData>();
 
-                    public string Uid => uid;
+                    public event Action<int> OnChangeSocialRaiting;
                     
+                    
+                    public string Uid => uid;
+
+                    public int SocialRating => socialRating;
+
 
                     public VillageData(string villageUid)
                     {
@@ -309,6 +315,8 @@ namespace Content.Scripts.Global
                     public void AddVillager(string uid) => villagers.Add(new VillagerData(uid));
 
                     public VillagerData GetVillager(string uid) => villagers.Find(x => x.Uid == uid);
+
+                    public void AddSocialRating(int value) => socialRating = SocialRating + value;
 
                 }
                 
