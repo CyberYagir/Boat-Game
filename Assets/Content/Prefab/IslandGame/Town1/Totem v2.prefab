@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2134603408533136326}
   - component: {fileID: 7782046117403999656}
   - component: {fileID: 1548804159031742167}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Totem pole_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 333285403044821490}
   - component: {fileID: 6446962993394869625}
   - component: {fileID: 6305278923811812251}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Totem v2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,6 +161,9 @@ MonoBehaviour:
     - structure: {fileID: 7950597717384791259}
       weight: 0
   randomVisuals: []
+  OnAfterInitBiome:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6434981939121063816
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +176,7 @@ GameObject:
   - component: {fileID: 2870033042142975341}
   - component: {fileID: 1397147709901660513}
   - component: {fileID: 7950597717384791259}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,3 +262,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   structures: []
   randomVisuals: []
+  OnAfterInitBiome:
+    m_PersistentCalls:
+      m_Calls: []

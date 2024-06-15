@@ -9715,6 +9715,7 @@ GameObject:
   - component: {fileID: 2981258762978825706}
   - component: {fileID: 1823699762822781755}
   - component: {fileID: 6133870966500717643}
+  - component: {fileID: 7546389592942395752}
   m_Layer: 14
   m_Name: Big Campfire
   m_TagString: Untagged
@@ -9812,6 +9813,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.0866613, y: 1.9692355, z: 4.1322775}
   m_Center: {x: 0.31170702, y: 0.48461777, z: -0.39533615}
+--- !u!114 &7546389592942395752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2877610425397739939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5bf24b4a084302af9492be0f02d60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 32768
+  keepRotation: 1
+  rotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &3343921618117394664
 GameObject:
   m_ObjectHideFlags: 0

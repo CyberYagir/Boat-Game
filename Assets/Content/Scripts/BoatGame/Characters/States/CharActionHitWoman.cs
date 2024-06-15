@@ -2,12 +2,6 @@
 {
     public class CharActionHitWoman : CharActionAttack
     {
-        public override void StartState()
-        {
-            base.StartState();
-            
-            print("start");
-        }
 
         public override void AttackEnemy()
         {

@@ -38,7 +38,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
         {
             if (spawnedSits.Count != 0)
             {
-                var empty = spawnedSits.FindAll(x => !x.IsNotEmpty);
+                var empty = spawnedSits.FindAll(x => !x.IsNotEmpty && x.gameObject.activeInHierarchy);
                 if (empty.Count != 0)
                 {
                     return empty.GetRandomItem();
@@ -52,7 +52,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
         {
             if (spawnedSits.Count != 0)
             {
-                var empty = spawnedWaterSources.FindAll(x => !x.IsNotEmpty);
+                var empty = spawnedWaterSources.FindAll(x => !x.IsNotEmpty && x.gameObject.activeInHierarchy);
                 if (empty.Count != 0)
                 {
                     return empty.GetRandomItem();

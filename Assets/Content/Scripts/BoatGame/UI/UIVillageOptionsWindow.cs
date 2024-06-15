@@ -19,6 +19,7 @@ namespace Content.Scripts.BoatGame.UI
         private SaveDataObject.MapData.IslandData.VillageData villageData;
         private GameDataObject gameDataObject;
         private ResourcesService resourcesService;
+        private PlayerCharacter targetPlayer;
 
         public void Init(
             SelectionService selectionService,
@@ -96,6 +97,7 @@ namespace Content.Scripts.BoatGame.UI
 
         private void OnChangeSelectCharacter(PlayerCharacter obj)
         {
+            targetPlayer = obj;
             if (obj == null) return;
             var furnaceAction = obj.GetCharacterAction<CharActionViewVillage>();
             furnaceAction.OnOpenWindow -= ShowAndSetVillage;
@@ -103,6 +105,10 @@ namespace Content.Scripts.BoatGame.UI
             
             obj.NeedManager.OnDeath -= OnDeath;
             obj.NeedManager.OnDeath += OnDeath;
+
+
+            targetPlayer.NeedManager.SetGodMode();
+
         }
         
         private void OnDeath(Character obj)
@@ -117,6 +123,11 @@ namespace Content.Scripts.BoatGame.UI
             {
                 villageData.OnChangeSocialRaiting -= UpdateRatingCounter;
             }
+
+            if (targetPlayer != null)
+            {
+                targetPlayer.NeedManager.SetGodMode(false);
+            }
         }
 
         public void SellItem(TradeOfferObject tradeOfferObject)
@@ -126,7 +137,7 @@ namespace Content.Scripts.BoatGame.UI
                 if (resourcesService.IsHaveItem(tradeOfferObject.SellItem))
                 {
                     resourcesService.RemoveItemsFromAnyRaft(tradeOfferObject.SellItem);
-                    resourcesService.AddItemsToAnyRafts(tradeOfferObject.ResultItem);
+                    resourcesService.AddItemsToAnyRafts(new RaftStorage.StorageItem(tradeOfferObject.ResultItem.Item, tradeOfferObject.ResultItem.Count));
                     villageData.AddSocialRating(tradeOfferObject.SocialRatingPoints);
                 }
             }

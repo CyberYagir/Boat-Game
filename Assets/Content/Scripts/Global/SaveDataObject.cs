@@ -316,8 +316,11 @@ namespace Content.Scripts.Global
 
                     public VillagerData GetVillager(string uid) => villagers.Find(x => x.Uid == uid);
 
-                    public void AddSocialRating(int value) => socialRating = SocialRating + value;
-
+                    public void AddSocialRating(int value)
+                    {
+                        socialRating += value;
+                        OnChangeSocialRaiting?.Invoke(socialRating);
+                    }
                 }
                 
                 [SerializeField] private Vector2Int islandPos;

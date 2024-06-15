@@ -94,6 +94,7 @@ namespace Content.Scripts.BoatGame
             [SerializeField] private SkillObject vitalitySkill;
 
             public Action<Character> OnDeath;
+            public Action OnDamaged;
             
  
             private WeatherService.WeatherModifiers currentModifiers;
@@ -120,9 +121,9 @@ namespace Content.Scripts.BoatGame
                 popUp.Init();
             }
 
-            public void SetGodMode()
+            public void SetGodMode(bool state = true)
             {
-                godMode = true;
+                godMode = state;
             }
 
             public void OnTick(float delta)
@@ -230,8 +231,10 @@ namespace Content.Scripts.BoatGame
 
             public void Damage(float dmg)
             {
+                if (godMode) return;
                 health -= dmg;
                 HealthCheck();
+                OnDamaged?.Invoke();
             }
         }
     }

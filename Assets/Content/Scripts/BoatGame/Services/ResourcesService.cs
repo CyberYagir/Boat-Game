@@ -167,7 +167,6 @@ namespace Content.Scripts.BoatGame.Services
             }
             else
             {
-
                 foreach (var raftStorage in raftBuildService.Storages)
                 {
                     if (raftStorage.IsEmptyStorage(1))

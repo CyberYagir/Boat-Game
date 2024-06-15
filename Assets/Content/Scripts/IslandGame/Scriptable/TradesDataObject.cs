@@ -9,7 +9,7 @@ namespace Content.Scripts.IslandGame.Scriptable
     {
         [SerializeField] private List<TradeOfferObject> sellOffers;
         [SerializeField] private List<TradeOfferObject> buyOffers;
-
+        [SerializeField] private int maxTrades = 6;
         
         public List<TradeOfferObject> GetRandomSellsByLevel(int level, System.Random rnd)
         {
@@ -25,10 +25,16 @@ namespace Content.Scripts.IslandGame.Scriptable
             return list;
         }
 
-        private static List<TradeOfferObject> GetRandomFromArray(Random rnd, List<TradeOfferObject> itemsByLevel)
+        private List<TradeOfferObject> GetRandomFromArray(Random rnd, List<TradeOfferObject> itemsByLevel)
         {
             var list = new List<TradeOfferObject>();
-            var count = rnd.Next(3, 6);
+            var max = itemsByLevel.Count;
+            if (max > maxTrades)
+            {
+                max = maxTrades;
+            }
+            
+            var count = rnd.Next((int)(max/3f), max);
             for (int i = 0; i < count; i++)
             {
                 TradeOfferObject item = null;
