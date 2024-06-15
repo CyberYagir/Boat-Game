@@ -89,9 +89,20 @@ namespace Content.Scripts.IslandGame.Natives
                 StateMachine.Init(this);
             }
         }
-        
-        
-        
+
+        public override void OnOnAttackedStart()
+        {
+            base.OnOnAttackedStart();
+            ChangeStateTo(EMobsState.Stop);
+        }
+
+        public override void OnOnAttackedEnd()
+        {
+            base.OnOnAttackedEnd();
+            ChangeStateTo(EMobsState.Idle);
+        }
+
+
         public override void Init(BotSpawner botSpawner, bool initStateMachine = true)
         {
             characterGrounder.Init(transform);

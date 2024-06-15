@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1931086510893276288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 89625659986995952}
+  m_Layer: 12
+  m_Name: HeghtPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &89625659986995952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931086510893276288}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.945, z: 0.374}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3533261523606405576}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3320927641226153397
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,6 +73,7 @@ Transform:
   - {fileID: 1091688256063266978}
   - {fileID: 2047726129831399958}
   - {fileID: 4105534611186754129}
+  - {fileID: 89625659986995952}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1058772150774726841
@@ -59,6 +91,7 @@ MonoBehaviour:
   maxHealth: 70
   health: 0
   attackPoint: {fileID: 4105534611186754129}
+  heightPoint: {fileID: 89625659986995952}
   mobAnimator:
     animator: {fileID: 8762624116806426619}
     damageParticles: {fileID: 3490697699623672083}

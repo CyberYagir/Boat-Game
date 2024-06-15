@@ -78,7 +78,6 @@ namespace Content.Scripts.BoatGame.UI
             villageData.OnChangeSocialRaiting += UpdateRatingCounter;
             villageSocialRating.Redraw(villageData.SocialRating);
 
-
             var rnd = new Random(villageID.GetHashCode());
             tradeSubWindow.Init(
                 gameDataObject.TradesData.GetRandomSellsByLevel(level, rnd),

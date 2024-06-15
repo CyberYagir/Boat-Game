@@ -17,7 +17,9 @@ namespace Content.Scripts.BoatGame
         private float health;
         [SerializeField, FoldoutGroup("Damage Object Data")]
         private Transform attackPoint;
-
+        [SerializeField, FoldoutGroup("Damage Object Data")]
+        private Transform heightPoint;
+        
         public event Action<float> OnDamage;
         public event Action<DamageObject> OnDeath;
         public event Action OnAttackedStart;
@@ -29,6 +31,8 @@ namespace Content.Scripts.BoatGame
         public Transform AttackPoint => attackPoint == null ? transform : attackPoint.transform;
 
         public float MaxHealth => maxHealth;
+
+        public Transform HeightPoint => heightPoint == null ? AttackPoint : heightPoint;
 
         protected void SetHealth()
         {

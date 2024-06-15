@@ -64,7 +64,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
                 Machine.AnimationManager.SetAttackTarget(
                     targetCharacterWeapon != null ? targetCharacterWeapon.AnimationType : EWeaponAnimationType.None,
-                    attackObject.transform.position.y < characterHips.position.y);
+                    attackObject.HeightPoint.position.y < characterHips.position.y);
 
             }
             else
@@ -83,7 +83,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             }
         }
 
-        private void AttackEnemy()
+        public virtual void AttackEnemy()
         {
             if (targetCharacterWeapon != null)
             {

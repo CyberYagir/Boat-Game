@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.size
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[11].stateType
@@ -79,6 +79,10 @@ PrefabInstance:
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[17].stateType
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: statesList.Array.data[18].stateType
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[0].stateAction
@@ -112,6 +116,10 @@ PrefabInstance:
       propertyPath: statesList.Array.data[17].stateAction
       value: 
       objectReference: {fileID: 5575436633873550413}
+    - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: statesList.Array.data[18].stateAction
+      value: 
+      objectReference: {fileID: 8091922482868594638}
     - target: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: m_Name
       value: CharacterIsland Variant
@@ -169,6 +177,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5575436633873550413}
+    - targetCorrespondingSourceObject: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8091922482868594638}
   m_SourcePrefab: {fileID: 100100000, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
 --- !u!1 &9047022263986236250 stripped
 GameObject:
@@ -298,3 +309,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnded: 0
   machine: {fileID: 0}
+--- !u!114 &8091922482868594638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9047022263986236250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30414d8a0f24f7a8d71d63489263b55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnded: 0
+  machine: {fileID: 0}
+  baseDamage: 15

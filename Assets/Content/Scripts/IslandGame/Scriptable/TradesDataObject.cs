@@ -34,7 +34,7 @@ namespace Content.Scripts.IslandGame.Scriptable
                 TradeOfferObject item = null;
                 do
                 {
-                    item = itemsByLevel.GetRandomItem();
+                    item = itemsByLevel.GetRandomItem(rnd);
                 } while (list.Contains(item));
                 list.Add(item);
             }

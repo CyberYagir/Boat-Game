@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -12,7 +13,7 @@ namespace Content.Scripts.BoatGame.Characters
         public class IconsKeys<T>
         {
             [SerializeField] private T key;
-            [SerializeField] private Sprite icon;
+            [SerializeField, PreviewField] private Sprite icon;
 
             public Sprite Icon => icon;
 
