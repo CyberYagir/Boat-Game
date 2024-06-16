@@ -140,7 +140,7 @@ namespace Content.Scripts.BoatGame.Services
             tmpRafts.Clear();
             for (var i = 0; i < raftBuildService.SpawnedRafts.Count; i++)
             {
-                if (raftBuildService.SpawnedRafts[i].RaftType != RaftBuildService.RaftItem.ERaftType.Building)
+                if (raftBuildService.SpawnedRafts[i].RaftType != RaftBuildService.RaftItem.ERaftType.Building && raftBuildService.SpawnedRafts[i].IsWalkableRaft)
                 {
                     var raft = raftBuildService.SpawnedRafts[i];
                     if (

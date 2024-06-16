@@ -72,15 +72,21 @@ namespace Content.Scripts.BoatGame.RaftDamagers
                 animator.Play("DamageRaft");
                 EventsOnOnChangeLayerToRaft();
             }
+
+            public void DisableCollider()
+            {
+                boxCollider.enabled = false;
+            }
         }
     
         [SerializeField] private DamageSharkAnimator animatorManager;
         [SerializeField] private Mob_Shark damageObject;
         [SerializeField] private Range damageRange;
+
         public override void Init(int id, RaftBase targetRaft, RaftDamagerService raftDamagerService)
         {
             base.Init(id, targetRaft, raftDamagerService);
-            
+
             animatorManager.Init();
 
             damageObject.Init();
@@ -88,30 +94,28 @@ namespace Content.Scripts.BoatGame.RaftDamagers
             damageObject.OnDeath += TargetRaftOnOnDeath;
             targetRaft.OnDeath += TargetRaftOnOnDeath;
             animatorManager.OnDamageRaftAnimation += OnDamageRaftAnimation;
-            
+
             transform.parent = targetRaft.transform;
             transform.localPosition = Vector3.zero;
             transform.localEulerAngles = Vector3.zero;
             transform.parent = null;
 
-            
             if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.right))
             {
                 RotateShark(Vector3Int.right);
-            }else
-            if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.left))
+            }
+            else if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.left))
             {
                 RotateShark(Vector3Int.left);
-            }else
-            if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.back))
+            }
+            else if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.back))
             {
                 RotateShark(Vector3Int.back);
-            }else
-            if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.forward))
+            }
+            else if (DamagerService.IsEmpty(TargetRaft.Coords, Vector3Int.forward))
             {
                 RotateShark(Vector3Int.forward);
             }
-            
         }
 
         private void TargetRaftOnOnDeath(DamageObject obj)
@@ -130,7 +134,12 @@ namespace Content.Scripts.BoatGame.RaftDamagers
 
         private void OnDamageRaftAnimation()
         {
-            TargetRaft.Damage(damageRange.RandomWithin());
+            var damage = damageRange.RandomWithin();
+            if (damage >= TargetRaft.Health)
+            {
+                animatorManager.DisableCollider();
+            }
+            TargetRaft.Damage(damage);
         }
 
         public void RotateShark(Vector3Int target)

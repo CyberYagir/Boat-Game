@@ -11,7 +11,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
         public void SetState(bool state)
         {
-            isNotEmpty = isNotEmpty;
+            isNotEmpty = state;
         }
     }
 }

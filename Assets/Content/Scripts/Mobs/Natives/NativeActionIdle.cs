@@ -36,14 +36,16 @@ namespace Content.Scripts.Mobs.Natives
 
             var pos = GenerateRandomSubState();
 
+            
+            Machine.Animations.StartMove(true);
+            isMove = true;
+            
+            
             if (!MoveToPoint(pos))
             {
                 EndState();
-                return;
             }
 
-            Machine.Animations.StartMove();
-            isMove = true;
         }
 
         private Vector3 GenerateRandomSubState()
@@ -127,19 +129,21 @@ namespace Content.Scripts.Mobs.Natives
             switch (subState)
             {
                 case EIdleSubState.GoToPoint:
+                    Machine.Animations.StopMove();
+                    Machine.Animations.ResetTriggers();
                     break;
                 case EIdleSubState.GoToSeat:
                     Controller.Animations.TriggerSit();
                     break;
                 case EIdleSubState.GoToWater:
-                    AnimateWaterDriking();
+                    AnimateWaterDrinking();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private void AnimateWaterDriking()
+        private void AnimateWaterDrinking()
         {
             Controller.Animations.TriggerDrink();
             waterBucket.gameObject.SetActive(true);

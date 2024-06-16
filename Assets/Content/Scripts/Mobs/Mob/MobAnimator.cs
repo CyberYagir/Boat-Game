@@ -34,9 +34,9 @@ namespace Content.Scripts.Mobs.Mob
             damageParticles.Play(true);
         }
 
-        public void StartMove()
+        public void StartMove(bool important = false)
         {
-            if (moving < 0.95f)
+            if (moving < 0.95f || important)
             {
                 StopTweener();
                 tweener = DOVirtual.Float(moving, 1f, animationTransitionTime, OnChangeMovingValue);
@@ -46,7 +46,6 @@ namespace Content.Scripts.Mobs.Mob
 
         public void StopMove()
         {
-            
             StopTweener();
             tweener = DOVirtual.Float(moving, 0, animationTransitionTime, OnChangeMovingValue);
         }
