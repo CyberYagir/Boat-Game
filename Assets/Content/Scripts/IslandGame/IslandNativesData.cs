@@ -51,7 +51,7 @@ namespace Content.Scripts.IslandGame
         private IslandData targetTerrain;
         private SaveDataObject saveData;
         private GameDataObject gameDataObject;
-        private MapIsland.IslandData islandData;
+        private IslandSeedData islandData;
 
         public VillageData Data => villageData;
 
@@ -62,7 +62,7 @@ namespace Content.Scripts.IslandGame
             PrefabSpawnerFabric spawner,
             IslandData targetTerrain,
             IslandGenerator islandGenerator, 
-            MapIsland.IslandData islandData,
+            IslandSeedData islandData,
             SaveDataObject saveDataObject,
             GameDataObject gameDataObject)
         {

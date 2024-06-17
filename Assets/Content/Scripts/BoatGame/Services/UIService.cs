@@ -6,6 +6,7 @@ using Content.Scripts.BoatGame.UI;
 using Content.Scripts.Boot;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.Global;
+using Content.Scripts.ManCreator;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -46,6 +47,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIStoragesCounter storagesCounter;
         [SerializeField] private UIFurnaceWindow furnaceWindow;
         [SerializeField] private UIVillageOptionsWindow villageWindow;
+        [SerializeField] private RenameIslandWindow renameIslandWindow;
         
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
         
@@ -88,8 +90,10 @@ namespace Content.Scripts.BoatGame.Services
             craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
             characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager, spawnerFabric, resourcesService);
             furnaceWindow.Init(selectionService, raftBuildService, tickService, resourcesService);
+            renameIslandWindow.Init(saveDataObject);
             charactersList?.Init(characterService, tickService, selectionService);
             villageWindow?.Init(selectionService, raftBuildService, saveDataObject, gameDataObject, resourcesService);
+            
             
             resourcesList.Init(raftBuildService, gameDataObject, resourcesService, tickService);
             storagesCounter.Init(raftBuildService);

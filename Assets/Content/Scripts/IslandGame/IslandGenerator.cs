@@ -42,7 +42,7 @@ namespace Content.Scripts.IslandGame
         private float grassY;
         private Random random;
         private TerrainBiomeSO targetBiome;
-        private MapIsland.IslandData islandData;
+        private IslandSeedData islandData;
 
 
         private IslandData currentIslandData;
@@ -63,7 +63,7 @@ namespace Content.Scripts.IslandGame
 
         public TerrainBiomeSO TargetBiome => targetBiome;
 
-        public MapIsland.IslandData TargetIslandData => islandData;
+        public IslandSeedData TargetIslandData => islandData;
 
         public IslandData TargetTerrain => targetTerrain;
 
@@ -132,7 +132,7 @@ namespace Content.Scripts.IslandGame
             TargetTerrain.Terrain.terrainData.terrainLayers = TargetBiome.Layers;
 
             var island = saveDataObject.Map.Islands.Find(x => x.IslandSeed == seed);
-            islandData = new MapIsland.IslandData(island.IslandPos);
+            islandData = IslandSeedData.Generate(island.IslandPos);
 
             PlaceAll(TargetTerrain, TargetBiome, TargetRandom, TargetIslandData.Level);
 

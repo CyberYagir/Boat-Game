@@ -14,7 +14,7 @@ namespace Content.Scripts.Map.UI
 
         [SerializeField] private List<Color> backgroundColor, middleColor;
 
-        public void Init(MapIsland.IslandData islandData)
+        public void Init(IslandSeedData islandData)
         {
             levelText.text = islandData.Level.ToString();
 

@@ -47,7 +47,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
         private List<StructureDataBase> structuresData = new List<StructureDataBase>(10);
         private SaveDataObject saveDataObject;
         private GameDataObject gameDataObject;
-        private MapIsland.IslandData islandData;
+        private IslandSeedData islandData;
 
         public List<RoadBuilder> HousePoints => roadsGenerator.Ends;
         public string Uid => uid;
@@ -60,7 +60,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
             PrefabSpawnerFabric spawnerFabric,
             SaveDataObject saveDataObject,
             GameDataObject gameDataObject,
-            MapIsland.IslandData islandData
+            IslandSeedData islandData
         )
         {
             this.islandData = islandData;

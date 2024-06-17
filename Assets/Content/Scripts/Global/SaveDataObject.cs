@@ -322,7 +322,8 @@ namespace Content.Scripts.Global
                         OnChangeSocialRaiting?.Invoke(socialRating);
                     }
                 }
-                
+
+                [SerializeField] private string islandName;
                 [SerializeField] private Vector2Int islandPos;
                 [SerializeField] private int islandSeed;
                 [SerializeField] private List<Vector2Int> removedTrees = new List<Vector2Int>();
@@ -343,10 +344,17 @@ namespace Content.Scripts.Global
 
                 public List<VillageData> VillagesData => villagesData;
 
+                public string IslandName => islandName;
+
 
                 public void AddDestroyedTreePos(Vector2Int pos)
                 {
                     removedTrees.Add(pos);
+                }
+
+                public void SetIslandName(string str)
+                {
+                    islandName = str;
                 }
 
                 public bool IsTreeDestroyed(Vector2Int intPos)

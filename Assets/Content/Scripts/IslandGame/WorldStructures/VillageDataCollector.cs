@@ -14,14 +14,14 @@ namespace Content.Scripts.IslandGame.WorldStructures
         [SerializeField, ReadOnly] private List<NativesWaterSource> spawnedWaterSources;
         private Bounds villageBounds;
         private string villageID;
-        private MapIsland.IslandData islandData;
+        private IslandSeedData islandData;
 
         public string VillageID => villageID;
 
-        public MapIsland.IslandData IslandData => islandData;
+        public IslandSeedData IslandData => islandData;
 
 
-        public void Init(List<StructureDataBase> spawnedActiveStructures, Bounds villageBounds, string villageID, MapIsland.IslandData islandData)
+        public void Init(List<StructureDataBase> spawnedActiveStructures, Bounds villageBounds, string villageID, IslandSeedData islandData)
         {
             this.islandData = islandData;
             this.villageID = villageID;
