@@ -1,7 +1,11 @@
 using System;
+using Content.Scripts.BoatGame;
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI;
 using Content.Scripts.Global;
+using Content.Scripts.ItemsSystem;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 namespace Content.Scripts.Map.UI
@@ -13,10 +17,19 @@ namespace Content.Scripts.Map.UI
         [SerializeField] private RectTransform arrow;
         [SerializeField] private TooltipDataObject tooltipItemData;
         [SerializeField] private UITooltip toolTip;
+        [SerializeField] private TMP_Text paddleCounter;
+        [SerializeField] private ItemObject paddleItem;
+
+        private CharacterService characterService;
         private bool isOpened = false;
+        
+        int paddlesCount = 0;
         
         public void Init(SaveDataObject saveData)
         {
+            characterService = CrossSceneContext.GetCharactersService();
+            
+            
             toolTip.Init(tooltipItemData);
             int discoversCount = 0;
             item.gameObject.SetActive(true);
@@ -31,9 +44,49 @@ namespace Content.Scripts.Map.UI
             }
             item.gameObject.SetActive(false);
 
+            
+            if (discoversCount == 0)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+            
+            
             Toggle();
             
-            if (discoversCount == 0) gameObject.SetActive(false);
+            characterService.OnCharactersChange += OnCharactersChanged;
+            OnEquipmentChanged();
+        }
+
+        private void OnCharactersChanged()
+        {
+            foreach (var spawned in characterService.SpawnedCharacters)
+            {
+                spawned.Character.Equipment.OnEquipmentChange -= OnEquipmentChanged;
+                spawned.Character.Equipment.OnEquipmentChange += OnEquipmentChanged;
+            }
+        }
+
+        private void OnEquipmentChanged()
+        {
+            paddlesCount = 0;
+            foreach (var spawned in characterService.SpawnedCharacters)
+            {
+                if (spawned.AppearanceDataManager.WeaponItem != null)
+                {
+                    if (paddleItem == spawned.AppearanceDataManager.WeaponItem)
+                    {
+                        paddlesCount++;
+                    }
+                } 
+            }
+
+            UpdatePaddlesCounter();
+        }
+
+        private void UpdatePaddlesCounter()
+        {
+            paddleCounter.text = paddlesCount + "/1";
         }
 
         public void Toggle()

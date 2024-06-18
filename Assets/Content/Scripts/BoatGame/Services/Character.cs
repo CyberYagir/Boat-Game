@@ -110,7 +110,7 @@ namespace Content.Scripts.BoatGame.Services
             public bool IsHaveHelmet => string.IsNullOrEmpty(HelmetID);
 
 
-            [NonSerialized] public Action OnEquipmentChange;
+            public event Action OnEquipmentChange;
 
 
             public void SetHelmet(ItemObject item)

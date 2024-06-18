@@ -1,3 +1,4 @@
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Game;
 
 namespace Content.Scripts.Map

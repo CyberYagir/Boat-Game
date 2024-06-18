@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 65820973}
   - component: {fileID: 65820972}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1476,7 +1476,7 @@ GameObject:
   - component: {fileID: 616823322}
   - component: {fileID: 616823321}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PaddlesCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1935,6 +1935,8 @@ MonoBehaviour:
   arrow: {fileID: 65820971}
   tooltipItemData: {fileID: 11400000, guid: 24dceb629a2fe534ab2bb631f5cce562, type: 2}
   toolTip: {fileID: 1129836661}
+  paddleCounter: {fileID: 616823321}
+  paddleItem: {fileID: 11400000, guid: 283ef1d73269aa54da40ad56fb81cde5, type: 2}
 --- !u!1 &763326049
 GameObject:
   m_ObjectHideFlags: 0
@@ -2276,7 +2278,6 @@ GameObject:
   - component: {fileID: 798380738}
   - component: {fileID: 798380737}
   - component: {fileID: 798380739}
-  - component: {fileID: 798380740}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -2351,19 +2352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1885073576f0b8245a8a9aca82855d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &798380740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 798380736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08cfdc67635c2734d915b0833b50afd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  texture: {fileID: 0}
 --- !u!224 &848181338 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2503489170986297629, guid: 23018dc1018404f4e97d260b14fa09c1, type: 3}
@@ -2902,7 +2890,7 @@ GameObject:
   - component: {fileID: 1086087283}
   - component: {fileID: 1086087282}
   m_Layer: 5
-  m_Name: Image
+  m_Name: PaddleIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

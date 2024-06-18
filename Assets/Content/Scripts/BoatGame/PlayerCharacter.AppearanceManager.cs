@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Content.Scripts.BoatGame.Equipment;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using Content.Scripts.ItemsSystem;
 using Content.Scripts.ManCreator;
 using DG.Tweening;
 using UnityEngine;
@@ -47,6 +48,15 @@ namespace Content.Scripts.BoatGame
             private GameObject spawnedArmor;
             private GameObject spawnedWeapon;
 
+
+            private ItemObject helmetItem;
+            private ItemObject armorItem;
+            private ItemObject weaponItem;
+
+            public ItemObject WeaponItem => weaponItem;
+            public ItemObject ArmorItem => armorItem;
+            public ItemObject HelmetItem => helmetItem;
+
             public bool InHood => inHood;
 
             public void Init(Character character, GameDataObject gameData)
@@ -87,15 +97,15 @@ namespace Content.Scripts.BoatGame
             private void OnEquipmentChange()
             {
                 
-                spawnedHelmet = RespawnItem(spawnedHelmet, character.Equipment.HelmetID);
-                spawnedArmor = RespawnItem(spawnedArmor, character.Equipment.ArmorID);
-                spawnedWeapon = RespawnItem(spawnedWeapon, character.Equipment.WeaponID);
+                spawnedHelmet = RespawnItem(spawnedHelmet, character.Equipment.HelmetID, out helmetItem);
+                spawnedArmor = RespawnItem(spawnedArmor, character.Equipment.ArmorID, out armorItem);
+                spawnedWeapon = RespawnItem(spawnedWeapon, character.Equipment.WeaponID, out weaponItem);
 
                 ActiveMeleeWeapon(weaponInHand);
                 
                 SetHatState(InHood, 0);
 
-                GameObject RespawnItem(GameObject spawned, string id)
+                GameObject RespawnItem(GameObject spawned, string id, out ItemObject item)
                 {
                     if (spawned != null)
                     {
@@ -104,7 +114,7 @@ namespace Content.Scripts.BoatGame
 
                     if (!string.IsNullOrEmpty(id))
                     {
-                        var item = gameData.GetItem(id);
+                        item = gameData.GetItem(id);
                         if (item != null)
                         {
                             Transform targetBone = GetBone(item.Prefab.GetComponent<EquipmentWorker>().TargetBone);
@@ -117,6 +127,7 @@ namespace Content.Scripts.BoatGame
                         }
                     }
 
+                    item = null;
                     return null;
                 }
             }

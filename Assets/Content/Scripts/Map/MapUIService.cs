@@ -1,4 +1,5 @@
 using System;
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using Content.Scripts.Map.UI;
@@ -16,7 +17,12 @@ namespace Content.Scripts.Map
         private ScenesService scenesService;
 
         [Inject]
-        private void Construct(MapIslandCollector mapIslandCollector, ScenesService scenesService, MapSelectionService mapSelectionService, SaveDataObject saveDataObject)
+        private void Construct(
+            MapIslandCollector mapIslandCollector,
+            ScenesService scenesService,
+            MapSelectionService mapSelectionService,
+            SaveDataObject saveDataObject
+        )
         {
             this.scenesService = scenesService;
             marksContainer.Init(mapIslandCollector);
@@ -25,7 +31,7 @@ namespace Content.Scripts.Map
             scenesService.OnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
             scenesService.OnUnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
             OnChangeScene(scenesService.GetActiveScene());
-
+            
             islandWindow.Init(mapSelectionService);
         }
 
