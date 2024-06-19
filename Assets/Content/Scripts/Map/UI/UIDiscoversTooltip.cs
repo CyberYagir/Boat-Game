@@ -25,7 +25,7 @@ namespace Content.Scripts.Map.UI
         
         int paddlesCount = 0;
         
-        public void Init(SaveDataObject saveData)
+        public void Init(SaveDataObject saveData, UIMessageBoxManager uiMessageBoxManager)
         {
             characterService = CrossSceneContext.GetCharactersService();
             
@@ -38,7 +38,7 @@ namespace Content.Scripts.Map.UI
                 if (!string.IsNullOrEmpty(saveData.Map.Islands[i].IslandName))
                 {
                     Instantiate(item, item.transform.parent)
-                        .Init(IslandSeedData.Generate(saveData.Map.Islands[i].IslandPos), saveData.Map.Islands[i].IslandName);
+                        .Init(IslandSeedData.Generate(saveData.Map.Islands[i].IslandPos), saveData.Map.Islands[i].IslandName, uiMessageBoxManager);
                     discoversCount++;
                 }
             }

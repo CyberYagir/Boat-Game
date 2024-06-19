@@ -1,5 +1,6 @@
 using System;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.BoatGame.UI;
 using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using Content.Scripts.Map.UI;
@@ -13,7 +14,7 @@ namespace Content.Scripts.Map
         [SerializeField] private UIMarksContainer marksContainer;
         [SerializeField] private UIIslandWindow islandWindow;
         [SerializeField] private UIDiscoversTooltip discoversTooltip;
-        
+        [SerializeField] private UIMessageBoxManager messageBoxManager;
         private ScenesService scenesService;
 
         [Inject]
@@ -26,7 +27,7 @@ namespace Content.Scripts.Map
         {
             this.scenesService = scenesService;
             marksContainer.Init(mapIslandCollector);
-            discoversTooltip.Init(saveDataObject);
+            discoversTooltip.Init(saveDataObject, messageBoxManager);
             scenesService.OnChangeActiveScene += OnChangeScene;
             scenesService.OnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
             scenesService.OnUnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
