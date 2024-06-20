@@ -16,6 +16,11 @@ namespace Content.Scripts.BoatGame.UI
             yesText.text = okText;
             this.noText.text = noText;
             mainText.text = text;
+
+            if (noText == "_disabled")
+            {
+                noButton.gameObject.SetActive(false);
+            }
         }
 
         public void AddActions(Action yesAction)

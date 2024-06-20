@@ -24,9 +24,15 @@ namespace Content.Scripts.Map.UI
         private bool isOpened = false;
         
         int paddlesCount = 0;
-        
-        public void Init(SaveDataObject saveData, UIMessageBoxManager uiMessageBoxManager)
+        private MapUIService mapUIService;
+        private GameDataObject gameData;
+        private UIMessageBoxManager uiMessageBoxManager;
+
+        public void Init(SaveDataObject saveData, UIMessageBoxManager uiMessageBoxManager, MapUIService mapUIService, GameDataObject gameData)
         {
+            this.uiMessageBoxManager = uiMessageBoxManager;
+            this.gameData = gameData;
+            this.mapUIService = mapUIService;
             characterService = CrossSceneContext.GetCharactersService();
             
             
@@ -38,10 +44,15 @@ namespace Content.Scripts.Map.UI
                 if (!string.IsNullOrEmpty(saveData.Map.Islands[i].IslandName))
                 {
                     Instantiate(item, item.transform.parent)
-                        .Init(IslandSeedData.Generate(saveData.Map.Islands[i].IslandPos), saveData.Map.Islands[i].IslandName, uiMessageBoxManager);
+                        .Init(
+                            IslandSeedData.Generate(saveData.Map.Islands[i].IslandPos),
+                            saveData.Map.Islands[i],
+                            uiMessageBoxManager,
+                            this);
                     discoversCount++;
                 }
             }
+
             item.gameObject.SetActive(false);
 
             
@@ -69,6 +80,13 @@ namespace Content.Scripts.Map.UI
 
         private void OnEquipmentChanged()
         {
+            CalculatePaddlesCount();
+
+            UpdatePaddlesCounter();
+        }
+
+        private int CalculatePaddlesCount()
+        {
             paddlesCount = 0;
             foreach (var spawned in characterService.SpawnedCharacters)
             {
@@ -78,15 +96,15 @@ namespace Content.Scripts.Map.UI
                     {
                         paddlesCount++;
                     }
-                } 
+                }
             }
 
-            UpdatePaddlesCounter();
+            return paddlesCount;
         }
 
         private void UpdatePaddlesCounter()
         {
-            paddleCounter.text = paddlesCount + "/1";
+            paddleCounter.text = paddlesCount + "/" + gameData.ConfigData.PaddlesToTravelCount;
         }
 
         public void Toggle()
@@ -104,6 +122,17 @@ namespace Content.Scripts.Map.UI
 
             content.gameObject.SetActive(isOpened);
         }
-        
+
+        public void GoToIsland(int islandIslandSeed)
+        {
+            if (CalculatePaddlesCount() >= gameData.ConfigData.PaddlesToTravelCount)
+            {
+                mapUIService.GoToIsland(islandIslandSeed);
+            }
+            else
+            {
+                uiMessageBoxManager.ShowMessageBox("There aren't enough paddles to travel to the island!", null, "Ok", "_disabled");
+            }
+        }
     }
 }

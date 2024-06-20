@@ -60,5 +60,8 @@ namespace Content.Scripts.Map
             pathCreator.TriggerPathUpdate();
             
         }
+
+
+        public MapIsland GetIslandBySeed(int seed) => islands.Find(x => x.Seed == seed);
     }
 }

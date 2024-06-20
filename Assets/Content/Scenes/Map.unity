@@ -4865,8 +4865,8 @@ RectTransform:
   m_Children:
   - {fileID: 1494707561}
   - {fileID: 908954}
-  - {fileID: 356205226}
   - {fileID: 747682223}
+  - {fileID: 356205226}
   - {fileID: 1733571295}
   m_Father: {fileID: 1873787246}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4950,6 +4950,7 @@ GameObject:
   - component: {fileID: 1733571298}
   - component: {fileID: 1733571297}
   - component: {fileID: 1733571296}
+  - component: {fileID: 1733571299}
   m_Layer: 5
   m_Name: TimeSpend
   m_TagString: Untagged
@@ -5028,6 +5029,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733571294}
   m_CullTransparentMesh: 1
+--- !u!114 &1733571299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733571294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03f57ff5e44eef4698bb5b3f65766d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 1733571296}
+  text: {fileID: 66014027}
 --- !u!1 &1873787245
 GameObject:
   m_ObjectHideFlags: 0
@@ -5077,6 +5092,7 @@ MonoBehaviour:
   islandWindow: {fileID: 356205227}
   discoversTooltip: {fileID: 747682224}
   messageBoxManager: {fileID: 1494707562}
+  moveIslandTimer: {fileID: 1733571299}
 --- !u!1 &1896771428
 GameObject:
   m_ObjectHideFlags: 0

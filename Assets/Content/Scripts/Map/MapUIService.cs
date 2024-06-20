@@ -1,4 +1,5 @@
 using System;
+using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI;
 using Content.Scripts.Boot;
@@ -15,19 +16,27 @@ namespace Content.Scripts.Map
         [SerializeField] private UIIslandWindow islandWindow;
         [SerializeField] private UIDiscoversTooltip discoversTooltip;
         [SerializeField] private UIMessageBoxManager messageBoxManager;
+        [SerializeField] private UIMoveIslandTimer moveIslandTimer;
+        
         private ScenesService scenesService;
+        private MapMoverService mapMoverService;
 
         [Inject]
         private void Construct(
             MapIslandCollector mapIslandCollector,
             ScenesService scenesService,
             MapSelectionService mapSelectionService,
-            SaveDataObject saveDataObject
+            SaveDataObject saveDataObject,
+            MapMoverService mapMoverService,
+            GameDataObject gamedata
         )
         {
+            this.mapMoverService = mapMoverService;
             this.scenesService = scenesService;
             marksContainer.Init(mapIslandCollector);
-            discoversTooltip.Init(saveDataObject, messageBoxManager);
+            discoversTooltip.Init(saveDataObject, messageBoxManager, this, gamedata);
+            moveIslandTimer.Init();
+            
             scenesService.OnChangeActiveScene += OnChangeScene;
             scenesService.OnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
             scenesService.OnUnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
@@ -55,6 +64,15 @@ namespace Content.Scripts.Map
         private void LateUpdate()
         {
             marksContainer.UpdateMarks();
+        }
+
+        public void GoToIsland(int islandIslandSeed)
+        {
+            moveIslandTimer.Show(mapMoverService.GetTimeDistance(islandIslandSeed), delegate
+            {
+                mapMoverService.GoToIsland(islandIslandSeed);
+                CrossSceneContext.GetSaveService().SaveWorld();
+            });
         }
     }
 }

@@ -8,15 +8,18 @@ namespace Content.Scripts.BoatGame
     {
         private static CrossSceneContext Instance;
         private CharacterService characterService;
+        private SaveService saveService;
 
         [Inject]
-        private void Construct(CharacterService characterService)
+        private void Construct(CharacterService characterService, SaveService saveService)
         {
             Instance = this;
+            this.saveService = saveService;
             this.characterService = characterService;
         }
 
         public static CharacterService GetCharactersService() => Instance.characterService;
+        public static SaveService GetSaveService() => Instance.saveService;
 
     }
 }

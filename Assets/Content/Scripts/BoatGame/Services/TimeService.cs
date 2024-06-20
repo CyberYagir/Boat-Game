@@ -46,5 +46,9 @@ namespace Content.Scripts.BoatGame.Services
         {
             playedBoatTime = PlayedBoatTime + DeltaTime * TimeRate;
         }
+        public static void AddPlayedBoatTime(float value)
+        {
+            playedBoatTime = PlayedBoatTime + value;
+        }
     }
 }
