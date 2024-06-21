@@ -1,3 +1,4 @@
+using System;
 using Content.Scripts.BoatGame.UI;
 using Content.Scripts.Global;
 using TMPro;
@@ -19,7 +20,7 @@ namespace Content.Scripts.Map.UI
             this.island = island;
             this.discoversTooltip = discoversTooltip;
             messageBoxManager = uiMessageBoxManager;
-            markIcon.Init(islandData);
+            markIcon.Init(islandData, String.Empty);
             text.text = island.IslandName;
         }
 

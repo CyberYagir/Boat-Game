@@ -25,7 +25,6 @@ namespace Content.Scripts.BoatGame
                 [SerializeField] private Sprite eat, water, skull;
                 
                 
-                
                 private Transform parent;
                 private Vector3 needPopupPoint;
 

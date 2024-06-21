@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Content.Scripts.Global;
 using DG.Tweening;
 using UnityEngine;
 
@@ -12,15 +14,21 @@ namespace Content.Scripts.Map.UI
         private Dictionary<RectTransform, bool> isAnimated = new(10);
 
         private MapIslandCollector mapIslandCollector;
+        private SaveDataObject saveDataObject;
 
-        public void Init(MapIslandCollector mapIslandCollector)
+        private List<SaveDataObject.MapData.IslandData> namedIslands;
+
+        public void Init(MapIslandCollector mapIslandCollector, SaveDataObject saveDataObject)
         {
+            this.saveDataObject = saveDataObject;
             this.mapIslandCollector = mapIslandCollector;
 
             for (int i = 0; i < marksPool.Count; i++)
             {
                 marksPool[i].gameObject.SetActive(false);
             }
+
+            namedIslands = saveDataObject.Map.Islands.FindAll(x => !string.IsNullOrEmpty(x.IslandName));
         }
 
         public void UpdateMarks()
@@ -47,7 +55,10 @@ namespace Content.Scripts.Map.UI
                                 .onComplete += () => { isAnimated.Remove(target); };
                         }
                     }
-                    target.GetComponent<UIMark>().Init(mapIslandCollector.IslandsInRadius[islandID].GeneratedData);
+
+                    var namedIsland = namedIslands.Find(x => x.IslandSeed == mapIslandCollector.IslandsInRadius[islandID].Seed);
+
+                    target.GetComponent<UIMark>().Init(mapIslandCollector.IslandsInRadius[islandID].GeneratedData, namedIsland != null ? namedIsland.IslandName : String.Empty);
                     islandID++;
                 }
                 else

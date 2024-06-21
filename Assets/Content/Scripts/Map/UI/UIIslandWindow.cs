@@ -1,3 +1,4 @@
+using System;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI;
 using Content.Scripts.Global;
@@ -19,7 +20,7 @@ namespace Content.Scripts.Map.UI
 
         private void SelectionServiceOnOnSelectIsland(MapIsland obj)
         {
-            mark.Init(obj.GeneratedData);
+            mark.Init(obj.GeneratedData, String.Empty);
             ShowWindow();
         }
 
