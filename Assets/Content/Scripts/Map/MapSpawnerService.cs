@@ -39,10 +39,10 @@ namespace Content.Scripts.Map
                 var il = saveData.Map.Islands[i];
                 var random = new System.Random(il.IslandSeed);
                 Instantiate(islandPrefab, new Vector3(il.IslandPos.x, yWorldOffcet, il.IslandPos.y), Quaternion.identity)
+                    .With(x => x.Init(il.IslandPos, il.IslandSeed))
                     .With(x => x.Renderer.material.SetTexture(MainTex, textures.GetRandomItem(random)))
                     .With(x => x.transform.SetYEulerAngles(random.Next(0, 360)))
-                    .With(x => Islands.Add(x))
-                    .With(x => x.Init(il.IslandPos, il.IslandSeed));
+                    .With(x => Islands.Add(x));
             }
 
             var worldRandom = new System.Random(saveData.Map.WorldSeed);

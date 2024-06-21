@@ -1,5 +1,6 @@
 using Content.Scripts.IslandGame;
 using Content.Scripts.ItemsSystem;
+using DG.DemiLib;
 using UnityEngine;
 
 namespace Content.Scripts.Global
@@ -12,6 +13,7 @@ namespace Content.Scripts.Global
         [SerializeField] private int actionsCountToTutorial;
         [SerializeField] private int paddlesToTravelCount;
         [SerializeField] private ItemObject paddleItem;
+        
         [SerializeField] private NoiseGenerator mapNoisePreset;
         
         public float StartNeedsActiveTime => startNeedsActiveTime;

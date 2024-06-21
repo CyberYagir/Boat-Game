@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.16, y: -0.29, z: 6.28}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5337981807959783720}
@@ -48,8 +48,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: 0
   renderer: {fileID: 6512063157688549959}
+  islandGenerationData: {fileID: 11400000, guid: 4034d9d7e911e3b4194474f9ad4c442e, type: 2}
   islandData:
     level: 0
+    terrainIndex: 0
+    temperature: 0
+    biome: {fileID: 0}
 --- !u!135 &2175162839320426335
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -137,7 +141,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 122a2989d01eb7b46b2f2a880c0ffc4a, type: 3}
       propertyPath: m_CastShadows
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 122a2989d01eb7b46b2f2a880c0ffc4a, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 122a2989d01eb7b46b2f2a880c0ffc4a, type: 3}
       propertyPath: m_Materials.Array.data[0]

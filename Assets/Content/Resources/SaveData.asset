@@ -14,423 +14,407 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charactersData:
     characters:
-    - name: Bobbie
-      uid: d8542811-9823-4ef8-84ae-6d04ca80df7d
+    - name: Chester
+      uid: cdd272c5-1941-4cdf-8378-bdaf41b85d0e
       skillsData:
-        xp: 14
-        scores: 0
-        level: 4
+        xp: 6
+        scores: 2
+        level: 6
         skills:
         - skillID: f3b559d4-e0e2-42ef-b5d1-71101d0e10ca
-          value: 5
+          value: 6
         - skillID: 20b3171e-8a60-4361-bfe4-c12a4b154163
           value: 2
-        - skillID: bd91198f-eeab-4ae1-acef-2551fa57d4d9
-          value: 1
         - skillID: 3b8443e2-2fef-4110-95aa-d61d78459f6f
           value: 1
       parametersData:
         health: 100
-        hunger: 84.47343
-        thirsty: 68.94685
+        hunger: 63.85491
+        thirsty: 39.0197
       equipmentData:
-        helmetID: 
+        helmetID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
         armorID: 
         weaponID: bcddab5b-dfe3-4642-807d-96e3b0e64c38
-      skinColorID: 2
+      skinColorID: 0
       hatID: 3
   raftsData:
     rafts:
-    - uid: 84e4edb6-bc03-4f91-9a5c-1c03a4bbf252
+    - uid: 30803950-705d-48bb-9268-78c375d583ee
       pos: {x: 0, y: 0, z: 0}
-      health: 100.20958
+      health: 100.394264
       raftType: 0
-    - uid: 72aa58d5-7c20-4165-9a83-cb3bf4a77dcf
+    - uid: 3a9e7a13-6a13-472f-808a-4c88a3668690
       pos: {x: 0, y: 0, z: 1}
-      health: 100.28386
+      health: 100.61914
       raftType: 0
-    - uid: abc0dcd8-8387-454f-9669-30881ec39748
+    - uid: e471096e-b050-4cc7-b82e-e425f01d70d3
       pos: {x: 1, y: 0, z: 0}
-      health: 100
+      health: 100.55322
       raftType: 0
-    - uid: a814558a-5f71-49e5-98a0-540172993e4f
+    - uid: 8396f830-dc27-426c-a649-3b6f91109808
       pos: {x: 1, y: 0, z: 1}
       health: 100
       raftType: 1
-    - uid: b89ea66a-59b3-4d3c-b914-4a8059b47885
+    - uid: a03abcc1-d1f1-4cd2-aefe-479b81e1f692
       pos: {x: 2, y: 0, z: 1}
-      health: 100
+      health: 100.16253
       raftType: 1
-    - uid: 35a4e834-1a8e-444a-93fd-d46235efba19
+    - uid: 20146888-8f4e-4ce0-b83f-91051ecd9dae
       pos: {x: -1, y: 0, z: 1}
       health: 100
-      raftType: 4
-    - uid: 3f8d3519-cc3e-4593-9441-923f9c5bd56b
+      raftType: 3
+    - uid: 19604cb8-6be2-45d4-8d9a-44d52b780b40
+      pos: {x: 1, y: 0, z: 2}
+      health: 100.33998
+      raftType: 1
+    - uid: 211c9e84-df51-4b73-9bff-27b32bce7c98
+      pos: {x: 0, y: 0, z: 2}
+      health: 100
+      raftType: 0
+    - uid: ff122182-7b50-4f49-bb88-cb0309bd5732
+      pos: {x: 2, y: 0, z: 2}
+      health: 100
+      raftType: 0
+    - uid: 6a866190-d580-4041-bc72-4ba95984cba0
       pos: {x: -1, y: 0, z: 0}
       health: 100
-      raftType: 3
+      raftType: 4
     storages:
-    - raftUid: a814558a-5f71-49e5-98a0-540172993e4f
+    - raftUid: 8396f830-dc27-426c-a649-3b6f91109808
       storagesData:
       - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
+        count: 4
+      - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
         count: 1
-      - itemID: 2d53373e-7568-4eb4-9046-d4ba410de85a
-        count: 1
-      - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
-        count: 2
-      - itemID: a6466df9-4c13-4531-9d61-e35e15368c82
-        count: 2
-      - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
-        count: 2
-    - raftUid: b89ea66a-59b3-4d3c-b914-4a8059b47885
+    - raftUid: a03abcc1-d1f1-4cd2-aefe-479b81e1f692
+      storagesData:
+      - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
+        count: 4
+    - raftUid: 19604cb8-6be2-45d4-8d9a-44d52b780b40
       storagesData: []
     furnaces: []
     raftsInBuild: []
   mapData:
-    worldSeed: 1063891530
+    worldSeed: -2028171698
     islands:
     - islandName: 
-      islandPos: {x: 9, y: 54}
-      islandSeed: 1063891593
+      islandPos: {x: 0, y: 109}
+      islandSeed: -2028171589
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 21, y: 181}
-      islandSeed: 1063891733
+      islandPos: {x: 13, y: 396}
+      islandSeed: -2028171288
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 33, y: 204}
-      islandSeed: 1063891769
+      islandPos: {x: 24, y: 69}
+      islandSeed: -2028171603
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 46, y: 141}
-      islandSeed: 1063891720
+      islandPos: {x: 25, y: 337}
+      islandSeed: -2028171333
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 57, y: 288}
-      islandSeed: 1063891879
+      islandPos: {x: 30, y: 138}
+      islandSeed: -2028171526
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 61, y: 237}
-      islandSeed: 1063891833
+      islandPos: {x: 37, y: 198}
+      islandSeed: -2028171458
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 81, y: 45}
-      islandSeed: 1063891662
+      islandPos: {x: 39, y: 286}
+      islandSeed: -2028171367
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 84, y: 160}
-      islandSeed: 1063891781
+      islandPos: {x: 40, y: 379}
+      islandSeed: -2028171272
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 93, y: 268}
-      islandSeed: 1063891899
+      islandPos: {x: 43, y: 319}
+      islandSeed: -2028171328
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 117, y: 340}
-      islandSeed: 1063891996
+      islandPos: {x: 48, y: 6}
+      islandSeed: -2028171635
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 123, y: 175}
-      islandSeed: 1063891838
+      islandPos: {x: 48, y: 373}
+      islandSeed: -2028171267
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 123, y: 390}
-      islandSeed: 1063892054
+      islandPos: {x: 60, y: 175}
+      islandSeed: -2028171452
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 141, y: 30}
-      islandSeed: 1063891713
+      islandPos: {x: 60, y: 390}
+      islandSeed: -2028171236
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 151, y: 258}
-      islandSeed: 1063891952
+      islandPos: {x: 112, y: 303}
+      islandSeed: -2028171270
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 156, y: 124}
-      islandSeed: 1063891824
+      islandPos: {x: 117, y: 258}
+      islandSeed: -2028171309
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 156, y: 339}
-      islandSeed: 1063892040
+      islandPos: {x: 126, y: 318}
+      islandSeed: -2028171239
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 169, y: 166}
-      islandSeed: 1063891881
+      islandPos: {x: 133, y: 12}
+      islandSeed: -2028171537
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 169, y: 381}
-      islandSeed: 1063892097
+      islandPos: {x: 142, y: 181}
+      islandSeed: -2028171358
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 171, y: 165}
-      islandSeed: 1063891884
+      islandPos: {x: 148, y: 21}
+      islandSeed: -2028171511
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 174, y: 291}
-      islandSeed: 1063892014
+      islandPos: {x: 163, y: 390}
+      islandSeed: -2028171126
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 199, y: 175}
-      islandSeed: 1063891924
+      islandPos: {x: 172, y: 172}
+      islandSeed: -2028171334
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 201, y: 391}
-      islandSeed: 1063892143
+      islandPos: {x: 172, y: 387}
+      islandSeed: -2028171118
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 208, y: 6}
-      islandSeed: 1063891766
+      islandPos: {x: 174, y: 123}
+      islandSeed: -2028171379
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 225, y: 330}
-      islandSeed: 1063892108
+      islandPos: {x: 190, y: 264}
+      islandSeed: -2028171221
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 229, y: 297}
-      islandSeed: 1063892080
+      islandPos: {x: 192, y: 28}
+      islandSeed: -2028171454
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 274, y: 259}
-      islandSeed: 1063892088
+      islandPos: {x: 192, y: 243}
+      islandSeed: -2028171238
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 276, y: 237}
-      islandSeed: 1063892069
+      islandPos: {x: 195, y: 99}
+      islandSeed: -2028171378
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 279, y: 57}
-      islandSeed: 1063891893
+      islandPos: {x: 198, y: 18}
+      islandSeed: -2028171455
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 280, y: 196}
-      islandSeed: 1063892034
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 123
-      islandPos: {x: 298, y: 313}
-      islandSeed: 1063892170
-      removedTrees:
-      - {x: 245, y: 184}
-      droppedItems:
-      - pos: {x: -23.00586, y: 7.044277, z: -10.297821}
-        rot: {x: 359.25528, y: 0.12386255, z: 0.56302005}
-        itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
-        dropID: dc81a91f-7c9b-4cb5-9bef-808282a55e28
-      - pos: {x: 64.54547, y: 8.203011, z: 55.984756}
-        rot: {x: 0.056581374, y: 359.6714, z: 359.26248}
-        itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
-        dropID: 77ac10ec-8d04-4189-b81f-d23dc6cb2b07
-      - pos: {x: 62.48233, y: 8.416801, z: 55.13469}
-        rot: {x: 0.51108164, y: 0.1677909, z: 359.80447}
-        itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
-        dropID: 12dec3b9-68f2-4491-85dc-586bba88cc6d
-      - pos: {x: 70.229645, y: 7.791172, z: 48.59677}
-        rot: {x: 359.13077, y: 359.67947, z: 0.12610565}
-        itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
-        dropID: bf81706b-e786-488b-b697-1ba97256d7b2
-      villagesData:
-      - uid: 0d97e113-320b-be73-6d46-d4da24e1f1ad
-        socialRating: 0
-        villagers:
-        - uid: f0df07e8-e9be-5a66-7be6-2f35a8882b26
-          isDead: 0
-        - uid: 7feb5d8c-ee1d-93e7-c757-e632543749a4
-          isDead: 0
-        - uid: 84d4ca25-0de6-ef7d-2a13-55d96e8fdcbd
-          isDead: 0
-        - uid: f8f2f9c8-5fca-6754-c9d2-054e017842a1
-          isDead: 0
-        - uid: dfb7beec-0287-a509-0d09-a0afcc7df306
-          isDead: 0
-        - uid: dec1f4ae-04ec-264f-a8c1-6a7d5b1ad30d
-          isDead: 0
-        - uid: f6b3c28d-52ab-02a0-5f39-daae47d092af
-          isDead: 0
-        - uid: ccf7c9a3-e315-0b48-bd9f-969544645775
-          isDead: 0
-        - uid: ed8b7f25-0cf6-a92e-56af-777ce8e9ea2e
-          isDead: 0
-        - uid: 6df72f04-47c3-76fe-a32e-c002bc7b1078
-          isDead: 0
-        - uid: 1c5904ef-68e5-e8b1-1f16-2d45510711bd
-          isDead: 0
-    - islandName: 
-      islandPos: {x: 303, y: 205}
-      islandSeed: 1063892068
+      islandPos: {x: 219, y: 385}
+      islandSeed: -2028171066
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 306, y: 82}
-      islandSeed: 1063891949
+      islandPos: {x: 225, y: 195}
+      islandSeed: -2028171249
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 307, y: 159}
-      islandSeed: 1063892028
+      islandPos: {x: 226, y: 192}
+      islandSeed: -2028171250
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 328, y: 208}
-      islandSeed: 1063892099
+      islandPos: {x: 228, y: 396}
+      islandSeed: -2028171043
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 328, y: 390}
-      islandSeed: 1063892282
+      islandPos: {x: 249, y: 165}
+      islandSeed: -2028171252
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 330, y: 186}
-      islandSeed: 1063892081
+      islandPos: {x: 250, y: 88}
+      islandSeed: -2028171327
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 331, y: 189}
-      islandSeed: 1063892086
+      islandPos: {x: 250, y: 303}
+      islandSeed: -2028171111
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 337, y: 379}
-      islandSeed: 1063892283
+      islandPos: {x: 253, y: 211}
+      islandSeed: -2028171199
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 358, y: 12}
-      islandSeed: 1063891938
+      islandPos: {x: 258, y: 319}
+      islandSeed: -2028171085
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 361, y: 93}
-      islandSeed: 1063892023
+      islandPos: {x: 276, y: 202}
+      islandSeed: -2028171183
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 364, y: 22}
-      islandSeed: 1063891956
+      islandPos: {x: 277, y: 63}
+      islandSeed: -2028171320
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 364, y: 237}
-      islandSeed: 1063892172
+      islandPos: {x: 280, y: 243}
+      islandSeed: -2028171136
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 366, y: 258}
-      islandSeed: 1063892196
+      islandPos: {x: 282, y: 265}
+      islandSeed: -2028171111
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 382, y: 117}
-      islandSeed: 1063892072
+      islandPos: {x: 288, y: 177}
+      islandSeed: -2028171192
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 384, y: 166}
-      islandSeed: 1063892124
+      islandPos: {x: 327, y: 303}
+      islandSeed: -2028171026
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 384, y: 381}
-      islandSeed: 1063892340
+      islandPos: {x: 331, y: 336}
+      islandSeed: -2028170988
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 393, y: 169}
-      islandSeed: 1063892138
+      islandPos: {x: 348, y: 12}
+      islandSeed: -2028171294
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 393, y: 384}
-      islandSeed: 1063892354
+      islandPos: {x: 355, y: 397}
+      islandSeed: -2028170901
+      removedTrees: []
+      droppedItems: []
+      villagesData: []
+    - islandName: 
+      islandPos: {x: 357, y: 181}
+      islandSeed: -2028171114
+      removedTrees: []
+      droppedItems: []
+      villagesData: []
+    - islandName: 
+      islandPos: {x: 382, y: 297}
+      islandSeed: -2028170972
+      removedTrees: []
+      droppedItems: []
+      villagesData: []
+    - islandName: 
+      islandPos: {x: 385, y: 171}
+      islandSeed: -2028171094
+      removedTrees: []
+      droppedItems: []
+      villagesData: []
+    - islandName: 
+      islandPos: {x: 387, y: 172}
+      islandSeed: -2028171090
+      removedTrees: []
+      droppedItems: []
+      villagesData: []
+    - islandName: 
+      islandPos: {x: 387, y: 387}
+      islandSeed: -2028170874
       removedTrees: []
       droppedItems: []
       villagesData: []
   globalData:
-    totalSecondsInGame: 1921.2489
-    totalSecondsOnRaft: 2494.3772
+    totalSecondsInGame: 1203.9011
+    totalSecondsOnRaft: 3339.1228
     islandSeed: 0
     damagersData:
-      tickCount: 44
-      maxTickCount: 6509.6997
+      tickCount: 66
+      maxTickCount: 4469.4
       spawnedItems: []
     weathersData:
-      tickCount: 1171
-      maxTickCount: 2214
-      currentWeather: 0
+      tickCount: 587
+      maxTickCount: 2182
+      currentWeather: 1
   tutorialsData:
     clickTutorial: 1
     eatTutorial: 1
