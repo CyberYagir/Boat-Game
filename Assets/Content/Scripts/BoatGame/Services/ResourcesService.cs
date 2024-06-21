@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Content.Scripts.BoatGame.UI.UIEquipment;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using UnityEngine;
@@ -22,15 +23,17 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private List<RaftStorage.StorageItem> allItemsList = new List<RaftStorage.StorageItem>(20);
 
         private RaftBuildService raftBuildService;
+        private CharacterService characterService;
 
         public event Action OnChangeResources;
         public List<RaftStorage.StorageItem> AllItemsList => allItemsList;
 
         [Inject]
-        private void Construct(RaftBuildService raftBuildService, GameDataObject gameData)
+        private void Construct(RaftBuildService raftBuildService, GameDataObject gameData, CharacterService characterService)
         {
+            this.characterService = characterService;
             this.raftBuildService = raftBuildService;
-            
+
             raftBuildService.OnChangeRaft += OnRaftsChanges;
 
             OnRaftsChanges();
@@ -74,7 +77,7 @@ namespace Content.Scripts.BoatGame.Services
         public void RemoveItemFromAnyRaft(ItemObject itemObject)
         {
             if (itemObject == null) return;
-            
+
             var storage = raftBuildService.Storages.Find(x => x.HaveItem(itemObject));
 
             if (storage != null)
@@ -134,6 +137,7 @@ namespace Content.Scripts.BoatGame.Services
             {
                 maxItemsCount += raftBuildService.Storages[i].MaxItemsCount;
             }
+
             if (calculateSpace <= maxItemsCount)
             {
                 AddItemsToAnyRafts(oldItem);
@@ -142,7 +146,7 @@ namespace Content.Scripts.BoatGame.Services
 
             return false;
         }
-        
+
         public void AddItemsToAnyRafts(RaftStorage.StorageItem oldItem)
         {
             for (int j = 0; j < raftBuildService.Storages.Count; j++)
@@ -190,6 +194,38 @@ namespace Content.Scripts.BoatGame.Services
             }
 
             return false;
+        }
+
+        public int CalculateWeaponsCount(ItemObject item)
+        {
+            int count = 0;
+            foreach (var spawned in characterService.SpawnedCharacters)
+            {
+                if (spawned.AppearanceDataManager.WeaponItem != null)
+                {
+                    if (item == spawned.AppearanceDataManager.WeaponItem)
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        public void RemoveWeapon(ItemObject item)
+        {
+            foreach (var spawned in characterService.SpawnedCharacters)
+            {
+                if (spawned.AppearanceDataManager.WeaponItem != null)
+                {
+                    if (item == spawned.AppearanceDataManager.WeaponItem)
+                    {
+                        spawned.Character.Equipment.SetEquipment(null, EEquipmentType.Weapon);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

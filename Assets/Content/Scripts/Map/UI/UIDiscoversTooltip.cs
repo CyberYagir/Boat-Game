@@ -2,38 +2,56 @@ using System;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI;
+using Content.Scripts.BoatGame.UI.UIEquipment;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Content.Scripts.Map.UI
 {
     public class UIDiscoversTooltip : MonoBehaviour
     {
-        [SerializeField] private UIDiscoversItem item;
-        [SerializeField] private GameObject content;
-        [SerializeField] private RectTransform arrow;
-        [SerializeField] private TooltipDataObject tooltipItemData;
-        [SerializeField] private UITooltip toolTip;
-        [SerializeField] private TMP_Text paddleCounter;
-        [SerializeField] private ItemObject paddleItem;
+        [SerializeField, FoldoutGroup("Content")] private UIDiscoversItem item;
+        [SerializeField, FoldoutGroup("Content")] private GameObject content;
+        [SerializeField, FoldoutGroup("Content")] private RectTransform arrow;
+        [SerializeField, FoldoutGroup("Content")] private TMP_Text paddleCounter;
+        [SerializeField, FoldoutGroup("Content")] private Image paddleIcon;
+        
+        [SerializeField, FoldoutGroup("Tooltip")] private TooltipDataObject tooltipItemData;
+        [SerializeField, FoldoutGroup("Tooltip")] private UITooltip toolTip;
+        
+        private ItemObject paddleItem;
 
         private CharacterService characterService;
         private bool isOpened = false;
         
-        int paddlesCount = 0;
         private MapUIService mapUIService;
         private GameDataObject gameData;
         private UIMessageBoxManager uiMessageBoxManager;
+        private ResourcesService resourcesService;
 
-        public void Init(SaveDataObject saveData, UIMessageBoxManager uiMessageBoxManager, MapUIService mapUIService, GameDataObject gameData)
+        private int paddlesCount;
+
+        public void Init(SaveDataObject saveData,
+            UIMessageBoxManager uiMessageBoxManager,
+            MapUIService mapUIService,
+            GameDataObject gameData,
+            CharacterService characterService,
+            ResourcesService resourcesService)
         {
+            this.resourcesService = resourcesService;
             this.uiMessageBoxManager = uiMessageBoxManager;
             this.gameData = gameData;
             this.mapUIService = mapUIService;
-            characterService = CrossSceneContext.GetCharactersService();
+            this.characterService = characterService;
+            
+            
+            paddleItem = gameData.ConfigData.PaddleItem;
+            paddleIcon.sprite = paddleItem.ItemIcon;
             
             
             toolTip.Init(tooltipItemData);
@@ -55,18 +73,18 @@ namespace Content.Scripts.Map.UI
 
             item.gameObject.SetActive(false);
 
-            
+
             if (discoversCount == 0)
             {
                 gameObject.SetActive(false);
                 return;
             }
-            
-            
+
+
             Toggle();
-            
+
             characterService.OnCharactersChange += OnCharactersChanged;
-            OnEquipmentChanged();
+            OnCharactersChanged();
         }
 
         private void OnCharactersChanged()
@@ -76,36 +94,23 @@ namespace Content.Scripts.Map.UI
                 spawned.Character.Equipment.OnEquipmentChange -= OnEquipmentChanged;
                 spawned.Character.Equipment.OnEquipmentChange += OnEquipmentChanged;
             }
+            OnEquipmentChanged();
         }
 
         private void OnEquipmentChanged()
         {
             CalculatePaddlesCount();
-
             UpdatePaddlesCounter();
+            print("Update items: " + paddlesCount);
         }
 
         private int CalculatePaddlesCount()
         {
-            paddlesCount = 0;
-            foreach (var spawned in characterService.SpawnedCharacters)
-            {
-                if (spawned.AppearanceDataManager.WeaponItem != null)
-                {
-                    if (paddleItem == spawned.AppearanceDataManager.WeaponItem)
-                    {
-                        paddlesCount++;
-                    }
-                }
-            }
-
+            paddlesCount = resourcesService.CalculateWeaponsCount(paddleItem);
             return paddlesCount;
         }
 
-        private void UpdatePaddlesCounter()
-        {
-            paddleCounter.text = paddlesCount + "/" + gameData.ConfigData.PaddlesToTravelCount;
-        }
+        private void UpdatePaddlesCounter() => paddleCounter.text = paddlesCount + "/" + gameData.ConfigData.PaddlesToTravelCount;
 
         public void Toggle()
         {
@@ -128,6 +133,7 @@ namespace Content.Scripts.Map.UI
             if (CalculatePaddlesCount() >= gameData.ConfigData.PaddlesToTravelCount)
             {
                 mapUIService.GoToIsland(islandIslandSeed);
+                resourcesService.RemoveWeapon(paddleItem);
             }
             else
             {

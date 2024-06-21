@@ -34,7 +34,7 @@ namespace Content.Scripts.Map
             this.mapMoverService = mapMoverService;
             this.scenesService = scenesService;
             marksContainer.Init(mapIslandCollector);
-            discoversTooltip.Init(saveDataObject, messageBoxManager, this, gamedata);
+            discoversTooltip.Init(saveDataObject, messageBoxManager, this, gamedata, CrossSceneContext.GetCharactersService(), CrossSceneContext.GetResourcesService());
             moveIslandTimer.Init();
             
             scenesService.OnChangeActiveScene += OnChangeScene;
