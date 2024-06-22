@@ -389,6 +389,8 @@ namespace Content.Scripts.Global
                 }
 
                 public VillageData GetVillage(string uid) => villagesData.Find(x => x.Uid == uid);
+
+                public bool HasVillage() => villagesData.Count != 0;
             }
 
             [SerializeField] private int worldSeed = 0;

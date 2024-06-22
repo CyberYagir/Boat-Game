@@ -114,7 +114,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             }
 
             int finalCount = targetCraftingTable.CurrentCraft.FinalItem.Count;
-            var storage = Machine.AIMoveManager.GoToEmptyStorages();
+            var storage = Machine.AIMoveManager.GoToEmptyStorages(targetCraftingTable.CurrentCraft.FinalItem.ResourceName);
             
             if (storage.Count != 0)
             {
@@ -122,7 +122,7 @@ namespace Content.Scripts.BoatGame.Characters.States
                 {
                     if (finalCount != 0)
                     {
-                        while (storage[i].IsEmptyStorage(1) && finalCount > 0)
+                        while (storage[i].IsEmptyStorage(targetCraftingTable.CurrentCraft.FinalItem.ResourceName, 1) && finalCount > 0)
                         {
                             finalCount--;
                             storage[i].AddToStorage(targetCraftingTable.CurrentCraft.FinalItem.ResourceName, 1);

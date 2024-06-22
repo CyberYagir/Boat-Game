@@ -57,9 +57,28 @@ namespace Content.Scripts.BoatGame
         }
 
 
-        public bool IsEmptyStorage(int value)
+        public bool IsEmptyStorage(ItemObject item, int value)
         {
-            return items.Sum(x=>x.Count) + value <= MaxItemsCount;
+            if (!item.HasSize)
+            {
+                value = 0;
+            }
+            var sum = CalculateInStorageCount();
+            return sum + value <= MaxItemsCount;
+        }
+
+        private int CalculateInStorageCount()
+        {
+            var sum = 0;
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].Item.HasSize)
+                {
+                    sum += items[i].Count;
+                }
+            }
+
+            return sum;
         }
 
         public int GetResourceByType(EResourceTypes type)
@@ -171,7 +190,7 @@ namespace Content.Scripts.BoatGame
 
         public int GetEmptySlots()
         {
-            return MaxItemsCount - items.Sum(x=>x.Count);
+            return MaxItemsCount - CalculateInStorageCount();
         }
     }
 }

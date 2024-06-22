@@ -21,7 +21,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             if (lastPoint.ToDistance(currentTarget) > 2)
             {
                 var item = items.GetRandomItem();
-                var storage = Machine.AIMoveManager.GoToEmptyStorage(1);
+                var storage = Machine.AIMoveManager.GoToEmptyStorage(item, 1);
                 if (storage != null)
                 {
                     storage.AddToStorage(item, 1, false);

@@ -30,7 +30,8 @@ namespace Content.Scripts.BoatGame.Services
             WeatherService weatherService,
             SelectionService selectionService,
             PrefabSpawnerFabric prefabSpawnerFabric,
-            INavMeshProvider navMeshProvider
+            INavMeshProvider navMeshProvider,
+            ResourcesService resourcesService
         )
         {
             this.navMeshProvider = navMeshProvider;
@@ -53,7 +54,8 @@ namespace Content.Scripts.BoatGame.Services
                         selectionService,
                         prefabSpawnerFabric,
                         navMeshProvider,
-                        saveData
+                        saveData,
+                        resourcesService
                     ))
                     .With(x => SpawnedCharacters.Add(x))
                     .With(x => x.NeedManager.OnDeath += OnDeath)

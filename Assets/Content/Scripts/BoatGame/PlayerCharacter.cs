@@ -62,7 +62,8 @@ namespace Content.Scripts.BoatGame
             SelectionService selectionService,
             PrefabSpawnerFabric prefabSpawnerFabric,
             INavMeshProvider navMeshProvider, 
-            SaveDataObject saveDataObject
+            SaveDataObject saveDataObject,
+            ResourcesService resourcesService
         )
         {
             this.saveDataObject = saveDataObject;
@@ -78,7 +79,7 @@ namespace Content.Scripts.BoatGame
             if (onlyVisuals) return;
 
             characterGrounder.Init(transform);
-            aiManager.Init(raftBuildService, navMeshProvider);
+            aiManager.Init(raftBuildService, navMeshProvider, resourcesService);
             animationsManager.Init(weatherService, appearanceManager);
             needsManager.Init(character, weatherService, this.selectionService);
             actionsHolder.Construct(selectionService, gameData);

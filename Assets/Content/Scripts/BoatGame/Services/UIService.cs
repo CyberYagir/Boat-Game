@@ -92,9 +92,15 @@ namespace Content.Scripts.BoatGame.Services
             furnaceWindow.Init(selectionService, raftBuildService, tickService, resourcesService);
             renameIslandWindow.Init(saveDataObject);
             charactersList?.Init(characterService, tickService, selectionService);
-            villageWindow?.Init(selectionService, raftBuildService, saveDataObject, gameDataObject, resourcesService);
-            
-            
+
+            if (saveDataObject.Global.isOnIsland)
+            {
+                if (saveDataObject.GetTargetIsland().HasVillage())
+                {
+                    villageWindow?.Init(selectionService, raftBuildService, saveDataObject, gameDataObject, resourcesService);
+                }
+            }
+
             resourcesList.Init(raftBuildService, gameDataObject, resourcesService, tickService);
             storagesCounter.Init(raftBuildService);
 

@@ -36,7 +36,7 @@ namespace Content.Scripts.BoatGame.UI
         private void Construct(GameDataObject gameDataObject, INavMeshProvider navMeshService)
         {
             this.gameDataObject = gameDataObject;
-            character.Init(new Character(), gameDataObject, null, null, null, null, null, navMeshService, null);
+            character.Init(new Character(), gameDataObject, null, null, null, null, null, navMeshService, null, null);
             animator = character.AnimationManager.GetAnimator();
 
         }

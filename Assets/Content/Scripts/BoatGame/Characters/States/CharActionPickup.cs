@@ -67,7 +67,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             if (droppedItem)
             {
-                var storage = Machine.AIMoveManager.GoToEmptyStorage(1);
+                var storage = Machine.AIMoveManager.GoToEmptyStorage(droppedItem.Item, 1);
                 
                 if (storage != null)
                 {

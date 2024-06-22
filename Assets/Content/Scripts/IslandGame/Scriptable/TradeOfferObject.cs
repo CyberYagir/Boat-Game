@@ -39,6 +39,19 @@ namespace Content.Scripts.IslandGame.Scriptable
         {
             (resultItem, sellItem) = (sellItem, resultItem);
         }
+        
+        [Button]
+        public void InflateBags()
+        {
+            if (resultItem.Item.ItemName == "Gold Bag")
+            {
+                resultItem.Add(9); 
+            }
+            else
+            {
+                sellItem.Add(9); 
+            }
+        }
 #endif
     }
 }

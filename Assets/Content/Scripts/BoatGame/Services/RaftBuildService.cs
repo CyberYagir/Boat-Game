@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.Global;
+using Content.Scripts.ItemsSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -12,7 +13,7 @@ namespace Content.Scripts.BoatGame.Services
 {
     public class RaftBuildService : MonoBehaviour
     {
-        [System.Serializable]
+        [Serializable]
         public class RaftItem
         {
             public enum ERaftType
@@ -44,10 +45,16 @@ namespace Content.Scripts.BoatGame.Services
         
         [SerializeField, ReadOnly] private List<RaftStorage> storages = new List<RaftStorage>();
         [SerializeField, ReadOnly] private Transform raftEndPoint;
+        
         private WorldGridService worldGridService;
         private SaveDataObject saveData;
+        private GameDataObject gamedata;
+        private PrefabSpawnerFabric prefabSpawnerFabric;
+        private SelectionService selectionService;
+        private GameStateService gameStateService;
+        
         private List<RaftTapToBuild> spawnedTapBuildRafts = new List<RaftTapToBuild>();
-        private CraftObject lastSelectedCraftItem;
+        private CraftObject lastSelectedCraftItem;        
         
         public event Action OnChangeRaft;
         public List<RaftBase> SpawnedRafts => spawnedRafts;
@@ -59,14 +66,17 @@ namespace Content.Scripts.BoatGame.Services
 
         [Inject]
         private void Construct(
-            WorldGridService worldGridService, 
-            SaveDataObject saveData, 
-            GameStateService gameStateService, 
+            WorldGridService worldGridService,
+            SaveDataObject saveData,
+            GameStateService gameStateService,
             SelectionService selectionService,
             GameDataObject gamedata,
             INavMeshProvider navMeshProvider,
-            PrefabSpawnerFabric prefabSpawnerFabric)
+            PrefabSpawnerFabric prefabSpawnerFabric,
+            ResourcesService resourcesService
+        )
         {
+            this.resourcesService = resourcesService;
             this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.gamedata = gamedata;
             this.gameStateService = gameStateService;
@@ -82,9 +92,9 @@ namespace Content.Scripts.BoatGame.Services
             {
                 LoadPlayerRaft(saveData, selectionService, gamedata);
             }
-            
-            gameStateService.OnChangeEState += GameStateServiceOnOnChangeEState;  
-            
+
+            gameStateService.OnChangeEState += GameStateServiceOnOnChangeEState;
+
             OnChangeRaft += CheckNodesSemaphoreStart;
         }
 
@@ -280,20 +290,15 @@ namespace Content.Scripts.BoatGame.Services
             }
         }
 
-        public RaftStorage FindEmptyStorage(int value)
+        public RaftStorage FindEmptyStorage(ItemObject item, int value)
         {
-            var storage = Storages.Find(x => x.IsEmptyStorage(value));
+            var storage = Storages.Find(x => x.IsEmptyStorage(item, value));
             return storage;
         }
 
-        public RaftStorage FindResourceInStorages(EResourceTypes type)
-        {
-            return Storages.Find(x => x.GetResourceByType(type) > 0);
-        }
 
         List<Vector3Int> coords = new List<Vector3Int>();
-        private SelectionService selectionService;
-        private GameStateService gameStateService;
+
 
         public void SpawnTapToBuildRafts()
         {
@@ -341,8 +346,10 @@ namespace Content.Scripts.BoatGame.Services
             lastSelectedCraftItem = item;
         }
 
+        private List<RaftStorage.StorageItem> itemsToSave = new List<RaftStorage.StorageItem>(5);
         public void RemoveRaft(Vector3Int vector3Int)
         {
+            itemsToSave.Clear();
             var raft = spawnedRafts.Find(x => x.Coords == vector3Int);
 
             if (raft != null)
@@ -353,8 +360,22 @@ namespace Content.Scripts.BoatGame.Services
                 if (raft.RaftType == RaftItem.ERaftType.Storage)
                 {
                     var storage = raft.GetComponent<RaftStorage>();
+
+                    foreach (var it in gamedata.ConfigData.ItemsForRaftTransitionAfterDestroying)
+                    {
+                        if (storage.HaveItem(it))
+                        {
+                            itemsToSave.Add(storage.GetItem(it));
+                        }
+                    }
                     storage.RemoveAllFromStorage();
                     storages.Remove(storage);
+
+                    foreach (var it in itemsToSave)
+                    {
+                        resourcesService.AddItemsToAnyRafts(it);
+                    }
+
                 }
                 raft.gameObject.SetActive(false);
                 Destroy(raft.gameObject);
@@ -363,22 +384,6 @@ namespace Content.Scripts.BoatGame.Services
             }
         }
 
-        private List<RaftStorage> emptyStoragesArray = new List<RaftStorage>(10);
-        private GameDataObject gamedata;
-        private PrefabSpawnerFabric prefabSpawnerFabric;
-
-        public List<RaftStorage> FindEmptyStorages(int value)
-        {
-            emptyStoragesArray.Clear();
-            foreach (var raftStorage in Storages)
-            {
-                if (raftStorage.IsEmptyStorage(value))
-                {
-                    emptyStoragesArray.Add(raftStorage);
-                }
-            }
-            return emptyStoragesArray;
-        }
 
         public RaftBase GetRaftByID(string raftID)
         {
@@ -389,7 +394,7 @@ namespace Content.Scripts.BoatGame.Services
         {
             foreach (var spawnedRaft in SpawnedRafts)
             {
-                if (spawnedRaft.RaftType == RaftBuildService.RaftItem.ERaftType.Moored)
+                if (spawnedRaft.RaftType == RaftItem.ERaftType.Moored)
                 {
                     return true;
                 }
@@ -403,5 +408,19 @@ namespace Content.Scripts.BoatGame.Services
             raftEndPoint = spawnPointLadderPoint;
         }
 
+        private readonly List<RaftItem.ERaftType> notWalkableRafts = new()
+        {
+            RaftItem.ERaftType.Building,
+            RaftItem.ERaftType.CraftTable,
+            RaftItem.ERaftType.Fishing,
+            RaftItem.ERaftType.Furnace
+        };
+
+        private ResourcesService resourcesService;
+
+        public RaftBase GetRandomWalkableRaft()
+        {
+            return SpawnedRafts.FindAll(x => !notWalkableRafts.Contains(x.RaftType)).GetRandomItem();
+        }
     }
 }

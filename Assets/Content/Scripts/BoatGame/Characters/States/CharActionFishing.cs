@@ -104,7 +104,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             if (Machine.AIMoveManager.NavMeshAgent.IsArrived())
             {
-                var storage = Machine.AIMoveManager.GoToEmptyStorage(1);
+                var storage = Machine.AIMoveManager.GoToEmptyStorage(fishItem, 1);
                 if (storage == null)
                 {
                     DropFish();
@@ -189,7 +189,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         private void FindEmptyStorage()
         {
-            var storage = Machine.AIMoveManager.GoToEmptyStorage(1, false);
+            var storage = Machine.AIMoveManager.GoToEmptyStorage(fishItem, 1, false);
 
             if (storage != null)
             {

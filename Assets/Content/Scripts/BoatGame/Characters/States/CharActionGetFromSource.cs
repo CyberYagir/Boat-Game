@@ -72,7 +72,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             ItemObject item = targetSource.GetFromItem();
             if (item)
             {
-                var storage = Machine.AIMoveManager.GoToEmptyStorage(1);
+                var storage = Machine.AIMoveManager.GoToEmptyStorage(item, 1);
 
                 if (storage != null)
                 {

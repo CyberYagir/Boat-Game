@@ -22,8 +22,9 @@ namespace Content.Scripts.BoatGame
             public INavAgentProvider NavMeshAgent => agent;
             public INavMeshProvider NavMesh => navMeshProvider;
 
-            public void Init(RaftBuildService raftBuildService, INavMeshProvider navMeshProvider)
+            public void Init(RaftBuildService raftBuildService, INavMeshProvider navMeshProvider, ResourcesService resourcesService)
             {
+                this.resourcesService = resourcesService;
                 this.navMeshProvider = navMeshProvider;
                 this.raftBuildService = raftBuildService;
                 agent = navMeshAgent.GetComponent<INavAgentProvider>();
@@ -35,17 +36,11 @@ namespace Content.Scripts.BoatGame
                 return GenerateRandomPos();
             }
 
-            private readonly List<RaftBuildService.RaftItem.ERaftType> notWalkableRafts = new()
-            {
-                RaftBuildService.RaftItem.ERaftType.Building,
-                RaftBuildService.RaftItem.ERaftType.CraftTable,
-                RaftBuildService.RaftItem.ERaftType.Fishing,
-                RaftBuildService.RaftItem.ERaftType.Furnace
-            };
+
 
             public Vector3 GenerateRandomPos()
             {
-                var targetRaft = raftBuildService.SpawnedRafts.FindAll(x=>!notWalkableRafts.Contains(x.RaftType)).GetRandomItem();
+                var targetRaft = raftBuildService.GetRandomWalkableRaft();
                 return targetRaft.transform.position + new Vector3(GetRandomOffset(), 0, GetRandomOffset());
             }
 
@@ -55,6 +50,7 @@ namespace Content.Scripts.BoatGame
             }
 
             private RaycastHit[] raycastResults = new RaycastHit[4];
+            private ResourcesService resourcesService;
 
             public bool IsOnGround()
             {
@@ -76,9 +72,9 @@ namespace Content.Scripts.BoatGame
                 NavMeshAgent.ExtraRotation();
             }
 
-            public RaftStorage GoToEmptyStorage(int value, bool throwIsFull = true)
+            public RaftStorage GoToEmptyStorage(ItemObject item, int value, bool throwIsFull = true)
             {
-                var emptyStorage = raftBuildService.FindEmptyStorage(value);
+                var emptyStorage = raftBuildService.FindEmptyStorage(item, value);
 
                 if (emptyStorage == null && throwIsFull)
                 {
@@ -96,9 +92,9 @@ namespace Content.Scripts.BoatGame
                 }
             }
 
-            public List<RaftStorage> GoToEmptyStorages(int value = 1)
+            public List<RaftStorage> GoToEmptyStorages(ItemObject itemObject, int value = 1)
             {
-                var storages = raftBuildService.FindEmptyStorages(value);
+                var storages = resourcesService.FindEmptyStorages(itemObject, value);
                 if (storages.Count == 0)
                 {
                     SpawnFullPopup();
@@ -108,38 +104,12 @@ namespace Content.Scripts.BoatGame
 
             public RaftStorage FindResource(EResourceTypes type)
             {
-                return raftBuildService.FindResourceInStorages(type);
+                return resourcesService.FindStorageByResource(type);
             }
             
             public bool HaveMaterials(List<CraftObject.CraftItem> currentCraftIngredients)
             {
-                foreach (var currentCraftIngredient in currentCraftIngredients)
-                {
-                    int count = 0;
-                    for (int i = 0; i < raftBuildService.Storages.Count; i++)
-                    {
-                        var storage = raftBuildService.Storages[i].GetItem(currentCraftIngredient.ResourceName.Type);
-                        if (storage != null)
-                        {
-                            var item = storage.Find(x => x.Item.ID == currentCraftIngredient.ResourceName.ID);
-                            if (item != null)
-                            {
-                                count += item.Count;
-                                if (count >= currentCraftIngredient.Count)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    if (count < currentCraftIngredient.Count)
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
+                return resourcesService.HaveMaterialsForCrafting(currentCraftIngredients);
             }
 
             public void RemoveFromAnyStorage(ItemObject resourceName)

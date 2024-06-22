@@ -177,5 +177,10 @@ namespace Content.Scripts.BoatGame.UI
             item.gameObject.SetActive(false);
             ResetEvents();
         }
+
+        public void ReturnPartToSlot(int dragManagerItemsInStack)
+        {
+            sender.GetComponent<IDragDestination>().HardSetItem(DraggedItem, dragManagerItemsInStack);
+        }
     }
 }

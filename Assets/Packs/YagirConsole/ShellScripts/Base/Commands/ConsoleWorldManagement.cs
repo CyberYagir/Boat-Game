@@ -156,7 +156,7 @@ namespace ConsoleShell
 
                 for (int i = 0; i < storages.Count; i++)
                 {
-                    if (storages[i].IsEmptyStorage(count) || !checkStorageSize)
+                    if (storages[i].IsEmptyStorage(item, count) || !checkStorageSize)
                     {
                         storages[i].AddToStorage(item, count);
                         ConsoleLogger.Log($"  {item.ItemName} [{count}] item added to storage", ELogType.CmdSuccess);

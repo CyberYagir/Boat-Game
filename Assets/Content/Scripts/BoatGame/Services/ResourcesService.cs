@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.UI.UIEquipment;
+using Content.Scripts.CraftsSystem;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using UnityEngine;
@@ -149,14 +150,36 @@ namespace Content.Scripts.BoatGame.Services
 
         public void AddItemsToAnyRafts(RaftStorage.StorageItem oldItem)
         {
-            for (int j = 0; j < raftBuildService.Storages.Count; j++)
+            if (oldItem.Item.HasSize)
             {
-                if (oldItem.Count <= 0) return;
-                while (raftBuildService.Storages[j].IsEmptyStorage(1))
+                for (int j = 0; j < raftBuildService.Storages.Count; j++)
                 {
-                    raftBuildService.Storages[j].AddToStorage(oldItem.Item, 1);
-                    oldItem.Add(-1);
                     if (oldItem.Count <= 0) return;
+
+                    var empty = raftBuildService.Storages[j].GetEmptySlots();
+
+                    if (empty > oldItem.Count)
+                    {
+                        empty = oldItem.Count;
+                    }
+                    
+                    raftBuildService.Storages[j].AddToStorage(oldItem.Item, empty);
+                    
+                    oldItem.Add(-empty);
+                    // while (raftBuildService.Storages[j].IsEmptyStorage(oldItem.Item, 1))
+                    // {
+                    //     raftBuildService.Storages[j].AddToStorage(oldItem.Item, 1);
+                    //     oldItem.Add(-1);
+                    //     if (oldItem.Count <= 0) return;
+                    // }
+                }
+            }
+            else
+            {
+                if (raftBuildService.Storages.Count != 0)
+                {
+                    var randomStorage = raftBuildService.Storages.GetRandomItem();
+                    randomStorage.AddToStorage(oldItem.Item, oldItem.Count);
                 }
             }
         }
@@ -173,7 +196,7 @@ namespace Content.Scripts.BoatGame.Services
             {
                 foreach (var raftStorage in raftBuildService.Storages)
                 {
-                    if (raftStorage.IsEmptyStorage(1))
+                    if (raftStorage.IsEmptyStorage(item, 1))
                     {
                         raftStorage.AddToStorage(item, 1);
                         return true;
@@ -227,5 +250,40 @@ namespace Content.Scripts.BoatGame.Services
                 }
             }
         }
+        
+        private List<RaftStorage> emptyStoragesArray = new List<RaftStorage>(10);
+        public List<RaftStorage> FindEmptyStorages(ItemObject item, int value)
+        {
+            emptyStoragesArray.Clear();
+            foreach (var raftStorage in raftBuildService.Storages)
+            {
+                if (raftStorage.IsEmptyStorage(item, value))
+                {
+                    emptyStoragesArray.Add(raftStorage);
+                }
+            }
+            return emptyStoragesArray;
+        }
+        
+        public RaftStorage FindStorageByResource(EResourceTypes type)
+        {
+            return raftBuildService.Storages.Find(x => x.GetResourceByType(type) > 0);
+        }
+        
+        
+        
+        public bool HaveMaterialsForCrafting(List<CraftObject.CraftItem> currentCraftIngredients)
+        {
+            foreach (var currentCraftIngredient in currentCraftIngredients)
+            {
+                if (allItemsList.Find(x => x.Item == currentCraftIngredient.ResourceName).Count < currentCraftIngredient.Count)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
     }
 }
