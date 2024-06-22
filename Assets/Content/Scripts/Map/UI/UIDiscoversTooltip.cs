@@ -32,7 +32,6 @@ namespace Content.Scripts.Map.UI
         private MapUIService mapUIService;
         private GameDataObject gameData;
         private UIMessageBoxManager uiMessageBoxManager;
-        private ResourcesService resourcesService;
 
         private int paddlesCount;
 
@@ -40,10 +39,8 @@ namespace Content.Scripts.Map.UI
             UIMessageBoxManager uiMessageBoxManager,
             MapUIService mapUIService,
             GameDataObject gameData,
-            CharacterService characterService,
-            ResourcesService resourcesService)
+            CharacterService characterService)
         {
-            this.resourcesService = resourcesService;
             this.uiMessageBoxManager = uiMessageBoxManager;
             this.gameData = gameData;
             this.mapUIService = mapUIService;
@@ -106,7 +103,7 @@ namespace Content.Scripts.Map.UI
 
         private int CalculatePaddlesCount()
         {
-            paddlesCount = resourcesService.CalculateWeaponsCount(paddleItem);
+            paddlesCount = characterService.CalculateWeaponsCount(paddleItem);
             return paddlesCount;
         }
 
@@ -133,7 +130,7 @@ namespace Content.Scripts.Map.UI
             if (CalculatePaddlesCount() >= gameData.ConfigData.PaddlesToTravelCount)
             {
                 mapUIService.GoToIsland(islandIslandSeed);
-                resourcesService.RemoveWeapon(paddleItem);
+                characterService.RemoveWeapon(paddleItem);
             }
             else
             {

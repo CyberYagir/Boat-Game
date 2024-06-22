@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Content.Scripts.BoatGame.UI.UIEquipment;
 using Content.Scripts.Global;
+using Content.Scripts.ItemsSystem;
 using Unity.AI.Navigation;
 using UnityEngine;
 using Zenject;
@@ -54,8 +56,7 @@ namespace Content.Scripts.BoatGame.Services
                         selectionService,
                         prefabSpawnerFabric,
                         navMeshProvider,
-                        saveData,
-                        resourcesService
+                        saveData
                     ))
                     .With(x => SpawnedCharacters.Add(x))
                     .With(x => x.NeedManager.OnDeath += OnDeath)
@@ -115,6 +116,39 @@ namespace Content.Scripts.BoatGame.Services
         public void FocusTo(PlayerCharacter targetCharacter)
         {
             OnCharactersFocus?.Invoke(targetCharacter);
+        }
+        
+        
+        public int CalculateWeaponsCount(ItemObject item)
+        {
+            int count = 0;
+            foreach (var spawned in SpawnedCharacters)
+            {
+                if (spawned.AppearanceDataManager.WeaponItem != null)
+                {
+                    if (item == spawned.AppearanceDataManager.WeaponItem)
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        public void RemoveWeapon(ItemObject item)
+        {
+            foreach (var spawned in SpawnedCharacters)
+            {
+                if (spawned.AppearanceDataManager.WeaponItem != null)
+                {
+                    if (item == spawned.AppearanceDataManager.WeaponItem)
+                    {
+                        spawned.Character.Equipment.SetEquipment(null, EEquipmentType.Weapon);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

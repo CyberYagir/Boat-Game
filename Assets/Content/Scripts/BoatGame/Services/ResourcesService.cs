@@ -24,15 +24,13 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private List<RaftStorage.StorageItem> allItemsList = new List<RaftStorage.StorageItem>(20);
 
         private RaftBuildService raftBuildService;
-        private CharacterService characterService;
 
         public event Action OnChangeResources;
         public List<RaftStorage.StorageItem> AllItemsList => allItemsList;
 
         [Inject]
-        private void Construct(RaftBuildService raftBuildService, GameDataObject gameData, CharacterService characterService)
+        private void Construct(RaftBuildService raftBuildService, GameDataObject gameData)
         {
-            this.characterService = characterService;
             this.raftBuildService = raftBuildService;
 
             raftBuildService.OnChangeRaft += OnRaftsChanges;
@@ -219,38 +217,6 @@ namespace Content.Scripts.BoatGame.Services
             return false;
         }
 
-        public int CalculateWeaponsCount(ItemObject item)
-        {
-            int count = 0;
-            foreach (var spawned in characterService.SpawnedCharacters)
-            {
-                if (spawned.AppearanceDataManager.WeaponItem != null)
-                {
-                    if (item == spawned.AppearanceDataManager.WeaponItem)
-                    {
-                        count++;
-                    }
-                }
-            }
-
-            return count;
-        }
-
-        public void RemoveWeapon(ItemObject item)
-        {
-            foreach (var spawned in characterService.SpawnedCharacters)
-            {
-                if (spawned.AppearanceDataManager.WeaponItem != null)
-                {
-                    if (item == spawned.AppearanceDataManager.WeaponItem)
-                    {
-                        spawned.Character.Equipment.SetEquipment(null, EEquipmentType.Weapon);
-                        break;
-                    }
-                }
-            }
-        }
-        
         private List<RaftStorage> emptyStoragesArray = new List<RaftStorage>(10);
         public List<RaftStorage> FindEmptyStorages(ItemObject item, int value)
         {

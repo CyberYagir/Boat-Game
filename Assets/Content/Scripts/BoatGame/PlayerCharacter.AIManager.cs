@@ -15,6 +15,7 @@ namespace Content.Scripts.BoatGame
         {
             [SerializeField] private MonoBehaviour navMeshAgent;
             private RaftBuildService raftBuildService;
+            private ResourcesService resourcesService;
 
             private INavAgentProvider agent;
             private INavMeshProvider navMeshProvider;
@@ -22,11 +23,11 @@ namespace Content.Scripts.BoatGame
             public INavAgentProvider NavMeshAgent => agent;
             public INavMeshProvider NavMesh => navMeshProvider;
 
-            public void Init(RaftBuildService raftBuildService, INavMeshProvider navMeshProvider, ResourcesService resourcesService)
+            public void Init(RaftBuildService raftBuildService, INavMeshProvider navMeshProvider)
             {
-                this.resourcesService = resourcesService;
                 this.navMeshProvider = navMeshProvider;
                 this.raftBuildService = raftBuildService;
+                this.resourcesService = raftBuildService.ResourcesService;
                 agent = navMeshAgent.GetComponent<INavAgentProvider>();
             }
             
@@ -50,7 +51,6 @@ namespace Content.Scripts.BoatGame
             }
 
             private RaycastHit[] raycastResults = new RaycastHit[4];
-            private ResourcesService resourcesService;
 
             public bool IsOnGround()
             {

@@ -15,6 +15,8 @@ namespace Content.Scripts.Map
 
         public List<MapIsland> IslandsInRadius => islandsInRadius;
 
+        public float Radius => radius;
+
         [Inject]
         private void Construct(MapSpawnerService mapSpawnerService, MapMoverService mapMoverService)
         {
@@ -33,7 +35,7 @@ namespace Content.Scripts.Map
                     yield return null;
 
                     
-                    if (Vector3.Distance(mapMoverService.Player.transform.position, mapIsland.transform.position) <= radius)
+                    if (Vector3.Distance(mapMoverService.Player.transform.position, mapIsland.transform.position) <= Radius)
                     {
                         if (!IslandsInRadius.Contains(mapIsland))
                         {
@@ -56,7 +58,7 @@ namespace Content.Scripts.Map
         {
             if (mapMoverService == null) return;
             
-            Gizmos.DrawWireSphere(mapMoverService.Player.transform.position, radius);
+            Gizmos.DrawWireSphere(mapMoverService.Player.transform.position, Radius);
 
             for (var i = 0; i < IslandsInRadius.Count; i++)
             {

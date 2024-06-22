@@ -128,7 +128,9 @@ namespace Content.Scripts.Global
             [Serializable]
             public class RaftFurnace : RaftAdditionalData
             {
-                [SerializeField] private RaftStorageData.StorageItemData smeltItem, fuelItem, resultItem;
+                [SerializeField] private RaftStorageData.StorageItemData smeltItem = new(string.Empty, 0); 
+                [SerializeField] private RaftStorageData.StorageItemData fuelItem = new(string.Empty, 0);
+                [SerializeField] private RaftStorageData.StorageItemData resultItem = new(string.Empty, 0);
                 [SerializeField] private int progressTicks;
                 [SerializeField] private int fuelTicks;
                 [SerializeField] private int maxFuelTicks;

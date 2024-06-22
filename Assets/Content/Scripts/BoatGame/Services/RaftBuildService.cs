@@ -42,6 +42,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private Transform holder;
         [SerializeField] private RaftTapToBuild tapToBuildRaftPrefab;
         [SerializeField] private RaftNodesChecker raftNodeSystem;
+        [SerializeField] private ResourcesService resourcesService;
         
         [SerializeField, ReadOnly] private List<RaftStorage> storages = new List<RaftStorage>();
         [SerializeField, ReadOnly] private Transform raftEndPoint;
@@ -63,6 +64,8 @@ namespace Content.Scripts.BoatGame.Services
         public Transform Holder => holder;
 
         public Transform RaftEndPoint => raftEndPoint;
+
+        public ResourcesService ResourcesService => resourcesService;
 
         [Inject]
         private void Construct(
@@ -373,7 +376,7 @@ namespace Content.Scripts.BoatGame.Services
 
                     foreach (var it in itemsToSave)
                     {
-                        resourcesService.AddItemsToAnyRafts(it);
+                        ResourcesService.AddItemsToAnyRafts(it);
                     }
 
                 }
@@ -416,7 +419,6 @@ namespace Content.Scripts.BoatGame.Services
             RaftItem.ERaftType.Furnace
         };
 
-        private ResourcesService resourcesService;
 
         public RaftBase GetRandomWalkableRaft()
         {
