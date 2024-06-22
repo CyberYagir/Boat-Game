@@ -177,5 +177,11 @@ namespace Content.Scripts.BoatGame.UI
             item.gameObject.SetActive(false);
             ResetEvents();
         }
+
+        public void ReturnPartOfStack()
+        {
+            var equipment = sender.GetComponent<IDragDestination>();
+            equipment.ChangeItem(null);
+        }
     }
 }

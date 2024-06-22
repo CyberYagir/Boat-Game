@@ -25,6 +25,8 @@ namespace Content.Scripts.BoatGame.UI
         private ResourcesService resourceService;
         private RaftBuildService raftBuildService;
 
+        public Furnace TargetFurnace => targetFurnace;
+
         public void Init(
             SelectionService selectionService,
             RaftBuildService raftBuildService,
@@ -86,7 +88,7 @@ namespace Content.Scripts.BoatGame.UI
 
         private void OnTick(float obj)
         {
-            if (targetFurnace != null){
+            if (TargetFurnace != null){
                 Redraw();
             }
         }
@@ -99,13 +101,12 @@ namespace Content.Scripts.BoatGame.UI
 
         private void Redraw()
         {
+            slotsMap[EFurnaceSlotsType.Fuel].Init(TargetFurnace.FuelItem, this, inventorySubWindow);
+            slotsMap[EFurnaceSlotsType.Smelt].Init(TargetFurnace.SmeltedItem, this, inventorySubWindow);
+            slotsMap[EFurnaceSlotsType.Result].Init(TargetFurnace.ResultItem, this, inventorySubWindow);
 
-            slotsMap[EFurnaceSlotsType.Fuel].Init(targetFurnace.FuelItem, this, inventorySubWindow);
-            slotsMap[EFurnaceSlotsType.Smelt].Init(targetFurnace.SmeltedItem, this, inventorySubWindow);
-            slotsMap[EFurnaceSlotsType.Result].Init(targetFurnace.ResultItem, this, inventorySubWindow);
-
-            fireImage.fillAmount = targetFurnace.FuelPercent;
-            progressImage.fillAmount = targetFurnace.ProgressPercent;
+            fireImage.fillAmount = TargetFurnace.FuelPercent;
+            progressImage.fillAmount = TargetFurnace.ProgressPercent;
         }
 
         private void OnDeath(Character obj)
@@ -113,27 +114,31 @@ namespace Content.Scripts.BoatGame.UI
             CloseWindow();
         }
 
-        public bool SetItem(RaftStorage.StorageItem storageItem, EFurnaceSlotsType eFurnaceSlotsType)
+        public bool SetItem(RaftStorage.StorageItem storageItem, EFurnaceSlotsType eFurnaceSlotsType, bool withResult = false)
         {
             switch (eFurnaceSlotsType)
             {
                 case EFurnaceSlotsType.Fuel:
 
-                    return ChangeItemInSlot(storageItem, targetFurnace.FuelItem, delegate
+                    return ChangeItemInSlot(storageItem, TargetFurnace.FuelItem, delegate
                     {
-                        targetFurnace.SetFuel(storageItem);
+                        TargetFurnace.SetFuel(storageItem);
                     });
-                    
-                    break;
+                
                 case EFurnaceSlotsType.Smelt:
-                    return ChangeItemInSlot(storageItem, targetFurnace.SmeltedItem, delegate
+                    return ChangeItemInSlot(storageItem, TargetFurnace.SmeltedItem, delegate
                     {
-                        targetFurnace.SetSmelt(storageItem);
+                        TargetFurnace.SetSmelt(storageItem);
                     });
-                    break;
                 case EFurnaceSlotsType.Result:
+                    if (withResult || storageItem.Item == TargetFurnace.ResultItem.Item)
+                    {
+                        return ChangeItemInSlot(storageItem, TargetFurnace.ResultItem, delegate
+                        {
+                            TargetFurnace.SetResult(storageItem);
+                        });
+                    }
                     return false;
-                    break;
             }
 
             return false;
@@ -175,13 +180,13 @@ namespace Content.Scripts.BoatGame.UI
             switch (dstType)
             {
                 case EFurnaceSlotsType.Fuel:
-                    RemoveFromSlot(targetFurnace.FuelItem, dstType, i);
+                    RemoveFromSlot(TargetFurnace.FuelItem, dstType, i);
                     break;
                 case EFurnaceSlotsType.Smelt:
-                    RemoveFromSlot(targetFurnace.SmeltedItem, dstType, i);
+                    RemoveFromSlot(TargetFurnace.SmeltedItem, dstType, i);
                     break;
                 case EFurnaceSlotsType.Result:
-                    RemoveFromSlot(targetFurnace.ResultItem, dstType, i);
+                    RemoveFromSlot(TargetFurnace.ResultItem, dstType, i);
                     break;
             }
         }

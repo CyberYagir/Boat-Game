@@ -1,5 +1,6 @@
 ﻿using System;
 using Content.Scripts.ItemsSystem;
+using UnityEngine;
 
 namespace Content.Scripts.BoatGame.UI.UIEquipment
 {
@@ -28,7 +29,9 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
 
         public override bool ChangeItem(ItemObject item)
         {
-            if (IsCanPlace(item))
+            var isCanPlace = IsCanPlace(item);
+            print(isCanPlace);
+            if (isCanPlace)
             {
                 if (uiFurnaceWindow.SetItem(new RaftStorage.StorageItem(item, dragAreaWindow.DragManager.ItemsInStack), type))
                 {
@@ -54,9 +57,10 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
             var storageItem = new RaftStorage.StorageItem(dragAreaWindow.DragManager.DraggedItem, dragAreaWindow.DragManager.ItemsInStack);
             if (item == null)
             {
-                if (uiFurnaceWindow.AddToInventory(storageItem))
+                var isCanAddToInventory = uiFurnaceWindow.AddToInventory(storageItem);
+                if (!isCanAddToInventory)
                 {
-                    uiFurnaceWindow.SetItem(storageItem, type);
+                    uiFurnaceWindow.SetItem(storageItem, type, true);
                 }
 
                 return false;
@@ -65,7 +69,8 @@ namespace Content.Scripts.BoatGame.UI.UIEquipment
             
             if (item.FurnaceData.FurnaceFlags.HasFlag(EItemFurnaceType.CanSmelt) && Type == EFurnaceSlotsType.Smelt) return true;
             if (item.FurnaceData.FurnaceFlags.HasFlag(EItemFurnaceType.CanFuel) && Type == EFurnaceSlotsType.Fuel) return true;
-
+            if (item == uiFurnaceWindow.TargetFurnace.ResultItem.Item && Type == EFurnaceSlotsType.Result) return true;
+            
             
             uiFurnaceWindow.AddToInventory(storageItem);
             

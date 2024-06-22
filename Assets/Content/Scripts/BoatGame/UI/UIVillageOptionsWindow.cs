@@ -62,6 +62,8 @@ namespace Content.Scripts.BoatGame.UI
 
         private void Redraw()
         {
+            if (villageData == null) return;
+            
             villageSocialRating.Redraw(villageData.SocialRating);
             tradeSubWindow.Redraw();
         }

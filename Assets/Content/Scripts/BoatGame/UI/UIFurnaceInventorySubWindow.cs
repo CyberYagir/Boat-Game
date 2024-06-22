@@ -103,8 +103,29 @@ namespace Content.Scripts.BoatGame.UI
         public override void AddToInventory(ItemObject draggedItem)
         {
             base.AddToInventory(draggedItem);
-            stackedItems[DragManager.DraggedItem] += DragManager.ItemsInStack;
-            resourcesService.AddItemsToAnyRafts(new RaftStorage.StorageItem(draggedItem, DragManager.ItemsInStack));
+
+            var emptySpace = resourcesService.GetEmptySpace();
+
+            if (emptySpace >= DragManager.ItemsInStack)
+            {
+                if (stackedItems.ContainsKey(DragManager.DraggedItem))
+                {
+                    stackedItems[DragManager.DraggedItem] += DragManager.ItemsInStack;
+                }
+
+                resourcesService.AddItemsToAnyRafts(new RaftStorage.StorageItem(draggedItem, DragManager.ItemsInStack));
+            }
+            else
+            {
+                if (stackedItems.ContainsKey(DragManager.DraggedItem))
+                {
+                    stackedItems[DragManager.DraggedItem] += emptySpace;
+                }
+                resourcesService.AddItemsToAnyRafts(new RaftStorage.StorageItem(draggedItem, emptySpace));
+                DragManager.SetStack(DragManager.ItemsInStack - emptySpace);
+                DragManager.ReturnPartOfStack();
+            }
+            
             UpdateStackText();
         }
 

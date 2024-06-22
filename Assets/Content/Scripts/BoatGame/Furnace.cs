@@ -145,6 +145,11 @@ namespace Content.Scripts.BoatGame
         {
             smeltedItem = storageItem;
         }
+        
+        public void SetResult(RaftStorage.StorageItem storageItem)
+        {
+            resultItem = storageItem;
+        }
 
         public void LoadStorage(SaveDataObject.RaftsData.RaftFurnace item, GameDataObject gameData)
         {
@@ -163,5 +168,7 @@ namespace Content.Scripts.BoatGame
                 OnFurnaceStateChange?.Invoke(true);
             }
         }
+
+     
     }
 }
