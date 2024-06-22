@@ -20,17 +20,18 @@ namespace Content.Scripts.Map.UI
 
         private void SelectionServiceOnOnSelectIsland(MapIsland obj)
         {
-            mark.Init(obj.GeneratedData, String.Empty);
-            ShowWindow();
+            if (!IsOpen)
+            {
+                mapSelectionService.enabled = false;
+                mark.Init(obj.GeneratedData, String.Empty);
+                ShowWindow();
+            }
         }
 
         public override void ShowWindow()
         {
             gameObject.SetActive(true);
-            
             base.ShowWindow();
-
-            
             
             TimeService.SetTimeRate(0);
             
@@ -40,7 +41,7 @@ namespace Content.Scripts.Map.UI
         public override void OnClosed()
         {
             base.OnClosed();
-            
+            mapSelectionService.enabled = true;
             TimeService.SetTimeRate(1f);
         }
 

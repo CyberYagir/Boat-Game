@@ -35,6 +35,8 @@ namespace Content.Scripts.IslandGame
                 islandGenerator.SaveData,
                 islandGenerator.GameData);
 
+            
+            
             if (islandNativesData.Data.IsSpawned)
             {
                 islandGenerator.ClearObjectsInBounds(islandNativesData.Data.Bounds);

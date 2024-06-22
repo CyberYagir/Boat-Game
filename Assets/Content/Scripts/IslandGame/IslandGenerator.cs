@@ -137,12 +137,9 @@ namespace Content.Scripts.IslandGame
             }
 #endif
 
-            print(targetBiome.name);
             
             TargetTerrain.Terrain.terrainData.terrainLayers = TargetBiome.Layers;
-
             
-
             PlaceAll(TargetTerrain, TargetBiome, TargetRandom, TargetIslandData.Level);
 
 

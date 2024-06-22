@@ -77,6 +77,10 @@ namespace Content.Scripts.IslandGame
             {
                 SpawnVillage(biome, rnd, seed, spawner, gameDataObject);
             }
+            else
+            {
+                villageData = new VillageData(false, new Bounds());
+            }
         }
 
         private void SpawnVillage(TerrainBiomeSO biome, Random rnd, int seed, PrefabSpawnerFabric spawner, GameDataObject gameData)
