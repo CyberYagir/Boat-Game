@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: -7545968503256027297}
   - component: {fileID: 5198549289400900077}
   - component: {fileID: 6718718838747671411}
+  - component: {fileID: 4071454713150497568}
   m_Layer: 14
   m_Name: Tower
   m_TagString: Untagged
@@ -523,6 +524,24 @@ CapsuleCollider:
   m_Height: 18.241959
   m_Direction: 1
   m_Center: {x: -0.43872643, y: 3.334324, z: 0.52}
+--- !u!114 &4071454713150497568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5933933731485293825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4163238bfa493fa343d939dd5fd613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  habitable: 1
+  maxPeoples: 2
+  seed: 0
+  nativeSits: []
+  girlChance: 0
+  haveShaman: 0
 --- !u!1 &6545557928438659444
 GameObject:
   m_ObjectHideFlags: 0
