@@ -674,7 +674,7 @@ PrefabInstance:
     - target: {fileID: 5487924489168594559, guid: 2db7aebc99c9fd4478bd43bb8446aee7, type: 3}
       propertyPath: statesList.Array.data[2].stateAction
       value: 
-      objectReference: {fileID: 4880326387310740006}
+      objectReference: {fileID: 5856198492274305917}
     - target: {fileID: 5807473008665043568, guid: 2db7aebc99c9fd4478bd43bb8446aee7, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -768,7 +768,7 @@ PrefabInstance:
       addedObject: {fileID: 2795775224240605424}
     - targetCorrespondingSourceObject: {fileID: 7725357607379444773, guid: 2db7aebc99c9fd4478bd43bb8446aee7, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4880326387310740006}
+      addedObject: {fileID: 5856198492274305917}
   m_SourcePrefab: {fileID: 100100000, guid: 2db7aebc99c9fd4478bd43bb8446aee7, type: 3}
 --- !u!4 &103484686925928650 stripped
 Transform:
@@ -926,7 +926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnded: 0
   machine: {fileID: 0}
---- !u!114 &4880326387310740006
+--- !u!114 &5856198492274305917
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -935,7 +935,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6869928138763230981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1655126c125463d4bbe5eddf213630eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 1412e9bbeacf43f08e39b0e73d98432b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isEnded: 0
@@ -943,6 +943,9 @@ MonoBehaviour:
   stanTime:
     min: 1
     max: 2
+  socialRatingRemove:
+    min: 10
+    max: 30
 --- !u!4 &7507405948661481629 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6650885369641876413, guid: 2db7aebc99c9fd4478bd43bb8446aee7, type: 3}

@@ -65,6 +65,7 @@ namespace Content.Scripts.ItemsSystem
         [SerializeField, PreviewField] private Sprite itemIcon;
         [SerializeField] private ItemsParameters parametersData;
         [SerializeField] private ItemFurnaceParameters furnaceData;
+        [SerializeField] private bool hasSize;
         [SerializeField, ShowIf("@itemType == EItemType.Item")] private DroppedItem dropPrefab;
         [SerializeField, ShowIf("@itemType == EItemType.Armor")] private GameObject prefab;
         [SerializeField, ShowIf("@itemType == EItemType.Armor")] private EEquipmentType equipment;

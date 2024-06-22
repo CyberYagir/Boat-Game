@@ -88,7 +88,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
                 var bounds = GetBounds();
                 if (dataCollector)
                 {
-                    dataCollector.Init(structuresData, bounds, uid, islandData);
+                    dataCollector.Init(structuresData, bounds, uid, islandData, saveDataObject);
                 }
 
                 population.Init(structuresData, rnd, saveDataObject, gameDataObject.NativesListData, spawnerFabric, uid, bounds);
