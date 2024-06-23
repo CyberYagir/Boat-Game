@@ -14,6 +14,7 @@ namespace Content.Scripts.BoatGame.UI
             [SerializeField] private Image icon;
             [SerializeField] private TMP_Text text;
             private RaftStorage.StorageItem offerItem;
+            private float modify = 1;
 
             public RaftStorage.StorageItem Item => offerItem;
 
@@ -21,7 +22,26 @@ namespace Content.Scripts.BoatGame.UI
             {
                 this.offerItem = offerItem;
                 icon.sprite = offerItem.Item.ItemIcon;
-                text.text = offerItem.Count <= 1 ? "" : $"x{offerItem.Count}";
+                SetModify(modify);
+            }
+
+
+            public void SetModify(float getActualModify)
+            {
+                modify = getActualModify;
+                text.text = offerItem.Count <= 1 ? "" : $"x{GetCost()}";
+            }
+
+            public RaftStorage.StorageItem GetStorageItem()
+            {
+                return new RaftStorage.StorageItem(Item.Item, GetCost());
+            }
+
+            private int GetCost()
+            {
+                var value = Mathf.RoundToInt(offerItem.Count * modify);
+                if (value <= 0) return 1;
+                return value;
             }
         }
 
@@ -36,17 +56,21 @@ namespace Content.Scripts.BoatGame.UI
             this.resourcesService = resourcesService;
             this.window = window;
             this.tradeOfferObject = tradeOfferObject;
-            
+
             sellItem.Init(tradeOfferObject.SellItem);
             resultItem.Init(tradeOfferObject.ResultItem);
+
+            var modify = window.GetActualModify();
+            resultItem.SetModify(modify);
         }
 
 
-        public void Sell() => window.SellItem(tradeOfferObject);
+        public void Sell() => window.SellItem(sellItem.GetStorageItem(), resultItem.GetStorageItem(), tradeOfferObject);
 
-        public void UpdateItem()
+        public void UpdateItem(float getActualModify)
         {
-            button.SetInteractable(resourcesService.IsHaveItem(sellItem.Item) && resourcesService.GetEmptySpace() - sellItem.Item.Count >= resultItem.Item.Count);
+            resultItem.SetModify(getActualModify);
+            button.SetInteractable(resourcesService.IsCanTradeItem(sellItem.GetStorageItem(), resultItem.GetStorageItem()));
         }
     }
 }

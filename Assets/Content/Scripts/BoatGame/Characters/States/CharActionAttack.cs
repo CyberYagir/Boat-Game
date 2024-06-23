@@ -8,6 +8,7 @@ namespace Content.Scripts.BoatGame.Characters.States
     public class CharActionAttack : CharActionBase
     {
         private DamageObject attackObject;
+        private DamageObject autoBattleAttackObject;
         
         private bool attack;
         private string targetCharacterWeaponID;
@@ -29,7 +30,15 @@ namespace Content.Scripts.BoatGame.Characters.States
             base.StartState();
             
             Machine.AIMoveManager.NavMeshAgent.SetStopped(false);
-            attackObject = SelectionService.SelectedObject.Transform.GetComponent<DamageObject>();
+            if (autoBattleAttackObject == null)
+            {
+                attackObject = SelectionService.SelectedObject.Transform.GetComponent<DamageObject>();
+            }
+            else
+            {
+                attackObject = autoBattleAttackObject;
+            }
+
             if (attackObject)
             {
                 characterHips = Machine.AppearanceDataManager.GetBone(PlayerCharacter.AppearanceManager.EBones.Hips);
@@ -87,11 +96,11 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             if (targetCharacterWeapon != null)
             {
-                attackObject.Damage(targetCharacterWeapon.ParametersData.Damage);
+                attackObject.Damage(targetCharacterWeapon.ParametersData.Damage, Machine.gameObject);
             }
             else
             {
-                attackObject.Damage(baseDamage);
+                attackObject.Damage(baseDamage, Machine.gameObject);
             }
         }
 
@@ -100,6 +109,11 @@ namespace Content.Scripts.BoatGame.Characters.States
             var pos = attackObject.transform.position - attackObject.transform.forward;
             Quaternion targetRotation = Quaternion.LookRotation(new Vector3(pos.x, Machine.transform.position.y, pos.z) - Machine.transform.position);
             Machine.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10 * Time.deltaTime);
+        }
+
+        public void SetAutoAttackMob(DamageObject damageObject)
+        {
+            autoBattleAttackObject = damageObject;
         }
 
         public override void EndState()
@@ -112,6 +126,8 @@ namespace Content.Scripts.BoatGame.Characters.States
                     attackObject.AttackStop();
                 }
             }
+
+            autoBattleAttackObject = null;
             Machine.AppearanceDataManager.ActiveMeleeWeapon(false);
             ToIdleAnimation();
             Machine.AnimationManager.AnimationEvents.OnAttack -= AttackEnemy;

@@ -113,7 +113,12 @@ namespace Content.Scripts.IslandGame.Natives
             base.Init(botSpawner, false);
             
         }
-        
+
+        public override void Damage(float dmg, GameObject sender)
+        {
+            dmg = 0;
+            base.Damage(dmg, sender);
+        }
 
         public void OnUpdate()
         {

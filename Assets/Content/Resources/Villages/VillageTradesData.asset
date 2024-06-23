@@ -57,3 +57,30 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dc0c45560cd45f949ba64a41499216b4, type: 2}
   - {fileID: 11400000, guid: cd7cd3bd342d74d4d9bb0003a49718a0, type: 2}
   - {fileID: 11400000, guid: 8269dfec077d81048a464a3513300264, type: 2}
+  emotionalRange:
+  - range:
+      min: 1001
+      max: Infinity
+    sprite: {fileID: -1948226933, guid: e81b2cc66a2c30343b4cad4ee9f1f73b, type: 3}
+    tradeMultiply: 5
+  - range:
+      min: 101
+      max: 1000
+    sprite: {fileID: 643550826, guid: e81b2cc66a2c30343b4cad4ee9f1f73b, type: 3}
+    tradeMultiply: 2
+  - range:
+      min: -100
+      max: 100
+    sprite: {fileID: 605491862, guid: e81b2cc66a2c30343b4cad4ee9f1f73b, type: 3}
+    tradeMultiply: 1
+  - range:
+      min: -1500
+      max: -101
+    sprite: {fileID: -1377148619, guid: e81b2cc66a2c30343b4cad4ee9f1f73b, type: 3}
+    tradeMultiply: 0.5
+  - range:
+      min: -Infinity
+      max: -1501
+    sprite: {fileID: 816077216, guid: e81b2cc66a2c30343b4cad4ee9f1f73b, type: 3}
+    tradeMultiply: 0.2
+  maxTrades: 6

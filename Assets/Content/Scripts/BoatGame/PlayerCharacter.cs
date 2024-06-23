@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using Content.Scripts.BoatGame.Characters;
+using Content.Scripts.BoatGame.Characters.States;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
+using Content.Scripts.Mobs.MobSnake;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -243,10 +245,20 @@ namespace Content.Scripts.BoatGame
             return gameData.GetItem(character.Equipment.WeaponID);
         }
 
-        public void Damage(float dmg)
+        public void Damage(float dmg, GameObject sender)
         {
             animationsManager.TriggerGetDamage();
             needsManager.Damage(dmg);
+
+            if (stateMachine.CurrentStateType == EStateType.Idle)
+            {
+                var attackTarget = sender.GetComponent<DamageObject>();
+                if (attackTarget)
+                {
+                    stateMachine.GetStateByType<CharActionAttack>().SetAutoAttackMob(attackTarget);
+                    ActiveAction(EStateType.Attack);
+                }
+            }
         }
     }
 }

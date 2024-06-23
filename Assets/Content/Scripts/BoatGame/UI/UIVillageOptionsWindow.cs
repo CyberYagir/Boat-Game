@@ -33,25 +33,26 @@ namespace Content.Scripts.BoatGame.UI
             this.gameDataObject = gameDataObject;
             this.saveDataObject = saveDataObject;
             this.raftBuildService = raftBuildService;
-            
 
-            
+            villageSocialRating.Init(gameDataObject.TradesData);
+
+
             raftBuildService.OnChangeRaft += ChangeRaftsEvents;
             selectionService.OnChangeSelectCharacter += OnChangeSelectCharacter;
             OnChangeSelectCharacter(selectionService.SelectedCharacter);
 
 
-            
+
         }
-        
-        
-        
+
+
+
         private void ChangeRaftsEvents()
         {
             foreach (var storage in raftBuildService.Storages)
             {
-                storage.OnStorageChange -= StorageOnOnStorageChange; 
-                storage.OnStorageChange += StorageOnOnStorageChange; 
+                storage.OnStorageChange -= StorageOnOnStorageChange;
+                storage.OnStorageChange += StorageOnOnStorageChange;
             }
         }
 
@@ -63,7 +64,7 @@ namespace Content.Scripts.BoatGame.UI
         private void Redraw()
         {
             if (villageData == null) return;
-            
+
             villageSocialRating.Redraw(villageData.SocialRating);
             tradeSubWindow.Redraw();
         }
@@ -71,7 +72,7 @@ namespace Content.Scripts.BoatGame.UI
         public override void ShowWindow()
         {
             base.ShowWindow();
-            
+
             Redraw();
         }
 
@@ -104,7 +105,7 @@ namespace Content.Scripts.BoatGame.UI
             var furnaceAction = obj.GetCharacterAction<CharActionViewVillage>();
             furnaceAction.OnOpenWindow -= ShowAndSetVillage;
             furnaceAction.OnOpenWindow += ShowAndSetVillage;
-            
+
             obj.NeedManager.OnDeath -= OnDeath;
             obj.NeedManager.OnDeath += OnDeath;
 
@@ -112,7 +113,7 @@ namespace Content.Scripts.BoatGame.UI
             targetPlayer.NeedManager.SetGodMode();
 
         }
-        
+
         private void OnDeath(Character obj)
         {
             CloseWindow();
@@ -132,17 +133,24 @@ namespace Content.Scripts.BoatGame.UI
             }
         }
 
-        public void SellItem(TradeOfferObject tradeOfferObject)
+        public void SellItem(RaftStorage.StorageItem sellItem, RaftStorage.StorageItem resultItem, TradeOfferObject tradeOfferObject)
         {
-            if (resourcesService.GetEmptySpace() + tradeOfferObject.SellItem.Count >= tradeOfferObject.ResultItem.Count)
+            if (resourcesService.IsCanTradeItem(sellItem, resultItem))
             {
-                if (resourcesService.IsHaveItem(tradeOfferObject.SellItem))
+                if (resourcesService.IsHaveItem(sellItem))
                 {
-                    resourcesService.RemoveItemsFromAnyRaft(tradeOfferObject.SellItem);
-                    resourcesService.AddItemsToAnyRafts(new RaftStorage.StorageItem(tradeOfferObject.ResultItem.Item, tradeOfferObject.ResultItem.Count));
+                    resourcesService.RemoveItemsFromAnyRaft(sellItem);
+                    resourcesService.AddItemsToAnyRafts(resultItem);
                     villageData.AddSocialRating(tradeOfferObject.SocialRatingPoints);
+
+                    Redraw();
                 }
             }
+        }
+
+        public float GetActualModify()
+        {
+            return gameDataObject.TradesData.GetEmotionalData(villageData.SocialRating).TradeMultiply;
         }
     }
 }

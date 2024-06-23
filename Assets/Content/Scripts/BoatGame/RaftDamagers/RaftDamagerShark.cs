@@ -139,7 +139,7 @@ namespace Content.Scripts.BoatGame.RaftDamagers
             {
                 animatorManager.DisableCollider();
             }
-            TargetRaft.Damage(damage);
+            TargetRaft.Damage(damage, gameObject);
         }
 
         public void RotateShark(Vector3Int target)

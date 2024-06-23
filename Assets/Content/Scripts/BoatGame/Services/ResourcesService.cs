@@ -87,6 +87,7 @@ namespace Content.Scripts.BoatGame.Services
 
         public bool GetGlobalEmptySpace(RaftStorage.StorageItem storageItem)
         {
+            if (!storageItem.Item.HasSize) return true;
             return GetEmptySpace() >= storageItem.Count;
         }
 
@@ -251,5 +252,10 @@ namespace Content.Scripts.BoatGame.Services
             return true;
         }
 
+        public bool IsCanTradeItem(RaftStorage.StorageItem sellItem, RaftStorage.StorageItem resultItem)
+        {
+            var isCan = IsHaveItem(sellItem) && GetEmptySpace() + sellItem.Space >= resultItem.Space;
+            return isCan;
+        }
     }
 }

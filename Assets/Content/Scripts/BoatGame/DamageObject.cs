@@ -6,7 +6,7 @@ namespace Content.Scripts.BoatGame
 {
     public interface IDamagable
     {
-        void Damage(float dmg);
+        void Damage(float dmg, GameObject sender);
     }
 
     public abstract class DamageObject : MonoBehaviour, IDamagable
@@ -43,7 +43,7 @@ namespace Content.Scripts.BoatGame
             health = value;
         }
 
-        public virtual void Damage(float dmg)
+        public virtual void Damage(float dmg, GameObject sender)
         {
             health -= dmg;
             OnDamage?.Invoke(health);
@@ -61,7 +61,7 @@ namespace Content.Scripts.BoatGame
         [Button(), ShowIf(nameof(IsPlaying))]
         public void Kill()
         {
-            Damage(1000);
+            Damage(1000, gameObject);
         }
         
         public bool IsPlaying() => Application.isPlaying;

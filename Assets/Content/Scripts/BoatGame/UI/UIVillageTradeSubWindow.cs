@@ -14,9 +14,11 @@ namespace Content.Scripts.BoatGame.UI
             [SerializeField] private UIVillageTradeOfferItem item;
             private List<TradeOfferObject> offersList;
             private List<UIVillageTradeOfferItem> spawned = new List<UIVillageTradeOfferItem>();
+            private UIVillageOptionsWindow window;
 
             public void Init(List<TradeOfferObject> items, UIVillageOptionsWindow window, ResourcesService resourcesService)
             {
+                this.window = window;
                 offersList = items;
                 item.gameObject.SetActive(true);
                 
@@ -42,13 +44,15 @@ namespace Content.Scripts.BoatGame.UI
             {
                 for (int i = 0; i < spawned.Count; i++)
                 {
-                    spawned[i].UpdateItem();
+                    spawned[i].UpdateItem(window.GetActualModify());
                 }
             }
         }
 
         [SerializeField] private OffersDrawer sellItemsDrawer, buyItemsDrawer;
-
+        private TradesDataObject.EmotionRange modify;
+        
+        
         public void Init(
             List<TradeOfferObject> sellOffers,
             List<TradeOfferObject> buyOffers,
@@ -61,6 +65,7 @@ namespace Content.Scripts.BoatGame.UI
             resourcesService.OnChangeResources -= UpdateItems;
             resourcesService.OnChangeResources += UpdateItems;
         }
+        
 
         private void UpdateItems()
         {

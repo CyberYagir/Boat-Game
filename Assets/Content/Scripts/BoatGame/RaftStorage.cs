@@ -26,6 +26,8 @@ namespace Content.Scripts.BoatGame
 
             public int Count => count;
 
+            public int Space => item.HasSize ? count : 0;
+
             public ItemObject Item => item;
 
             public void Add(int value)

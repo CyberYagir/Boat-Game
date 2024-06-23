@@ -89,7 +89,7 @@ namespace Content.Scripts.Mobs.MobSnake
         {
             if (attackedDamagable != null)
             {
-                attackedDamagable.Damage(attackDamage);
+                attackedDamagable.Damage(attackDamage, gameObject);
             }
         }
     }
