@@ -32,8 +32,16 @@ namespace Content.Scripts.CraftsSystem
             Forge
         }
 
+        public enum ECraftSubList
+        {
+            Armor,
+            Materials,
+            Money
+        }
+
         [SerializeField] private string craftName;
         [SerializeField] private ECraftType type;
+        [SerializeField] private ECraftSubList subType;
         [SerializeField, ShowIf("@type == ECraftType.Item")] private ECraftTable table;
         [SerializeField, ReadOnly] private string uid;
         [SerializeField] private TooltipDataObject tooltip;
@@ -45,7 +53,7 @@ namespace Content.Scripts.CraftsSystem
         private CraftItem finalItem;
         
         public List<CraftItem> Ingredients => ingredients;
-        public Sprite Icon => icon;
+        public Sprite Icon => icon != null ? icon : finalItem.ResourceName.ItemIcon;
 
         public string Uid => uid;
 
@@ -58,6 +66,8 @@ namespace Content.Scripts.CraftsSystem
         public CraftItem FinalItem => finalItem;
 
         public TooltipDataObject Tooltip => tooltip;
+
+        public ECraftSubList SubType => subType;
 
         [Button]
         public void GenerateID()

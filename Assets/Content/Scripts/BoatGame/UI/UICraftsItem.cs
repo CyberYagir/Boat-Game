@@ -23,6 +23,8 @@ namespace Content.Scripts.BoatGame.UI
         protected UIService uiService;
         protected RaftBuildService raftBuildService;
 
+        public CraftObject Item => item;
+
 
         public void Init(CraftObject item, ResourcesService resourcesService, UIService uiService, RaftBuildService raftBuildService)
         {
@@ -68,10 +70,10 @@ namespace Content.Scripts.BoatGame.UI
             {
                 int count = 0;
                 
-                var items = resourcesService.AllItemsList.FindAll(x => x.Item.ID == item.Ingredients[i].ResourceName.ID);
+                var items = resourcesService.AllItemsList.FindAll(x => x.Item.ID == Item.Ingredients[i].ResourceName.ID);
                 count += items.Sum(x => x.Count);
 
-                if (count < item.Ingredients[i].Count)
+                if (count < Item.Ingredients[i].Count)
                 {
                     canCraft = false;
                 }
@@ -86,7 +88,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public virtual void Build()
         {
-            raftBuildService.SetTargetCraft(item);
+            raftBuildService.SetTargetCraft(Item);
             uiService.ChangeGameStateToBuild();
         }
     }

@@ -143,6 +143,12 @@ namespace Content.Scripts
         
         #region ARRAYS OPERATIONS
 
+        public static void Add<T>(this List<T> _array, params T[] items)
+        {
+            if (items.Length != 0)
+                _array.AddRange(items);
+        }
+
         public static int GetRandomIndex<T>(this List<T> _array)
         {
             return Random.Range(0, _array.Count);

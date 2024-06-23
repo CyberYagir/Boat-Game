@@ -7,14 +7,14 @@ using UnityEngine.Events;
 
 namespace Content.Scripts.BoatGame.UI
 {
-    public class UITabManager : MonoBehaviour
+    public class UITabManager : MonoBehaviour, ITabManager
     {
         [System.Serializable]
         public class Tab
         {
             [SerializeField] private GameObject page;
-            [SerializeField] private UnityEvent OnTabSelected;
-            [SerializeField] private UnityEvent OnTabClosed;
+            [SerializeField, FoldoutGroup("Events")] private UnityEvent OnTabSelected;
+            [SerializeField, FoldoutGroup("Events")] private UnityEvent OnTabClosed;
 
             public GameObject Page => page;
 
@@ -36,13 +36,14 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField, ReadOnly] private int selectedTab = -1;
         [SerializeField] private List<Tab> tabs;
 
+        public event Action<int> OnTabChanged;
 
-        private void OnEnable()
+        private void Awake()
         {
-            DOVirtual.DelayedCall(0.1f, delegate
+            GetComponent<AnimatedWindow>().OnOpen += delegate
             {
                 SelectTab(0);
-            });
+            };
         }
 
 
@@ -62,6 +63,7 @@ namespace Content.Scripts.BoatGame.UI
 
                 selectedTab = indx;
                 tabs[selectedTab].Open();
+                OnTabChanged?.Invoke(indx);
             }
         }
     }

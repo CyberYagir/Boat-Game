@@ -1,14 +1,16 @@
+using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Characters.States;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.Global;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.UI
 {
-    public class UICraftingTableWindow : AnimatedWindow
+    public class UICraftingTableWindow : AnimatedWindow, ITabManager
     {
         [SerializeField] private UICraftingTableItem itemPrefab;
         [SerializeField, ReadOnly] private List<UICraftsItem> craftsItems = new List<UICraftsItem>();
@@ -16,8 +18,12 @@ namespace Content.Scripts.BoatGame.UI
         private ResourcesService resourcesService;
         private List<CraftObject> crafts;
         private UIService uiService;
-        private GameStateService gameStateService;
         private RaftBuildService raftBuildService;
+
+        private List<CraftObject.ECraftSubList> actualToDraw = new List<CraftObject.ECraftSubList>();
+        
+        public event Action<int> OnTabChanged;
+
 
 
         public void Init(
@@ -25,12 +31,10 @@ namespace Content.Scripts.BoatGame.UI
             GameDataObject gameDataObject,
             ResourcesService resourcesService,
             UIService uiService,
-            GameStateService gameStateService,
             RaftBuildService raftBuildService
         )
         {
             this.raftBuildService = raftBuildService;
-            this.gameStateService = gameStateService;
             this.uiService = uiService;
             this.resourcesService = resourcesService;
 
@@ -92,6 +96,7 @@ namespace Content.Scripts.BoatGame.UI
             resourcesService.PlayerItemsList();
 
             UpdateItems();
+            ChangeTab(0);
         }
 
         private void UpdateItems()
@@ -99,7 +104,33 @@ namespace Content.Scripts.BoatGame.UI
             foreach (var uiCraftsItem in craftsItems)
             {
                 uiCraftsItem.UpdateItem();
+                uiCraftsItem.gameObject.SetActive(actualToDraw.Contains(uiCraftsItem.Item.SubType));
             }
+        }
+
+
+        public void ChangeTab(int value)
+        {
+            actualToDraw.Clear();
+            switch (value)
+            {
+                case 0:
+                    actualToDraw.Add(CraftObject.ECraftSubList.Armor, CraftObject.ECraftSubList.Materials, CraftObject.ECraftSubList.Money);
+                    break;
+                case 1:
+                    actualToDraw.Add(CraftObject.ECraftSubList.Armor);
+                    break;
+                case 2:
+                    actualToDraw.Add(CraftObject.ECraftSubList.Materials);
+                    break;
+                case 3:
+                    actualToDraw.Add(CraftObject.ECraftSubList.Money);
+                    break;
+            }
+            
+            UpdateItems();
+            
+            OnTabChanged?.Invoke(value);
         }
     }
 }

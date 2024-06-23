@@ -9,9 +9,9 @@ namespace Content.Scripts.BoatGame.UI
 
         public override bool UpdateItem()
         {
-            if (item.FinalItem.Count > 1)
+            if (Item.FinalItem.Count > 1)
             {
-                count.text = "x" + item.FinalItem.Count;
+                count.text = "x" + Item.FinalItem.Count;
             }
             else
             {
@@ -23,13 +23,13 @@ namespace Content.Scripts.BoatGame.UI
                 transform.SetSiblingIndex(0);
                 int canHoldItems = resourcesService.GetEmptySpace();
 
-                for (int i = 0; i < item.Ingredients.Count; i++)
+                for (int i = 0; i < Item.Ingredients.Count; i++)
                 {
-                    canHoldItems += item.Ingredients[i].Count;
+                    canHoldItems += Item.Ingredients[i].Count;
                 }
 
 
-                if (canHoldItems < item.FinalItem.Count)
+                if (canHoldItems < Item.FinalItem.Count)
                 {
                     button.SetTransparent();
                 }
@@ -40,7 +40,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public override void Build()
         {
-            uiService.CharacterCraftItem(item);
+            uiService.CharacterCraftItem(Item);
         }
     }   
 }

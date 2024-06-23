@@ -18,7 +18,8 @@ namespace Content.Scripts.BoatGame.UI
 
         public void UpdateItem(int value)
         {
-            count.text = $"<size=40>{value}</size>/<size=20>{maxValue}";
+            count.alpha = value < maxValue ? 0.6f : 1;
+            count.text = $"<size=45>{value}</size>/<size=25>{maxValue}";
         }
     }
 }
