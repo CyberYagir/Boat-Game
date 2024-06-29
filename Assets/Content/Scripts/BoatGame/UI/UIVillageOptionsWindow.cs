@@ -74,6 +74,10 @@ namespace Content.Scripts.BoatGame.UI
             base.ShowWindow();
 
             Redraw();
+            if (targetPlayer)
+            {
+                targetPlayer.NeedManager.SetGodMode();
+            }
         }
 
         public void ShowAndSetVillage(string villageID, int level)
@@ -108,9 +112,6 @@ namespace Content.Scripts.BoatGame.UI
 
             obj.NeedManager.OnDeath -= OnDeath;
             obj.NeedManager.OnDeath += OnDeath;
-
-
-            targetPlayer.NeedManager.SetGodMode();
 
         }
 

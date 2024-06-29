@@ -17,20 +17,43 @@ MonoBehaviour:
     - name: Chester
       uid: cdd272c5-1941-4cdf-8378-bdaf41b85d0e
       skillsData:
-        xp: 7
-        scores: 2
+        xp: 11
+        scores: 0
         level: 6
         skills:
         - skillID: f3b559d4-e0e2-42ef-b5d1-71101d0e10ca
-          value: 6
+          value: 8
         - skillID: 20b3171e-8a60-4361-bfe4-c12a4b154163
           value: 2
         - skillID: 3b8443e2-2fef-4110-95aa-d61d78459f6f
           value: 1
       parametersData:
         health: 100
-        hunger: 48.01109
-        thirsty: 0
+        hunger: 96.28808
+        thirsty: 92.57301
+      equipmentData:
+        helmetID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
+        armorID: 
+        weaponID: bcddab5b-dfe3-4642-807d-96e3b0e64c38
+      skinColorID: 0
+      hatID: 3
+    - name: Pidor
+      uid: cdd272c2-1941-4cdf-8378-bdaf41b85d0e
+      skillsData:
+        xp: 10
+        scores: 0
+        level: 6
+        skills:
+        - skillID: f3b559d4-e0e2-42ef-b5d1-71101d0e10ca
+          value: 8
+        - skillID: 20b3171e-8a60-4361-bfe4-c12a4b154163
+          value: 2
+        - skillID: 3b8443e2-2fef-4110-95aa-d61d78459f6f
+          value: 1
+      parametersData:
+        health: 100
+        hunger: 96.28808
+        thirsty: 92.57301
       equipmentData:
         helmetID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
         armorID: 
@@ -83,29 +106,35 @@ MonoBehaviour:
     - raftUid: 8396f830-dc27-426c-a649-3b6f91109808
       storagesData:
       - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
-        count: 4
+        count: 3
       - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
         count: 1
       - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
-        count: 1
+        count: 2
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 948
+        count: 938
+      - itemID: 05085f78-c61f-4059-a126-fa396d6dcf68
+        count: 2
       - itemID: 6ef783b5-3589-4844-8988-66fe6ff1c911
-        count: 8
+        count: 6
     - raftUid: a03abcc1-d1f1-4cd2-aefe-479b81e1f692
       storagesData:
       - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
         count: 4
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 28
+        count: 88
       - itemID: 6ef783b5-3589-4844-8988-66fe6ff1c911
         count: 10
     - raftUid: 19604cb8-6be2-45d4-8d9a-44d52b780b40
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 30
+        count: 70
       - itemID: 6ef783b5-3589-4844-8988-66fe6ff1c911
-        count: 14
+        count: 8
+      - itemID: 176e78e5-a918-4a3c-83f1-3ab859de1d14
+        count: 1
+      - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
+        count: 2
     furnaces: []
     raftsInBuild: []
   mapData:
@@ -308,14 +337,30 @@ MonoBehaviour:
       islandSeed: -2028171252
       removedTrees:
       - {x: 304, y: 252}
+      - {x: 224, y: 299}
+      - {x: 84, y: 286}
+      - {x: 92, y: 303}
+      - {x: 105, y: 285}
       droppedItems:
       - pos: {x: 31.9576, y: 7.859981, z: -42.434486}
         rot: {x: 359.7006, y: 359.56293, z: 359.89682}
         itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
         dropID: 08539336-fcb9-4bc0-84bc-2e4b26406581
+      - pos: {x: 21.14325, y: 8.423271, z: -48.70395}
+        rot: {x: 0.77338433, y: 0.2550869, z: 359.90747}
+        itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
+        dropID: fc82b84d-5a03-4709-acf1-8e60075a11a4
+      - pos: {x: 26.957306, y: 6.9453087, z: -31.784851}
+        rot: {x: 0.08934539, y: 359.37384, z: 359.41205}
+        itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
+        dropID: 5db80a99-a156-4357-89e1-226ac718283a
+      - pos: {x: -13.285736, y: 5.8881683, z: -117.14827}
+        rot: {x: 0.16534348, y: 359.96402, z: 359.5486}
+        itemID: 04c9cfc6-1433-479d-97fb-2f5b4b3b83ea
+        dropID: 73111597-91c6-4d28-a217-1ca45dd46d9b
       villagesData:
       - uid: 9522e0b6-2cb3-cd1e-d9ce-24ed98327270
-        socialRating: 114
+        socialRating: 197
         villagers:
         - uid: 03e521bc-65a3-2751-88a8-ff2b1d10eb30
           isDead: 0
@@ -457,15 +502,15 @@ MonoBehaviour:
       droppedItems: []
       villagesData: []
   globalData:
-    totalSecondsInGame: 2545.0566
+    totalSecondsInGame: 4285.083
     totalSecondsOnRaft: 4465.0615
     islandSeed: -2028171252
     damagersData:
-      tickCount: 16
-      maxTickCount: 3747.5999
+      tickCount: 20
+      maxTickCount: 4805.1
       spawnedItems: []
     weathersData:
-      tickCount: 809
+      tickCount: 830
       maxTickCount: 2297
       currentWeather: 0
   tutorialsData:

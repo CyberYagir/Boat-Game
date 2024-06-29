@@ -99,7 +99,7 @@ namespace Content.Scripts.BoatGame
             private WeatherService.WeatherModifiers currentModifiers;
             private SelectionService selectionService;
             private Character selfCharacter;
-            private bool godMode;
+            [SerializeField, ReadOnly] private bool godMode;
 
             public bool IsDead => isDead;
             public float Health => health;
@@ -231,6 +231,7 @@ namespace Content.Scripts.BoatGame
             public void Damage(float dmg)
             {
                 if (godMode) return;
+                print(dmg);
                 health -= dmg;
                 HealthCheck();
                 OnDamaged?.Invoke();
