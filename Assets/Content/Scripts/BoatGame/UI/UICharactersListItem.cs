@@ -16,6 +16,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private TMP_Text text;
         [SerializeField] private Image currentActionIcon, needIcon;
         [SerializeField] private RectTransform background;
+        [SerializeField] private UIBar healthBar;
         [SerializeField] private float unactiveX, activeX;
         [SerializeField] private RawImage rawImage;
         private RenderTexture renderTexture;
@@ -42,6 +43,7 @@ namespace Content.Scripts.BoatGame.UI
                 rawImage.texture = renderTexture;
             }
             
+            healthBar.Init("Health", character.NeedManager.Health, 100f);
             
             tickService.OnTick -= TickServiceOnOnTick;
             tickService.OnTick += TickServiceOnOnTick;
@@ -96,19 +98,22 @@ namespace Content.Scripts.BoatGame.UI
 
             camera.targetTexture = renderTexture;
             camera.Render();
+
+
+            healthBar.UpdateBar(TargetCharacter.NeedManager.Health);
         }
 
         private void AnimateButton(PlayerCharacter character)
         {
             background.anchoredPosition = new Vector2(
-                character == targetCharacter ? activeX : unactiveX,
-                background.anchoredPosition.y
+                background.anchoredPosition.x,
+                character == targetCharacter ? activeX : unactiveX
             );
         }
 
         private void AnimateButtonAnimated(PlayerCharacter character)
         {
-            background.DOAnchorPosX(character == targetCharacter ? activeX : unactiveX, 0.2f);
+            background.DOAnchorPosY(character == targetCharacter ? activeX : unactiveX, 0.2f);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         protected Vector3 currentTarget;
 
         private DroppedItem droppedItem;
+        private DroppedItem cachedItem;
 
         protected bool dontStartIfDroppedItemNull = true;
         
@@ -26,14 +27,35 @@ namespace Content.Scripts.BoatGame.Characters.States
             isMoving = true;
         }
 
+        public override Vector3 GetPointToMove()
+        {
+            if (cachedItem == null)
+            {
+                return base.GetPointToMove();
+            }
+            else
+            {
+                return cachedItem.transform.position;
+            }
+        }
+
 
         public override void StartState()
         {
             base.StartState();
 
-            currentTarget = SelectionService.LastWorldClick;
+            if (cachedItem == null)
+            {
+                currentTarget = SelectionService.LastWorldClick;
+                droppedItem = SelectionService.SelectedObject.Transform.GetComponent<DroppedItem>();
+            }
+            else
+            {
+                droppedItem = cachedItem;
+                currentTarget = cachedItem.transform.position;
+                
+            }
 
-            droppedItem = SelectionService.SelectedObject.Transform.GetComponent<DroppedItem>();
 
             if (droppedItem == null && dontStartIfDroppedItemNull)
             {
@@ -97,7 +119,13 @@ namespace Content.Scripts.BoatGame.Characters.States
         public override void EndState()
         {
             base.EndState();
+            cachedItem = null;
             ToIdleAnimation();
+        }
+
+        public void SetCachedItem(DroppedItem droppedItem)
+        {
+            cachedItem = droppedItem;
         }
     }
 }

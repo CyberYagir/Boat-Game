@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Content.Scripts.BoatGame.Characters.States
@@ -11,11 +12,13 @@ namespace Content.Scripts.BoatGame.Characters.States
             Agent.SetStopped(false);
 
 
-            if (!MoveToPoint(SelectionService.LastWorldClick))
+            if (!MoveToPoint(GetPointToMove()))
             {
                 EndState();
             }
         }
+
+        public virtual Vector3 GetPointToMove() => SelectionService.LastWorldClick;
 
         public override void ProcessState()
         {

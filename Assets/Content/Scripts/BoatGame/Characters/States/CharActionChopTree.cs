@@ -30,7 +30,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
             Agent.SetStopped(false);
             selectedTree = SelectionService.SelectedObject.Transform.GetComponent<TerrainObject>();
-
+            
             
             if (selectedTree == null)
             {
@@ -38,9 +38,19 @@ namespace Content.Scripts.BoatGame.Characters.States
                 return;
             }
 
+            selectedTree.OnSpawnDrop += GoToDrop;
             if (!MoveToPoint(selectedTree.transform.position))
             {
                 EndState();
+            }
+        }
+
+        private void GoToDrop(DroppedItem obj)
+        {
+            if (Machine.CurrentState == EStateType.Idle)
+            {
+                Machine.GetCharacterAction<CharActionPickup>().SetCachedItem(obj);
+                Machine.ActiveAction(EStateType.PickupItem);
             }
         }
 
@@ -104,6 +114,11 @@ namespace Content.Scripts.BoatGame.Characters.States
             base.EndState();
             
             ToIdleAnimation();
+
+            // if (selectedTree != null)
+            // {
+            //     selectedTree.OnSpawnDrop -= GoToDrop;
+            // }
 
             if (spawnedAxe != null)
             {
