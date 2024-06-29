@@ -16,9 +16,11 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private List<string> hints;
         private SaveDataObject saveDataObject;
         private ScenesService scenesService;
+        private CharacterService characterService;
 
         public void Init(CharacterService characterService, SaveDataObject saveDataObject, ScenesService scenesService)
         {
+            this.characterService = characterService;
             this.scenesService = scenesService;
             this.saveDataObject = saveDataObject;
             if (characterService.SpawnedCharacters.Count == 0)
@@ -28,22 +30,25 @@ namespace Content.Scripts.BoatGame.UI
 
             characterService.OnCharactersChange += ShowWindow;
         }
-        
-        
+
+
         public override void ShowWindow()
         {
-            DOVirtual.DelayedCall(2f, delegate
+            if (characterService.SpawnedCharacters.Count == 0)
             {
-                base.ShowWindow();
-                hints = text.text.Split("\n").ToList();
-                hintText.text = hints.GetRandomItem();
-                hintText.SetAlpha(0);
-                hintText.DOFade(0.5f, 2f).SetDelay(1);
-            });
+                DOVirtual.DelayedCall(2f, delegate
+                {
+                    base.ShowWindow();
+                    hints = text.text.Split("\n").ToList();
+                    hintText.text = hints.GetRandomItem();
+                    hintText.SetAlpha(0);
+                    hintText.DOFade(0.5f, 2f).SetDelay(1);
+                });
 
-            
-            saveDataObject.DeleteFile();
-            saveDataObject.LoadFile();
+
+                saveDataObject.DeleteFile();
+                saveDataObject.LoadFile();
+            }
         }
 
 
