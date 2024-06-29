@@ -21,7 +21,8 @@ namespace Content.Scripts.BoatGame.UI
         private RaftBuildService raftBuildService;
 
         private List<CraftObject.ECraftSubList> actualToDraw = new List<CraftObject.ECraftSubList>();
-        
+        private CraftObject.ECraftTable targetTable;
+
         public event Action<int> OnTabChanged;
 
 
@@ -84,6 +85,12 @@ namespace Content.Scripts.BoatGame.UI
             obj.NeedManager.OnDeath += OnDeath;
         }
 
+        private void ShowWindow(CraftObject.ECraftTable table)
+        {
+            targetTable = table;
+            ShowWindow();
+        }
+
         private void OnDeath(Character obj)
         {
             CloseWindow();
@@ -104,7 +111,7 @@ namespace Content.Scripts.BoatGame.UI
             foreach (var uiCraftsItem in craftsItems)
             {
                 uiCraftsItem.UpdateItem();
-                uiCraftsItem.gameObject.SetActive(actualToDraw.Contains(uiCraftsItem.Item.SubType));
+                uiCraftsItem.gameObject.SetActive(actualToDraw.Contains(uiCraftsItem.Item.SubType) && targetTable == uiCraftsItem.Item.Table);
             }
         }
 

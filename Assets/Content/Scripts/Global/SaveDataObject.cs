@@ -6,6 +6,7 @@ using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.RaftDamagers;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.IslandGame;
+using Content.Scripts.IslandGame.Sources;
 using Content.Scripts.Map;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -172,9 +173,30 @@ namespace Content.Scripts.Global
                 public RaftStorageData.StorageItemData SmeltItem => smeltItem;
             }
             
+            
+            [Serializable]
+            public class RaftWaterSource : RaftAdditionalData
+            {
+                [SerializeField] private int currentTicks;
+                [SerializeField] private int stack;
+
+
+                public RaftWaterSource(string uid, int currentTicks, int stack)
+                {
+                    this.raftUid = uid;
+                    this.currentTicks = currentTicks;
+                    this.stack = stack;
+                }
+
+                public int Stack => stack;
+
+                public int CurrentTicks => currentTicks;
+            }
+            
             [SerializeField] private List<RaftData> rafts = new List<RaftData>();
             [SerializeField] private List<RaftStorageData> storages = new List<RaftStorageData>();
             [SerializeField] private List<RaftFurnace> furnaces = new List<RaftFurnace>();
+            [SerializeField] private List<RaftWaterSource> waterSources = new List<RaftWaterSource>();
             [SerializeField] private List<RaftCraft> raftsInBuild = new List<RaftCraft>();
 
             public List<RaftCraft> RaftsInBuild => raftsInBuild;
@@ -186,6 +208,8 @@ namespace Content.Scripts.Global
             public int RaftsCount => rafts.Count;
 
             public List<RaftFurnace> Furnaces => furnaces;
+
+            public List<RaftWaterSource> WaterSources => waterSources;
 
             public void AddSpawnedRaft(RaftBase spawnedRaft)
             {
@@ -201,7 +225,8 @@ namespace Content.Scripts.Global
                 ConfigureStorage();
                 ConfigureBuildRaft();
                 ConfigureFurnaceRaft();
-
+                ConfigureWaterSources();
+                
                 void ConfigureStorage()
                 {
                     RaftStorage raftStorage = spawnedRaft.GetComponent<RaftStorage>();
@@ -237,6 +262,15 @@ namespace Content.Scripts.Global
                     if (furnace != null)
                     {
                         furnaces.Add(new RaftFurnace(furnace.GetComponent<RaftBase>().Uid, furnace.SmeltedItem, furnace.FuelItem, furnace.ResultItem, furnace.ProgressionTicks, furnace.FuelTicks, furnace.MaxFuelTicks));
+                    }
+                }
+                
+                void ConfigureWaterSources()
+                {
+                    var source = spawnedRaft.GetComponent<RestackableSource>();
+                    if (source != null)
+                    {
+                        WaterSources.Add(new RaftWaterSource(source.GetComponent<RaftBase>().Uid, source.TicksTimer, source.Stack));
                     }
                 }
             }

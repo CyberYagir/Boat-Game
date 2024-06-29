@@ -16,7 +16,7 @@ namespace Content.Scripts.IslandGame
         [SerializeField] private ItemObject item;
         [SerializeField] private Rigidbody rigidbody;
         [SerializeField] private CraftObject craftItem;
-        
+        [SerializeField] private bool saveItem = true;
         private SaveDataObject saveData;
         private string dropID = null;
 
@@ -31,17 +31,26 @@ namespace Content.Scripts.IslandGame
         {
             this.saveData = saveData;
             
+            print("barrel inject");
+            
             if (string.IsNullOrEmpty(dropID))
                 dropID = Guid.NewGuid().ToString();
 
-            var island = saveData.GetTargetIsland();
-            island.AddDroppedItem(this);
+            if (saveItem)
+            {
+                var island = saveData.GetTargetIsland();
+                island.AddDroppedItem(this);
+            }
         }
 
         public void Animate()
         {
-            rigidbody.AddForce(new Vector3(Random.value, Random.Range(0, 1f), Random.value), ForceMode.Impulse);
-            rigidbody.AddTorque(new Vector3(Random.value, Random.value, Random.value), ForceMode.Impulse);
+            if (rigidbody)
+            {
+                rigidbody.AddForce(new Vector3(Random.value, Random.Range(0, 1f), Random.value), ForceMode.Impulse);
+                rigidbody.AddTorque(new Vector3(Random.value, Random.value, Random.value), ForceMode.Impulse);
+            }
+
             transform.localScale = Vector3.one * 0.1f;
             transform.DOScale(Vector3.one, 0.2f);
         }
@@ -54,6 +63,7 @@ namespace Content.Scripts.IslandGame
 
         public void SetKinematic(bool state = true)
         {
+            if (rigidbody == null) return;
             rigidbody.isKinematic = state;
         }
 

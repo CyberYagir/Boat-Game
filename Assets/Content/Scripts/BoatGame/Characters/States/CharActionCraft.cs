@@ -23,7 +23,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         private GameObject spawnedHammer;
         private float time;
 
-        public Action OnShowBuildWindow;
+        public Action<CraftObject.ECraftTable> OnShowBuildWindow;
         public Action OnCloseBuildWindow;
         public override void ResetState()
         {
@@ -47,7 +47,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
             if (targetCraftingTable != null && targetCraftingTable.CurrentCraft == null)
             {
-                OnShowBuildWindow?.Invoke();
+                OnShowBuildWindow?.Invoke(targetCraftingTable.CraftType);
                 EndState();
                 return;
             }

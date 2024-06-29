@@ -8,7 +8,7 @@ namespace Content.Scripts.BoatGame
     public class CraftingTable : MonoBehaviour
     {
         [SerializeField] private UIBarClockwise bar;
-        
+        [SerializeField] private CraftObject.ECraftTable craftType;
         private float time;
         private CraftObject currentCraft;
         private float maxTime;
@@ -17,6 +17,8 @@ namespace Content.Scripts.BoatGame
         public CraftObject CurrentCraft => currentCraft;
 
         public float CraftingTimeTime => maxTime;
+
+        public CraftObject.ECraftTable CraftType => craftType;
 
 
         public void StartCraft(CraftObject currentCraft, float skillValue)

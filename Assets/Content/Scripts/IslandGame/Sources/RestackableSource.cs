@@ -1,4 +1,5 @@
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using Content.Scripts.Mobs;
 using Sirenix.OdinInspector;
@@ -16,7 +17,11 @@ namespace Content.Scripts.IslandGame.Sources
         [SerializeField, ReadOnly] private int stack;
         [SerializeField, ReadOnly] private int ticksTimer = 0;
 
-        
+
+        public int TicksTimer => ticksTimer;
+
+        public int Stack => stack;
+
         public bool IsValidSource => stack > 0;
         
         [Inject]
@@ -48,6 +53,13 @@ namespace Content.Scripts.IslandGame.Sources
             }
 
             return null;
+        }
+
+        public void LoadStorage(SaveDataObject.RaftsData.RaftWaterSource find)
+        {
+            if (find == null) return;;
+            ticksTimer = find.CurrentTicks;
+            stack = find.Stack;
         }
     }
 }

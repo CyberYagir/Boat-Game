@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.Global;
+using Content.Scripts.IslandGame.Sources;
 using Content.Scripts.ItemsSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -24,7 +25,8 @@ namespace Content.Scripts.BoatGame.Services
                 CraftTable,
                 Moored,
                 Fishing,
-                Furnace
+                Furnace,
+                WaterSource
             }
 
             [SerializeField] private ERaftType raftType;
@@ -168,6 +170,15 @@ namespace Content.Scripts.BoatGame.Services
                     if (furnace)
                     {
                         furnace.LoadStorage(saveData.Rafts.Furnaces.Find(x => x.RaftUid == raft.Uid), gamedata);
+                    }
+                }
+                
+                if (spawned.RaftType == RaftItem.ERaftType.WaterSource)
+                {
+                    var source = spawned.GetComponent<RestackableSource>();
+                    if (source)
+                    {
+                        source.LoadStorage(saveData.Rafts.WaterSources.Find(x => x.RaftUid == raft.Uid));
                     }
                 }
 

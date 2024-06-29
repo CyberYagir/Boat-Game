@@ -69,6 +69,8 @@ namespace Content.Scripts.CraftsSystem
 
         public ECraftSubList SubType => subType;
 
+        public ECraftTable Table => table;
+
         [Button]
         public void GenerateID()
         {

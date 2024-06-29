@@ -124,7 +124,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
             for (int i = 0; i < actionsHolders.Length; i++)
             {
-                spawnerFabric.InjectComponent(actionsHolders[i]);
+                spawnerFabric.InjectComponent(actionsHolders[i].gameObject);
             }
 
             var data = spawned.GetComponent<StructureDataBase>();
