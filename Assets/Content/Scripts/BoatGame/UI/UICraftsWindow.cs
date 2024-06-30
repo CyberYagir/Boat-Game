@@ -103,5 +103,11 @@ namespace Content.Scripts.BoatGame.UI
                 }
             }
         }
+
+        public void RemoveRafts()
+        {
+            CloseWindow();
+            uiService.ChangeGameStateToRemove();
+        }
     }
 }

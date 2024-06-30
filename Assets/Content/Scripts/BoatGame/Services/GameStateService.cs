@@ -8,7 +8,8 @@ namespace Content.Scripts.BoatGame.Services
         public enum EGameState
         {
             Normal,
-            Building
+            Building,
+            Removing
         }
 
         [SerializeField] private EGameState gameState;

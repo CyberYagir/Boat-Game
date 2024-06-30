@@ -162,11 +162,17 @@ namespace Content.Scripts.BoatGame.Services
         {
             gameState.ChangeGameState(GameStateService.EGameState.Building);
         }
+        public void ChangeGameStateToRemove()
+        {
+            gameState.ChangeGameState(GameStateService.EGameState.Removing);
+        }
 
         public void CharacterCraftItem(CraftObject item)
         {
             targetCharacter.GetCharacterAction<CharActionCraft>().SetCraft(item);
             targetCharacter.ActiveAction(EStateType.Crafting);
         }
+
+
     }
 }

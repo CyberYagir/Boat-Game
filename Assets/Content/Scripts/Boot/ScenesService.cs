@@ -13,7 +13,8 @@ namespace Content.Scripts.Boot
         ManCreator,
         BoatGame,
         Map,
-        IslandGame
+        IslandGame,
+        DungeonGame
     }
 
     public class ScenesService : MonoBehaviour

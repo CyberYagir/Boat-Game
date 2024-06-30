@@ -43,6 +43,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private List<RaftBase> spawnedRafts;
         [SerializeField] private Transform holder;
         [SerializeField] private RaftTapToBuild tapToBuildRaftPrefab;
+        [SerializeField] private RaftTapToBuild tapToRemoveRaftPrefab;
         [SerializeField] private RaftNodesChecker raftNodeSystem;
         [SerializeField] private ResourcesService resourcesService;
         
@@ -119,11 +120,17 @@ namespace Content.Scripts.BoatGame.Services
                 isCheckNodesSemaphore = true;
                 yield return null;
                 CheckNodes();
+                if (gameStateService.GameState == GameStateService.EGameState.Removing)
+                {
+                    DestroyUslessRaftTapRemoveItems();
+                }
+
                 isCheckNodesSemaphore = false;
             }
         }
         private void CheckNodes()
         {
+            print("check nodes");
             var parts = raftNodeSystem.CalculateParts(spawnedRafts, worldGridService, gamedata);
             if (parts.Count > 1)
             {
@@ -218,15 +225,51 @@ namespace Content.Scripts.BoatGame.Services
                 SpawnTapToBuildRafts();
                 selectionService.OnTapOnBuildingRaft += OnTapOnBuildingRaft;
             }
-            else
+            else if (obj == GameStateService.EGameState.Removing)
+            {
+                SpawnTapToRemoveRafts();
+                selectionService.OnTapOnBuildingRaft += OnTapOnRemoveRaft;
+            }
+            else if (obj == GameStateService.EGameState.Normal)
             {
                 foreach (var stpr in spawnedTapBuildRafts)
                 {
                     Destroy(stpr.gameObject);
                 }
+
                 spawnedTapBuildRafts.Clear();
                 selectionService.OnTapOnBuildingRaft -= OnTapOnBuildingRaft;
+                selectionService.OnTapOnBuildingRaft -= OnTapOnRemoveRaft;
             }
+        }
+
+        private void OnTapOnRemoveRaft(RaftTapToBuild obj)
+        {
+            var raft = spawnedRafts.Find(x => x.Coords == obj.Coords);
+
+            if (raft != null)
+            {
+                raft.Kill();
+
+                DestroyUslessRaftTapRemoveItems();
+            }
+        }
+
+        private void DestroyUslessRaftTapRemoveItems()
+        {
+            for (int i = 0; i < spawnedTapBuildRafts.Count; i++)
+            {
+                var rft = spawnedRafts.Find(x => x.Coords == spawnedTapBuildRafts[i].Coords);
+                if (rft == null)
+                {
+                    if (spawnedTapBuildRafts[i] != null)
+                    {
+                        Destroy(spawnedTapBuildRafts[i].gameObject);
+                    }
+                }
+            }
+
+            spawnedTapBuildRafts.RemoveAll(x => x == null);
         }
 
         private void OnTapOnBuildingRaft(RaftTapToBuild targetRaft)
@@ -335,6 +378,18 @@ namespace Content.Scripts.BoatGame.Services
                     .With(x => spawnedTapBuildRafts.Add(x))
                     .With(x => x.SetCoords(coords[id]))
                     .With(x => x.transform.localPosition = (Vector3) coords[id]);
+            }
+        }
+        
+        public void SpawnTapToRemoveRafts()
+        {
+            for (int i = 0; i < spawnedRafts.Count; i++)
+            {
+                var id = i;
+                Instantiate(tapToRemoveRaftPrefab, spawnedRafts[id].Coords + (Vector3.up * 0.1f), Quaternion.identity, Holder)
+                    .With(x => spawnedTapBuildRafts.Add(x))
+                    .With(x => x.SetCoords(spawnedRafts[id].Coords))
+                    .With(x => x.transform.localPosition = (Vector3) spawnedRafts[id].Coords);
             }
         }
 

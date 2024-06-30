@@ -32,5 +32,26 @@ namespace Content.Scripts.BoatGame.Services
             }
             return false;
         }
+        
+        public bool IsHavePoints(List<Vector3> points)
+        {
+            for (int i = 0; i < points.Count; i++)
+            {
+                if (IsHavePoint(points[i]))
+                {
+                    return true;
+                }
+            }
+           
+            return false;
+        }
+
+        public void AddPoints(List<Vector3> getPoints)
+        {
+            for (int i = 0; i < getPoints.Count; i++)
+            {
+                gridPoints.Add(getPoints[i]);
+            }
+        }
     }
 }

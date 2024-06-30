@@ -23,7 +23,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public virtual void GameStateServiceOnOnChangeEState(GameStateService.EGameState mewState)
         {
-            if (mewState == GameStateService.EGameState.Building)
+            if (mewState == GameStateService.EGameState.Building || mewState == GameStateService.EGameState.Removing)
             {
                 button.DOAnchorPos(startPosition + Vector3.down * 1000, 0.2f);
             }

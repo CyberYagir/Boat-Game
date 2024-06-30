@@ -31,8 +31,6 @@ namespace Content.Scripts.IslandGame
         {
             this.saveData = saveData;
             
-            print("barrel inject");
-            
             if (string.IsNullOrEmpty(dropID))
                 dropID = Guid.NewGuid().ToString();
 

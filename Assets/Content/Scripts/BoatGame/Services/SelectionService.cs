@@ -76,7 +76,7 @@ namespace Content.Scripts.BoatGame.Services
                     case GameStateService.EGameState.Normal:
                         NormalStateSelectionLogic();
                         break;
-                    case GameStateService.EGameState.Building:
+                    case GameStateService.EGameState.Building or GameStateService.EGameState.Removing:
                         BuildingStateSelectionLogic();
                         break;
                 }
