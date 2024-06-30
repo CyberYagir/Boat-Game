@@ -3,6 +3,7 @@ using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.ItemsSystem;
+using Content.Scripts.SkillsSystem;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,6 +15,7 @@ namespace Content.Scripts.BoatGame
         public class AIManager
         {
             [SerializeField] private MonoBehaviour navMeshAgent;
+            [SerializeField] private SkillObject moveSkill;
             private RaftBuildService raftBuildService;
             private ResourcesService resourcesService;
 
@@ -23,14 +25,28 @@ namespace Content.Scripts.BoatGame
             public INavAgentProvider NavMeshAgent => agent;
             public INavMeshProvider NavMesh => navMeshProvider;
 
-            public void Init(RaftBuildService raftBuildService, INavMeshProvider navMeshProvider)
+
+            private float startSpeed;
+
+            public void Init(RaftBuildService raftBuildService, INavMeshProvider navMeshProvider, Character character)
             {
+                this.character = character;
                 this.navMeshProvider = navMeshProvider;
                 this.raftBuildService = raftBuildService;
                 this.resourcesService = raftBuildService.ResourcesService;
                 agent = navMeshAgent.GetComponent<INavAgentProvider>();
+
+                startSpeed = agent.MaxSpeed;
+                character.OnSkillUpgraded += CharacterOnOnSkillUpgraded;
+                CharacterOnOnSkillUpgraded();
             }
-            
+
+            private void CharacterOnOnSkillUpgraded()
+            {
+                agent.SetMovingSpeed(startSpeed + (character.GetSkillMultiplyAdd(moveSkill.SkillID)));
+            }
+
+
             public Vector3 WalkToAnyPoint()
             {
                 NavMeshAgent.SetStopped(false);
@@ -51,6 +67,7 @@ namespace Content.Scripts.BoatGame
             }
 
             private RaycastHit[] raycastResults = new RaycastHit[4];
+            private Character character;
 
             public bool IsOnGround()
             {

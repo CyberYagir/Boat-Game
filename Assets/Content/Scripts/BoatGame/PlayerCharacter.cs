@@ -80,7 +80,8 @@ namespace Content.Scripts.BoatGame
             if (onlyVisuals) return;
 
             characterGrounder.Init(transform);
-            aiManager.Init(raftBuildService, navMeshProvider);
+            aiManager.Init(raftBuildService, navMeshProvider, character);
+            
             animationsManager.Init(weatherService, appearanceManager);
             needsManager.Init(character, weatherService, this.selectionService);
             actionsHolder.Construct(selectionService, gameData);

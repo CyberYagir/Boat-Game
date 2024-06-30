@@ -215,6 +215,8 @@ namespace Content.Scripts.BoatGame.Services
 
         public EquipmentData Equipment => equipmentData;
 
+        public event Action OnSkillUpgraded;
+
         public Character()
         {
             uid = Guid.NewGuid().ToString();
@@ -248,10 +250,15 @@ namespace Content.Scripts.BoatGame.Services
             return 0;
         }
 
+        public const float SKILL_DIVIDER = 15f;
 
         public float GetSkillMultiply(string skllId)
         {
-            return 1f - (GetSkillValue(skllId) / 15f);
+            return 1f - GetSkillMultiplyAdd(skllId);
+        }
+        public float GetSkillMultiplyAdd(string skllId)
+        {
+            return (GetSkillValue(skllId) / SKILL_DIVIDER);
         }
 
         public bool AddSkillValue(string id, int value)
@@ -263,6 +270,7 @@ namespace Content.Scripts.BoatGame.Services
                 if (value >= 0)
                 {
                     Skills.Add(new Skill(id, value));
+                    OnSkillUpgraded?.Invoke();
                     return true;
                 }
             }
@@ -272,6 +280,7 @@ namespace Content.Scripts.BoatGame.Services
                 if (skill.Value + value >= 0)
                 {
                     skill.Add(value);
+                    OnSkillUpgraded?.Invoke();
                     return true;
                 }
             }
@@ -289,5 +298,7 @@ namespace Content.Scripts.BoatGame.Services
             skillsData.ClearEvents();
             equipmentData.ClearEvents();
         }
+
+
     }
 }

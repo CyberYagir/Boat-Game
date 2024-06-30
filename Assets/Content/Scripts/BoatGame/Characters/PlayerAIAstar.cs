@@ -19,6 +19,7 @@ namespace Content.Scripts.BoatGame.Characters
         public Vector3 Velocity => GetVelocity();
         public Vector3 Destination => aiPath.destination;
         public Vector3 TargetPoint => targetPoint;
+        public float MaxSpeed => aiPath.maxSpeed;
 
         public void SetDestination(Vector3 target)
         {
@@ -110,6 +111,11 @@ namespace Content.Scripts.BoatGame.Characters
         public void SetTargetPoint(Vector3 point)
         {
             targetPoint = point;
+        }
+
+        public void SetMovingSpeed(float value)
+        {
+            aiPath.maxSpeed = value;
         }
 
         private void OnDrawGizmosSelected()

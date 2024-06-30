@@ -12,6 +12,7 @@ namespace Content.Scripts.BoatGame.Characters
         public Vector3 Velocity { get; }
         public Vector3 Destination { get; }
         public Vector3 TargetPoint { get; }
+        public float MaxSpeed { get; }
         
         public void SetDestination(Vector3 target);
         public void SetStopped(bool state);
@@ -27,5 +28,7 @@ namespace Content.Scripts.BoatGame.Characters
         void ChangeMask(int newMask, bool constrainInGraph);
         GraphMask GetCurrentGraphMask();
         public void SetTargetPoint(Vector3 point);
+
+        public void SetMovingSpeed(float value);
     }
 }
