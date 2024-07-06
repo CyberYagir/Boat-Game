@@ -194,5 +194,11 @@ namespace Content.Scripts.BoatGame
         {
             return MaxItemsCount - CalculateInStorageCount();
         }
+
+        public void RemoveFromStorage(ItemObject item, int count)
+        {
+            items.Find(x => x.Item == item).Add(-count);
+            OnStorageChange?.Invoke();
+        }
     }
 }

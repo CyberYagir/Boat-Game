@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.UI.UIEquipment;
+using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using UnityEngine;
 
@@ -221,7 +222,8 @@ namespace Content.Scripts.BoatGame.Services
         {
             uid = Guid.NewGuid().ToString();
         }
-        
+
+        public void SetUid(string id) => uid = id;
         
         public void SetName(string name)
         {
@@ -300,5 +302,27 @@ namespace Content.Scripts.BoatGame.Services
         }
 
 
+        public static List<Character> GetSlavesList(System.Random rnd, GameDataObject gameData, int islandLevel)
+        {
+            var count = rnd.Next(1, 3);
+
+            List<Character> characters = new List<Character>();
+            for (int i = 0; i < count; i++)
+            {
+                var character = new Character();
+                character.SetName(gameData.NamesList.GetRandomItem(rnd));
+                character.SetUid(Extensions.GenerateSeededGuid(rnd).ToString());
+
+                var level = islandLevel * gameData.SkillsList.Count - 1;
+                for (int j = 0; j < level; j++)
+                {
+                    character.AddSkillValue(gameData.SkillsList.GetRandomItem(rnd).SkillID, 1);
+                }
+
+                characters.Add(character);
+            }
+
+            return characters;
+        }
     }
 }

@@ -17,9 +17,9 @@ MonoBehaviour:
     - name: Chester
       uid: cdd272c5-1941-4cdf-8378-bdaf41b85d0e
       skillsData:
-        xp: 26
-        scores: 3
-        level: 7
+        xp: 7
+        scores: 0
+        level: 6
         skills:
         - skillID: f3b559d4-e0e2-42ef-b5d1-71101d0e10ca
           value: 6
@@ -27,10 +27,12 @@ MonoBehaviour:
           value: 2
         - skillID: 3b8443e2-2fef-4110-95aa-d61d78459f6f
           value: 1
+        - skillID: 8518e033-cd1f-4e96-87e9-7e0e788eab51
+          value: 12
       parametersData:
         health: 100
-        hunger: 55.741253
-        thirsty: 11.44742
+        hunger: 81.87987
+        thirsty: 63.729885
       equipmentData:
         helmetID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
         armorID: 
@@ -79,32 +81,73 @@ MonoBehaviour:
       pos: {x: -1, y: 0, z: 0}
       health: 100
       raftType: 4
-    - uid: cab9a4db-ca39-4915-83b7-92bca9471bd8
-      pos: {x: -2, y: 0, z: 0}
-      health: 100
-      raftType: 7
     storages:
     - raftUid: 8396f830-dc27-426c-a649-3b6f91109808
       storagesData:
       - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
-        count: 4
+        count: 104
+      - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
+        count: 101
       - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
-        count: 1
-      - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 998
-      - itemID: a6466df9-4c13-4531-9d61-e35e15368c82
-        count: 2
+        count: 101
+      - itemID: 5a8bb6d3-0d4d-447e-a9ef-7457a7227caf
+        count: 100
+      - itemID: 9d3428e6-2598-47e2-b86f-7ed3818ec54f
+        count: 100
+      - itemID: dfc3d1a9-a26f-4dd9-8e78-bdd940d75b95
+        count: 100
       - itemID: 5916f48b-6716-4816-96b9-607e4d24df80
-        count: 1
+        count: 100
+      - itemID: a6466df9-4c13-4531-9d61-e35e15368c82
+        count: 100
+      - itemID: 1ae2d837-d9c6-42ce-9d33-3242c5c7da18
+        count: 100
+      - itemID: f3f80d00-0faf-4c3d-ae03-fd9c32c01d36
+        count: 100
+      - itemID: 05085f78-c61f-4059-a126-fa396d6dcf68
+        count: 100
+      - itemID: 6ef783b5-3589-4844-8988-66fe6ff1c911
+        count: 100
+      - itemID: 4fae55f1-5bdd-4b87-8480-d3c850f436ee
+        count: 100
+      - itemID: 3faaa745-6ca4-4db3-9df8-92330e6f39b4
+        count: 100
+      - itemID: 04c9cfc6-1433-479d-97fb-2f5b4b3b83ea
+        count: 100
+      - itemID: 47b167db-86da-4574-92e5-c52823934ba0
+        count: 100
+      - itemID: c2172014-85c2-4806-91be-1da61df0581c
+        count: 100
+      - itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
+        count: 100
+      - itemID: 798526c3-0af4-41a2-9a06-3ee9a9ef4f38
+        count: 100
+      - itemID: 176e78e5-a918-4a3c-83f1-3ab859de1d14
+        count: 100
+      - itemID: 9f0e50bf-fade-4bb8-ace4-66d40143554e
+        count: 100
+      - itemID: e86a8926-37ac-4ee1-97ef-677896eeaf2f
+        count: 100
+      - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
+        count: 100
+      - itemID: 54cee4ed-0dc9-4418-9af8-124365a0e87b
+        count: 100
+      - itemID: 162a21b5-c6b7-4dd2-9ecd-6433957a1ee4
+        count: 100
+      - itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
+        count: 100
+      - itemID: 2d53373e-7568-4eb4-9046-d4ba410de85a
+        count: 100
     - raftUid: a03abcc1-d1f1-4cd2-aefe-479b81e1f692
       storagesData:
       - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
         count: 4
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 8
+        count: 271
     - raftUid: 19604cb8-6be2-45d4-8d9a-44d52b780b40
       storagesData: []
     furnaces: []
+    waterSources: []
     raftsInBuild: []
   mapData:
     worldSeed: -2028171698
@@ -306,7 +349,19 @@ MonoBehaviour:
       islandSeed: -2028171252
       removedTrees:
       - {x: 304, y: 252}
-      droppedItems: []
+      droppedItems:
+      - pos: {x: 39.784973, y: 4.345894, z: -39.94934}
+        rot: {x: 0.33621466, y: 359.9263, z: 359.5365}
+        itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
+        dropID: 01f594c7-4974-4cd4-ae9c-b28e8011a5cb
+      - pos: {x: 34.85565, y: 6.1255417, z: -45.13672}
+        rot: {x: 359.5949, y: 0.051888138, z: 0.37773886}
+        itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
+        dropID: 68b1795f-0824-4bf3-bc3f-08dc63028332
+      - pos: {x: 29.268433, y: 7.1207886, z: -50.9104}
+        rot: {x: 359.93127, y: 0.14649215, z: 0.876071}
+        itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
+        dropID: fb779955-450f-4a11-9f6b-ad1c7a4204c0
       villagesData:
       - uid: 9522e0b6-2cb3-cd1e-d9ce-24ed98327270
         socialRating: -30
@@ -327,6 +382,7 @@ MonoBehaviour:
           isDead: 0
         - uid: 60b2e389-6040-a14a-9126-f1bf0a6f301a
           isDead: 0
+        slaves: []
     - islandName: 
       islandPos: {x: 250, y: 88}
       islandSeed: -2028171327
@@ -348,6 +404,7 @@ MonoBehaviour:
           isDead: 0
         - uid: 99b9b6d2-1d7b-d3f6-d6bb-66407a9324b1
           isDead: 0
+        slaves: []
     - islandName: 
       islandPos: {x: 250, y: 303}
       islandSeed: -2028171111
@@ -451,7 +508,7 @@ MonoBehaviour:
       droppedItems: []
       villagesData: []
   globalData:
-    totalSecondsInGame: 2991.0103
+    totalSecondsInGame: 5770.3096
     totalSecondsOnRaft: 4465.0615
     islandSeed: -2028171252
     damagersData:

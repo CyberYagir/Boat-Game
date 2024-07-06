@@ -8,20 +8,24 @@ namespace Content.Scripts.IslandGame.Natives
     public class NativesListSO : ScriptableObject
     {
         [SerializeField] private List<NativeController> nativesList;
+        [SerializeField] private int baseUnitCost = 400;
+
 
         private Dictionary<ENativeType, List<NativeController>> nativesMap = new Dictionary<ENativeType, List<NativeController>>();
+        public List<NativeController> NativesList => nativesList;
+        public int BaseUnitCost => baseUnitCost;
 
         public void Init()
         {
             nativesMap.Clear();
-            for (int i = 0; i < nativesList.Count; i++)
+            for (int i = 0; i < NativesList.Count; i++)
             {
-                if (!nativesMap.ContainsKey(nativesList[i].NativeType))
+                if (!nativesMap.ContainsKey(NativesList[i].NativeType))
                 {
-                    nativesMap.Add(nativesList[i].NativeType, new List<NativeController>());
+                    nativesMap.Add(NativesList[i].NativeType, new List<NativeController>());
                 }
 
-                nativesMap[nativesList[i].NativeType].Add(nativesList[i]);
+                nativesMap[NativesList[i].NativeType].Add(NativesList[i]);
             }
         }
 

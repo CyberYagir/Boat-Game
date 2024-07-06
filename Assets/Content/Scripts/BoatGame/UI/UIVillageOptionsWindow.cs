@@ -14,6 +14,7 @@ namespace Content.Scripts.BoatGame.UI
     {
         [SerializeField] private UIVillageSocialRatingCounter villageSocialRating;
         [SerializeField] private UIVillageTradeSubWindow tradeSubWindow;
+        [SerializeField] private UIVillageSlavesSubWindow slavesSubWindow;
         private RaftBuildService raftBuildService;
         private SaveDataObject saveDataObject;
         private SaveDataObject.MapData.IslandData.VillageData villageData;
@@ -67,6 +68,7 @@ namespace Content.Scripts.BoatGame.UI
 
             villageSocialRating.Redraw(villageData.SocialRating);
             tradeSubWindow.Redraw();
+            
         }
 
         public override void ShowWindow()
@@ -85,14 +87,18 @@ namespace Content.Scripts.BoatGame.UI
             villageData = saveDataObject.GetTargetIsland().GetVillage(villageID);
             villageData.OnChangeSocialRaiting += UpdateRatingCounter;
             villageSocialRating.Redraw(villageData.SocialRating);
-
-            var rnd = new Random(villageID.GetHashCode());
+            
+            
+            var rnd = villageData.GetRandom();
             tradeSubWindow.Init(
                 gameDataObject.TradesData.GetRandomSellsByLevel(level, rnd),
                 gameDataObject.TradesData.GetRandomBuysByLevel(level, rnd),
                 this,
                 resourcesService
             );
+
+            rnd = villageData.GetRandom();
+            slavesSubWindow.Init(gameDataObject, saveDataObject, rnd, level, resourcesService, this);
 
             ShowWindow();
         }
@@ -152,6 +158,26 @@ namespace Content.Scripts.BoatGame.UI
         public float GetActualModify()
         {
             return gameDataObject.TradesData.GetEmotionalData(villageData.SocialRating).TradeMultiply;
+        }
+
+        public bool BuySlave(Character character, int cost)
+        {
+            var item = new RaftStorage.StorageItem(gameDataObject.ConfigData.MoneyItem, cost);
+            if (resourcesService.IsHaveItem(item))
+            {
+                villageData.AddSlave(character);
+                resourcesService.RemoveItemsFromAnyRaft(item);
+                saveDataObject.SaveFile();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public SaveDataObject.MapData.IslandData.VillageData GetVillage()
+        {
+            return villageData;
         }
     }
 }

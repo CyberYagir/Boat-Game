@@ -14,6 +14,7 @@ namespace Content.Scripts.Global
         [SerializeField] private int actionsCountToTutorial;
         [SerializeField] private int paddlesToTravelCount;
         [SerializeField] private ItemObject paddleItem;
+        [SerializeField] private ItemObject moneyItem;
         [SerializeField] private List<ItemObject> itemsForRaftTransitionAfterDestroying;
 
         [SerializeField] private NoiseGenerator mapNoisePreset;
@@ -26,5 +27,7 @@ namespace Content.Scripts.Global
         public ItemObject PaddleItem => paddleItem;
 
         public List<ItemObject> ItemsForRaftTransitionAfterDestroying => itemsForRaftTransitionAfterDestroying;
+
+        public ItemObject MoneyItem => moneyItem;
     }
 }

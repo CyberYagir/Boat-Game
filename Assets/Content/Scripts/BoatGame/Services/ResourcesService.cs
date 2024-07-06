@@ -104,9 +104,25 @@ namespace Content.Scripts.BoatGame.Services
 
         public void RemoveItemsFromAnyRaft(RaftStorage.StorageItem storageItem)
         {
-            for (int i = 0; i < storageItem.Count; i++)
+            for (int i = 0; i < raftBuildService.Storages.Count; i++)
             {
-                RemoveItemFromAnyRaft(storageItem.Item);
+                if (storageItem.Count <= 0) break;
+                if (raftBuildService.Storages[i].HaveItem(storageItem.Item))
+                {
+                    var items = raftBuildService.Storages[i].GetItem(storageItem.Item);
+
+                    if (storageItem.Count <= items.Count)
+                    {
+                        raftBuildService.Storages[i].RemoveFromStorage(storageItem.Item, storageItem.Count);
+                        return;
+                    }
+
+                    if (storageItem.Count > items.Count)
+                    {
+                        raftBuildService.Storages[i].RemoveFromStorage(storageItem.Item, items.Count);
+                        storageItem.Add(-items.Count);
+                    }
+                }
             }
         }
 
@@ -216,6 +232,10 @@ namespace Content.Scripts.BoatGame.Services
             }
 
             return false;
+        }
+        public bool IsHaveItem(ItemObject item, int count)
+        {
+            return IsHaveItem(new RaftStorage.StorageItem(item, count));
         }
 
         private List<RaftStorage> emptyStoragesArray = new List<RaftStorage>(10);

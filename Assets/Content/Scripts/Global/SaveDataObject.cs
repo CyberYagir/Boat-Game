@@ -329,11 +329,23 @@ namespace Content.Scripts.Global
 
                         public string Uid => uid;
                     }
+                    [Serializable]
+                    public class SlaveData
+                    {
+                        [SerializeField] private string uid;
+
+                        public SlaveData(string uid)
+                        {
+                            this.uid = uid;
+                        }
+
+                        public string Uid => uid;
+                    }
 
                     [SerializeField] private string uid;
                     [SerializeField] private int socialRating = 0;
                     [SerializeField] private List<VillagerData> villagers = new List<VillagerData>();
-
+                    [SerializeField] private List<SlaveData> slaves = new List<SlaveData>();
                     public event Action<int> OnChangeSocialRaiting;
                     
                     
@@ -352,10 +364,23 @@ namespace Content.Scripts.Global
 
                     public VillagerData GetVillager(string uid) => villagers.Find(x => x.Uid == uid);
 
+                    public void AddSlave(Character ch) => slaves.Add(new SlaveData(ch.Uid));
+                    
+
                     public void AddSocialRating(int value)
                     {
                         socialRating += value;
                         OnChangeSocialRaiting?.Invoke(socialRating);
+                    }
+
+                    public System.Random GetRandom()
+                    {
+                        return new System.Random(Uid.GetHashCode());
+                    }
+
+                    public bool IsHaveSlave(string characterUid)
+                    {
+                        return slaves.Find(x => x.Uid == characterUid) != null;
                     }
                 }
 
