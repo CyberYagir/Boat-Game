@@ -382,6 +382,8 @@ namespace Content.Scripts.Global
                     {
                         return slaves.Find(x => x.Uid == characterUid) != null;
                     }
+
+                    public int SlavesCount() => slaves.Count;
                 }
 
                 [SerializeField] private string islandName;

@@ -14,7 +14,11 @@ namespace Content.Scripts.BoatGame.UI
     {
         [SerializeField] private UIVillageSocialRatingCounter villageSocialRating;
         [SerializeField] private UIVillageTradeSubWindow tradeSubWindow;
+        [SerializeField] private UIVillageSlavesVisualsGenerator slavesGenerator;
         [SerializeField] private UIVillageSlavesSubWindow slavesSubWindow;
+        [SerializeField] private UIVillageManageSubWindow manageSubWindow;
+
+
         private RaftBuildService raftBuildService;
         private SaveDataObject saveDataObject;
         private SaveDataObject.MapData.IslandData.VillageData villageData;
@@ -98,8 +102,11 @@ namespace Content.Scripts.BoatGame.UI
             );
 
             rnd = villageData.GetRandom();
-            slavesSubWindow.Init(gameDataObject, saveDataObject, rnd, level, resourcesService, this);
-
+            slavesGenerator.Init(villageData.Uid, gameDataObject, rnd, level);
+            slavesGenerator.Show();
+            slavesSubWindow.Init(gameDataObject, resourcesService, slavesGenerator, this);
+            manageSubWindow.Init(slavesGenerator, villageData);
+            
             ShowWindow();
         }
 
@@ -132,6 +139,7 @@ namespace Content.Scripts.BoatGame.UI
             if (villageData != null)
             {
                 villageData.OnChangeSocialRaiting -= UpdateRatingCounter;
+                slavesGenerator.Hide();
             }
 
             if (targetPlayer != null)
@@ -166,6 +174,7 @@ namespace Content.Scripts.BoatGame.UI
             if (resourcesService.IsHaveItem(item))
             {
                 villageData.AddSlave(character);
+                villageData.AddSocialRating(cost);
                 resourcesService.RemoveItemsFromAnyRaft(item);
                 saveDataObject.SaveFile();
 

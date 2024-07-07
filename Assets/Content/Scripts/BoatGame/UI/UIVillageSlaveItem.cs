@@ -15,13 +15,13 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private GameObject darker;
         
         
-        private UIVillageSlavesSubWindow.DisplayCharacter displayCharacter;
+        private DisplayCharacter displayCharacter;
         private ResourcesService resourcesService;
         private ItemObject moneyItem;
         private UIVillageSlavesSubWindow window;
 
 
-        public void Init(UIVillageSlavesSubWindow.DisplayCharacter displayCharacter, ResourcesService resourcesService, ItemObject moneyItem, UIVillageSlavesSubWindow window)
+        public void Init(DisplayCharacter displayCharacter, ResourcesService resourcesService, ItemObject moneyItem, UIVillageSlavesSubWindow window)
         {
             this.window = window;
             this.moneyItem = moneyItem;
