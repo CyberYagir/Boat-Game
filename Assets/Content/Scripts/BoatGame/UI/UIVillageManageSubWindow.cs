@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using UnityEngine;
 
@@ -8,16 +9,34 @@ namespace Content.Scripts.BoatGame.UI
     {
         [SerializeField] private UIVillageManageCharItem charactersListItem;
         [SerializeField] private GameObject infoWindow;
-        
+        [SerializeField] private UIVillageInfoSubWindow uiVillageInfoWindowData;
         
         private List<UIVillageManageCharItem> charactersListItems = new List<UIVillageManageCharItem>();
         private UIVillageSlavesVisualsGenerator generator;
         private SaveDataObject.MapData.IslandData.VillageData villageData;
         private DisplayCharacter selectedCharacter;
-        
-        
-        public void Init(UIVillageSlavesVisualsGenerator generator, SaveDataObject.MapData.IslandData.VillageData villageData)
+        private GameDataObject gameDataObject;
+        private TickService tickService;
+        private ResourcesService resourcesService;
+        private SaveDataObject saveData;
+        private UIVillageOptionsWindow window;
+
+
+        public void Init(
+            UIVillageSlavesVisualsGenerator generator,
+            SaveDataObject.MapData.IslandData.VillageData villageData,
+            GameDataObject gameDataObject,
+            TickService tickService,
+            ResourcesService resourcesService,
+            SaveDataObject saveData,
+            UIVillageOptionsWindow window
+        )
         {
+            this.window = window;
+            this.saveData = saveData;
+            this.resourcesService = resourcesService;
+            this.tickService = tickService;
+            this.gameDataObject = gameDataObject;
             this.villageData = villageData;
             this.generator = generator;
 
@@ -35,6 +54,17 @@ namespace Content.Scripts.BoatGame.UI
         {
             RedrawSlavesList();
             UpdateSlavesList();
+
+            if (selectedCharacter != null)
+            {
+                var targetSlave = villageData.GetSlave(selectedCharacter.Character.Uid);
+
+                if (targetSlave != null)
+                {
+                    uiVillageInfoWindowData.Init(gameDataObject, targetSlave, selectedCharacter, tickService, resourcesService, saveData, this);
+                }
+            }
+
 
             infoWindow.SetActive(selectedCharacter != null);
         }
@@ -61,6 +91,11 @@ namespace Content.Scripts.BoatGame.UI
                     charactersListItems[i].Init(generator.Characters[i], this, selectedCharacter == generator.Characters[i]);
                 }
             }
+        }
+
+        public void OpenSlaveStorage(SlaveDataCalculator slaveDataCalculator)
+        {
+            window.OpenSlaveStorage(slaveDataCalculator);
         }
     }
 }

@@ -4,6 +4,13 @@ namespace Content.Scripts.BoatGame.Services
 {
     public static class TimeService
     {
+        
+        private static float playedTime;
+        private static float playedBoatTime;
+        private static float timeRate = 1f;
+        
+        
+        
         public static float DeltaTime => Time.deltaTime * TimeRate;
         public static int Ticks => 20;
         public static float TickRate => Ticks * TimeScale;
@@ -17,9 +24,6 @@ namespace Content.Scripts.BoatGame.Services
 
         public static float PlayedBoatTime => playedBoatTime;
 
-        private static float playedTime;
-        private static float playedBoatTime;
-        private static float timeRate = 1f;
 
         public static void ChangeTimeScale(float newValue)
         {

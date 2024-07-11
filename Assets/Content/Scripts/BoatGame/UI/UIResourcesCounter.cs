@@ -10,6 +10,7 @@ namespace Content.Scripts.BoatGame.UI
 {
     public class UIResourcesCounter : MonoBehaviour
     {
+        [SerializeField] private Canvas canvas;
         [SerializeField] private UIResourcesCounterGroup counterGroupPrefab;
         [SerializeField] private RectTransform holder, scroll;
         [SerializeField] private float maxY = 775;
@@ -91,6 +92,14 @@ namespace Content.Scripts.BoatGame.UI
         public void RemoveItem(ItemObject itemObject)
         {
             resourcesService.RemoveItemFromAnyRaft(itemObject);
+        }
+
+
+        public void SetOverrideSorting(int sort)
+        {
+            canvas.overrideSorting = sort != 0;
+            canvas.sortingOrder = sort;
+
         }
     }
 }

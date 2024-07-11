@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.RaftDamagers;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.IslandGame;
+using Content.Scripts.IslandGame.Scriptable;
 using Content.Scripts.IslandGame.Sources;
 using Content.Scripts.Map;
 using Sirenix.OdinInspector;
@@ -94,6 +96,11 @@ namespace Content.Scripts.Global
                     public int Count => count;
 
                     public string ItemID => itemID;
+
+                    public void Add(int itCount)
+                    {
+                        count += itCount;
+                    }
                 }
 
                 [SerializeField] private List<StorageItemData> storagesData;
@@ -332,14 +339,145 @@ namespace Content.Scripts.Global
                     [Serializable]
                     public class SlaveData
                     {
-                        [SerializeField] private string uid;
+                        [System.Serializable]
+                        public class ActivitySkill
+                        {
+                            [SerializeField] private string activityID;
+                            [SerializeField] private float modify = 1;
+                            [SerializeField] private bool isActive;
 
+                            public ActivitySkill(string activityID)
+                            {
+                                this.activityID = activityID;
+                                isActive = true;
+                            }
+
+                            public float Modify => modify;
+
+                            public string ActivityID => activityID;
+
+                            public bool IsActive => isActive;
+
+                            public void ToggleActive()
+                            {
+                                isActive = !isActive;
+                            }
+                        }
+
+                        [SerializeField] private string uid;
+                        [SerializeField] private string lastTimeStamp;
+                        [SerializeField] private float targetStamina = 100f;
+                        [SerializeField] private List<ActivitySkill> activities;
+                        [SerializeField] private List<RaftsData.RaftStorageData.StorageItemData> storageItems;
+                        [SerializeField] private bool isWorking;
+                        [SerializeField] private bool isStorage;
+
+                        public DateTime LastTimeStamp => DateTime.Parse(LastTimeStampString, CultureInfo.InvariantCulture);
+                        
+                        
                         public SlaveData(string uid)
                         {
                             this.uid = uid;
+                            lastTimeStamp = DateService.ActualDateString;
                         }
 
                         public string Uid => uid;
+
+                        public bool IsWorking => isWorking;
+
+                        public bool IsStorage => isStorage;
+
+                        public float TargetStamina => targetStamina;
+
+                        public List<ActivitySkill> Activities => activities;
+
+                        public string LastTimeStampString => lastTimeStamp;
+
+                        public List<RaftsData.RaftStorageData.StorageItemData> StorageItems => storageItems;
+
+                        public bool HasActivity(string slaveDataActivity)
+                        {
+                            var find = Activities.Find(x => x.ActivityID == slaveDataActivity);
+                            if (find == null) return false;
+
+
+                            return find.IsActive;
+                        }
+
+                        public void WorkToggle()
+                        {
+                            if (targetStamina <= 0 || Activities.Count == 0)
+                            {
+                                isWorking = false;
+                                return;
+                            }
+                            isWorking = !isWorking;
+                            if (isWorking)
+                            {
+                                lastTimeStamp = DateService.ActualDateString;
+                            }
+                        }
+
+                        public void SetStamina(float newStamina)
+                        {
+                            targetStamina = Mathf.Clamp(newStamina,0,100);
+                        }
+
+                        public void AddStamina(float eatPoints)
+                        {
+                            SetStamina(targetStamina + eatPoints);
+                            
+                        }
+
+                        public void ToggleActivity(SlaveActivitiesObject activity)
+                        {
+                            var finded = activities.Find(x => x.ActivityID == activity.Uid);
+                            if (finded == null)
+                            {
+                                activities.Add(new ActivitySkill(activity.Uid));
+                            }
+                            else
+                            {
+                                finded.ToggleActive();
+                            }
+                        }
+
+                        public void SetStorage(bool b)
+                        {
+                            isStorage = b;
+                        }
+
+                        public void AddItemsToStorage(List<RaftStorage.StorageItem> items)
+                        {
+                            foreach (var it in items)
+                            {
+                                var savedItems = storageItems.Find(x => x.ItemID == it.Item.ID);
+                                if (savedItems != null)
+                                {
+                                    savedItems.Add(it.Count);
+                                }
+                                else
+                                {
+                                    storageItems.Add(new RaftsData.RaftStorageData.StorageItemData(it.Item.ID, it.Count));
+                                }
+                            }
+                        }
+
+                        public bool RemoveItem(RaftStorage.StorageItem availableItem)
+                        {
+                            var find = storageItems.Find(x => x.ItemID == availableItem.Item.ID);
+
+                            if (find != null)
+                            {
+                                find.Add(-availableItem.Count);
+                                if (find.Count <= 0)
+                                {
+                                    storageItems.Remove(find);
+                                }
+                                return true;
+                            }
+                            return false;
+                        }
                     }
 
                     [SerializeField] private string uid;
@@ -384,6 +522,11 @@ namespace Content.Scripts.Global
                     }
 
                     public int SlavesCount() => slaves.Count;
+
+                    public SlaveData GetSlave(string slaveId)
+                    {
+                        return slaves.Find(x => x.Uid == slaveId);
+                    }
                 }
 
                 [SerializeField] private string islandName;

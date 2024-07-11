@@ -21,6 +21,9 @@ namespace Content.Scripts.BoatGame.Characters.States
                 EndState();
                 return;
             }
+            
+            
+            OnOpenWindow?.Invoke(selectedShaman.VillageData.VillageID, selectedShaman.VillageData.IslandData.Level);
 
             if (Vector3.Distance(selectedShaman.transform.position, Machine.transform.position) < 3)
             {

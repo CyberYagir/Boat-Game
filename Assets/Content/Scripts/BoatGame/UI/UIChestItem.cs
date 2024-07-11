@@ -1,3 +1,4 @@
+using System;
 using Content.Scripts.ItemsSystem;
 using TMPro;
 using UnityEngine;
@@ -11,9 +12,15 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private TMP_Text text;
         private RaftStorage targetStorage;
         private ItemObject targetItem;
+        private int value;
+
+        public int Value => value;
+
+        public ItemObject TargetItem => targetItem;
 
         public void Init(RaftStorage targetStorage, ItemObject targetItem, int value)
         {
+            this.value = value;
             this.targetItem = targetItem;
             this.targetStorage = targetStorage;
             
@@ -26,6 +33,14 @@ namespace Content.Scripts.BoatGame.UI
         public void DropItem()
         {
             targetStorage.RemoveFromStorage(targetItem);
+        }
+
+
+        public void BindButton(Action<ItemObject> getItemFromStorage)
+        {
+            var btn = GetComponent<Button>();
+            btn.onClick = new Button.ButtonClickedEvent();
+            btn.onClick.AddListener(delegate { getItemFromStorage?.Invoke(targetItem); });
         }
     }
 }

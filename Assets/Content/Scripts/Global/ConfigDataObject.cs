@@ -13,6 +13,8 @@ namespace Content.Scripts.Global
         [SerializeField] private float actionsTutorialActiveTime;
         [SerializeField] private int actionsCountToTutorial;
         [SerializeField] private int paddlesToTravelCount;
+        [SerializeField] private float slaveStaminaWorkingPerSecond = 3.33f;
+        [SerializeField] private float slaveEatEfficiencyMultiplier = 0.3f;
         [SerializeField] private ItemObject paddleItem;
         [SerializeField] private ItemObject moneyItem;
         [SerializeField] private List<ItemObject> itemsForRaftTransitionAfterDestroying;
@@ -29,5 +31,8 @@ namespace Content.Scripts.Global
         public List<ItemObject> ItemsForRaftTransitionAfterDestroying => itemsForRaftTransitionAfterDestroying;
 
         public ItemObject MoneyItem => moneyItem;
+
+        public float SlaveStaminaWorkingPerSecond => slaveStaminaWorkingPerSecond;
+        public float SlaveEatEfficiencyMultiplier => slaveEatEfficiencyMultiplier;
     }
 }

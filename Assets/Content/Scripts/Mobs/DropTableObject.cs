@@ -48,6 +48,23 @@ namespace Content.Scripts.Mobs
             return table[index].Item;
         }
 
+        public ItemObject GetItem(System.Random rnd)
+        {
+            if (table.Count == 0) return null;
+            weights.Clear();
+
+            for (int i = 0; i < table.Count; i++)
+            {
+                weights.Add(table[i].Weight);
+            }
+
+            weights.RecalculateWeights();
+
+            var index = weights.ChooseRandomIndexFromWeights(rnd);
+
+            return table[index].Item;
+        }
+
         public Dictionary<string, float> GetWeights()
         {
             var dic = new Dictionary<string, float>();
@@ -74,5 +91,7 @@ namespace Content.Scripts.Mobs
                 table[i].SetWeight(targetWeights[i]);
             }
         }
+
+
     }
 }

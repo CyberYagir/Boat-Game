@@ -17,6 +17,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIVillageSlavesVisualsGenerator slavesGenerator;
         [SerializeField] private UIVillageSlavesSubWindow slavesSubWindow;
         [SerializeField] private UIVillageManageSubWindow manageSubWindow;
+        [SerializeField] private UIVillageStorageSubWindow storageSubWindow;
 
 
         private RaftBuildService raftBuildService;
@@ -25,29 +26,33 @@ namespace Content.Scripts.BoatGame.UI
         private GameDataObject gameDataObject;
         private ResourcesService resourcesService;
         private PlayerCharacter targetPlayer;
+        private TickService tickService;
+        private UIService uiService;
 
         public void Init(
             SelectionService selectionService,
             RaftBuildService raftBuildService,
             SaveDataObject saveDataObject,
             GameDataObject gameDataObject,
-            ResourcesService resourcesService
+            ResourcesService resourcesService,
+            TickService tickService,
+            UIService uiService
         )
         {
+            this.uiService = uiService;
+            this.tickService = tickService;
             this.resourcesService = resourcesService;
             this.gameDataObject = gameDataObject;
             this.saveDataObject = saveDataObject;
             this.raftBuildService = raftBuildService;
 
             villageSocialRating.Init(gameDataObject.TradesData);
+            storageSubWindow.Init(resourcesService);
 
 
             raftBuildService.OnChangeRaft += ChangeRaftsEvents;
             selectionService.OnChangeSelectCharacter += OnChangeSelectCharacter;
             OnChangeSelectCharacter(selectionService.SelectedCharacter);
-
-
-
         }
 
 
@@ -84,6 +89,9 @@ namespace Content.Scripts.BoatGame.UI
             {
                 targetPlayer.NeedManager.SetGodMode();
             }
+
+            uiService.SetResourcesCounterSorting(1);
+
         }
 
         public void ShowAndSetVillage(string villageID, int level)
@@ -105,7 +113,7 @@ namespace Content.Scripts.BoatGame.UI
             slavesGenerator.Init(villageData.Uid, gameDataObject, rnd, level);
             slavesGenerator.Show();
             slavesSubWindow.Init(gameDataObject, resourcesService, slavesGenerator, this);
-            manageSubWindow.Init(slavesGenerator, villageData);
+            manageSubWindow.Init(slavesGenerator, villageData, gameDataObject, tickService, resourcesService, saveDataObject, this);
             
             ShowWindow();
         }
@@ -146,6 +154,7 @@ namespace Content.Scripts.BoatGame.UI
             {
                 targetPlayer.NeedManager.SetGodMode(false);
             }
+            uiService.SetResourcesCounterSorting(0);
         }
 
         public void SellItem(RaftStorage.StorageItem sellItem, RaftStorage.StorageItem resultItem, TradeOfferObject tradeOfferObject)
@@ -187,6 +196,11 @@ namespace Content.Scripts.BoatGame.UI
         public SaveDataObject.MapData.IslandData.VillageData GetVillage()
         {
             return villageData;
+        }
+
+        public void OpenSlaveStorage(SlaveDataCalculator slaveDataCalculator)
+        {
+            storageSubWindow.OpenSlaveStorage(slaveDataCalculator);
         }
     }
 }

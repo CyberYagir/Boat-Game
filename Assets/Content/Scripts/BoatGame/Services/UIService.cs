@@ -97,7 +97,7 @@ namespace Content.Scripts.BoatGame.Services
             {
                 if (saveDataObject.GetTargetIsland().HasVillage())
                 {
-                    villageWindow?.Init(selectionService, raftBuildService, saveDataObject, gameDataObject, resourcesService);
+                    villageWindow?.Init(selectionService, raftBuildService, saveDataObject, gameDataObject, resourcesService, tickService, this);
                 }
             }
 
@@ -174,5 +174,9 @@ namespace Content.Scripts.BoatGame.Services
         }
 
 
+        public void SetResourcesCounterSorting(int i)
+        {
+            resourcesList.SetOverrideSorting(i);
+        }
     }
 }

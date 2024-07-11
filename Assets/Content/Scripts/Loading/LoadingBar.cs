@@ -1,4 +1,5 @@
 using System.Collections;
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using DG.Tweening;
@@ -28,6 +29,11 @@ namespace Content.Scripts.Loading
 
         IEnumerator LoadingLoop()
         {
+            while (DateService.WebTimeState == DateService.WebTimeType.None)
+            {
+                yield return null;
+            }
+            
             yield return new WaitForSeconds(1f);
             if (saveData.Characters.Count == 0)
             {

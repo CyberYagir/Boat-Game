@@ -69,6 +69,7 @@ namespace Content.Scripts.BoatGame.UI
 
             foreach (var spawned in spawnedItems)
             {
+                spawned.Dispose();
                 Destroy(spawned.gameObject);
             }
             spawnedItems.Clear();

@@ -65,10 +65,8 @@ namespace Content.Scripts.BoatGame.UI
                     var id = i;
                     Instantiate(holderPrefab, new Vector3(i * 10, 1000, 0), Quaternion.identity)
                         .With(x => Characters[id].SetDisplay(x));
-
-
-                    Characters[i].Display.gameObject.SetActive(true);
                 }
+                Characters[i].Display.gameObject.SetActive(true);
             }
         }
 

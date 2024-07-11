@@ -57,5 +57,10 @@ namespace Content.Scripts.BoatGame.UI
         }
 
         public void Buy() => window.BuySlave(displayCharacter);
+
+        public void Dispose()
+        {
+            resourcesService.OnChangeResources -= ResourcesServiceOnOnChangeResources;
+        }
     }
 }

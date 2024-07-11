@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Content.Scripts.IslandGame.Scriptable;
 using UnityEngine;
 
 namespace Content.Scripts.IslandGame.Natives
@@ -8,12 +9,14 @@ namespace Content.Scripts.IslandGame.Natives
     public class NativesListSO : ScriptableObject
     {
         [SerializeField] private List<NativeController> nativesList;
+        [SerializeField] private List<SlaveActivitiesObject> slavesActivities;
         [SerializeField] private int baseUnitCost = 400;
 
 
         private Dictionary<ENativeType, List<NativeController>> nativesMap = new Dictionary<ENativeType, List<NativeController>>();
         public List<NativeController> NativesList => nativesList;
         public int BaseUnitCost => baseUnitCost;
+        public List<SlaveActivitiesObject> SlavesActivities => slavesActivities;
 
         public void Init()
         {
