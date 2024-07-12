@@ -39,14 +39,14 @@ namespace Content.Scripts.BoatGame.UI
 
             storageIsEmptyText.gameObject.SetActive(items.Count == 0);
 
-            for (int i = spawnedItems.Count; i < items.Count; i++)
+            for (int i = spawnedItems.Count; i < items.Count + 1; i++)
             {
                 if (spawnedItems.Count < i)
                 {
                     Instantiate(item, holder).With(x => spawnedItems.Add(x));
                 }
             }
-
+            
             for (int i = 0; i < spawnedItems.Count; i++)
             {
                 if (items.Count > i)
@@ -94,6 +94,25 @@ namespace Content.Scripts.BoatGame.UI
                     Redraw();
                 }
             }
+        }
+
+        public void TakeAllButton()
+        {
+            var items = slaveDataCalculator.GetStorage();
+            while (items.Count != 0 && resourcesService.GetEmptySpace() != 0)
+            {
+                GetItemFromStorage(items[0].Item);
+            }
+            if (items.Count == 0){
+                CloseWindow();
+            }
+        }
+
+        public void ClearButton()
+        {
+            slaveDataCalculator.ClearStorage();
+            Redraw();
+            CloseWindow();
         }
     }
 }

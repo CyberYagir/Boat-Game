@@ -37,13 +37,14 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIBar staminaBar;
         [SerializeField] private WorkToggleButton workToggleButton;
         [SerializeField] private TMP_Dropdown storageTypeDropdown;
+        [SerializeField] private TMP_Text openStorageText;
 
         [SerializeField] private UIVillageActionItem actionItem;
         [SerializeField] private List<UIVillageActionItem> actionItems;
-
         [SerializeField] private Button feedSlaveButton;
         [SerializeField] private Button killSlaveButton;
         [SerializeField] private Button makeHumanSlaveButton;
+        [SerializeField] private Button openStorageSlaveButton;
         
         [SerializeField] private SlaveDataCalculator slaveDataCalculator = new SlaveDataCalculator();
         
@@ -115,8 +116,12 @@ namespace Content.Scripts.BoatGame.UI
             workToggleButton.SetState(slaveData.IsWorking);
 
 
-            feedSlaveButton.interactable = killSlaveButton.interactable = makeHumanSlaveButton.interactable = !slaveData.IsWorking;
+            killSlaveButton.interactable = makeHumanSlaveButton.interactable = !slaveData.IsWorking;
+            feedSlaveButton.interactable = !slaveData.IsWorking && slaveData.TargetStamina < 100;
+            openStorageSlaveButton.interactable = !slaveData.IsWorking && slaveDataCalculator.GetItemsCount() != 0;
             
+            
+            openStorageText.text = $"Open Storage ({slaveDataCalculator.GetItemsCount()})";
             
             for (int i = 0; i < actionItems.Count; i++)
             {
@@ -153,6 +158,7 @@ namespace Content.Scripts.BoatGame.UI
                 {
                     resourcesService.RemoveItemFromAnyRaft(eat.Item);
                     slaveDataCalculator.AddEat(eat.Item.ParametersData.Hunger * gameDataObject.ConfigData.SlaveEatEfficiencyMultiplier);
+                    Redraw();
                 }
             }
         }

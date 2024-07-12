@@ -37,7 +37,7 @@ namespace Content.Scripts.BoatGame.UI
             RecalculateStorageItems();
         }
 
-        private void RecalculateStorageItems()
+        public void RecalculateStorageItems()
         {
             storage.Clear();
             foreach (var slaveDataStorageItem in this.slaveData.StorageItems)
@@ -51,14 +51,14 @@ namespace Content.Scripts.BoatGame.UI
             var rndSeed = new Random(slaveData.LastTimeStampString.ToString(CultureInfo.InvariantCulture).GetHashCode());
             
             TimeCalculation();
-
-            StorageCalculations(gameDataObject.NativesListData.SlavesActivities, rndSeed);
+            StorageCalculations(rndSeed);
         }
 
-        private void StorageCalculations(List<SlaveActivitiesObject> slaveActivitiesObjects, Random rndSeed)
+        private void StorageCalculations(Random rndSeed)
         {
             items.Clear();
 
+            var slaveActivitiesObjects = gameDataObject.NativesListData.SlavesActivities;
             if (!slaveData.IsWorking) return;
             
             
@@ -119,7 +119,7 @@ namespace Content.Scripts.BoatGame.UI
         {
             if ((targetSlaveTimeProgress - slaveData.LastTimeStamp).TotalSeconds == 0)
             {
-                return 0;
+                return slaveData.TargetStamina;
             }
             
             var staminaPercent = ((targetSlaveTimeProgress - slaveData.LastTimeStamp).TotalSeconds) / (config.SlaveStaminaWorkingPerSecond * slaveData.TargetStamina);
@@ -137,12 +137,24 @@ namespace Content.Scripts.BoatGame.UI
             return storage;
         }
 
+        public int GetItemsCount()
+        {
+            return items.Count + storage.Count;
+        }
+
         public bool RemoveItem(RaftStorage.StorageItem availableItem)
         {
             bool isRemoved = slaveData.RemoveItem(availableItem);
             RecalculateStorageItems();
 
             return isRemoved;
+        }
+
+        public void ClearStorage()
+        {
+            slaveData.ClearStorageItems();
+            RecalculateStorageItems();
+                
         }
     }
 }

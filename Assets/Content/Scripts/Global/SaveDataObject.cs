@@ -478,6 +478,11 @@ namespace Content.Scripts.Global
                             }
                             return false;
                         }
+
+                        public void ClearStorageItems()
+                        {
+                            storageItems.Clear();
+                        }
                     }
 
                     [SerializeField] private string uid;
