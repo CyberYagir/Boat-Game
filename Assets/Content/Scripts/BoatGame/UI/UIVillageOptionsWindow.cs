@@ -28,6 +28,7 @@ namespace Content.Scripts.BoatGame.UI
         private PlayerCharacter targetPlayer;
         private TickService tickService;
         private UIService uiService;
+        private UIMessageBoxManager messageBoxManager;
 
         public void Init(
             SelectionService selectionService,
@@ -36,9 +37,11 @@ namespace Content.Scripts.BoatGame.UI
             GameDataObject gameDataObject,
             ResourcesService resourcesService,
             TickService tickService,
-            UIService uiService
+            UIService uiService,
+            UIMessageBoxManager messageBoxManager
         )
         {
+            this.messageBoxManager = messageBoxManager;
             this.uiService = uiService;
             this.tickService = tickService;
             this.resourcesService = resourcesService;
@@ -110,10 +113,10 @@ namespace Content.Scripts.BoatGame.UI
             );
 
             rnd = villageData.GetRandom();
-            slavesGenerator.Init(villageData.Uid, gameDataObject, rnd, level);
+            slavesGenerator.Init(villageData, gameDataObject, rnd, level);
             slavesGenerator.Show();
             slavesSubWindow.Init(gameDataObject, resourcesService, slavesGenerator, this);
-            manageSubWindow.Init(slavesGenerator, villageData, gameDataObject, tickService, resourcesService, saveDataObject, this);
+            manageSubWindow.Init(slavesGenerator, villageData, gameDataObject, tickService, resourcesService, saveDataObject, this, messageBoxManager);
             
             ShowWindow();
         }

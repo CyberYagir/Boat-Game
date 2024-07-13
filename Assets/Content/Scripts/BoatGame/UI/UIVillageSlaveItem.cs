@@ -42,7 +42,7 @@ namespace Content.Scripts.BoatGame.UI
         }
 
         public void UpdateItem(bool isHave)
-        {
+        {            
             ResourcesServiceOnOnChangeResources();
 
             customButton.gameObject.SetActive(!isHave);

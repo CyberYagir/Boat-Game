@@ -54,16 +54,20 @@ namespace Content.Scripts.BoatGame.UI
         private ResourcesService resourcesService;
         private SaveDataObject saveDataObject;
         private UIVillageManageSubWindow window;
+        private UIMessageBoxManager messageBoxManager;
 
         public void Init(
-            GameDataObject gameDataObject, 
-            SlaveData slaveData, 
+            GameDataObject gameDataObject,
+            SlaveData slaveData,
             DisplayCharacter slaveInfo,
-            TickService tickService, 
-            ResourcesService resourcesService, 
+            TickService tickService,
+            ResourcesService resourcesService,
             SaveDataObject saveDataObject,
-            UIVillageManageSubWindow window)
+            UIVillageManageSubWindow window,
+            UIMessageBoxManager messageBoxManager
+        )
         {
+            this.messageBoxManager = messageBoxManager;
             this.window = window;
             this.saveDataObject = saveDataObject;
             this.resourcesService = resourcesService;
@@ -73,10 +77,10 @@ namespace Content.Scripts.BoatGame.UI
             SpawnActivityItems(gameDataObject);
             staminaBar.Init("Energy", slaveData.TargetStamina, 100f);
             slaveDataCalculator.Init(slaveData, gameDataObject, slaveInfo);
-            
+
             Redraw();
-            
-            
+
+
             tickService.OnTick += Tick;
         }
 
@@ -167,6 +171,14 @@ namespace Content.Scripts.BoatGame.UI
         {
             slaveData.ToggleActivity(activity);
             Redraw();
+        }
+
+        public void KillSlaveButton()
+        {
+            messageBoxManager.ShowMessageBox("Are you sure you want to kill the slave? Perhaps he has children and a family...", delegate
+            {
+                window.KillSlave(slaveData.Uid);
+            }, "Execute");
         }
 
         public void OpenStorageButton()

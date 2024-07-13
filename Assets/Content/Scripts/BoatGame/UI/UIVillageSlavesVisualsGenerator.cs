@@ -19,15 +19,15 @@ namespace Content.Scripts.BoatGame.UI
         public List<DisplayCharacter> Characters => characters;
 
         public void Init(
-            string villageID,
+            SaveDataObject.MapData.IslandData.VillageData village,
             GameDataObject gameData,
             Random rnd,
             int islandLevel
         )
         {
-            if (villageID != lastVillage)
+            if (village.Uid != lastVillage)
             {
-                lastVillage = villageID;
+                lastVillage = village.Uid;
 
                 foreach (var ch in Characters)
                 {
@@ -45,7 +45,7 @@ namespace Content.Scripts.BoatGame.UI
 
                 for (int i = 0; i < slaves.Count; i++)
                 {
-                    Characters.Add(new DisplayCharacter(slaves[i], gameData.NativesListData.NativesList.GetRandomItem(rnd).gameObject, lines.GetRandomItem(rnd), (int) ((gameData.NativesListData.BaseUnitCost * islandLevel) + (rnd.Next(0, 1000) * (islandLevel / 10f)))));
+                    Characters.Add(new DisplayCharacter(slaves[i], gameData.NativesListData.NativesList.GetRandomItem(rnd).gameObject, village.GetSlave(slaves[i].Uid), lines.GetRandomItem(rnd), (int) ((gameData.NativesListData.BaseUnitCost * islandLevel) + (rnd.Next(0, 1000) * (islandLevel / 10f)))));
                 }
 
             }

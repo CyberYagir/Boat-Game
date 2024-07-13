@@ -6,41 +6,6 @@ using UnityEngine;
 
 namespace Content.Scripts.BoatGame.UI
 {
-    [System.Serializable]
-    public class DisplayCharacter
-    {
-        [SerializeField] private Character character;
-        [SerializeField] private UIVillageSlavesHolder display;
-        [SerializeField] private GameObject prefab;
-        [SerializeField] private string description;
-        [SerializeField] private int cost;
-
-        public DisplayCharacter(Character character, GameObject prefab, string description, int cost)
-        {
-            this.cost = cost;
-            this.character = character;
-            this.prefab = prefab;
-            this.description = description;
-        }
-
-        public GameObject Prefab => prefab;
-
-        public UIVillageSlavesHolder Display => display;
-
-        public Character Character => character;
-
-        public string Description => description;
-
-        public int Cost => cost;
-
-        public void SetDisplay(UIVillageSlavesHolder uiVillageSlavesHolder)
-        {
-            uiVillageSlavesHolder.Init(prefab);
-            display = uiVillageSlavesHolder;
-        }
-    }
-
-
     public class UIVillageSlavesSubWindow : AnimatedWindow
     {
         [SerializeField] private UIVillageSlaveItem item;
@@ -54,6 +19,8 @@ namespace Content.Scripts.BoatGame.UI
 
         private UIVillageSlavesVisualsGenerator generator;
         private List<DisplayCharacter> characters => generator.Characters;
+
+        private bool inited = false;
 
         public void Init(
             GameDataObject gameData,
@@ -76,10 +43,17 @@ namespace Content.Scripts.BoatGame.UI
             
             
             Redraw();
+
+            inited = true;
         }
 
-        
-        
+        private void OnEnable()
+        {
+            if (inited)
+                UpdateItems();
+        }
+
+
         public void Redraw()
         {
             SpawnItems();
@@ -91,6 +65,7 @@ namespace Content.Scripts.BoatGame.UI
             var village = baseWindow.GetVillage();
             for (int i = 0; i < spawnedItems.Count; i++)
             {
+                characters[i].Display.DeadCheck();
                 spawnedItems[i].UpdateItem(village.IsHaveSlave(characters[i].Character.Uid));
             }
         }

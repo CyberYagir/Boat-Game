@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using TMPro;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.UI
@@ -10,6 +11,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIVillageManageCharItem charactersListItem;
         [SerializeField] private GameObject infoWindow;
         [SerializeField] private UIVillageInfoSubWindow uiVillageInfoWindowData;
+        [SerializeField] private TMP_Text emptyText;
         
         private List<UIVillageManageCharItem> charactersListItems = new List<UIVillageManageCharItem>();
         private UIVillageSlavesVisualsGenerator generator;
@@ -20,6 +22,7 @@ namespace Content.Scripts.BoatGame.UI
         private ResourcesService resourcesService;
         private SaveDataObject saveData;
         private UIVillageOptionsWindow window;
+        private UIMessageBoxManager messageBoxManager;
 
 
         public void Init(
@@ -29,9 +32,11 @@ namespace Content.Scripts.BoatGame.UI
             TickService tickService,
             ResourcesService resourcesService,
             SaveDataObject saveData,
-            UIVillageOptionsWindow window
+            UIVillageOptionsWindow window,
+            UIMessageBoxManager messageBoxManager
         )
         {
+            this.messageBoxManager = messageBoxManager;
             this.window = window;
             this.saveData = saveData;
             this.resourcesService = resourcesService;
@@ -59,9 +64,15 @@ namespace Content.Scripts.BoatGame.UI
             {
                 var targetSlave = villageData.GetSlave(selectedCharacter.Character.Uid);
 
-                if (targetSlave != null)
+                if (targetSlave != null && !targetSlave.IsDead)
                 {
-                    uiVillageInfoWindowData.Init(gameDataObject, targetSlave, selectedCharacter, tickService, resourcesService, saveData, this);
+                    uiVillageInfoWindowData.Init(gameDataObject, targetSlave, selectedCharacter, tickService, resourcesService, saveData, this, messageBoxManager);
+                }
+
+                if (targetSlave != null && targetSlave.IsDead)
+                {
+                    infoWindow.SetActive(false);
+                    return;
                 }
             }
 
@@ -83,19 +94,42 @@ namespace Content.Scripts.BoatGame.UI
 
         private void UpdateSlavesList()
         {
+            int counter = 0;
             for (int i = 0; i < charactersListItems.Count; i++)
             {
                 charactersListItems[i].gameObject.SetActive(i < villageData.SlavesCount());
                 if (i < villageData.SlavesCount())
                 {
-                    charactersListItems[i].Init(generator.Characters[i], this, selectedCharacter == generator.Characters[i]);
+                    if (!generator.Characters[i].isDead)
+                    {
+                        charactersListItems[i].Init(generator.Characters[i], this, selectedCharacter == generator.Characters[i]);
+                        counter++;
+                    }
+                    else
+                    {
+                        charactersListItems[i].gameObject.SetActive(false);   
+                    }
                 }
             }
+
+            emptyText.gameObject.SetActive(counter == 0);
         }
 
         public void OpenSlaveStorage(SlaveDataCalculator slaveDataCalculator)
         {
             window.OpenSlaveStorage(slaveDataCalculator);
+        }
+
+        public void KillSlave(string slaveDataUid)
+        {
+            if (selectedCharacter.Character.Uid == slaveDataUid)
+            {
+                selectedCharacter = null;
+            }
+
+            villageData.KillSlave(slaveDataUid);
+            
+            Redraw();
         }
     }
 }

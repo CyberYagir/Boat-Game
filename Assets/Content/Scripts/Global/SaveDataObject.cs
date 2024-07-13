@@ -371,6 +371,7 @@ namespace Content.Scripts.Global
                         [SerializeField] private List<RaftsData.RaftStorageData.StorageItemData> storageItems;
                         [SerializeField] private bool isWorking;
                         [SerializeField] private bool isStorage;
+                        [SerializeField] private bool isDead;
 
                         public DateTime LastTimeStamp => DateTime.Parse(LastTimeStampString, CultureInfo.InvariantCulture);
                         
@@ -394,6 +395,16 @@ namespace Content.Scripts.Global
                         public string LastTimeStampString => lastTimeStamp;
 
                         public List<RaftsData.RaftStorageData.StorageItemData> StorageItems => storageItems;
+
+                        public bool IsDead => isDead;
+
+
+                        public void Kill()
+                        {
+                            isDead = true;
+                            activities.Clear();
+                            storageItems.Clear();
+                        }
 
                         public bool HasActivity(string slaveDataActivity)
                         {
@@ -531,6 +542,11 @@ namespace Content.Scripts.Global
                     public SlaveData GetSlave(string slaveId)
                     {
                         return slaves.Find(x => x.Uid == slaveId);
+                    }
+
+                    public void KillSlave(string slaveDataUid)
+                    {
+                        GetSlave(slaveDataUid).Kill();
                     }
                 }
 
