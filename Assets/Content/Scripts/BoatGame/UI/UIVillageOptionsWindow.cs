@@ -19,6 +19,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIVillageSlavesSubWindow slavesSubWindow;
         [SerializeField] private UIVillageManageSubWindow manageSubWindow;
         [SerializeField] private UIVillageStorageSubWindow storageSubWindow;
+        [SerializeField] private UIVillageTransferSubWindow transferSubWindow;
 
 
         private RaftBuildService raftBuildService;
@@ -52,7 +53,7 @@ namespace Content.Scripts.BoatGame.UI
 
             villageSocialRating.Init(gameDataObject.TradesData);
             storageSubWindow.Init(resourcesService);
-
+            transferSubWindow.Init(saveDataObject, this);
 
             raftBuildService.OnChangeRaft += ChangeRaftsEvents;
             selectionService.OnChangeSelectCharacter += OnChangeSelectCharacter;
@@ -75,7 +76,7 @@ namespace Content.Scripts.BoatGame.UI
             Redraw();
         }
 
-        private void Redraw()
+        public void Redraw()
         {
             if (villageData == null) return;
 
@@ -206,6 +207,11 @@ namespace Content.Scripts.BoatGame.UI
         public void OpenSlaveStorage(SlaveDataCalculator slaveDataCalculator)
         {
             storageSubWindow.OpenSlaveStorage(slaveDataCalculator);
+        }
+
+        public void TransferSlave(SlaveDataCalculator slaveDataCalculator)
+        {
+            transferSubWindow.OpenTransfer(slaveDataCalculator, villageData);
         }
     }
 }

@@ -68,7 +68,15 @@ namespace Content.Scripts.BoatGame.UI
             for (int i = 0; i < spawnedItems.Count; i++)
             {
                 SlavesVisuals[i].Display.DeadCheck();
-                spawnedItems[i].UpdateItem(village.IsHaveSlave(SlavesInfo[i].Character.Uid));
+                var isTransferedFromIsland = false;
+                var isBuyed = village.IsHaveSlave(SlavesInfo[i].Character.Uid);
+                if (isBuyed)
+                {
+                    isTransferedFromIsland = SlavesInfo[i].SlaveData.TransferInfo.TransferState == ETransferState.SendFromIsland;
+                }
+                
+                
+                spawnedItems[i].UpdateItem(isBuyed || isTransferedFromIsland);
             }
         }
 

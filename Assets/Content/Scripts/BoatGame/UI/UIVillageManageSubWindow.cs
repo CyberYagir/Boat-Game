@@ -4,6 +4,7 @@ using Content.Scripts.Global;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using static Content.Scripts.Global.SaveDataObject.MapData.IslandData.VillageData.SlaveData.TransferData;
 
 namespace Content.Scripts.BoatGame.UI
 {
@@ -106,17 +107,20 @@ namespace Content.Scripts.BoatGame.UI
                     {
                         if (villageData.IsHaveSlave(slave.Uid) && !slave.IsDead)
                         {
-                            var infoIndex = generator.SlavesInfos.FindIndex(x => x.Character.Uid == slave.Uid);
-                            if (infoIndex != -1)
+                            if (slave.TransferInfo.TransferState != ETransferState.SendFromIsland)
                             {
-                                var character = generator.SlavesVisuals[infoIndex];
-                                var info = generator.SlavesInfos[infoIndex];
-                                if (character != null)
+                                var infoIndex = generator.SlavesInfos.FindIndex(x => x.Character.Uid == slave.Uid);
+                                if (infoIndex != -1)
                                 {
-                                    charactersListItems[i].gameObject.SetActive(true);
-                                    
-                                    charactersListItems[i].Init(character, info, this, selectedCharacter == info);
-                                    counter++;
+                                    var character = generator.SlavesVisuals[infoIndex];
+                                    var info = generator.SlavesInfos[infoIndex];
+                                    if (character != null)
+                                    {
+                                        charactersListItems[i].gameObject.SetActive(true);
+
+                                        charactersListItems[i].Init(character, info, this, selectedCharacter == info);
+                                        counter++;
+                                    }
                                 }
                             }
                         }
@@ -146,6 +150,12 @@ namespace Content.Scripts.BoatGame.UI
 
             
             Redraw();
+        }
+
+        public void TransferSlave(SlaveDataCalculator slaveDataCalculator)
+        {
+            window.TransferSlave(slaveDataCalculator);
+            selectedCharacter = null;
         }
     }
 }

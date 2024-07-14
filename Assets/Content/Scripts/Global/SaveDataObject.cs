@@ -408,6 +408,7 @@ namespace Content.Scripts.Global
                         public SlaveData(string uid, TransferData transferData)
                         {
                             this.uid = uid;
+                            this.transferData = transferData;
                             lastTimeStamp = DateService.ActualDateString;
                         }
 
@@ -571,7 +572,7 @@ namespace Content.Scripts.Global
 
                     public bool IsHaveSlave(string characterUid)
                     {
-                        return slaves.Find(x => x.Uid == characterUid && x.TransferInfo.TransferState != SlaveData.TransferData.ETransferState.SendFromIsland) != null;
+                        return slaves.Find(x => x.Uid == characterUid) != null;
                     }
 
                     public int SlavesCount() => slaves.Count;
@@ -595,6 +596,11 @@ namespace Content.Scripts.Global
                     public List<SlaveData> GetTrasferedSlaves()
                     {
                         return slaves.FindAll(x => x.TransferInfo.TransferState == SlaveData.TransferData.ETransferState.NewOnIsland);
+                    }
+
+                    public void RemoveSlave(string slaveDataUid)
+                    {
+                        slaves.RemoveAll(x => x.Uid == slaveDataUid);
                     }
                 }
 

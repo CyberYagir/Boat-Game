@@ -9,8 +9,8 @@ namespace Content.Scripts.BoatGame.Services
         private Character character;
         [SerializeField] private string skinID;
         [SerializeField] private ENativeType type;
-        private int seed;
-        private int islandLevel;
+        [SerializeField] private int seed;
+        [SerializeField] private int islandLevel;
 
         public SlaveCharacterInfo(Character character, ENativeType type, int seed, int islandLevel, string skinID)
         {

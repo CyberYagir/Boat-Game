@@ -23,7 +23,7 @@ namespace Content.Scripts.Map
 
         public int Level => level;
 
-        private IslandSeedData(Vector2Int pos)
+        public IslandSeedData(Vector2Int pos)
         {
             GenerateDefaultData(pos);
         }

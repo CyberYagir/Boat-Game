@@ -159,6 +159,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public void WorkToggle()
         {
+            var isWorking = SlaveData.IsWorking;
             SlaveData.WorkToggle();
 
             if (!SlaveData.IsWorking)
@@ -166,12 +167,16 @@ namespace Content.Scripts.BoatGame.UI
                 slaveDataCalculator.StopWorkAndSaveData();
                 saveDataObject.SaveFile();
 
-                if (SlaveData.Activities.Count == 0)
+                if (isWorking == false)
                 {
-                    messageBoxManager.ShowMessageBox("Select the type of activity that the slave will engage in.", null, "Ok", "_disabled");
-                }else if (slaveDataCalculator.ActualStamina <= 0)
-                {
-                    messageBoxManager.ShowMessageBox("Refill your slave's stamina by feeding him.", null, "Ok", "_disabled");
+                    if (SlaveData.Activities.Count == 0)
+                    {
+                        messageBoxManager.ShowMessageBox("Select the type of activity that the slave will engage in.", null, "Ok", "_disabled");
+                    }
+                    else if (slaveDataCalculator.ActualStamina <= 0)
+                    {
+                        messageBoxManager.ShowMessageBox("Refill your slave's stamina by feeding him.", null, "Ok", "_disabled");
+                    }
                 }
             }
             
@@ -218,6 +223,24 @@ namespace Content.Scripts.BoatGame.UI
                 WorkToggle();
             }
             window.OpenSlaveStorage(slaveDataCalculator);
+        }
+
+        public void TransferButton()
+        {
+          
+            if (slaveDataCalculator.GetItemsCount() != 0)
+            {
+                messageBoxManager.ShowMessageBox("Free the slave from things, and then it can be moved.", null, "Ok", "_disabled");
+                return;
+            }
+            
+            if (SlaveData.IsWorking)
+            {
+                WorkToggle();
+            }
+
+            window.TransferSlave(slaveDataCalculator);
+
         }
     }
 }

@@ -31,8 +31,8 @@ MonoBehaviour:
           value: 12
       parametersData:
         health: 100
-        hunger: 92.14746
-        thirsty: 84.26821
+        hunger: 48.28091
+        thirsty: 0
       equipmentData:
         helmetID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
         armorID: 
@@ -101,7 +101,7 @@ MonoBehaviour:
       - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
         count: 1
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 1090
+        count: 298
     - raftUid: a03abcc1-d1f1-4cd2-aefe-479b81e1f692
       storagesData:
       - itemID: 162a21b5-c6b7-4dd2-9ecd-6433957a1ee4
@@ -120,6 +120,8 @@ MonoBehaviour:
       storagesData:
       - itemID: 6ef783b5-3589-4844-8988-66fe6ff1c911
         count: 11
+      - itemID: 67dd6094-d10c-438d-a180-17db87422e08
+        count: 465
     furnaces: []
     waterSources: []
     raftsInBuild: []
@@ -288,14 +290,14 @@ MonoBehaviour:
       removedTrees: []
       droppedItems: []
       villagesData: []
-    - islandName: 
+    - islandName: Mage Village
       islandPos: {x: 198, y: 18}
       islandSeed: -2028171455
       removedTrees: []
       droppedItems: []
       villagesData:
       - uid: ae09e0ef-b058-8221-c024-1521f2c82597
-        socialRating: 14035
+        socialRating: 34827
         villagers:
         - uid: c102be79-2548-34fd-88d4-4e79f4214b8f
           isDead: 0
@@ -319,7 +321,73 @@ MonoBehaviour:
           isDead: 0
         - uid: f285139f-8f63-892c-b61a-f46a75b53e75
           isDead: 0
-        slaves: []
+        slaves:
+        - uid: 64349238-813a-c217-30d0-22d401bd57a5
+          lastTimeStamp: 07/14/2024 19:58:54
+          targetStamina: 0
+          isWorking: 0
+          isStorage: 0
+          isDead: 0
+          transferData:
+            seed: 0
+            islandLevel: 0
+            transferState: 0
+          activities:
+          - activityID: d8852ef2-b21a-44a7-9911-b20a8b0b7f10
+            modify: 1
+            isActive: 0
+          - activityID: 672eda6b-092d-4f3b-9671-cbdc9bdcd9cf
+            modify: 1
+            isActive: 0
+          - activityID: 862d99b5-335c-4632-9532-74469585a199
+            modify: 1
+            isActive: 0
+          - activityID: 7e5a36a5-a4bc-4bf2-834c-c8b906243a01
+            modify: 1
+            isActive: 1
+          storageItems: []
+        - uid: c8e46572-f31e-04fd-ea06-5a13f0e86645
+          lastTimeStamp: 07/14/2024 19:59:05
+          targetStamina: 100
+          isWorking: 1
+          isStorage: 1
+          isDead: 0
+          transferData:
+            seed: 0
+            islandLevel: 0
+            transferState: 0
+          activities:
+          - activityID: d8852ef2-b21a-44a7-9911-b20a8b0b7f10
+            modify: 1
+            isActive: 1
+          - activityID: 3a041b61-ee95-4a66-ba95-5d2c86685c11
+            modify: 1
+            isActive: 1
+          - activityID: 1090bee8-b6f9-4a32-9b38-ba0b55d6b04e
+            modify: 1
+            isActive: 1
+          storageItems: []
+        - uid: 0b71f396-ee67-fd80-8e57-6cd1879719c8
+          lastTimeStamp: 07/14/2024 19:59:15
+          targetStamina: 100
+          isWorking: 1
+          isStorage: 1
+          isDead: 0
+          transferData:
+            seed: 0
+            islandLevel: 0
+            transferState: 0
+          activities:
+          - activityID: 42fede67-d20b-40f6-9f79-e62f941a2c55
+            modify: 1
+            isActive: 1
+          - activityID: 67b6c922-8e1c-4a1d-b930-ea56aba4fcca
+            modify: 1
+            isActive: 1
+          - activityID: 7e5a36a5-a4bc-4bf2-834c-c8b906243a01
+            modify: 1
+            isActive: 1
+          storageItems: []
     - islandName: 
       islandPos: {x: 219, y: 385}
       islandSeed: -2028171066
@@ -344,7 +412,7 @@ MonoBehaviour:
       removedTrees: []
       droppedItems: []
       villagesData: []
-    - islandName: 
+    - islandName: Old Village
       islandPos: {x: 249, y: 165}
       islandSeed: -2028171252
       removedTrees:
@@ -415,7 +483,7 @@ MonoBehaviour:
         - uid: 60b2e389-6040-a14a-9126-f1bf0a6f301a
           isDead: 0
         slaves: []
-    - islandName: 
+    - islandName: Old Village
       islandPos: {x: 250, y: 88}
       islandSeed: -2028171327
       removedTrees: []
@@ -540,7 +608,7 @@ MonoBehaviour:
       droppedItems: []
       villagesData: []
   globalData:
-    totalSecondsInGame: 23361.146
+    totalSecondsInGame: 23837.758
     totalSecondsOnRaft: 5235.241
     islandSeed: -2028171455
     damagersData:
