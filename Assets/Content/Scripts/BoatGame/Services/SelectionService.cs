@@ -62,6 +62,11 @@ namespace Content.Scripts.BoatGame.Services
             ClearSelectedObject();
         }
 
+        private void OnDisable()
+        {
+            scenesService.OnChangeActiveScene -= ScenesServiceOnOnChangeActiveScene;  
+        }
+
 
         public void Update()
         {

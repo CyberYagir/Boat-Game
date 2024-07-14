@@ -48,9 +48,14 @@ namespace Content.Scripts.BoatGame.UI
                 character.gameObject.SetActive(false);
                 soldSign.gameObject.SetActive(false);
                 graveyard.gameObject.SetActive(true);
-                camera.Render();
-                camera.gameObject.SetActive(false);
+                StopRenderer();
             }
+        }
+
+        private void StopRenderer()
+        {
+            camera.Render();
+            camera.gameObject.SetActive(false);
         }
 
 

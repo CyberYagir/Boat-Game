@@ -39,7 +39,7 @@ namespace Content.Scripts.Mobs.Mob
             if (moving < 0.95f || important)
             {
                 StopTweener();
-                tweener = DOVirtual.Float(moving, 1f, animationTransitionTime, OnChangeMovingValue);
+                tweener = DOVirtual.Float(moving, 1f, animationTransitionTime, OnChangeMovingValue).SetLink(animator.gameObject);
             }
         }
 
@@ -47,7 +47,7 @@ namespace Content.Scripts.Mobs.Mob
         public void StopMove()
         {
             StopTweener();
-            tweener = DOVirtual.Float(moving, 0, animationTransitionTime, OnChangeMovingValue);
+            tweener = DOVirtual.Float(moving, 0, animationTransitionTime, OnChangeMovingValue).SetLink(animator.gameObject);
         }
 
         private void StopTweener()
