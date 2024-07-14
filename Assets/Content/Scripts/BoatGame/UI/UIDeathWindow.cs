@@ -39,7 +39,7 @@ namespace Content.Scripts.BoatGame.UI
                 DOVirtual.DelayedCall(2f, delegate
                 {
                     base.ShowWindow();
-                    hints = text.text.Split("\n").ToList();
+                    hints = text.LinesToList();
                     hintText.text = hints.GetRandomItem();
                     hintText.SetAlpha(0);
                     hintText.DOFade(0.5f, 2f).SetDelay(1);

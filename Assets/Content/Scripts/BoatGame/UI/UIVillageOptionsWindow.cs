@@ -189,7 +189,7 @@ namespace Content.Scripts.BoatGame.UI
                 villageData.AddSocialRating(cost);
                 resourcesService.RemoveItemsFromAnyRaft(item);
                 saveDataObject.SaveFile();
-
+                Redraw();
                 return true;
             }
 

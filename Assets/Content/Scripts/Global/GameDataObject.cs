@@ -18,6 +18,54 @@ using Zenject;
 
 namespace Content.Scripts.Global
 {
+    [System.Serializable]
+    public class NameGenerator
+    {
+        public enum EGender
+        {
+            Male,
+            Female
+        }
+    
+        [SerializeField] private TextAsset maleNames;
+        [SerializeField] private TextAsset femaleNames;
+
+        private List<string> maleNamesList;
+        private List<string> femaleNamesList;
+
+
+        public void Init()
+        {
+            maleNamesList = maleNames.LinesToList();
+            femaleNamesList = femaleNames.LinesToList();
+        }
+
+
+        public string GetName(EGender gender)
+        {
+            if (gender == EGender.Male)
+            {
+                return maleNamesList.GetRandomItem();
+            }
+            else
+            {
+                return femaleNamesList.GetRandomItem();
+            }
+        }
+        
+        public string GetName(EGender gender, System.Random rnd)
+        {
+            if (gender == EGender.Male)
+            {
+                return maleNamesList.GetRandomItem(rnd);
+            }
+            else
+            {
+                return femaleNamesList.GetRandomItem(rnd);
+            }
+        }
+    }
+    
     [CreateAssetMenu(menuName = "Scriptable/GameData", fileName = "Game Data", order = 0)]
     public class GameDataObject : ScriptableObjectInstaller
     {
@@ -31,6 +79,7 @@ namespace Content.Scripts.Global
             ActionsData.Init();
             RaftsPriorityData.Init();
             NativesListData.Init();
+            NamesList.Init();
         }
 
 
@@ -40,7 +89,7 @@ namespace Content.Scripts.Global
         [SerializeField] private NativesListSO nativesListData;
         [SerializeField] private TradesDataObject tradesData;
         
-        [SerializeField] private List<string> namesList;
+        [SerializeField] private NameGenerator namesList = new NameGenerator();
         [SerializeField] private List<SkillObject> skillsList;
         [SerializeField] private List<Material> skinColors;
         [SerializeField] private List<CraftObject> crafts;
@@ -56,7 +105,7 @@ namespace Content.Scripts.Global
 
         public List<SkillObject> SkillsList => skillsList;
 
-        public List<string> NamesList => namesList;
+        public NameGenerator NamesList => namesList;
 
         public List<CraftObject> Crafts => crafts;
 

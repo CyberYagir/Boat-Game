@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame;
+using Content.Scripts.IslandGame.Natives;
 using Content.Scripts.ItemsSystem;
 using Content.Scripts.Mobs;
 using Sirenix.OdinInspector;
@@ -15,16 +16,17 @@ namespace Content.Scripts.IslandGame.Scriptable
         [SerializeField, ReadOnly] private string uid;
         [SerializeField] private string activityName;
         [SerializeField] private float itemsPerTime;
-        [SerializeField] private ItemObject incomeItemObject;
-        [SerializeField] private int incomeItemCount;
-        [SerializeField] private DropTableObject itemsIncomes;
-        
-        
+        [SerializeField] private float typeBoostMultiplier = 0.5f;
+        [SerializeField, FoldoutGroup("Income")] private ItemObject incomeItemObject;
+        [SerializeField, FoldoutGroup("Income")] private int incomeItemCount;
+        [SerializeField, FoldoutGroup("Drop Table")] private DropTableObject itemsIncomes;
+
+        [SerializeField] private List<ENativeType> boostTypes = new List<ENativeType>();
+
         public string ActivityName => activityName;
 
         public string Uid => uid;
 
-        public float ItemsPerTime => itemsPerTime;
 
         [Button]
         public void GenerateID() => uid = Guid.NewGuid().ToString();
@@ -41,6 +43,16 @@ namespace Content.Scripts.IslandGame.Scriptable
             }
 
             return null;
+        }
+
+        public float GetItemsPerTime(ENativeType type)
+        {
+            if (boostTypes.Contains(type))
+            {
+                return itemsPerTime * typeBoostMultiplier;
+            }
+
+            return itemsPerTime;
         }
     }
 }

@@ -100,14 +100,22 @@ namespace Content.Scripts.BoatGame.UI
                 charactersListItems[i].gameObject.SetActive(i < villageData.SlavesCount());
                 if (i < villageData.SlavesCount())
                 {
-                    if (!generator.Characters[i].isDead)
+                    var slave = villageData.GetSlaveByID(i);
+                    if (slave != null)
                     {
-                        charactersListItems[i].Init(generator.Characters[i], this, selectedCharacter == generator.Characters[i]);
-                        counter++;
-                    }
-                    else
-                    {
-                        charactersListItems[i].gameObject.SetActive(false);   
+                        if (!slave.IsDead)
+                        {
+                            var character = generator.Characters.Find(x => x.Character.Uid == slave.Uid);
+                            if (character != null)
+                            {
+                                charactersListItems[i].Init(character, this, selectedCharacter == character);
+                                counter++;
+                            }
+                        }
+                        else
+                        {
+                            charactersListItems[i].gameObject.SetActive(false);
+                        }
                     }
                 }
             }

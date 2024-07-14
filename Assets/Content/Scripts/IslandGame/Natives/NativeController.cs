@@ -18,7 +18,8 @@ namespace Content.Scripts.IslandGame.Natives
         Female,
         Shaman,
         Blacksmith,
-        Cook
+        Cook,
+        Mage
     }
     public class NativeController : SpawnedMob
     {

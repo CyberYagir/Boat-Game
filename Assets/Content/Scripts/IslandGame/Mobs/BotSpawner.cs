@@ -99,7 +99,7 @@ namespace Content.Scripts.IslandGame.Mobs
 
         public void RespawnByCooldown()
         {
-            DOVirtual.DelayedCall(respawnCooldown.RandomWithin(), RespawnMob);
+            DOVirtual.DelayedCall(respawnCooldown.RandomWithin(), RespawnMob).SetLink(gameObject);
         }
         
         public void RespawnMob()

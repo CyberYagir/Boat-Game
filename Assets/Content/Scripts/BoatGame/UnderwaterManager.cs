@@ -37,7 +37,7 @@ namespace Content.Scripts.BoatGame
                     var fish = Instantiate(fishesPrefabs.GetRandomItem(), start, Quaternion.LookRotation(end - start), transform);
 
 
-                    fish.transform.DOMove(end, Random.Range(20, 60)).onComplete += () =>
+                    fish.transform.DOMove(end, Random.Range(20, 60)).SetLink(fish.gameObject).onComplete += () =>
                     {
                         spawnedFishes.Remove(fish);
                         Destroy(fish.gameObject);

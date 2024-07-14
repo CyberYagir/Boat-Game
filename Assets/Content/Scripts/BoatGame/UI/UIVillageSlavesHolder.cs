@@ -27,23 +27,26 @@ namespace Content.Scripts.BoatGame.UI
             camera.targetTexture = RenderTexture;
 
             character = Instantiate(prefab, holder)
-                .With(x=>x.ChangeLayerWithChilds(LayerMask.NameToLayer("WorldUI")))
-                .With(x=>soldSign.transform.parent = x.GetComponent<NativeSoldSign>().NeckBone);
+                .With(x => x.ChangeLayerWithChilds(LayerMask.NameToLayer("WorldUI")))
+                .With(x => x.transform.localPosition = Vector3.up * 0.15f)
+                .With(x => x.transform.localEulerAngles = Vector3.zero)
+                .With(x => soldSign.transform.parent = x.GetComponent<NativeSoldSign>().NeckBone);
             
             
             soldSign.transform.localPosition = Vector3.zero;
             
             graveyard.gameObject.SetActive(false);
             soldSign.gameObject.SetActive(false);
-
+            
             DeadCheck();
         }
 
         public void DeadCheck()
         {
-            if (slaveData.IsDead)
+            if (slaveData != null && slaveData.IsDead)
             {
                 character.gameObject.SetActive(false);
+                soldSign.gameObject.SetActive(false);
                 graveyard.gameObject.SetActive(true);
                 camera.Render();
                 camera.gameObject.SetActive(false);
@@ -51,6 +54,9 @@ namespace Content.Scripts.BoatGame.UI
         }
 
 
-        public void ActiveSold() => soldSign.gameObject.SetActive(true);
+        public void ActiveSold()
+        {
+            soldSign.gameObject.SetActive(true);
+        }
     }
 }

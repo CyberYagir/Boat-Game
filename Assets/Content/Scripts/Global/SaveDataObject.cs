@@ -419,6 +419,7 @@ namespace Content.Scripts.Global
                         {
                             if (targetStamina <= 0 || Activities.Count == 0)
                             {
+                                lastTimeStamp = DateService.ActualDateString;
                                 isWorking = false;
                                 return;
                             }
@@ -547,6 +548,12 @@ namespace Content.Scripts.Global
                     public void KillSlave(string slaveDataUid)
                     {
                         GetSlave(slaveDataUid).Kill();
+                    }
+
+                    public SlaveData GetSlaveByID(int i)
+                    {
+                        if (i >= slaves.Count) return null;
+                        return slaves[i];
                     }
                 }
 

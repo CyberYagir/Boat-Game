@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.UI.UIEquipment;
 using Content.Scripts.Global;
+using Content.Scripts.IslandGame.Natives;
 using Content.Scripts.ItemsSystem;
 using UnityEngine;
 
@@ -302,15 +303,17 @@ namespace Content.Scripts.BoatGame.Services
         }
 
 
-        public static List<Character> GetSlavesList(System.Random rnd, GameDataObject gameData, int islandLevel)
+        public static Dictionary<Character, ENativeType> GetSlavesList(System.Random rnd, GameDataObject gameData, int islandLevel)
         {
-            var count = rnd.Next(1, 3);
+            var count = rnd.Next((int) gameData.NativesListData.SlavesOnIslandCount.min, (int) gameData.NativesListData.SlavesOnIslandCount.max);
 
-            List<Character> characters = new List<Character>();
+            Dictionary<Character, ENativeType> characters = new Dictionary<Character, ENativeType>();
+
             for (int i = 0; i < count; i++)
             {
                 var character = new Character();
-                character.SetName(gameData.NamesList.GetRandomItem(rnd));
+                var type = gameData.NativesListData.GetRandomSlaveSkin(rnd);
+                character.SetName(gameData.NamesList.GetName(type == ENativeType.Female ? NameGenerator.EGender.Female : NameGenerator.EGender.Male, rnd));
                 character.SetUid(Extensions.GenerateSeededGuid(rnd).ToString());
 
                 var level = islandLevel * gameData.SkillsList.Count - 1;
@@ -319,7 +322,7 @@ namespace Content.Scripts.BoatGame.Services
                     character.AddSkillValue(gameData.SkillsList.GetRandomItem(rnd).SkillID, 1);
                 }
 
-                characters.Add(character);
+                characters.Add(character, type);
             }
 
             return characters;

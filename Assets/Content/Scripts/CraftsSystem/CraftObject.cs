@@ -29,7 +29,8 @@ namespace Content.Scripts.CraftsSystem
         
         public enum ECraftTable{
             CraftingTable,
-            Forge
+            Forge,
+            AlchemistTable
         }
 
         public enum ECraftSubList

@@ -143,6 +143,14 @@ namespace Content.Scripts.BoatGame.UI
             {
                 slaveDataCalculator.StopWorkAndSaveData();
                 saveDataObject.SaveFile();
+
+                if (slaveData.Activities.Count == 0)
+                {
+                    messageBoxManager.ShowMessageBox("Select the type of activity that the slave will engage in.", null, "Ok", "_disabled");
+                }else if (slaveDataCalculator.ActualStamina <= 0)
+                {
+                    messageBoxManager.ShowMessageBox("Refill your slave's stamina by feeding him.", null, "Ok", "_disabled");
+                }
             }
             
             Redraw();

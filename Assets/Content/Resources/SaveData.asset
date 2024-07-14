@@ -31,8 +31,8 @@ MonoBehaviour:
           value: 12
       parametersData:
         health: 100
-        hunger: 82.16382
-        thirsty: 64.29367
+        hunger: 98.34131
+        thirsty: 96.66041
       equipmentData:
         helmetID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
         armorID: 
@@ -85,7 +85,7 @@ MonoBehaviour:
     - raftUid: 8396f830-dc27-426c-a649-3b6f91109808
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 1118
+        count: 1108
       - itemID: f3f80d00-0faf-4c3d-ae03-fd9c32c01d36
         count: 1
       - itemID: 5a8bb6d3-0d4d-447e-a9ef-7457a7227caf
@@ -117,11 +117,15 @@ MonoBehaviour:
       - itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
         count: 1
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 465
+        count: 810
+      - itemID: 6ef783b5-3589-4844-8988-66fe6ff1c911
+        count: 5
     - raftUid: 19604cb8-6be2-45d4-8d9a-44d52b780b40
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
         count: 845
+      - itemID: 6ef783b5-3589-4844-8988-66fe6ff1c911
+        count: 11
     furnaces: []
     waterSources: []
     raftsInBuild: []
@@ -368,7 +372,7 @@ MonoBehaviour:
         dropID: 0031fd45-8a80-44ef-a984-29d50b7c3950
       villagesData:
       - uid: 9522e0b6-2cb3-cd1e-d9ce-24ed98327270
-        socialRating: 1285
+        socialRating: 1295
         villagers:
         - uid: 03e521bc-65a3-2751-88a8-ff2b1d10eb30
           isDead: 0
@@ -386,26 +390,7 @@ MonoBehaviour:
           isDead: 0
         - uid: 60b2e389-6040-a14a-9126-f1bf0a6f301a
           isDead: 0
-        slaves:
-        - uid: 5ce497d5-9dbc-f793-478b-d460a3bc396f
-          lastTimeStamp: 07/12/2024 18:01:38
-          targetStamina: 44.583336
-          activities:
-          - activityID: d8852ef2-b21a-44a7-9911-b20a8b0b7f10
-            modify: 1
-            isActive: 1
-          - activityID: 7e5a36a5-a4bc-4bf2-834c-c8b906243a01
-            modify: 1
-            isActive: 1
-          - activityID: 3a041b61-ee95-4a66-ba95-5d2c86685c11
-            modify: 1
-            isActive: 1
-          - activityID: 67b6c922-8e1c-4a1d-b930-ea56aba4fcca
-            modify: 1
-            isActive: 1
-          storageItems: []
-          isWorking: 0
-          isStorage: 1
+        slaves: []
     - islandName: 
       islandPos: {x: 250, y: 88}
       islandSeed: -2028171327
@@ -531,7 +516,7 @@ MonoBehaviour:
       droppedItems: []
       villagesData: []
   globalData:
-    totalSecondsInGame: 17635.166
+    totalSecondsInGame: 19597.465
     totalSecondsOnRaft: 4465.0615
     islandSeed: -2028171252
     damagersData:

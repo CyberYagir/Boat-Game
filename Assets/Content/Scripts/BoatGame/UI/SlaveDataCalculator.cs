@@ -60,14 +60,14 @@ namespace Content.Scripts.BoatGame.UI
 
             var slaveActivitiesObjects = gameDataObject.NativesListData.SlavesActivities;
             if (!slaveData.IsWorking) return;
-            
-            
+
+
             for (int i = 0; i < slaveData.Activities.Count; i++)
             {
                 var activity = slaveActivitiesObjects.Find(x => x.Uid == slaveData.Activities[i].ActivityID);
                 if (activity != null)
                 {
-                    var itemsCount = (targetSlaveTimeProgress - slaveData.LastTimeStamp).TotalSeconds / (activity.ItemsPerTime * slaveData.Activities.Count);
+                    var itemsCount = (targetSlaveTimeProgress - slaveData.LastTimeStamp).TotalSeconds / (activity.GetItemsPerTime(characterData.Type) * slaveData.Activities.Count);
                     if (itemsCount >= 1)
                     {
                         for (int j = 0; j < itemsCount; j++)

@@ -43,11 +43,10 @@ namespace Content.Scripts.BoatGame.UI
                 var lines = unitsDescriptions.text.Split("\n").ToList();
 
 
-                for (int i = 0; i < slaves.Count; i++)
-                {
-                    Characters.Add(new DisplayCharacter(slaves[i], gameData.NativesListData.NativesList.GetRandomItem(rnd).gameObject, village.GetSlave(slaves[i].Uid), lines.GetRandomItem(rnd), (int) ((gameData.NativesListData.BaseUnitCost * islandLevel) + (rnd.Next(0, 1000) * (islandLevel / 10f)))));
+                foreach (var slave in slaves)
+                {                    
+                    Characters.Add(new DisplayCharacter(slave.Key, gameData.NativesListData.GetByType(slave.Value, rnd).gameObject, village.GetSlave(slave.Key.Uid),slave.Value, lines.GetRandomItem(rnd), (int) ((gameData.NativesListData.BaseUnitCost * islandLevel) + (rnd.Next(0, 1000) * (islandLevel / 10f)))));
                 }
-
             }
         }
 
@@ -64,6 +63,7 @@ namespace Content.Scripts.BoatGame.UI
                 {
                     var id = i;
                     Instantiate(holderPrefab, new Vector3(i * 10, 1000, 0), Quaternion.identity)
+                        .With(x=>x.transform.name += id)
                         .With(x => Characters[id].SetDisplay(x));
                 }
                 Characters[i].Display.gameObject.SetActive(true);

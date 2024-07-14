@@ -56,6 +56,7 @@ namespace Content.Scripts.Mobs.Natives
             {
                 case EIdleSubState.GoToPoint:
                     pos = Controller.AIManager.WalkToAnyPoint();
+                    timer = idleTime.RandomWithin();
                     break;
                 case EIdleSubState.GoToSeat:
                     var sit = Controller.VillageData.GetRandomAvailableSit();

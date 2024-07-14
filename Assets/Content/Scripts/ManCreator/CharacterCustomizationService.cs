@@ -46,7 +46,7 @@ namespace Content.Scripts.ManCreator
 
         public void ChangeName()
         {
-            character.SetName(gameData.NamesList.GetRandomItem());
+            character.SetName(gameData.NamesList.GetName(NameGenerator.EGender.Male));
             OnNameChanged?.Invoke();
         }
         

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
@@ -784,6 +785,11 @@ namespace Content.Scripts
         public static bool IsInRange(this Range range, float value)
         {
             return value >= range.min && value <= range.max;
+        }
+        
+        public static List<string> LinesToList(this TextAsset asset)
+        {
+            return asset.text.Split("\n").ToList();
         }
     }
 }

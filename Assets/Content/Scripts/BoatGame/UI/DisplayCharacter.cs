@@ -1,5 +1,6 @@
 ﻿using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using Content.Scripts.IslandGame.Natives;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.UI
@@ -10,6 +11,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private Character character;
         [SerializeField] private UIVillageSlavesHolder display;
         [SerializeField] private SaveDataObject.MapData.IslandData.VillageData.SlaveData slaveData;
+        [SerializeField] private ENativeType type;
         [SerializeField] private GameObject prefab;
         [SerializeField] private string description;
         [SerializeField] private int cost;
@@ -17,8 +19,9 @@ namespace Content.Scripts.BoatGame.UI
         public bool isDead => slaveData.IsDead;
         
 
-        public DisplayCharacter(Character character, GameObject prefab,SaveDataObject.MapData.IslandData.VillageData.SlaveData slaveData,  string description, int cost)
+        public DisplayCharacter(Character character, GameObject prefab,SaveDataObject.MapData.IslandData.VillageData.SlaveData slaveData,ENativeType type,  string description, int cost)
         {
+            this.type = type;
             this.slaveData = slaveData;
             this.cost = cost;
             this.character = character;
@@ -35,6 +38,8 @@ namespace Content.Scripts.BoatGame.UI
         public string Description => description;
 
         public int Cost => cost;
+
+        public ENativeType Type => type;
 
         public void SetDisplay(UIVillageSlavesHolder uiVillageSlavesHolder)
         {
