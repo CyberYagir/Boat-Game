@@ -15,7 +15,6 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private GameObject tooltip;
         [SerializeField] private TMP_Text text;
         [SerializeField] private CanvasGroup group;
-        [SerializeField] private RectTransform rightPoint;
         [SerializeField] private List<ContentSizeFitter> contentSizeFitters;
         
         private float timer;

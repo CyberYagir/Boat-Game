@@ -41,11 +41,18 @@ namespace Content.Scripts.IslandGame.Natives
             return nativesMap[type].GetRandomItem(rnd);
         }
 
-        public ENativeType GetRandomSlaveSkin(Random rnd)
+        public NativeController GetRandomSlaveSkin(Random rnd)
         {
             var slavesSkins = nativesList.FindAll(x => x.NativeType != ENativeType.Shaman);
 
-            return slavesSkins.GetRandomItem(rnd).NativeType;
+            return slavesSkins.GetRandomItem(rnd);
+        }
+
+        public NativeController GetSkinByID(string slaveSkinID)
+        {
+            var find = nativesList.Find(x => x.SkinUid == slaveSkinID);
+            
+            return find != null ? find : nativesList[0];
         }
     } 
 }

@@ -19,26 +19,28 @@ namespace Content.Scripts.BoatGame.UI
         private ResourcesService resourcesService;
         private ItemObject moneyItem;
         private UIVillageSlavesSubWindow window;
+        private SlaveCreatedCharacterInfo info;
 
 
-        public void Init(DisplayCharacter displayCharacter, ResourcesService resourcesService, ItemObject moneyItem, UIVillageSlavesSubWindow window)
+        public void Init(DisplayCharacter displayCharacter, SlaveCreatedCharacterInfo info, ResourcesService resourcesService, ItemObject moneyItem, UIVillageSlavesSubWindow window)
         {
+            this.info = info;
             this.window = window;
             this.moneyItem = moneyItem;
             this.resourcesService = resourcesService;
             this.displayCharacter = displayCharacter;
             rawImage.texture = displayCharacter.Display.RenderTexture;
 
-            charName.text = displayCharacter.Character.Name;
+            charName.text = info.Character.Name;
             charDescription.text = displayCharacter.Description;
-            charCost.text = displayCharacter.Cost.ToString();
+            charCost.text = info.Cost.ToString();
 
             resourcesService.OnChangeResources += ResourcesServiceOnOnChangeResources;
         }
 
         private void ResourcesServiceOnOnChangeResources()
         {
-            customButton.SetInteractable(resourcesService.IsHaveItem(new RaftStorage.StorageItem(moneyItem, displayCharacter.Cost)));
+            customButton.SetInteractable(resourcesService.IsHaveItem(new RaftStorage.StorageItem(moneyItem, info.Cost)));
         }
 
         public void UpdateItem(bool isHave)
@@ -56,7 +58,7 @@ namespace Content.Scripts.BoatGame.UI
             
         }
 
-        public void Buy() => window.BuySlave(displayCharacter);
+        public void Buy() => window.BuySlave(info);
 
         public void Dispose()
         {

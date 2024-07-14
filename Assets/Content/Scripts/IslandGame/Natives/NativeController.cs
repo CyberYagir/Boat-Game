@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Characters;
@@ -7,6 +8,7 @@ using Content.Scripts.IslandGame.WorldStructures;
 using Content.Scripts.Mobs.Mob;
 using Content.Scripts.Mobs.MobCrab;
 using Pathfinding;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -55,11 +57,12 @@ namespace Content.Scripts.IslandGame.Natives
                 return navMesh.IsAvailablePoint(pos);
             }
         }
+        [SerializeField] private ENativeType type;
+        [SerializeField, ReadOnly] private string skinUid;
 
         private VillageDataCollector villageData;
         private NavigationManager navigationManager = new NavigationManager();
         private CharacterGrounder characterGrounder = new CharacterGrounder();
-        [SerializeField] private ENativeType type;
         private INavMeshProvider navMeshProvider;
 
         public ENativeType NativeType => type;
@@ -67,6 +70,8 @@ namespace Content.Scripts.IslandGame.Natives
         public NavigationManager AIManager => navigationManager;
 
         public VillageDataCollector VillageData => villageData;
+
+        public string SkinUid => skinUid;
 
         [Inject]
         private void Construct(INavMeshProvider navMeshProvider)
@@ -125,5 +130,8 @@ namespace Content.Scripts.IslandGame.Natives
         {
             characterGrounder.PlaceUnitOnGround();
         }
+
+        [Button]
+        public void GenerateID() => skinUid = Guid.NewGuid().ToString();
     }
 }

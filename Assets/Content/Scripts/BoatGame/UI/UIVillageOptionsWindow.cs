@@ -6,6 +6,7 @@ using Content.Scripts.Global;
 using Content.Scripts.IslandGame;
 using Content.Scripts.IslandGame.Scriptable;
 using UnityEngine;
+using static Content.Scripts.Global.SaveDataObject.MapData.IslandData.VillageData.SlaveData;
 using Random = System.Random;
 
 namespace Content.Scripts.BoatGame.UI
@@ -14,7 +15,7 @@ namespace Content.Scripts.BoatGame.UI
     {
         [SerializeField] private UIVillageSocialRatingCounter villageSocialRating;
         [SerializeField] private UIVillageTradeSubWindow tradeSubWindow;
-        [SerializeField] private UIVillageSlavesVisualsGenerator slavesGenerator;
+        [SerializeField] private UIVillageSlavesGenerator slavesGenerator;
         [SerializeField] private UIVillageSlavesSubWindow slavesSubWindow;
         [SerializeField] private UIVillageManageSubWindow manageSubWindow;
         [SerializeField] private UIVillageStorageSubWindow storageSubWindow;
@@ -80,7 +81,7 @@ namespace Content.Scripts.BoatGame.UI
 
             villageSocialRating.Redraw(villageData.SocialRating);
             tradeSubWindow.Redraw();
-            
+            manageSubWindow.Redraw();
         }
 
         public override void ShowWindow()
@@ -180,13 +181,14 @@ namespace Content.Scripts.BoatGame.UI
             return gameDataObject.TradesData.GetEmotionalData(villageData.SocialRating).TradeMultiply;
         }
 
-        public bool BuySlave(Character character, int cost)
+        public bool BuySlave(SlaveCreatedCharacterInfo info)
         {
-            var item = new RaftStorage.StorageItem(gameDataObject.ConfigData.MoneyItem, cost);
+            var item = new RaftStorage.StorageItem(gameDataObject.ConfigData.MoneyItem, info.Cost);
             if (resourcesService.IsHaveItem(item))
             {
-                villageData.AddSlave(character);
-                villageData.AddSocialRating(cost);
+                var createdSlave = villageData.AddSlave(info.Character, new TransferData(info.Seed, info.IslandLevel));
+                info.SetSlaveData(createdSlave);
+                villageData.AddSocialRating(info.Cost);
                 resourcesService.RemoveItemsFromAnyRaft(item);
                 saveDataObject.SaveFile();
                 Redraw();

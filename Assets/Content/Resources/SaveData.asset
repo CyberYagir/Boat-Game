@@ -31,8 +31,8 @@ MonoBehaviour:
           value: 12
       parametersData:
         health: 100
-        hunger: 98.34131
-        thirsty: 96.66041
+        hunger: 92.14746
+        thirsty: 84.26821
       equipmentData:
         helmetID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
         armorID: 
@@ -48,10 +48,6 @@ MonoBehaviour:
     - uid: 3a9e7a13-6a13-472f-808a-4c88a3668690
       pos: {x: 0, y: 0, z: 1}
       health: 100.61914
-      raftType: 0
-    - uid: e471096e-b050-4cc7-b82e-e425f01d70d3
-      pos: {x: 1, y: 0, z: 0}
-      health: 100.55322
       raftType: 0
     - uid: 8396f830-dc27-426c-a649-3b6f91109808
       pos: {x: 1, y: 0, z: 1}
@@ -84,8 +80,6 @@ MonoBehaviour:
     storages:
     - raftUid: 8396f830-dc27-426c-a649-3b6f91109808
       storagesData:
-      - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 1108
       - itemID: f3f80d00-0faf-4c3d-ae03-fd9c32c01d36
         count: 1
       - itemID: 5a8bb6d3-0d4d-447e-a9ef-7457a7227caf
@@ -106,6 +100,8 @@ MonoBehaviour:
         count: 1
       - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
         count: 1
+      - itemID: 67dd6094-d10c-438d-a180-17db87422e08
+        count: 1090
     - raftUid: a03abcc1-d1f1-4cd2-aefe-479b81e1f692
       storagesData:
       - itemID: 162a21b5-c6b7-4dd2-9ecd-6433957a1ee4
@@ -116,14 +112,12 @@ MonoBehaviour:
         count: 1
       - itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
         count: 1
-      - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 810
       - itemID: 6ef783b5-3589-4844-8988-66fe6ff1c911
-        count: 5
+        count: 3
+      - itemID: 3faaa745-6ca4-4db3-9df8-92330e6f39b4
+        count: 2
     - raftUid: 19604cb8-6be2-45d4-8d9a-44d52b780b40
       storagesData:
-      - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 845
       - itemID: 6ef783b5-3589-4844-8988-66fe6ff1c911
         count: 11
     furnaces: []
@@ -299,7 +293,33 @@ MonoBehaviour:
       islandSeed: -2028171455
       removedTrees: []
       droppedItems: []
-      villagesData: []
+      villagesData:
+      - uid: ae09e0ef-b058-8221-c024-1521f2c82597
+        socialRating: 14035
+        villagers:
+        - uid: c102be79-2548-34fd-88d4-4e79f4214b8f
+          isDead: 0
+        - uid: e8ec61be-b5a6-48de-6f39-4c824c824a66
+          isDead: 0
+        - uid: 5b90cd98-9b79-46a0-55c3-b89cf11cc50f
+          isDead: 0
+        - uid: 14b88188-87e0-c39f-0f82-9ee1c36247cf
+          isDead: 0
+        - uid: b0b17301-b88e-7dbe-e0f1-6eac970f56db
+          isDead: 0
+        - uid: 7cc1d845-97d9-e390-db27-7fc0159fc441
+          isDead: 0
+        - uid: 366ba08a-3ac2-449d-74dd-24ef2f26aded
+          isDead: 0
+        - uid: 583f8c46-71c2-4737-7886-31768e53f197
+          isDead: 0
+        - uid: fafbb153-31f1-9610-17b3-e5464fa7ea78
+          isDead: 0
+        - uid: 07ca64ae-1867-bacb-2d75-ef00a4e5ae71
+          isDead: 0
+        - uid: f285139f-8f63-892c-b61a-f46a75b53e75
+          isDead: 0
+        slaves: []
     - islandName: 
       islandPos: {x: 219, y: 385}
       islandSeed: -2028171066
@@ -370,9 +390,13 @@ MonoBehaviour:
         rot: {x: 359.795, y: 0.89974916, z: 0.3579475}
         itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
         dropID: 0031fd45-8a80-44ef-a984-29d50b7c3950
+      - pos: {x: 21.086823, y: 8.440712, z: -48.69342}
+        rot: {x: 0.026922274, y: 359.4061, z: 0.0029480003}
+        itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
+        dropID: 138d9b68-ae93-4b11-abed-daa64f433774
       villagesData:
       - uid: 9522e0b6-2cb3-cd1e-d9ce-24ed98327270
-        socialRating: 1295
+        socialRating: 2762
         villagers:
         - uid: 03e521bc-65a3-2751-88a8-ff2b1d10eb30
           isDead: 0
@@ -398,7 +422,7 @@ MonoBehaviour:
       droppedItems: []
       villagesData:
       - uid: 3561937c-1380-2257-e311-c1c3de582ef2
-        socialRating: 0
+        socialRating: 10
         villagers:
         - uid: d5643196-843e-97e5-8380-bda38eba2270
           isDead: 0
@@ -516,15 +540,15 @@ MonoBehaviour:
       droppedItems: []
       villagesData: []
   globalData:
-    totalSecondsInGame: 19597.465
-    totalSecondsOnRaft: 4465.0615
-    islandSeed: -2028171252
+    totalSecondsInGame: 23361.146
+    totalSecondsOnRaft: 5235.241
+    islandSeed: -2028171455
     damagersData:
-      tickCount: 16
-      maxTickCount: 3747.5999
+      tickCount: 17
+      maxTickCount: 5466.6
       spawnedItems: []
     weathersData:
-      tickCount: 809
+      tickCount: 1299
       maxTickCount: 2297
       currentWeather: 0
   tutorialsData:

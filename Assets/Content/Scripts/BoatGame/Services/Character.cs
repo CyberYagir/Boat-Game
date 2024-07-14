@@ -5,6 +5,7 @@ using Content.Scripts.Global;
 using Content.Scripts.IslandGame.Natives;
 using Content.Scripts.ItemsSystem;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Content.Scripts.BoatGame.Services
 {
@@ -301,28 +302,54 @@ namespace Content.Scripts.BoatGame.Services
             skillsData.ClearEvents();
             equipmentData.ClearEvents();
         }
+        
 
-
-        public static Dictionary<Character, ENativeType> GetSlavesList(System.Random rnd, GameDataObject gameData, int islandLevel)
+        public static List<SlaveCharacterInfo> GetSlavesList(System.Random rnd, GameDataObject gameData, int islandLevel)
         {
             var count = rnd.Next((int) gameData.NativesListData.SlavesOnIslandCount.min, (int) gameData.NativesListData.SlavesOnIslandCount.max);
 
-            Dictionary<Character, ENativeType> characters = new Dictionary<Character, ENativeType>();
-
+            List<SlaveCharacterInfo> characters = new List<SlaveCharacterInfo>();
             for (int i = 0; i < count; i++)
             {
-                var character = new Character();
-                var type = gameData.NativesListData.GetRandomSlaveSkin(rnd);
-                character.SetName(gameData.NamesList.GetName(type == ENativeType.Female ? NameGenerator.EGender.Female : NameGenerator.EGender.Male, rnd));
-                character.SetUid(Extensions.GenerateSeededGuid(rnd).ToString());
+                var characterSeed = rnd.Next(-100000, 100000);
+                var character = GenerateSlaveBySeed(gameData, islandLevel, characterSeed, out var type, out var skinUid);
 
-                var level = islandLevel * gameData.SkillsList.Count - 1;
-                for (int j = 0; j < level; j++)
-                {
-                    character.AddSkillValue(gameData.SkillsList.GetRandomItem(rnd).SkillID, 1);
-                }
+                characters.Add(new SlaveCharacterInfo(character, type, characterSeed, islandLevel, skinUid));
+            }
 
-                characters.Add(character, type);
+            return characters;
+        }
+
+        private static Character GenerateSlaveBySeed(GameDataObject gameData, int islandLevel, int seed, out ENativeType type, out string uid)
+        {
+            var characterRandom = new Random(seed);
+            var character = new Character();
+            var skin = gameData.NativesListData.GetRandomSlaveSkin(characterRandom);
+            type = skin.NativeType;
+            uid = skin.SkinUid;
+            
+            character.SetName(gameData.NamesList.GetName(type == ENativeType.Female ? NameGenerator.EGender.Female : NameGenerator.EGender.Male, characterRandom));
+            character.SetUid(Extensions.GenerateSeededGuid(characterRandom).ToString());
+
+            var level = islandLevel * gameData.SkillsList.Count - 1;
+            for (int j = 0; j < level; j++)
+            {
+                character.AddSkillValue(gameData.SkillsList.GetRandomItem(characterRandom).SkillID, 1);
+            }
+
+            return character;
+        }
+
+        public static List<SlaveCharacterInfo> GetSlavesFromList(List<SaveDataObject.MapData.IslandData.VillageData.SlaveData> slaves, GameDataObject gameData)
+        {
+            List<SlaveCharacterInfo> characters = new List<SlaveCharacterInfo>();
+            for (int i = 0; i < slaves.Count; i++)
+            {
+                var islandLevel = slaves[i].TransferInfo.IslandLevel;
+                var characterSeed = slaves[i].TransferInfo.Seed;
+                var character = GenerateSlaveBySeed(gameData, islandLevel, characterSeed, out var type, out var skinUid);
+
+                characters.Add(new SlaveCharacterInfo(character, type, characterSeed, islandLevel, skinUid));
             }
 
             return characters;

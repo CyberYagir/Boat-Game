@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Content.Scripts.IslandGame.Natives;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;

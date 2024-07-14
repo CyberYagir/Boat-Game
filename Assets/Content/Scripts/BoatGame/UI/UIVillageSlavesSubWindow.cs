@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using UnityEngine;
+using static Content.Scripts.Global.SaveDataObject.MapData.IslandData.VillageData.SlaveData.TransferData;
 
 namespace Content.Scripts.BoatGame.UI
 {
@@ -17,15 +18,16 @@ namespace Content.Scripts.BoatGame.UI
         private UIVillageOptionsWindow baseWindow;
         private SaveDataObject saveData;
 
-        private UIVillageSlavesVisualsGenerator generator;
-        private List<DisplayCharacter> characters => generator.Characters;
+        private UIVillageSlavesGenerator generator;
+        private List<DisplayCharacter> SlavesVisuals => generator.SlavesVisuals;
+        private List<SlaveCreatedCharacterInfo> SlavesInfo => generator.SlavesInfos;
 
         private bool inited = false;
 
         public void Init(
             GameDataObject gameData,
             ResourcesService resourcesService,
-            UIVillageSlavesVisualsGenerator generator,
+            UIVillageSlavesGenerator generator,
             UIVillageOptionsWindow window)
         {
 
@@ -65,8 +67,8 @@ namespace Content.Scripts.BoatGame.UI
             var village = baseWindow.GetVillage();
             for (int i = 0; i < spawnedItems.Count; i++)
             {
-                characters[i].Display.DeadCheck();
-                spawnedItems[i].UpdateItem(village.IsHaveSlave(characters[i].Character.Uid));
+                SlavesVisuals[i].Display.DeadCheck();
+                spawnedItems[i].UpdateItem(village.IsHaveSlave(SlavesInfo[i].Character.Uid));
             }
         }
 
@@ -75,12 +77,13 @@ namespace Content.Scripts.BoatGame.UI
             if (spawnedItems.Count == 0)
             {
                 item.gameObject.SetActive(true);
-                for (int i = 0; i < characters.Count; i++)
+                for (int i = 0; i < SlavesVisuals.Count; i++)
                 {
-                    var display = characters[i];
+                    var display = SlavesVisuals[i];
+                    var info = SlavesInfo[i];
                     Instantiate(item, item.transform.parent)
                         .With(x => spawnedItems.Add(x))
-                        .With(x => x.Init(display, resourcesService, gameData.ConfigData.MoneyItem, this));
+                        .With(x => x.Init(display, info, resourcesService, gameData.ConfigData.MoneyItem, this));
                 }
 
                 item.gameObject.SetActive(false);
@@ -89,9 +92,9 @@ namespace Content.Scripts.BoatGame.UI
 
 
 
-        public void BuySlave(DisplayCharacter displayCharacter)
+        public void BuySlave(SlaveCreatedCharacterInfo info)
         {
-            if (baseWindow.BuySlave(displayCharacter.Character, displayCharacter.Cost))
+            if (baseWindow.BuySlave(info))
             {
                 UpdateItems();
             }

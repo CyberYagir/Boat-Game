@@ -33,33 +33,49 @@ namespace Content.Scripts.BoatGame.UI
                 sleepIcon.gameObject.SetActive(!isWorking);
             }
         }
+        
+        [System.Serializable]
+        public class TooltipInit
+        {
+            [SerializeField] private UITooltip tooltip;
+            [SerializeField] private TooltipDataObject tooltipDataObject;
 
-        [SerializeField] private UIBar staminaBar;
+            public void Init()
+            {
+                tooltip.Init(tooltipDataObject);
+            }
+        }
+        
         [SerializeField] private WorkToggleButton workToggleButton;
+        [SerializeField] private SlaveDataCalculator slaveDataCalculator = new SlaveDataCalculator();
+        
+        [SerializeField] private UIBar staminaBar;
         [SerializeField] private TMP_Dropdown storageTypeDropdown;
         [SerializeField] private TMP_Text openStorageText;
 
         [SerializeField] private UIVillageActionItem actionItem;
-        [SerializeField] private List<UIVillageActionItem> actionItems;
         [SerializeField] private Button feedSlaveButton;
         [SerializeField] private Button killSlaveButton;
         [SerializeField] private Button makeHumanSlaveButton;
         [SerializeField] private Button openStorageSlaveButton;
         
-        [SerializeField] private SlaveDataCalculator slaveDataCalculator = new SlaveDataCalculator();
+        [SerializeField] private List<TooltipInit> tooltips;
+        [SerializeField] private List<UIVillageActionItem> actionItems;
         
-        private SlaveData slaveData;
         private TickService tickService;
         private GameDataObject gameDataObject;
         private ResourcesService resourcesService;
         private SaveDataObject saveDataObject;
         private UIVillageManageSubWindow window;
         private UIMessageBoxManager messageBoxManager;
+        private SlaveCreatedCharacterInfo slaveInfo;
+
+        private SlaveData SlaveData => slaveInfo.SlaveData;
+        
 
         public void Init(
             GameDataObject gameDataObject,
-            SlaveData slaveData,
-            DisplayCharacter slaveInfo,
+            SlaveCreatedCharacterInfo slaveInfo,
             TickService tickService,
             ResourcesService resourcesService,
             SaveDataObject saveDataObject,
@@ -67,17 +83,23 @@ namespace Content.Scripts.BoatGame.UI
             UIMessageBoxManager messageBoxManager
         )
         {
+            this.slaveInfo = slaveInfo;
             this.messageBoxManager = messageBoxManager;
             this.window = window;
             this.saveDataObject = saveDataObject;
             this.resourcesService = resourcesService;
             this.gameDataObject = gameDataObject;
             this.tickService = tickService;
-            this.slaveData = slaveData;
+            
             SpawnActivityItems(gameDataObject);
-            staminaBar.Init("Energy", slaveData.TargetStamina, 100f);
-            slaveDataCalculator.Init(slaveData, gameDataObject, slaveInfo);
+            staminaBar.Init("Energy", SlaveData.TargetStamina, 100f);
+            slaveDataCalculator.Init(SlaveData, gameDataObject, slaveInfo);
 
+            for (int i = 0; i < tooltips.Count; i++)
+            {
+                tooltips[i].Init();
+            }
+            
             Redraw();
 
 
@@ -116,35 +138,35 @@ namespace Content.Scripts.BoatGame.UI
 
             staminaBar.UpdateBar(slaveDataCalculator.ActualStamina);
             
-            storageTypeDropdown.value = slaveData.IsStorage ? 1 : 0;
-            workToggleButton.SetState(slaveData.IsWorking);
+            storageTypeDropdown.value = SlaveData.IsStorage ? 1 : 0;
+            workToggleButton.SetState(SlaveData.IsWorking);
 
 
-            killSlaveButton.interactable = makeHumanSlaveButton.interactable = !slaveData.IsWorking;
-            feedSlaveButton.interactable = !slaveData.IsWorking && slaveData.TargetStamina < 100;
-            openStorageSlaveButton.interactable = !slaveData.IsWorking && slaveDataCalculator.GetItemsCount() != 0;
+            killSlaveButton.interactable = makeHumanSlaveButton.interactable = !SlaveData.IsWorking;
+            feedSlaveButton.interactable = !SlaveData.IsWorking && SlaveData.TargetStamina < 100;
+            openStorageSlaveButton.interactable = !SlaveData.IsWorking && slaveDataCalculator.GetItemsCount() != 0;
             
             
             openStorageText.text = $"Open Storage ({slaveDataCalculator.GetItemsCount()})";
             
             for (int i = 0; i < actionItems.Count; i++)
             {
-                actionItems[i].SetActive(slaveData.HasActivity(actionItems[i].Activity.Uid));
-                actionItems[i].Enabled(!slaveData.IsWorking);
+                actionItems[i].SetActive(SlaveData.HasActivity(actionItems[i].Activity.Uid));
+                actionItems[i].Enabled(!SlaveData.IsWorking);
             }
         }
 
 
         public void WorkToggle()
         {
-            slaveData.WorkToggle();
+            SlaveData.WorkToggle();
 
-            if (!slaveData.IsWorking)
+            if (!SlaveData.IsWorking)
             {
                 slaveDataCalculator.StopWorkAndSaveData();
                 saveDataObject.SaveFile();
 
-                if (slaveData.Activities.Count == 0)
+                if (SlaveData.Activities.Count == 0)
                 {
                     messageBoxManager.ShowMessageBox("Select the type of activity that the slave will engage in.", null, "Ok", "_disabled");
                 }else if (slaveDataCalculator.ActualStamina <= 0)
@@ -158,12 +180,12 @@ namespace Content.Scripts.BoatGame.UI
 
         public void DropDownChange(int value)
         {
-            slaveData.SetStorage(value == 1);
+            SlaveData.SetStorage(value == 1);
         }
 
         public void FeedSlaveButton()
         {
-            if (slaveData.TargetStamina < 100f)
+            if (SlaveData.TargetStamina < 100f)
             {
                 var eat = resourcesService.AllItemsList.Find(x => x.Item.Type == EResourceTypes.Eat);
                 if (eat != null)
@@ -177,7 +199,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public void ToggleActivity(SlaveActivitiesObject activity)
         {
-            slaveData.ToggleActivity(activity);
+            SlaveData.ToggleActivity(activity);
             Redraw();
         }
 
@@ -185,13 +207,13 @@ namespace Content.Scripts.BoatGame.UI
         {
             messageBoxManager.ShowMessageBox("Are you sure you want to kill the slave? Perhaps he has children and a family...", delegate
             {
-                window.KillSlave(slaveData.Uid);
+                window.KillSlave(slaveInfo);
             }, "Execute");
         }
 
         public void OpenStorageButton()
         {
-            if (slaveData.IsWorking)
+            if (SlaveData.IsWorking)
             {
                 WorkToggle();
             }

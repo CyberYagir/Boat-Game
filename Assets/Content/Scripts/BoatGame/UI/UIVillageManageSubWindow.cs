@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -12,11 +13,11 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private GameObject infoWindow;
         [SerializeField] private UIVillageInfoSubWindow uiVillageInfoWindowData;
         [SerializeField] private TMP_Text emptyText;
+        [SerializeField, ReadOnly] private List<UIVillageManageCharItem> charactersListItems = new List<UIVillageManageCharItem>();
         
-        private List<UIVillageManageCharItem> charactersListItems = new List<UIVillageManageCharItem>();
-        private UIVillageSlavesVisualsGenerator generator;
+        private UIVillageSlavesGenerator generator;
         private SaveDataObject.MapData.IslandData.VillageData villageData;
-        private DisplayCharacter selectedCharacter;
+        private SlaveCreatedCharacterInfo selectedCharacter;
         private GameDataObject gameDataObject;
         private TickService tickService;
         private ResourcesService resourcesService;
@@ -26,7 +27,7 @@ namespace Content.Scripts.BoatGame.UI
 
 
         public void Init(
-            UIVillageSlavesVisualsGenerator generator,
+            UIVillageSlavesGenerator generator,
             SaveDataObject.MapData.IslandData.VillageData villageData,
             GameDataObject gameDataObject,
             TickService tickService,
@@ -48,7 +49,7 @@ namespace Content.Scripts.BoatGame.UI
             Redraw();
         }
 
-        public void SelectCharacter(DisplayCharacter character)
+        public void SelectCharacter(SlaveCreatedCharacterInfo character)
         {
             selectedCharacter = character;
             Redraw();
@@ -62,11 +63,11 @@ namespace Content.Scripts.BoatGame.UI
 
             if (selectedCharacter != null)
             {
-                var targetSlave = villageData.GetSlave(selectedCharacter.Character.Uid);
-
+                var targetSlave = generator.SlavesInfos.Find(x => x.Character.Uid == selectedCharacter.Character.Uid);
+                
                 if (targetSlave != null && !targetSlave.IsDead)
                 {
-                    uiVillageInfoWindowData.Init(gameDataObject, targetSlave, selectedCharacter, tickService, resourcesService, saveData, this, messageBoxManager);
+                    uiVillageInfoWindowData.Init(gameDataObject, targetSlave, tickService, resourcesService, saveData, this, messageBoxManager);
                 }
 
                 if (targetSlave != null && targetSlave.IsDead)
@@ -97,24 +98,27 @@ namespace Content.Scripts.BoatGame.UI
             int counter = 0;
             for (int i = 0; i < charactersListItems.Count; i++)
             {
-                charactersListItems[i].gameObject.SetActive(i < villageData.SlavesCount());
+                charactersListItems[i].gameObject.SetActive(false);
                 if (i < villageData.SlavesCount())
                 {
                     var slave = villageData.GetSlaveByID(i);
                     if (slave != null)
                     {
-                        if (!slave.IsDead)
+                        if (villageData.IsHaveSlave(slave.Uid) && !slave.IsDead)
                         {
-                            var character = generator.Characters.Find(x => x.Character.Uid == slave.Uid);
-                            if (character != null)
+                            var infoIndex = generator.SlavesInfos.FindIndex(x => x.Character.Uid == slave.Uid);
+                            if (infoIndex != -1)
                             {
-                                charactersListItems[i].Init(character, this, selectedCharacter == character);
-                                counter++;
+                                var character = generator.SlavesVisuals[infoIndex];
+                                var info = generator.SlavesInfos[infoIndex];
+                                if (character != null)
+                                {
+                                    charactersListItems[i].gameObject.SetActive(true);
+                                    
+                                    charactersListItems[i].Init(character, info, this, selectedCharacter == info);
+                                    counter++;
+                                }
                             }
-                        }
-                        else
-                        {
-                            charactersListItems[i].gameObject.SetActive(false);
                         }
                     }
                 }
@@ -128,14 +132,18 @@ namespace Content.Scripts.BoatGame.UI
             window.OpenSlaveStorage(slaveDataCalculator);
         }
 
-        public void KillSlave(string slaveDataUid)
+        public void KillSlave(SlaveCreatedCharacterInfo info)
         {
-            if (selectedCharacter.Character.Uid == slaveDataUid)
+            if (selectedCharacter.Character.Uid == info.Character.Uid)
             {
                 selectedCharacter = null;
             }
+            
+            
+            villageData.KillSlave(info.Character.Uid);
+            villageData.AddSocialRating(info.Cost / 2);
+            
 
-            villageData.KillSlave(slaveDataUid);
             
             Redraw();
         }

@@ -363,20 +363,49 @@ namespace Content.Scripts.Global
                                 isActive = !isActive;
                             }
                         }
+                        
+                        [System.Serializable]
+                        public class TransferData
+                        {
+                            public enum ETransferState
+                            {
+                                None,
+                                SendFromIsland,
+                                NewOnIsland
+                            }
+                            
+                            [SerializeField] private int seed, islandLevel;
+                            [SerializeField] private ETransferState transferState = ETransferState.None;
+                            public TransferData(int seed, int islandLevel)
+                            {
+                                this.seed = seed;
+                                this.islandLevel = islandLevel;
+                            }
+                            
+                            public  void SetTransferState(ETransferState state) => transferState = state;
+
+                            public int IslandLevel => islandLevel;
+
+                            public int Seed => seed;
+
+                            public ETransferState TransferState => transferState;
+                        }
 
                         [SerializeField] private string uid;
                         [SerializeField] private string lastTimeStamp;
                         [SerializeField] private float targetStamina = 100f;
-                        [SerializeField] private List<ActivitySkill> activities;
-                        [SerializeField] private List<RaftsData.RaftStorageData.StorageItemData> storageItems;
                         [SerializeField] private bool isWorking;
                         [SerializeField] private bool isStorage;
+                        
                         [SerializeField] private bool isDead;
+                        [SerializeField] private TransferData transferData = new TransferData(0, 0);
+                        [SerializeField] private List<ActivitySkill> activities = new List<ActivitySkill>();
+                        [SerializeField] private List<RaftsData.RaftStorageData.StorageItemData> storageItems = new List<RaftsData.RaftStorageData.StorageItemData>();
 
                         public DateTime LastTimeStamp => DateTime.Parse(LastTimeStampString, CultureInfo.InvariantCulture);
                         
                         
-                        public SlaveData(string uid)
+                        public SlaveData(string uid, TransferData transferData)
                         {
                             this.uid = uid;
                             lastTimeStamp = DateService.ActualDateString;
@@ -397,6 +426,8 @@ namespace Content.Scripts.Global
                         public List<RaftsData.RaftStorageData.StorageItemData> StorageItems => storageItems;
 
                         public bool IsDead => isDead;
+
+                        public TransferData TransferInfo => transferData;
 
 
                         public void Kill()
@@ -519,8 +550,13 @@ namespace Content.Scripts.Global
 
                     public VillagerData GetVillager(string uid) => villagers.Find(x => x.Uid == uid);
 
-                    public void AddSlave(Character ch) => slaves.Add(new SlaveData(ch.Uid));
-                    
+                    public SlaveData AddSlave(Character ch, SlaveData.TransferData transferData)
+                    {
+                        var slave = new SlaveData(ch.Uid, transferData);
+                        slaves.Add(slave);
+                        return slave;
+                    }
+
 
                     public void AddSocialRating(int value)
                     {
@@ -535,7 +571,7 @@ namespace Content.Scripts.Global
 
                     public bool IsHaveSlave(string characterUid)
                     {
-                        return slaves.Find(x => x.Uid == characterUid) != null;
+                        return slaves.Find(x => x.Uid == characterUid && x.TransferInfo.TransferState != SlaveData.TransferData.ETransferState.SendFromIsland) != null;
                     }
 
                     public int SlavesCount() => slaves.Count;
@@ -554,6 +590,11 @@ namespace Content.Scripts.Global
                     {
                         if (i >= slaves.Count) return null;
                         return slaves[i];
+                    }
+
+                    public List<SlaveData> GetTrasferedSlaves()
+                    {
+                        return slaves.FindAll(x => x.TransferInfo.TransferState == SlaveData.TransferData.ETransferState.NewOnIsland);
                     }
                 }
 

@@ -21,14 +21,14 @@ namespace Content.Scripts.BoatGame.UI
         private SaveDataObject.MapData.IslandData.VillageData.SlaveData slaveData;
         private ConfigDataObject config;
         private GameDataObject gameDataObject;
-        private DisplayCharacter characterData;
+        private SlaveCreatedCharacterInfo characterData;
 
 
         public float ActualStamina => slaveData.IsWorking ? CalculateStamina() : slaveData.TargetStamina;
 
-        public DisplayCharacter CharacterData => characterData;
+        public SlaveCreatedCharacterInfo CharacterData => characterData;
 
-        public void Init(SaveDataObject.MapData.IslandData.VillageData.SlaveData slaveData, GameDataObject gameDataObject, DisplayCharacter characterData)
+        public void Init(SaveDataObject.MapData.IslandData.VillageData.SlaveData slaveData, GameDataObject gameDataObject, SlaveCreatedCharacterInfo characterData)
         {
             this.characterData = characterData;
             this.gameDataObject = gameDataObject;
