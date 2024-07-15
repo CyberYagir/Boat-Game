@@ -342,6 +342,8 @@ namespace Content.Scripts.Global
                         [System.Serializable]
                         public class ActivitySkill
                         {
+                            public const int MAX_MODIFY = 3;
+                            
                             [SerializeField] private string activityID;
                             [SerializeField] private float modify = 1;
                             [SerializeField] private bool isActive;
@@ -361,6 +363,15 @@ namespace Content.Scripts.Global
                             public void ToggleActive()
                             {
                                 isActive = !isActive;
+                            }
+
+                            public void AddSkill(float add)
+                            {
+                                modify += add;
+                                if (modify > MAX_MODIFY)
+                                {
+                                    modify = MAX_MODIFY;
+                                }
                             }
                         }
                         
@@ -475,10 +486,16 @@ namespace Content.Scripts.Global
 
                         public void ToggleActivity(SlaveActivitiesObject activity)
                         {
-                            var finded = activities.Find(x => x.ActivityID == activity.Uid);
+                            ToggleActivity(activity.Uid);
+                        }
+
+                        private void ToggleActivity(string uid)
+                        {
+                            SlaveActivitiesObject activity;
+                            var finded = activities.Find(x => x.ActivityID == uid);
                             if (finded == null)
                             {
-                                activities.Add(new ActivitySkill(activity.Uid));
+                                activities.Add(new ActivitySkill(uid));
                             }
                             else
                             {
@@ -526,6 +543,22 @@ namespace Content.Scripts.Global
                         public void ClearStorageItems()
                         {
                             storageItems.Clear();
+                        }
+
+                        public void AddToSkills(Dictionary<string,float> skillsData)
+                        {
+                            foreach (var activity in activities)
+                            {
+                                if (skillsData.ContainsKey(activity.ActivityID))
+                                {
+                                    activity.AddSkill(skillsData[activity.ActivityID]);
+                                }
+                            }
+                        }
+
+                        public void SetActivityData(List<ActivitySkill> slaveDataActivities)
+                        {
+                            activities = slaveDataActivities;
                         }
                     }
 

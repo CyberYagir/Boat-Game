@@ -17,6 +17,8 @@ namespace Content.Scripts.BoatGame.UI
         private DateTime targetSlaveTimeProgress;
         
         [SerializeField, ReadOnly] private List<RaftStorage.StorageItem> items = new List<RaftStorage.StorageItem>(20);
+
+        private Dictionary<string, float> skillsData = new Dictionary<string, float>();
         private List<RaftStorage.StorageItem> storage = new List<RaftStorage.StorageItem>(20);
         private SaveDataObject.MapData.IslandData.VillageData.SlaveData slaveData;
         private ConfigDataObject config;
@@ -57,6 +59,7 @@ namespace Content.Scripts.BoatGame.UI
         private void StorageCalculations(Random rndSeed)
         {
             items.Clear();
+            skillsData.Clear();
 
             var slaveActivitiesObjects = gameDataObject.NativesListData.SlavesActivities;
             if (!slaveData.IsWorking) return;
@@ -67,12 +70,14 @@ namespace Content.Scripts.BoatGame.UI
                 var activity = slaveActivitiesObjects.Find(x => x.Uid == slaveData.Activities[i].ActivityID);
                 if (activity != null)
                 {
+                    skillsData.Add(activity.Uid, 0);
                     var itemsCount = (targetSlaveTimeProgress - slaveData.LastTimeStamp).TotalSeconds / (activity.GetItemsPerTime(characterData.Type) * slaveData.Activities.Count);
                     if (itemsCount >= 1)
                     {
+                        skillsData[activity.Uid] = (float)(itemsCount * activity.SkillPerItem);
                         for (int j = 0; j < itemsCount; j++)
                         {
-                            var item = activity.GetActivityResourcesByTime(rndSeed, slaveData.IsStorage);
+                            var item = activity.GetActivityResourcesByTime(rndSeed, slaveData.IsStorage, slaveData.Activities[i].Modify);
 
                             if (item != null)
                             {
@@ -111,6 +116,11 @@ namespace Content.Scripts.BoatGame.UI
             var newStamina = CalculateStamina();
             slaveData.SetStamina(newStamina);
             slaveData.AddItemsToStorage(items);
+            if (skillsData.Count != 0)
+            {
+                slaveData.AddToSkills(skillsData);
+            }
+
             RecalculateStorageItems();
             items.Clear();
         }

@@ -17,6 +17,7 @@ namespace Content.Scripts.IslandGame.Scriptable
         [SerializeField] private string activityName;
         [SerializeField] private float itemsPerTime;
         [SerializeField] private float typeBoostMultiplier = 0.5f;
+        [SerializeField] private float skillPerItem = 0.1f;
         [SerializeField, FoldoutGroup("Income")] private ItemObject incomeItemObject;
         [SerializeField, FoldoutGroup("Income")] private int incomeItemCount;
         [SerializeField, FoldoutGroup("Drop Table")] private DropTableObject itemsIncomes;
@@ -27,19 +28,21 @@ namespace Content.Scripts.IslandGame.Scriptable
 
         public string Uid => uid;
 
+        public float SkillPerItem => skillPerItem;
+
 
         [Button]
         public void GenerateID() => uid = Guid.NewGuid().ToString();
 
-        public RaftStorage.StorageItem GetActivityResourcesByTime(Random rnd, bool IsStorage)
+        public RaftStorage.StorageItem GetActivityResourcesByTime(Random rnd, bool IsStorage, float modify)
         {
             if (IsStorage && itemsIncomes != null)
             {
-                return new RaftStorage.StorageItem(itemsIncomes.GetItem(rnd), 1);
+                return new RaftStorage.StorageItem(itemsIncomes.GetItem(rnd), Mathf.RoundToInt(1 * modify));
             }
             else if (incomeItemObject != null)
             {
-                return new RaftStorage.StorageItem(incomeItemObject, incomeItemCount);
+                return new RaftStorage.StorageItem(incomeItemObject, Mathf.RoundToInt(incomeItemCount * modify));
             }
 
             return null;

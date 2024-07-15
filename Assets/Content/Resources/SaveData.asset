@@ -31,12 +31,12 @@ MonoBehaviour:
           value: 12
       parametersData:
         health: 100
-        hunger: 48.28091
-        thirsty: 0
+        hunger: 69.60324
+        thirsty: 39.168884
       equipmentData:
         helmetID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
         armorID: 
-        weaponID: bcddab5b-dfe3-4642-807d-96e3b0e64c38
+        weaponID: 
       skinColorID: 0
       hatID: 3
   raftsData:
@@ -101,7 +101,7 @@ MonoBehaviour:
       - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
         count: 1
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 298
+        count: 6098
     - raftUid: a03abcc1-d1f1-4cd2-aefe-479b81e1f692
       storagesData:
       - itemID: 162a21b5-c6b7-4dd2-9ecd-6433957a1ee4
@@ -116,6 +116,8 @@ MonoBehaviour:
         count: 3
       - itemID: 3faaa745-6ca4-4db3-9df8-92330e6f39b4
         count: 2
+      - itemID: bcddab5b-dfe3-4642-807d-96e3b0e64c38
+        count: 1
     - raftUid: 19604cb8-6be2-45d4-8d9a-44d52b780b40
       storagesData:
       - itemID: 6ef783b5-3589-4844-8988-66fe6ff1c911
@@ -297,7 +299,7 @@ MonoBehaviour:
       droppedItems: []
       villagesData:
       - uid: ae09e0ef-b058-8221-c024-1521f2c82597
-        socialRating: 34827
+        socialRating: 10396
         villagers:
         - uid: c102be79-2548-34fd-88d4-4e79f4214b8f
           isDead: 0
@@ -323,70 +325,40 @@ MonoBehaviour:
           isDead: 0
         slaves:
         - uid: 64349238-813a-c217-30d0-22d401bd57a5
-          lastTimeStamp: 07/14/2024 19:58:54
-          targetStamina: 0
+          lastTimeStamp: 07/14/2024 21:42:00
+          targetStamina: 100
           isWorking: 0
           isStorage: 0
           isDead: 0
           transferData:
-            seed: 0
-            islandLevel: 0
-            transferState: 0
-          activities:
-          - activityID: d8852ef2-b21a-44a7-9911-b20a8b0b7f10
-            modify: 1
-            isActive: 0
-          - activityID: 672eda6b-092d-4f3b-9671-cbdc9bdcd9cf
-            modify: 1
-            isActive: 0
-          - activityID: 862d99b5-335c-4632-9532-74469585a199
-            modify: 1
-            isActive: 0
-          - activityID: 7e5a36a5-a4bc-4bf2-834c-c8b906243a01
-            modify: 1
-            isActive: 1
+            seed: 76375
+            islandLevel: 8
+            transferState: 1
+          activities: []
           storageItems: []
         - uid: c8e46572-f31e-04fd-ea06-5a13f0e86645
-          lastTimeStamp: 07/14/2024 19:59:05
+          lastTimeStamp: 07/14/2024 21:49:18
           targetStamina: 100
-          isWorking: 1
-          isStorage: 1
+          isWorking: 0
+          isStorage: 0
           isDead: 0
           transferData:
-            seed: 0
-            islandLevel: 0
-            transferState: 0
-          activities:
-          - activityID: d8852ef2-b21a-44a7-9911-b20a8b0b7f10
-            modify: 1
-            isActive: 1
-          - activityID: 3a041b61-ee95-4a66-ba95-5d2c86685c11
-            modify: 1
-            isActive: 1
-          - activityID: 1090bee8-b6f9-4a32-9b38-ba0b55d6b04e
-            modify: 1
-            isActive: 1
+            seed: 24942
+            islandLevel: 8
+            transferState: 1
+          activities: []
           storageItems: []
         - uid: 0b71f396-ee67-fd80-8e57-6cd1879719c8
-          lastTimeStamp: 07/14/2024 19:59:15
+          lastTimeStamp: 07/14/2024 21:57:30
           targetStamina: 100
-          isWorking: 1
-          isStorage: 1
+          isWorking: 0
+          isStorage: 0
           isDead: 0
           transferData:
-            seed: 0
-            islandLevel: 0
-            transferState: 0
-          activities:
-          - activityID: 42fede67-d20b-40f6-9f79-e62f941a2c55
-            modify: 1
-            isActive: 1
-          - activityID: 67b6c922-8e1c-4a1d-b930-ea56aba4fcca
-            modify: 1
-            isActive: 1
-          - activityID: 7e5a36a5-a4bc-4bf2-834c-c8b906243a01
-            modify: 1
-            isActive: 1
+            seed: -53103
+            islandLevel: 8
+            transferState: 1
+          activities: []
           storageItems: []
     - islandName: 
       islandPos: {x: 219, y: 385}
@@ -464,7 +436,7 @@ MonoBehaviour:
         dropID: 138d9b68-ae93-4b11-abed-daa64f433774
       villagesData:
       - uid: 9522e0b6-2cb3-cd1e-d9ce-24ed98327270
-        socialRating: 2762
+        socialRating: 4570
         villagers:
         - uid: 03e521bc-65a3-2751-88a8-ff2b1d10eb30
           isDead: 0
@@ -482,29 +454,64 @@ MonoBehaviour:
           isDead: 0
         - uid: 60b2e389-6040-a14a-9126-f1bf0a6f301a
           isDead: 0
-        slaves: []
-    - islandName: Old Village
+        slaves:
+        - uid: 0b71f396-ee67-fd80-8e57-6cd1879719c8
+          lastTimeStamp: 07/14/2024 22:15:59
+          targetStamina: 100
+          isWorking: 1
+          isStorage: 0
+          isDead: 0
+          transferData:
+            seed: -53103
+            islandLevel: 8
+            transferState: 2
+          activities:
+          - activityID: 862d99b5-335c-4632-9532-74469585a199
+            modify: 1
+            isActive: 1
+          - activityID: 672eda6b-092d-4f3b-9671-cbdc9bdcd9cf
+            modify: 1
+            isActive: 1
+          - activityID: 1090bee8-b6f9-4a32-9b38-ba0b55d6b04e
+            modify: 1
+            isActive: 1
+          storageItems: []
+        - uid: c8e46572-f31e-04fd-ea06-5a13f0e86645
+          lastTimeStamp: 07/14/2024 22:16:01
+          targetStamina: 100
+          isWorking: 1
+          isStorage: 0
+          isDead: 0
+          transferData:
+            seed: 24942
+            islandLevel: 8
+            transferState: 2
+          activities:
+          - activityID: 7e5a36a5-a4bc-4bf2-834c-c8b906243a01
+            modify: 1
+            isActive: 1
+          - activityID: 42fede67-d20b-40f6-9f79-e62f941a2c55
+            modify: 1
+            isActive: 1
+          storageItems: []
+        - uid: 64349238-813a-c217-30d0-22d401bd57a5
+          lastTimeStamp: 07/14/2024 22:07:23
+          targetStamina: 100
+          isWorking: 0
+          isStorage: 0
+          isDead: 1
+          transferData:
+            seed: 76375
+            islandLevel: 8
+            transferState: 2
+          activities: []
+          storageItems: []
+    - islandName: Old Village 1
       islandPos: {x: 250, y: 88}
       islandSeed: -2028171327
       removedTrees: []
       droppedItems: []
-      villagesData:
-      - uid: 3561937c-1380-2257-e311-c1c3de582ef2
-        socialRating: 10
-        villagers:
-        - uid: d5643196-843e-97e5-8380-bda38eba2270
-          isDead: 0
-        - uid: 13b61d4d-8cc3-261c-3c7e-bb8e99373da7
-          isDead: 0
-        - uid: 8037f330-69a6-42fe-8a96-5a7230ffa874
-          isDead: 0
-        - uid: f1105db4-464a-ee81-30c9-7d214d938568
-          isDead: 0
-        - uid: 025449c3-469a-5b5d-7e06-144e8985cb3e
-          isDead: 0
-        - uid: 99b9b6d2-1d7b-d3f6-d6bb-66407a9324b1
-          isDead: 0
-        slaves: []
+      villagesData: []
     - islandName: 
       islandPos: {x: 250, y: 303}
       islandSeed: -2028171111
@@ -608,16 +615,16 @@ MonoBehaviour:
       droppedItems: []
       villagesData: []
   globalData:
-    totalSecondsInGame: 23837.758
-    totalSecondsOnRaft: 5235.241
-    islandSeed: -2028171455
+    totalSecondsInGame: 25439.576
+    totalSecondsOnRaft: 24591.943
+    islandSeed: -2028171183
     damagersData:
-      tickCount: 17
-      maxTickCount: 5466.6
+      tickCount: 490
+      maxTickCount: 6510.5996
       spawnedItems: []
     weathersData:
-      tickCount: 1299
-      maxTickCount: 2297
+      tickCount: 1378
+      maxTickCount: 2303
       currentWeather: 0
   tutorialsData:
     clickTutorial: 1

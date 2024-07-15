@@ -22,13 +22,6 @@ namespace Content.Scripts.BoatGame.Characters.States
                 return;
             }
 
-
-#if UNITY_EDITOR
-            
-            OnOpenWindow?.Invoke(selectedShaman.VillageData.VillageID, selectedShaman.VillageData.IslandData.Level);
-            return;
-#endif
-
             if (Vector3.Distance(selectedShaman.transform.position, Machine.transform.position) < 3)
             {
                 OnOpenWindow?.Invoke(selectedShaman.VillageData.VillageID, selectedShaman.VillageData.IslandData.Level);

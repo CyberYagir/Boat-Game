@@ -82,6 +82,7 @@ namespace Content.Scripts.BoatGame.UI
                     if (slave.TransferInfo.TransferState == ETransferState.SendFromIsland)
                     {
                         slave.TransferInfo.SetTransferState(ETransferState.None);
+                        slave.SetActivityData(slaveDataCalculator.CharacterData.SlaveData.Activities);
                     }
 
                     SaveAndClose();
@@ -95,6 +96,7 @@ namespace Content.Scripts.BoatGame.UI
             {
                 var transferedSlave = islandData.VillagesData.GetRandomItem().AddSlave(slaveDataCalculator.CharacterData.Character, new VillageData.SlaveData.TransferData(slaveDataCalculator.CharacterData.SlaveData.TransferInfo.Seed, slaveDataCalculator.CharacterData.SlaveData.TransferInfo.IslandLevel));
                 transferedSlave.TransferInfo.SetTransferState(ETransferState.NewOnIsland);
+                transferedSlave.SetActivityData(slaveDataCalculator.CharacterData.SlaveData.Activities);
                 
                 SaveAndClose();
             }
