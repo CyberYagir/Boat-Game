@@ -170,7 +170,7 @@ namespace Content.Scripts.BoatGame.UI
                 {
                     resourcesService.RemoveItemsFromAnyRaft(sellItem);
                     resourcesService.AddItemsToAnyRafts(resultItem);
-                    villageData.AddSocialRating(tradeOfferObject.SocialRatingPoints);
+                    villageData.AddSocialRating(tradeOfferObject.SocialRatingPoints + UnityEngine.Random.Range(0, 15));
 
                     Redraw();
                 }
