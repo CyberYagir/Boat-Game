@@ -83,7 +83,7 @@ namespace Content.Scripts.BoatGame
             aiManager.Init(raftBuildService, navMeshProvider, character);
             
             animationsManager.Init(weatherService, appearanceManager);
-            needsManager.Init(character, weatherService, this.selectionService);
+            needsManager.Init(character, weatherService, this.selectionService, gameData);
             actionsHolder.Construct(selectionService, gameData);
 
             raftBuildService.OnChangeRaft += CheckGround;

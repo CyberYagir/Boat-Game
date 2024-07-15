@@ -1,11 +1,13 @@
 using System.Collections;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using DG.Tweening;
 using StylizedWater2;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -89,28 +91,26 @@ namespace Content.Scripts.BoatGame
 
         public void DisableItem()
         {
+            
+            collider.enabled = false;
+            
+            
             if (isStaticInited) return;
             floatingTransform.enabled = false;
             isStopped = true;
             rb.isKinematic = true;
-            if (collider)
-            {
-                collider.enabled = false;
-            }
+           
         }
 
         public void EnableItem()
         {
 
+            collider.enabled = true;
             if (isStaticInited) return;
             floatingTransform.enabled = true;
             rb.isKinematic = false;
             isStopped = false;
             rb.velocity = startVelocity;
-            if (collider)
-            {
-                collider.enabled = true;
-            }
         }
 
         public void InitStaticItem()
@@ -122,6 +122,7 @@ namespace Content.Scripts.BoatGame
             var scale = rig.transform.localScale;
             rig.transform.localScale = Vector3.zero;
             rig.transform.DOScale(scale, 0.25f);
+            collider = GetComponent<Collider>();
             
             
             rb.isKinematic = true;

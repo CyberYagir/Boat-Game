@@ -32,9 +32,11 @@ namespace Content.Scripts.ItemsSystem
     public class ItemsParameters : Character.ParametersData
     {
         [SerializeField] private float damage;
+        [SerializeField] private float defence = 0.1f;
 
         public float Damage => damage;
 
+        public float Defence => defence;
     }
 
     [System.Serializable]

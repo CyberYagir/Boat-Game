@@ -949,6 +949,9 @@ namespace Content.Scripts.Global
             {
                 json = JsonUtility.ToJson(this);
                 File.WriteAllText(GetFilePath(), json, Encoding.Unicode);
+                #if UNITY_EDITOR
+                    File.WriteAllText(GetPathFolder() + @"\backup" + DateTime.Now.ToString("yyyy-M-d dddd-HH-mm-ss") + ".dat", json, Encoding.Unicode);
+                #endif
             }
             else
             {

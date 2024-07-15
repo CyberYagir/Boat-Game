@@ -49,7 +49,8 @@ namespace Content.Scripts.IslandGame.Natives
 
             public Vector3 WalkToAnyPoint()
             {
-                return bounds.GetRandomPoint();
+                var point = bounds.GetRandomPoint();
+                return new Vector3(point.x, agent.Transform.position.y, point.z);
             }
 
             public bool IsAvailablePoint(Vector3 pos)
