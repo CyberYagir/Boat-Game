@@ -36,7 +36,13 @@ namespace Content.Scripts.Map
                         Color col = mapPath.TexturePath.GetPixel(x, y);
                         if (col.a == 0)
                         {
-                            list.Add(new SaveDataObject.MapData.IslandData(new Vector2Int(x, y), seed + x + y + list.Count));
+                            int guid;
+                            do
+                            {
+                                guid = Guid.NewGuid().GetHashCode();
+                                
+                            } while (list.Find(tmp => tmp.IslandSeed == guid) != null);
+                            list.Add(new SaveDataObject.MapData.IslandData(new Vector2Int(x, y), guid));
                         }
                     }
                 }

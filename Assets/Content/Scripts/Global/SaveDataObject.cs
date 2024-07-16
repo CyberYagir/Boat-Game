@@ -1016,6 +1016,26 @@ namespace Content.Scripts.Global
         {
             raftsData = newRaftsData;
         }
+        
+        [Button]
+        public void DebugButton(){
+            foreach (var isl in Map.Islands)
+            {
+                var tmp = Map.Islands.FindAll(x => x.IslandSeed == isl.IslandSeed);
+
+                if (tmp.Count >= 2)
+                {
+                    Debug.LogError(tmp.Count);
+
+                    foreach (var t in tmp)
+                    {
+                        Debug.LogError(t.IslandSeed);
+                    }
+                    return;
+                }
+            }
+            Debug.LogError("empty");
+        }
     }
     
 }
