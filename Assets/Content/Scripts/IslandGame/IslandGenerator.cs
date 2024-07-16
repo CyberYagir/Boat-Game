@@ -7,6 +7,7 @@ using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.IslandGame.Scriptable;
 using Content.Scripts.Map;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 using Random = System.Random;
@@ -19,6 +20,7 @@ namespace Content.Scripts.IslandGame
         [SerializeField] private int seed;
         [SerializeField] private List<IslandGeneratorModule> spawnModules;
         [SerializeField] private float minGrassHeight;
+        [SerializeField, ReadOnly] private IslandSeedData islandData;
 
         [SerializeField] private IslandGenerationDataObject islandGeneration;
 
@@ -41,7 +43,6 @@ namespace Content.Scripts.IslandGame
         private float grassY;
         private Random random;
         private TerrainBiomeSO targetBiome;
-        private IslandSeedData islandData;
 
 
         private IslandData currentIslandData;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
@@ -85,7 +86,7 @@ namespace Content.Scripts.BoatGame.UI
             resourcesService.PlayerItemsList();
             foreach (var header in headers)
             {
-                header.Value.DrawList(resourcesService.AllItemsList.FindAll(x => x.Item.Type == header.Key));
+                header.Value.DrawList(resourcesService.AllItemsList.FindAll(x => x.Item.Type == header.Key).OrderBy(x=>x.Item.ItemName).ToList());
             }
         }
 

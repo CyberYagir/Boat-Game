@@ -49,7 +49,7 @@ namespace Content.Scripts.IslandGame
             this.islandGenerator = islandGenerator;
             this.original = original;
             
-            transform.name = "Tree Instance #" + instanceID;
+            transform.name = original.transform.name + " #" + instanceID;
 
             targetHealth = original.HealthRange.RandomWithin();
 

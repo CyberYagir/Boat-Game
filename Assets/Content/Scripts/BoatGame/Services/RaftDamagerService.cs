@@ -24,6 +24,9 @@ namespace Content.Scripts.BoatGame.Services
         private WorldGridService worldGridService;
         private SelectionService selectionService;
         private bool isDamagerStarted;
+        
+        
+        public bool IsHaveDamager => spawnedItems.Count != 0;
 
 
         [Inject]

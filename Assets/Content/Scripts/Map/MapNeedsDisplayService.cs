@@ -12,14 +12,17 @@ namespace Content.Scripts.Map
     public class MapNeedsDisplayService : MonoBehaviour
     {
         [SerializeField] private GameObject popup;
+        [SerializeField] private GameObject damagerPopup;
         [SerializeField] private Image icon;
         private ScenesService scenesService;
         private CharacterService characterService;
+        private RaftDamagerService raftDamagerService;
 
         [Inject]
         private void Construct(ScenesService scenesService)
         {
             this.characterService = CrossSceneContext.GetCharactersService();
+            this.raftDamagerService = CrossSceneContext.GetDamagerService();
             this.scenesService = scenesService;
             scenesService.OnChangeActiveScene += OnChangeActiveScene;
             scenesService.OnLoadOtherScene += ClearEvents;
@@ -65,6 +68,8 @@ namespace Content.Scripts.Map
                         break;
                     }
                 }
+
+                damagerPopup.gameObject.SetActive(raftDamagerService.IsHaveDamager);
             }
         }
     }
