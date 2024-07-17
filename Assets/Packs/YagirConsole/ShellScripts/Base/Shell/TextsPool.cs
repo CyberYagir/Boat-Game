@@ -7,13 +7,13 @@ namespace ConsoleShell
     [System.Serializable]
     public class TextsPool
     {
-        [SerializeField] private TMP_Text prefab;
+        [SerializeField] private ConsoleLine prefab;
         [SerializeField] private int poolCount = 50;
         private Transform holder;
-        private List<TMP_Text> pool = new List<TMP_Text>(50);
-        private List<TMP_Text> spawned = new List<TMP_Text>(50);
+        private List<ConsoleLine> pool = new List<ConsoleLine>(50);
+        private List<ConsoleLine> spawned = new List<ConsoleLine>(50);
 
-        public List<TMP_Text> Spawned => spawned;
+        public List<ConsoleLine> Spawned => spawned;
 
         public void Init()
         {
@@ -32,7 +32,7 @@ namespace ConsoleShell
             pool.Add(obj);
         }
 
-        public TMP_Text Get()
+        public ConsoleLine Get()
         {
             if (pool.Count == 0)
             {

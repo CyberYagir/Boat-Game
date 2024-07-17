@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,10 +25,9 @@ namespace ConsoleShell
             [SerializeField] private TextsPool copyTextsPool;
             private EAcceptedLogTypes acceptedLogTypes;
             private List<string> allMessages = new List<string>(100);
-            private List<ELogType> messagesTypes = new List<ELogType>(100);
             private string lastMessage;
-            private int repeatLastMessageCount;
-            private TMP_Text lastTextInstance;
+            private string lastTrace;
+            private ConsoleLine lastTextInstance;
 
             public List<string> AllMessages => allMessages;
 
@@ -38,61 +38,59 @@ namespace ConsoleShell
             {
                 acceptedLogTypes = EAcceptedLogTypes.Errors | EAcceptedLogTypes.Logs | EAcceptedLogTypes.Warnings;
                 copyTextsPool.Init();
+
             }
 
             public void OnReceivedUnityMessage(string condition, string stacktrace, LogType type)
             {
-                LogText(condition, (ELogType) (int) type);
+                var eLogType = (ELogType) (int) type;
+                LogText(condition, stacktrace, eLogType);
             }
 
+            public bool IsHaveStackTrace(ELogType type) => (type is ELogType.Error or ELogType.Exception or ELogType.Assert or ELogType.Warning);
 
-            public void LogText(string message, ELogType type)
+
+            public void LogText(string message, string stacktrace, ELogType type)
             {
-                if (message != lastMessage)
+                if (message != lastMessage || stacktrace != lastTrace)
                 {
-                    var text = ConsoleLogger.GetLog(message, type);
-                    var textInstance = copyTextsPool.Get();
-                    textInstance.text = text;
-                    lastTextInstance = textInstance;
+                    var addTrace = stacktrace.Length > 0 && IsHaveStackTrace(type);
+
+                    AllMessages.Add(message + (addTrace ? "\n" + stacktrace : ""));
+
                     lastMessage = message;
-                    repeatLastMessageCount = 0;
-                    AllMessages.Add(text);
-                    messagesTypes.Add(type);
+                    lastTrace = stacktrace;
+                    
+                    if (addTrace)
+                    {
+                        for (int i = copyTextsPool.Spawned.Count - 1; i >= 0; i--)
+                        {
+                            if (copyTextsPool.Spawned[i].Type != type)
+                            {
+                                break;
+                            }
+
+                            if (copyTextsPool.Spawned[i].IsText(message) && copyTextsPool.Spawned[i].IsStack(stacktrace))
+                            {
+                                copyTextsPool.Spawned[i].UpdateTextCounter();
+                                return;
+                            }
+                        }
+                    }
+
+                    var textInstance = copyTextsPool.Get();
+                    textInstance.SetText(message, addTrace ? stacktrace : String.Empty, type);
+                    lastTextInstance = textInstance;
                     
                     textInstance.gameObject.SetActive(true);
                     textInstance.name = type.ToString();
                     textInstance.GetComponent<ContentSizeFitter>().SetLayoutVertical();
 
-                    textInstance.enabled = IsCanLogThisType(type);
+                    textInstance.SetActive(IsCanLogThisType(type));
                 }
                 else
                 {
-                    repeatLastMessageCount++;
-                    if (repeatLastMessageCount > 1)
-                    {
-                        if (repeatLastMessageCount > 2)
-                        {
-                            var oldCounter = GetRepeatCount(repeatLastMessageCount - 1);
-                            if (lastTextInstance.text.Length != 0)
-                            {
-                                var newText = lastTextInstance.text.Substring(0, (lastTextInstance.text.Length - oldCounter.Length));
-                                newText += GetRepeatCount(repeatLastMessageCount);
-                                lastTextInstance.text = newText;
-                            }
-                        }
-                        else if (repeatLastMessageCount == 2)
-                        {
-                            if (!string.IsNullOrEmpty(lastTextInstance.text) && !string.IsNullOrWhiteSpace(lastTextInstance.text))
-                            {
-                                if (lastTextInstance.text.Last() == '\n')
-                                {
-                                    lastTextInstance.text = lastTextInstance.text.Substring(0, lastTextInstance.text.Length - 1);
-                                }
-
-                                lastTextInstance.text += GetRepeatCount(repeatLastMessageCount);
-                            }
-                        }
-                    }
+                    lastTextInstance.UpdateTextCounter();
                 }
 
                 string GetRepeatCount(int val)
@@ -104,7 +102,6 @@ namespace ConsoleShell
 
             public void ClearOutput()
             {
-                messagesTypes.Clear();
                 copyTextsPool.ClearAllSpawnedButtons();
             }
 
@@ -147,7 +144,7 @@ namespace ConsoleShell
             {
                 for (var i = 0; i < copyTextsPool.Spawned.Count; i++)
                 {
-                    copyTextsPool.Spawned[i].enabled = IsCanLogThisType(messagesTypes[i]);
+                    copyTextsPool.Spawned[i].SetActive(IsCanLogThisType(copyTextsPool.Spawned[i].Type));
                 }
             }
         }

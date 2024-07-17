@@ -38,7 +38,7 @@ namespace ConsoleShell
             {
                 Colors[i].Init();
             }
-            maxLogNameLength = Enum.GetNames(typeof(ELogType)).Max(x => x.Length);
+            maxLogNameLength = Enum.GetNames(typeof(ELogType)).Max(x => x.Length) + 5;
         }
 
 

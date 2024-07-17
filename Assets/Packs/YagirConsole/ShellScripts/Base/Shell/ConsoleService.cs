@@ -121,7 +121,7 @@ namespace ConsoleShell
 
                         consoleHistory.AddInHistory(consoleInput.GetText());
 
-                        consoleOutput.LogText(consoleInput.GetText(), ELogType.Log);
+                        consoleOutput.LogText(consoleInput.GetText(), string.Empty, ELogType.Log);
                         CalculateText(consoleInput.GetText());
                         consoleInput.SetText("");
                         
@@ -141,6 +141,7 @@ namespace ConsoleShell
                 consoleInput.Update();
             }
         }
+
 
         private bool TrySetSelectedHitText()
         {
@@ -211,9 +212,10 @@ namespace ConsoleShell
             }
         }
 
-        public void CopyTextFromItem(TMP_Text text)
+        public void CopyTextFromItem(ConsoleLine text)
         {
-            var textToCopy = GetTextWithoutFormatting(text.text);
+            var textToCopy = GetTextWithoutFormatting(text.GetLog());
+            text.ToggleFullText();
             GUIUtility.systemCopyBuffer = textToCopy;
             OnShowMessage?.Invoke("Message copied");
         }
@@ -284,10 +286,6 @@ namespace ConsoleShell
 
         public static List<string> GetTextStatic()
         {
-            for (int i = 0; i < Instance.consoleOutput.AllMessages.Count; i++)
-            {
-                Instance.consoleOutput.AllMessages[i] = GetTextWithoutFormatting(Instance.consoleOutput.AllMessages[i]);
-            }
             return Instance.consoleOutput.AllMessages; 
         }
     }

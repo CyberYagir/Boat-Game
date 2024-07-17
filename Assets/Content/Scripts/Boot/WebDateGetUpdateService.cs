@@ -25,7 +25,7 @@ namespace Content.Scripts.Boot
 
                 if (webRequest.isNetworkError)
                 {
-                    Debug.Log(": Error: " + webRequest.error);
+                    Debug.Log("Connection Error: " + webRequest.error);
                     
                     
                     

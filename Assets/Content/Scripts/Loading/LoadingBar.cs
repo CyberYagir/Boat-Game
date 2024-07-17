@@ -13,6 +13,7 @@ namespace Content.Scripts.Loading
     {
         [SerializeField] private RectTransform bar;
         [SerializeField] private TMP_Text version; 
+        [SerializeField] private TMP_Text state; 
         private SaveDataObject saveData;
         private ScenesService scenesService;
 
@@ -29,10 +30,21 @@ namespace Content.Scripts.Loading
 
         IEnumerator LoadingLoop()
         {
+            state.text = "Connecting to server...";
             while (DateService.WebTimeState == DateService.WebTimeType.None)
             {
                 yield return null;
             }
+
+            if (DateService.WebTimeState == DateService.WebTimeType.Local)
+            {
+                state.text = "No connection";
+            }
+            else
+            {
+                state.text = "Connected";
+            }
+            
             
             yield return new WaitForSeconds(1f);
             if (saveData.Characters.Count == 0)
