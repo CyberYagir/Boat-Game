@@ -20,13 +20,18 @@ namespace Content.Scripts.BoatGame.Services
         {
             [SerializeField, ReadOnly] private List<AnimatedWindow> openedWindows = new List<AnimatedWindow>(2);
             public bool isAnyWindowOpened => openedWindows.Count != 0;
-            
-            public void Init(params AnimatedWindow[] windows)
+
+            public void Init(UIService uiService, params AnimatedWindow[] windows)
             {
                 for (int i = 0; i < windows.Length; i++)
                 {
-                    windows[i].OnOpen += delegate(AnimatedWindow window) { openedWindows.Add(window); };
-                    windows[i].OnClose += delegate(AnimatedWindow window) { openedWindows.Remove(window); };
+                    if (windows[i] != null)
+                    {
+                        windows[i].OnOpen += delegate(AnimatedWindow window) { openedWindows.Add(window); };
+                        windows[i].OnClose += delegate(AnimatedWindow window) { openedWindows.Remove(window); };
+
+                        windows[i].InitWindow(uiService);
+                    }
                 }
             }
         }
@@ -105,7 +110,7 @@ namespace Content.Scripts.BoatGame.Services
             storagesCounter.Init(raftBuildService);
 
 
-            windowsManager.Init(craftsWindow, characterWindow, craftingTableWindow, furnaceWindow);
+            windowsManager.Init(this, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow);
             
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
             resourcesService.OnChangeResources += OnChangeResources;

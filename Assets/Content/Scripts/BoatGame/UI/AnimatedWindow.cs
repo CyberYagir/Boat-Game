@@ -1,4 +1,5 @@
 ﻿using System;
+using Content.Scripts.BoatGame.Services;
 using DG.Tweening;
 using UnityEngine;
 
@@ -7,17 +8,33 @@ namespace Content.Scripts.BoatGame.UI
     public class AnimatedWindow : MonoBehaviour
     {
         [SerializeField] private GameObject window;
+        [SerializeField] private bool canShowOnlySingle;
 
         private bool isOpen;
+        private UIService uiService;
 
         public bool IsOpen => isOpen;
 
         public event Action<AnimatedWindow> OnOpen;
         public event Action<AnimatedWindow> OnClose;
 
+        public void InitWindow(UIService uiService)
+        {
+            this.uiService = uiService;
+        }
 
         public virtual void ShowWindow()
         {
+            if (canShowOnlySingle)
+            {
+                if (uiService != null){
+                    if (uiService.WindowManager.isAnyWindowOpened)
+                    {
+                        return;
+                    }
+                }
+            }
+            
             window.transform.DOKill();
             window.gameObject.SetActive(true);
             window.transform.localScale = Vector3.zero;
