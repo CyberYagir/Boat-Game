@@ -14,5 +14,6 @@ namespace Content.Scripts.BoatGame.Services
 
         public static float MouseWheel => -Input.GetAxis("Mouse ScrollWheel");
         public static Vector3 MousePosition => Input.mousePosition;
+        public static bool SpaceHold => Input.GetKey(KeyCode.Space);
     }
 }

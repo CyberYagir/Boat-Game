@@ -12,13 +12,40 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] protected Image image;
         private TickService tickService;
         protected Vector3 startPosition;
-        
-        public virtual void Init(TickService tickService, GameStateService gameStateService)
+
+        private bool isPressed = false;
+        private bool isSpaceHold = false;
+        private UIService uiService;
+
+        public virtual void Init(TickService tickService, GameStateService gameStateService, UIService uiService)
         {
+            this.uiService = uiService;
             this.tickService = tickService;
             startPosition = button.anchoredPosition;
             
             gameStateService.OnChangeEState += GameStateServiceOnOnChangeEState;
+            
+            tickService.OnTick += OnTick;
+        }
+
+        private void OnTick(float obj)
+        {
+            if (InputService.SpaceHold)
+            {
+                if (!isPressed && !isSpaceHold && !uiService.WindowManager.isAnyWindowOpened)
+                {
+                    ButtonDown();
+                    isSpaceHold = true;
+                }
+            }
+            else
+            {
+                if (isPressed && isSpaceHold || uiService.WindowManager.isAnyWindowOpened)
+                {
+                    ButtonUp();
+                    isSpaceHold = false;
+                }
+            }
         }
 
         public virtual void GameStateServiceOnOnChangeEState(GameStateService.EGameState mewState)
@@ -35,6 +62,8 @@ namespace Content.Scripts.BoatGame.UI
 
         public void ButtonDown()
         {
+            if (isPressed) return;
+            isPressed = true;
             button.DOScale(Vector3.one * 0.8f, 0.2f);
             image.DOFade(0.8f, 0.2f);
             OnButtonDown();
@@ -48,6 +77,8 @@ namespace Content.Scripts.BoatGame.UI
             
         public void ButtonUp()
         {
+            if (!isPressed) return;
+            isPressed = false;
             button.DOScale(Vector3.one, 0.2f);
             image.DOFade(1f, 0.2f);
 

@@ -80,9 +80,9 @@ namespace Content.Scripts.BoatGame.Services
             deathWindow.Init(characterService, saveDataObject, scenesService);
             
             actionManager.Init(selectionService);
-            rewindButton.Init(tickService, gameStateService);
+            rewindButton.Init(tickService, gameStateService, this);
             mapButton.Init(raftBuildService, scenesService, saveService);
-            stopBuildButton.Init(tickService, gameStateService);
+            stopBuildButton.Init(tickService, gameStateService, this);
             exitIslandButton.Init(messageBoxManager, saveService, scenesService);
             
             chestShow.Init(gameDataObject, selectionService);

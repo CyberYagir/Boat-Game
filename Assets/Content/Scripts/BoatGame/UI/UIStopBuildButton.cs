@@ -8,10 +8,10 @@ namespace Content.Scripts.BoatGame.UI
     {
         private GameStateService gameStateService;
 
-        public override void Init(TickService tickService, GameStateService gameStateService)
+        public override void Init(TickService tickService, GameStateService gameStateService, UIService uiService)
         {
             this.gameStateService = gameStateService;
-            base.Init(tickService, gameStateService);
+            base.Init(tickService, gameStateService, uiService);
             button.anchoredPosition = startPosition + Vector3.down * 1000;
         }
 
