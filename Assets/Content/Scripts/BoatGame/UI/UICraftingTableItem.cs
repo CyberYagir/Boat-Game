@@ -21,15 +21,17 @@ namespace Content.Scripts.BoatGame.UI
             if (base.UpdateItem())
             {
                 transform.SetSiblingIndex(0);
-                int canHoldItems = resourcesService.GetEmptySpace();
 
-                for (int i = 0; i < Item.Ingredients.Count; i++)
+                var craftsOffcet = 0;
+                for (int i = 0; i < item.Ingredients.Count; i++)
                 {
-                    canHoldItems += Item.Ingredients[i].Count;
+                    if (item.Ingredients[i].ResourceName.HasSize)
+                    {
+                        craftsOffcet += item.Ingredients.Count;
+                    }
                 }
-
-
-                if (canHoldItems < Item.FinalItem.Count)
+                
+                if (!resourcesService.GetGlobalEmptySpace(Item.FinalItem.ToStorageItem(), craftsOffcet))
                 {
                     button.SetTransparent();
                 }

@@ -85,10 +85,10 @@ namespace Content.Scripts.BoatGame.Services
             }
         }
 
-        public bool GetGlobalEmptySpace(RaftStorage.StorageItem storageItem)
+        public bool GetGlobalEmptySpace(RaftStorage.StorageItem storageItem, int offcet = 0)
         {
             if (!storageItem.Item.HasSize) return true;
-            return GetEmptySpace() >= storageItem.Count;
+            return GetEmptySpace() + offcet >= storageItem.Count;
         }
 
         public int GetEmptySpace()

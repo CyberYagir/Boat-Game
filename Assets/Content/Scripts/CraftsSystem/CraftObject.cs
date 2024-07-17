@@ -19,6 +19,8 @@ namespace Content.Scripts.CraftsSystem
             public int Count => count;
 
             public ItemObject ResourceName => item;
+
+            public RaftStorage.StorageItem ToStorageItem() => new RaftStorage.StorageItem(item, count);
         }
         
         public enum ECraftType

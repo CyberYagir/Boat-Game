@@ -11,24 +11,24 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private bool canShowOnlySingle;
 
         private bool isOpen;
-        private UIService uiService;
+        private UIService uiServiceCached;
 
         public bool IsOpen => isOpen;
 
         public event Action<AnimatedWindow> OnOpen;
         public event Action<AnimatedWindow> OnClose;
 
-        public void InitWindow(UIService uiService)
+        public void InitWindow(UIService uiServiceCached)
         {
-            this.uiService = uiService;
+            this.uiServiceCached = uiServiceCached;
         }
 
         public virtual void ShowWindow()
         {
             if (canShowOnlySingle)
             {
-                if (uiService != null){
-                    if (uiService.WindowManager.isAnyWindowOpened)
+                if (uiServiceCached != null){
+                    if (uiServiceCached.WindowManager.isAnyWindowOpened)
                     {
                         return;
                     }
