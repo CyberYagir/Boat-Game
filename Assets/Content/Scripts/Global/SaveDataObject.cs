@@ -711,15 +711,15 @@ namespace Content.Scripts.Global
             public class PlotItem
             {
                 [SerializeField] private int islandIDs;
-                [SerializeField] private string plotLine;
+                [SerializeField] private int plotRowNumber;
 
-                public PlotItem(int islandIDs, string plotLine)
+                public PlotItem(int islandIDs, int plotRowNumber)
                 {
                     this.islandIDs = islandIDs;
-                    this.plotLine = plotLine;
+                    this.plotRowNumber = plotRowNumber;
                 }
 
-                public string PlotLine => plotLine;
+                public int PlotRowNumber => plotRowNumber;
 
                 public int IslandIDs => islandIDs;
             }
@@ -767,7 +767,7 @@ namespace Content.Scripts.Global
                         island = Islands.GetRandomItem(rnd);
                     }
                     
-                    PlotParts.Add(new PlotItem(island.IslandSeed, lines[linesCounter]));
+                    PlotParts.Add(new PlotItem(island.IslandSeed, linesCounter));
                     linesCounter++;
 
                     if (linesCounter >= lines.Count) linesCounter = 0;
