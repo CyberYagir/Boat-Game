@@ -706,32 +706,82 @@ namespace Content.Scripts.Global
 
                 public bool HasVillage() => villagesData.Count != 0;
             }
+            
+            [System.Serializable]
+            public class PlotItem
+            {
+                [SerializeField] private int islandIDs;
+                [SerializeField] private string plotLine;
 
+                public PlotItem(int islandIDs, string plotLine)
+                {
+                    this.islandIDs = islandIDs;
+                    this.plotLine = plotLine;
+                }
+
+                public string PlotLine => plotLine;
+
+                public int IslandIDs => islandIDs;
+            }
+
+            
             [SerializeField] private int worldSeed = 0;
-            [SerializeField] private List<IslandData> islands;
-
+            [SerializeField] private List<IslandData> islands = new List<IslandData>();
+            [SerializeField] private List<PlotItem> plotParts = new List<PlotItem>();
 
             public bool IsGenerated => WorldSeed != 0;
             public int WorldSeed => worldSeed;
 
             public List<IslandData> Islands => islands;
 
+            public List<PlotItem> PlotParts => plotParts;
 
-            public void SetSeed(GameDataObject gameDataObject)
+            public void GenerateWorld(GameDataObject gameDataObject)
             {
                 worldSeed = Random.Range(Int32.MinValue, Int32.MaxValue);
                 if (worldSeed == 0)
                 {
-                    SetSeed(gameDataObject);
+                    GenerateWorld(gameDataObject);
                     return;
                 }
 
                 islands = MapNoiseGenerator.GetIslandPoints(worldSeed, gameDataObject.MapPaths, gameDataObject.ConfigData.MapNoisePreset);
+                
+                GeneratePlotData(gameDataObject);
+            }
+
+            private void GeneratePlotData(GameDataObject gameDataObject)
+            {
+                var lines = gameDataObject.PlotLines.LinesToList();
+                var rnd = new System.Random(WorldSeed);
+                var plotPartsCount = islands.Count/gameDataObject.ConfigData.PlotPerIslands;
+
+                int linesCounter = 0;
+                
+                for (int i = 0; i < plotPartsCount; i++)
+                {
+                    var island = Islands.GetRandomItem(rnd);
+                        
+                    while (PlotParts.Find(x => x.IslandIDs == island.IslandSeed) != null)
+                    {
+                        island = Islands.GetRandomItem(rnd);
+                    }
+                    
+                    PlotParts.Add(new PlotItem(island.IslandSeed, lines[linesCounter]));
+                    linesCounter++;
+
+                    if (linesCounter >= lines.Count) linesCounter = 0;
+                }
             }
 
             public IslandData GetIslandData(int seed)
             {
                 return islands.Find(x => x.IslandSeed == seed);
+            }
+
+            public bool IsHavePlotOnIsland(int islandSeed)
+            {
+                return PlotParts.Find(x => x.IslandIDs == islandSeed) != null;
             }
         }
         

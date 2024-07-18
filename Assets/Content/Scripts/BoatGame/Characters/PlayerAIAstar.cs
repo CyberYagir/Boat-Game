@@ -23,6 +23,7 @@ namespace Content.Scripts.BoatGame.Characters
 
         public void SetDestination(Vector3 target)
         {
+            SetStopped(false);
             aiPath.destination = target;
         }
 

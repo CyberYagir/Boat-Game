@@ -61,7 +61,12 @@ namespace Content.Scripts.IslandGame.Services
             zoom = Mathf.Clamp01(zoom);
             cameraSpeed = Mathf.Lerp(minCameraSpeed, maxCameraSpeed, zoom);
 
-            cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraPosition + offcet, TimeService.UnscaledDelta * cameraSpeed);
+            var nextPosXYZ = cameraPosition + offcet;
+            var lerpPosXZ = Vector3.Lerp(cameraTransform.position, nextPosXYZ, TimeService.UnscaledDelta * cameraSpeed);
+            var yLerp = Mathf.Lerp(cameraTransform.position.y, nextPosXYZ.y, TimeService.UnscaledDelta * 10f);
+            
+            
+            cameraTransform.position = new Vector3(lerpPosXZ.x, yLerp, lerpPosXZ.z);
 
             var localZoomPos = Vector3.Lerp(minZoomPoint.localPosition, maxZoomPoint.localPosition, zoom);
 

@@ -13,6 +13,7 @@ namespace Content.Scripts.Global
         [SerializeField] private float actionsTutorialActiveTime;
         [SerializeField] private int actionsCountToTutorial;
         [SerializeField] private int paddlesToTravelCount;
+        [SerializeField] private int plotPerIsland = 5;
         [SerializeField] private float slaveStaminaWorkingPerSecond = 3.33f;
         [SerializeField] private float slaveEatEfficiencyMultiplier = 0.3f;
         [SerializeField] private ItemObject paddleItem;
@@ -34,5 +35,6 @@ namespace Content.Scripts.Global
 
         public float SlaveStaminaWorkingPerSecond => slaveStaminaWorkingPerSecond;
         public float SlaveEatEfficiencyMultiplier => slaveEatEfficiencyMultiplier;
+        public int PlotPerIslands => plotPerIsland;
     }
 }

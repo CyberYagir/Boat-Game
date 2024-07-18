@@ -68,6 +68,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             
             if (Agent.TryBuildPath(point, out Vector3 newPoint))
             {
+                
                 Agent.SetDestination(newPoint);
                 Agent.SetTargetPoint(point);
                 return true;
@@ -95,7 +96,7 @@ namespace Content.Scripts.BoatGame.Characters.States
                             {
                                 if (Physics.Raycast(targetPoint + offcet, Vector3.down, out hit, Mathf.Infinity, terrainMask, QueryTriggerInteraction.Ignore))
                                 {
-                                    if (hit.collider.GetComponent<Terrain>())
+                                    if (hit.collider.transform.gameObject.layer == LayerMask.NameToLayer("Terrain"))
                                     {
                                         var raftDelta = (Machine.BuildService.RaftEndPoint.position - Machine.BuildService.Holder.transform.position);
 

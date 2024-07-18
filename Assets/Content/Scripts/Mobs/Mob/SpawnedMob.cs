@@ -86,7 +86,7 @@ namespace Content.Scripts.Mobs.Mob
                     deadPoofParticles.Play(true);
                     Destroy(deadPoofParticles.gameObject, 2f);
                 }
-            }).onComplete += delegate
+            }).SetLink(gameObject).onComplete += delegate
             {
                 Destroy(gameObject, 2f);
             };

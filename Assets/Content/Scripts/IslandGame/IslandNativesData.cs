@@ -127,28 +127,11 @@ namespace Content.Scripts.IslandGame
                         }
                     }
 
-                    int maxCalGap = 0;
-                    for (int i = 0; i < points.Count; i++)
+                    if (isAllOk)
                     {
-                        for (int j = 0; j < points.Count; j++)
-                        {
-                            var delta = Mathf.Abs(points[i].y - points[j].y);
-                            if (delta > maxCalGap)
-                            {
-                                maxCalGap = (int) delta;
-
-                                if (maxCalGap > maxGap)
-                                {
-                                    DrawDebugIndicator(village.transform, Color.white);
-                                    isAllOk = false;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (!isAllOk) break;
+                        isAllOk = IsGapAvailable(points);
                     }
-                    
+
                     if (isAllOk)
                     {
                         saveData.GetTargetIsland().AddVillage(village.Uid);
@@ -164,6 +147,8 @@ namespace Content.Scripts.IslandGame
             Object.Destroy(village.gameObject);
 
         }
+
+
 
 
         public void Gizmo()

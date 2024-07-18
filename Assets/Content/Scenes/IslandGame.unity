@@ -276,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 2146359578}
   zoomTransform: {fileID: 1449519363}
-  cameraSpeed: 60
+  cameraSpeed: 5
   minCameraSpeed: 40
   maxCameraSpeed: 220
   cameraZoomSpeed: 20
@@ -866,7 +866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379296136993171072, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -19.100098
+      value: -19.100159
       objectReference: {fileID: 0}
     - target: {fileID: 1379296137250888706, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3252,6 +3252,7 @@ GameObject:
   - component: {fileID: 1737859043}
   - component: {fileID: 1737859044}
   - component: {fileID: 1737859045}
+  - component: {fileID: 1737859046}
   m_Layer: 0
   m_Name: IsalndGeneratorService
   m_TagString: Untagged
@@ -3290,6 +3291,7 @@ MonoBehaviour:
   spawnModules:
   - {fileID: 1737859044}
   - {fileID: 1737859045}
+  - {fileID: 1737859046}
   minGrassHeight: 1
   islandData:
     level: 0
@@ -3382,7 +3384,7 @@ MonoBehaviour:
   waterSourcePrefab: {fileID: 3183626552847265487, guid: d023bceecf3fac6429a757c6ad72518a, type: 3}
   generateObjectCalculator:
     accuracy: 60
-    maxGap: 5
+    maxGap: 2
     maxAngle: 50
     minY: 1
     terrainBorder: 0.1
@@ -3391,6 +3393,35 @@ MonoBehaviour:
   - {fileID: 8574412962073106934, guid: a28af33e7a12c224f94e34c4dee01cba, type: 2}
   - {fileID: 8574412962073106934, guid: c5f8f21a44cb6ef4eb76b421e19eec15, type: 2}
   - {fileID: 8574412962073106934, guid: b288854cd1f9db945804e2a3c005fa02, type: 2}
+--- !u!114 &1737859046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737859040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e90d1168878e9f24a8731a772a833372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obiliskPrefab: {fileID: 6539445717661782098, guid: 6e2c2023f76fec24181c438baadae667, type: 3}
+  generateObjectCalculator:
+    accuracy: 50
+    maxGap: 10
+    maxAngle: 50
+    minY: 1
+    terrainBorder: 0.1
+  allowedLayers:
+  - {fileID: 8574412962073106934, guid: b288854cd1f9db945804e2a3c005fa02, type: 2}
+  - {fileID: 8574412962073106934, guid: 022cdb4905f3c1743999e4e0ad6bbf5e, type: 2}
+  - {fileID: 8574412962073106934, guid: a28af33e7a12c224f94e34c4dee01cba, type: 2}
+  - {fileID: 8574412962073106934, guid: 9900121e85ffe6844b406557758d03bc, type: 2}
+  - {fileID: 8574412962073106934, guid: b0cd482d281c10a489f8ae32c6a7ffab, type: 2}
+  - {fileID: 8574412962073106934, guid: 60f92a00750767b4cbcab5ac916a57b0, type: 2}
+  - {fileID: 8574412962073106934, guid: c3c581171dd08754ba772ff1a336e549, type: 2}
+  - {fileID: 8574412962073106934, guid: c5f8f21a44cb6ef4eb76b421e19eec15, type: 2}
+  - {fileID: 8574412962073106934, guid: 34e0bb1e605ca8b458854eaba6cdd227, type: 2}
 --- !u!1 &1787757237
 GameObject:
   m_ObjectHideFlags: 0

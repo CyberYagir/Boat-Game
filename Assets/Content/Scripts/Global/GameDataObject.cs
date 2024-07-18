@@ -88,6 +88,7 @@ namespace Content.Scripts.Global
         [SerializeField] private RaftsPriorityObject raftsPriorityData;
         [SerializeField] private NativesListSO nativesListData;
         [SerializeField] private TradesDataObject tradesData;
+        [SerializeField] private TextAsset plotLines;
         
         [SerializeField] private NameGenerator namesList = new NameGenerator();
         [SerializeField] private List<SkillObject> skillsList;
@@ -127,6 +128,8 @@ namespace Content.Scripts.Global
         public NativesListSO NativesListData => nativesListData;
 
         public TradesDataObject TradesData => tradesData;
+
+        public TextAsset PlotLines => plotLines;
 
 
         public ItemObject GetItem(string id)

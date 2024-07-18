@@ -133,7 +133,7 @@ namespace Content.Scripts.ManCreator
             saveData.Characters.AddCharacter(character);
             if (!saveData.Map.IsGenerated)
             {
-                saveData.Map.SetSeed(gameData);
+                saveData.Map.GenerateWorld(gameData);
             }
             saveData.SaveFile();
         }

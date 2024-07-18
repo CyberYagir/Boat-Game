@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Content.Scripts.IslandGame.WorldStructures;
 using UnityEngine;
 using Random = System.Random;
@@ -92,6 +93,30 @@ namespace Content.Scripts.IslandGame
         public void SetIslandGenerator(IslandGenerator islandGenerator)
         {
             this.islandGenerator = islandGenerator;
+        }
+        
+        
+        public bool IsGapAvailable(List<Vector3> points)
+        {
+            int maxCalGap = 0;
+            for (int i = 0; i < points.Count; i++)
+            {
+                for (int j = 0; j < points.Count; j++)
+                {
+                    var delta = Mathf.Abs(points[i].y - points[j].y);
+                    if (delta > maxCalGap)
+                    {
+                        maxCalGap = (int) delta;
+
+                        if (maxCalGap > maxGap)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }
