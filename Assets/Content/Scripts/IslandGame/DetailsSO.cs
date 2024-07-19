@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = System.Random;
 
@@ -18,11 +19,11 @@ namespace Content.Scripts.IslandGame
         {
             List<DetailPrototype> prototypes = new List<DetailPrototype>();
 
-            for (int i = 0; i < prefabs.Count; i++)
+            for (int i = 0; i < weightedPrefabs.Count; i++)
             {
                 prototypes.Add(new DetailPrototype()
                 {
-                    prototype = prefabs[i],
+                    prototype = weightedPrefabs[i].Prefab,
                     prototypeTexture = null,
                     alignToGround = 0,
                     maxHeight = scaleRange.Evaluate(1f) * scalePower,
@@ -40,11 +41,6 @@ namespace Content.Scripts.IslandGame
             }
 
             return prototypes;
-        }
-
-        public bool IsHaveTarget(GameObject prototype)
-        {
-            return prefabs.Contains(prototype);
         }
     }
 }

@@ -317,7 +317,11 @@ namespace Content.Scripts.IslandGame
                 itemID += biome.TreesData[i].Count;
             }
 
-            var targetBiomeItem = rnd.Next(1, treesSO.Count);
+
+
+            treesSO.PrepareWeights();
+            var targetBiomeItem = treesSO.GetRandomTreeIndexByWeight();
+            
             itemID += targetBiomeItem;
 
             var tree = new TreeInstance()

@@ -18,11 +18,11 @@ namespace Content.Scripts.IslandGame
         {
             List<TreePrototype> prototypes = new List<TreePrototype>();
 
-            for (int i = 0; i < prefabs.Count; i++)
+            for (int i = 0; i < weightedPrefabs.Count; i++)
             {
                 prototypes.Add(new TreePrototype()
                 {
-                    prefab = prefabs[i],
+                    prefab = weightedPrefabs[i].Prefab,
                     bendFactor = 0,
                     navMeshLod = 0
                 });
@@ -39,7 +39,24 @@ namespace Content.Scripts.IslandGame
 
         public GameObject GetObjectByID(int targetBiomeItem)
         {
-            return prefabs[targetBiomeItem];
+            return weightedPrefabs[targetBiomeItem].Prefab;
         }
+
+        private List<float> weights = new List<float>();
+
+        public void PrepareWeights()
+        {
+            if (weights.Count == 0)
+            {
+                for (int i = 0; i < weightedPrefabs.Count; i++)
+                {
+                    weights.Add(weightedPrefabs[i].Weight);
+                }
+                
+                weights.RecalculateWeights();
+            }
+        }
+
+        public int GetRandomTreeIndexByWeight() => weights.ChooseRandomIndexFromWeights();
     }
 }

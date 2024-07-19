@@ -36,11 +36,8 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         protected override void OnMoveEnded()
         {
-            if (Vector3.Distance(selectedShaman.transform.position, Machine.transform.position) < 3)
-            {
-                OnOpenWindow?.Invoke(selectedShaman.VillageData.VillageID, selectedShaman.VillageData.IslandData.Level);
-            }
-            EndState();
+            OnOpenWindow?.Invoke(selectedShaman.VillageData.VillageID, selectedShaman.VillageData.IslandData.Level);
+            base.OnMoveEnded();
         }
 
         public override void EndState()

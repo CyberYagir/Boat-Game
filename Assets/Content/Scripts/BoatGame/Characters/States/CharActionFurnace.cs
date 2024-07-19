@@ -29,5 +29,11 @@ namespace Content.Scripts.BoatGame.Characters.States
                 MoveToPoint(furnace.transform.position);
             }
         }
+        
+        protected override void OnMoveEnded()
+        {
+            OnOpenWindow?.Invoke();
+            base.OnMoveEnded();
+        }
     }
 }

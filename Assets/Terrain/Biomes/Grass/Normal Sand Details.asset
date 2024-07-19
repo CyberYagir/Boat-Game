@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17013895bb6d4e2facdcb36e0ac5b0f9, type: 3}
   m_Name: Normal Sand Details
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 8543215162198129389, guid: d3f3975966ebd6f4a937a756d5422c7d, type: 3}
-  - {fileID: 4205105048058478347, guid: 91f59e2049aaf4b40b74f4f4e6f114d8, type: 3}
-  - {fileID: 3062401166911388754, guid: 43d44bf9691c7d748bbb25307cd92fc5, type: 3}
+  prefabs: []
+  weightedPrefabs:
+  - weight: 100
+    prefab: {fileID: 8543215162198129389, guid: d3f3975966ebd6f4a937a756d5422c7d, type: 3}
+  - weight: 100
+    prefab: {fileID: 4205105048058478347, guid: 91f59e2049aaf4b40b74f4f4e6f114d8, type: 3}
+  - weight: 100
+    prefab: {fileID: 3062401166911388754, guid: 43d44bf9691c7d748bbb25307cd92fc5, type: 3}
   activeLayers:
   - {fileID: 8574412962073106934, guid: c3c581171dd08754ba772ff1a336e549, type: 2}
   - {fileID: 8574412962073106934, guid: 022cdb4905f3c1743999e4e0ad6bbf5e, type: 2}
@@ -49,3 +53,4 @@ MonoBehaviour:
   - 0.25
   - 0.1
   - 0.1
+  densityScale: 1024

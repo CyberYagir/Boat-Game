@@ -26,7 +26,8 @@ namespace Content.Scripts.BoatGame.Characters
         Furnace,
         GetFromSourceWater,
         VillageViewInfo,
-        HitAWoman
+        HitAWoman,
+        LoreView
     }
 
     

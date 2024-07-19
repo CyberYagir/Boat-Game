@@ -12,15 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158ea5aa8d974a38b8db2ac5b37884c4, type: 3}
   m_Name: Winter Trees
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 5624360623730733384, guid: dfccea1abcfb8274490fec964b88c170, type: 3}
-  - {fileID: 8250005803616111206, guid: 93030acce4be1534b895600866f23594, type: 3}
-  - {fileID: 7946889816826149561, guid: 6ae85c6046dd2db46ad3aefa336da3c6, type: 3}
-  - {fileID: 7456253955972316588, guid: 1647e89c9dd165c4abe30ebfb40f7eb0, type: 3}
-  - {fileID: 7946889816826149561, guid: 6ae85c6046dd2db46ad3aefa336da3c6, type: 3}
-  - {fileID: 7456253955972316588, guid: 1647e89c9dd165c4abe30ebfb40f7eb0, type: 3}
-  - {fileID: 7946889816826149561, guid: 6ae85c6046dd2db46ad3aefa336da3c6, type: 3}
-  - {fileID: 7456253955972316588, guid: 1647e89c9dd165c4abe30ebfb40f7eb0, type: 3}
+  prefabs: []
+  weightedPrefabs:
+  - weight: 100
+    prefab: {fileID: 5624360623730733384, guid: dfccea1abcfb8274490fec964b88c170, type: 3}
+  - weight: 100
+    prefab: {fileID: 8250005803616111206, guid: 93030acce4be1534b895600866f23594, type: 3}
+  - weight: 100
+    prefab: {fileID: 7946889816826149561, guid: 6ae85c6046dd2db46ad3aefa336da3c6, type: 3}
+  - weight: 100
+    prefab: {fileID: 7456253955972316588, guid: 1647e89c9dd165c4abe30ebfb40f7eb0, type: 3}
+  - weight: 100
+    prefab: {fileID: 7946889816826149561, guid: 6ae85c6046dd2db46ad3aefa336da3c6, type: 3}
+  - weight: 100
+    prefab: {fileID: 7456253955972316588, guid: 1647e89c9dd165c4abe30ebfb40f7eb0, type: 3}
+  - weight: 100
+    prefab: {fileID: 7946889816826149561, guid: 6ae85c6046dd2db46ad3aefa336da3c6, type: 3}
+  - weight: 100
+    prefab: {fileID: 7456253955972316588, guid: 1647e89c9dd165c4abe30ebfb40f7eb0, type: 3}
   activeLayers:
   - {fileID: 8574412962073106934, guid: c5f8f21a44cb6ef4eb76b421e19eec15, type: 2}
   - {fileID: 8574412962073106934, guid: b288854cd1f9db945804e2a3c005fa02, type: 2}
@@ -51,6 +60,7 @@ MonoBehaviour:
   scalePower: 1.35
   maxAngle: 50
   treesDensity: 1
+  minLevel: 0
   noise:
     mapWidth: 1024
     mapHeight: 1024

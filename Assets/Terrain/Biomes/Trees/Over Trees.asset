@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158ea5aa8d974a38b8db2ac5b37884c4, type: 3}
   m_Name: Over Trees
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 7659529291565243796, guid: 9345c176c7106ed4993461bd4a92e42f, type: 3}
-  - {fileID: 2005653562167937708, guid: 91e0fbada8702284fb5de99e53960d85, type: 3}
-  - {fileID: 6571056799604355547, guid: 5d31a16dd2606b74098e2b7a708e1a36, type: 3}
-  - {fileID: 6190567507744028986, guid: e74829fb06d01fa47934ad0159fe0e4f, type: 3}
+  prefabs: []
+  weightedPrefabs:
+  - weight: 100
+    prefab: {fileID: 7659529291565243796, guid: 9345c176c7106ed4993461bd4a92e42f, type: 3}
+  - weight: 100
+    prefab: {fileID: 2005653562167937708, guid: 91e0fbada8702284fb5de99e53960d85, type: 3}
+  - weight: 100
+    prefab: {fileID: 6571056799604355547, guid: 5d31a16dd2606b74098e2b7a708e1a36, type: 3}
+  - weight: 100
+    prefab: {fileID: 6190567507744028986, guid: e74829fb06d01fa47934ad0159fe0e4f, type: 3}
   activeLayers:
   - {fileID: 8574412962073106934, guid: 60f92a00750767b4cbcab5ac916a57b0, type: 2}
   - {fileID: 8574412962073106934, guid: a28af33e7a12c224f94e34c4dee01cba, type: 2}
@@ -47,6 +52,7 @@ MonoBehaviour:
   scalePower: 1
   maxAngle: 50
   treesDensity: 1
+  minLevel: 0
   noise:
     mapWidth: 1024
     mapHeight: 1024

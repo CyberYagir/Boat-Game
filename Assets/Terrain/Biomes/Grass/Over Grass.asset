@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17013895bb6d4e2facdcb36e0ac5b0f9, type: 3}
   m_Name: Over Grass
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 8075722608749565515, guid: 1826df3b423985a4fb85588a6ffa9375, type: 3}
-  - {fileID: 750348235382540562, guid: ba6e1b71d501e1c4ab487a8d28eea5f9, type: 3}
-  - {fileID: 6875380684206444352, guid: ccdc10c51a5f9f7428fd56f12a13573e, type: 3}
-  - {fileID: 6865657747046245590, guid: e75550586d6b5fd40b95ce5071e46096, type: 3}
+  prefabs: []
+  weightedPrefabs:
+  - weight: 100
+    prefab: {fileID: 8075722608749565515, guid: 1826df3b423985a4fb85588a6ffa9375, type: 3}
+  - weight: 100
+    prefab: {fileID: 750348235382540562, guid: ba6e1b71d501e1c4ab487a8d28eea5f9, type: 3}
+  - weight: 100
+    prefab: {fileID: 6875380684206444352, guid: ccdc10c51a5f9f7428fd56f12a13573e, type: 3}
+  - weight: 100
+    prefab: {fileID: 6865657747046245590, guid: e75550586d6b5fd40b95ce5071e46096, type: 3}
   activeLayers:
   - {fileID: 8574412962073106934, guid: a28af33e7a12c224f94e34c4dee01cba, type: 2}
   scaleRange:

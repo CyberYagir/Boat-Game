@@ -7,15 +7,31 @@ namespace Content.Scripts.IslandGame
 {
     public class ObjectsSO : ScriptableObject
     {
+        [System.Serializable]
+        public class WeightedPrefab
+        {
+            [SerializeField] private int weight;
+            [SerializeField, PreviewField] private GameObject prefab;
+
+            public WeightedPrefab(GameObject pr, int i)
+            {
+                weight = i;
+                prefab = pr;
+            }
+
+            public GameObject Prefab => prefab;
+
+            public int Weight => weight;
+        }
+        [SerializeField, TableList] protected List<WeightedPrefab> weightedPrefabs;
         
-        [SerializeField, PreviewField] protected List<GameObject> prefabs;
         [SerializeField] protected List<TerrainLayer> activeLayers;
         [SerializeField] protected AnimationCurve scaleRange;
         [SerializeField] protected float scalePower = 1f;
         [SerializeField] private float maxAngle = 50;
 
         public float MaxAngle => maxAngle;        
-        public int Count => prefabs.Count;
+        public int Count => weightedPrefabs.Count;
 
 
         public virtual bool IsCanPlace(TerrainLayer textureLayer)
