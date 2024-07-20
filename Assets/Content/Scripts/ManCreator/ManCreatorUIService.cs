@@ -152,8 +152,10 @@ namespace Content.Scripts.ManCreator
 
         public void Apply()
         {
-            characterService.ApplyCharacter();
-            scenesService.FadeScene(ESceneName.BoatGame);
+            scenesService.FadeScene(ESceneName.BoatGame, delegate
+            {
+                characterService.ApplyCharacter();
+            });
         }
     }
 }

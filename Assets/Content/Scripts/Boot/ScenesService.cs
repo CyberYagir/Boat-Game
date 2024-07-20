@@ -46,6 +46,15 @@ namespace Content.Scripts.Boot
                 ChangeScene(name);
             });
         }
+        
+        public void FadeScene(ESceneName name, Action onFadeEnd)
+        {
+            fader.Fade(delegate
+            {
+                onFadeEnd?.Invoke();
+                ChangeScene(name);
+            });
+        }
 
         public AsyncOperation AddScene(ESceneName name)
         {

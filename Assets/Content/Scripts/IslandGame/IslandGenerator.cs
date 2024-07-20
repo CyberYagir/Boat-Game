@@ -320,7 +320,7 @@ namespace Content.Scripts.IslandGame
 
 
             treesSO.PrepareWeights();
-            var targetBiomeItem = treesSO.GetRandomTreeIndexByWeight();
+            var targetBiomeItem = treesSO.GetRandomTreeIndexByWeight(rnd);
             
             itemID += targetBiomeItem;
 

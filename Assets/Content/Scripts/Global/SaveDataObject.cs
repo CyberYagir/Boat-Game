@@ -712,6 +712,7 @@ namespace Content.Scripts.Global
             {
                 [SerializeField] private int islandIDs;
                 [SerializeField] private int plotRowNumber;
+                [SerializeField] private bool isCollected;
 
                 public PlotItem(int islandIDs, int plotRowNumber)
                 {
@@ -719,9 +720,12 @@ namespace Content.Scripts.Global
                     this.plotRowNumber = plotRowNumber;
                 }
 
+                public void SetCollected() => isCollected = true;
+
                 public int PlotRowNumber => plotRowNumber;
 
                 public int IslandIDs => islandIDs;
+                public bool Collected => isCollected;
             }
 
             
@@ -745,8 +749,13 @@ namespace Content.Scripts.Global
                     return;
                 }
 
-                islands = MapNoiseGenerator.GetIslandPoints(worldSeed, gameDataObject.MapPaths, gameDataObject.ConfigData.MapNoisePreset);
-                
+                while (islands.Count < 40 || islands.Count > 140)
+                {
+                    worldSeed = Random.Range(Int32.MinValue, Int32.MaxValue);
+                    islands = MapNoiseGenerator.GetIslandPoints(worldSeed, gameDataObject.MapPaths, gameDataObject.ConfigData.MapNoisePreset);
+                }
+
+
                 GeneratePlotData(gameDataObject);
             }
 
@@ -769,7 +778,6 @@ namespace Content.Scripts.Global
                     
                     PlotParts.Add(new PlotItem(island.IslandSeed, linesCounter));
                     linesCounter++;
-
                     if (linesCounter >= lines.Count) linesCounter = 0;
                 }
             }
@@ -782,6 +790,17 @@ namespace Content.Scripts.Global
             public bool IsHavePlotOnIsland(int islandSeed)
             {
                 return PlotParts.Find(x => x.IslandIDs == islandSeed) != null;
+            }
+
+            public int GetPlotBySeed(int islandSeed)
+            {
+                var item = plotParts.Find(x => x.IslandIDs == islandSeed);
+                return item?.PlotRowNumber ?? -1;
+            }
+            public PlotItem GetPlotDataBySeed(int islandSeed)
+            {
+                var item = plotParts.Find(x => x.IslandIDs == islandSeed);
+                return item;
             }
         }
         

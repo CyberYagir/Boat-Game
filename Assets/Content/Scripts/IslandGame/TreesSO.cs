@@ -57,6 +57,6 @@ namespace Content.Scripts.IslandGame
             }
         }
 
-        public int GetRandomTreeIndexByWeight() => weights.ChooseRandomIndexFromWeights();
+        public int GetRandomTreeIndexByWeight(System.Random rnd) => weights.ChooseRandomIndexFromWeights(rnd);
     }
 }

@@ -52,6 +52,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIStoragesCounter storagesCounter;
         [SerializeField] private UIFurnaceWindow furnaceWindow;
         [SerializeField] private UIVillageOptionsWindow villageWindow;
+        [SerializeField] private UILoreScrollWindow loreScrollWindow;
         [SerializeField] private RenameIslandWindow renameIslandWindow;
         
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
@@ -104,13 +105,18 @@ namespace Content.Scripts.BoatGame.Services
                 {
                     villageWindow?.Init(selectionService, raftBuildService, saveDataObject, gameDataObject, resourcesService, tickService, this, messageBoxManager);
                 }
+
+                if (saveDataObject.Map.IsHavePlotOnIsland(saveDataObject.GetTargetIsland().IslandSeed))
+                {
+                    loreScrollWindow.Init(selectionService, saveDataObject, gameDataObject, this.resourcesService);
+                }
             }
 
             resourcesList.Init(raftBuildService, gameDataObject, resourcesService, tickService);
             storagesCounter.Init(raftBuildService);
 
 
-            windowsManager.Init(this, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow);
+            windowsManager.Init(this, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow);
             
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
             resourcesService.OnChangeResources += OnChangeResources;
