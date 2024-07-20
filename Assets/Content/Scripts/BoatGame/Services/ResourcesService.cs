@@ -16,7 +16,8 @@ namespace Content.Scripts.BoatGame.Services
         Water,
         Build,
         Money,
-        Other
+        Other,
+        Potions
     }
 
     public class ResourcesService : MonoBehaviour

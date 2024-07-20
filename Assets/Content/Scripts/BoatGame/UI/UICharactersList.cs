@@ -6,8 +6,6 @@ namespace Content.Scripts.BoatGame.UI
 {
     public class UICharactersList : MonoBehaviour
     {
-
-
         [SerializeField] private Camera camera;
         [SerializeField] private UICharactersListItem item;
 

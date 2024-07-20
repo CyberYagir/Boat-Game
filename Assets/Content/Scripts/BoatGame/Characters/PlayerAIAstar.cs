@@ -122,10 +122,10 @@ namespace Content.Scripts.BoatGame.Characters
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawSphere(Destination, 2f);
+            Gizmos.DrawSphere(Destination, 0.2f);
             
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(TargetPoint + Vector3.up * 0.2f, 2f);
+            Gizmos.DrawSphere(TargetPoint + Vector3.up * 0.2f, 0.2f);
         }
     }
 }

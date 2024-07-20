@@ -42,6 +42,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIMapButton mapButton;
         [SerializeField] private UIStopBuildButton stopBuildButton;
         [SerializeField] private UIChestShow chestShow;
+        [SerializeField] private UIPotionsList potionsList;
         [SerializeField] private UICraftsWindow craftsWindow;
         [SerializeField] private UICraftingTableWindow craftingTableWindow;
         [SerializeField] private UICharacterWindow characterWindow;
@@ -98,7 +99,8 @@ namespace Content.Scripts.BoatGame.Services
             furnaceWindow.Init(selectionService, raftBuildService, tickService, resourcesService);
             renameIslandWindow.Init(saveDataObject);
             charactersList?.Init(characterService, tickService, selectionService);
-
+            
+            
             if (saveDataObject.Global.isOnIsland)
             {
                 if (saveDataObject.GetTargetIsland().HasVillage())
@@ -115,6 +117,7 @@ namespace Content.Scripts.BoatGame.Services
             resourcesList.Init(raftBuildService, gameDataObject, resourcesService, tickService);
             storagesCounter.Init(raftBuildService);
 
+            potionsList.Init(resourcesService);
 
             windowsManager.Init(this, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow);
             
