@@ -99,7 +99,6 @@ namespace Content.Scripts.BoatGame
             private WeatherService.WeatherModifiers currentModifiers;
             private SelectionService selectionService;
             private Character selfCharacter;
-            private float defencePercent = 0;
             
             [SerializeField, ReadOnly] private bool godMode;
             private GameDataObject gameData;
@@ -121,34 +120,9 @@ namespace Content.Scripts.BoatGame
 
                 currentModifiers = weatherService.CurrentModifiers;
                 
-                character.Equipment.OnEquipmentChange += EquipmentOnOnEquipmentChange;
-                
-                CalculateDefencePercent();
-                
                 popUp.Init();
             }
-
-            private void EquipmentOnOnEquipmentChange()
-            {
-                CalculateDefencePercent();
-            }
-
-            private void CalculateDefencePercent()
-            {
-                var armor = gameData.GetItem(selfCharacter.Equipment.ArmorID);
-                var helmet = gameData.GetItem(selfCharacter.Equipment.HelmetID);
-                defencePercent = 0;
-
-                if (armor != null)
-                {
-                    defencePercent += armor.ParametersData.Defence;
-                }
-                
-                if (helmet != null)
-                {
-                    defencePercent += helmet.ParametersData.Defence;
-                }
-            }
+            
 
             public void SetGodMode(bool state = true)
             {
@@ -261,7 +235,7 @@ namespace Content.Scripts.BoatGame
             public void Damage(float dmg)
             {
                 if (godMode) return;
-                health -= dmg * (1f - defencePercent);
+                health -= dmg;
                 HealthCheck();
                 OnDamaged?.Invoke();
             }

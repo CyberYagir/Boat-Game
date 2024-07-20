@@ -117,7 +117,7 @@ namespace ConsoleShell
                         
                         
                     var gameData = Resources.Load<GameDataObject>("GameData");
-                    var item = gameData.Items.Find(x => x.ItemName.ToLower().Trim() == resourceName);
+                    var item = gameData.Items.ItemsList.Find(x => x.ItemName.ToLower().Trim() == resourceName);
                     
                     AddResourceToRaft(item, count, checkStorageSize);
                     
@@ -128,7 +128,7 @@ namespace ConsoleShell
                 var gameData = Resources.Load<GameDataObject>("GameData");
 
                 ConsoleLogger.Log("Items: ", ELogType.Log);
-                foreach (var it in gameData.Items)
+                foreach (var it in gameData.Items.ItemsList)
                 {
                     ConsoleLogger.Log(it.ItemName.Trim().Replace(" ", "_").ToLower(), ELogType.Log);
                 }
@@ -138,7 +138,7 @@ namespace ConsoleShell
             {
                 var gameData = Resources.Load<GameDataObject>("GameData");
 
-                foreach (var it in gameData.Items)
+                foreach (var it in gameData.Items.ItemsList)
                 {
                     if (it.Type != EResourceTypes.Other)
                     {

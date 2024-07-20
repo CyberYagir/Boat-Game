@@ -65,6 +65,36 @@ namespace Content.Scripts.Global
             }
         }
     }
+
+    [System.Serializable]
+    public class ItemsManager
+    {
+        private Dictionary<string, ItemObject> itemsMap = new Dictionary<string, ItemObject>();
+        private List<ItemObject> itemsList;
+
+        public List<ItemObject> ItemsList => itemsList;
+
+        public void Init(List<ItemObject> items)
+        {
+            this.itemsList = items;
+            itemsMap.Clear();
+
+            foreach (var it in items)
+            {
+                itemsMap.Add(it.ID, it);
+            }
+        }
+
+        public ItemObject Find(string id)
+        {
+            if (itemsMap.ContainsKey(id))
+            {
+                return itemsMap[id];
+            }
+
+            return null;
+        }
+    }
     
     [CreateAssetMenu(menuName = "Scriptable/GameData", fileName = "Game Data", order = 0)]
     public class GameDataObject : ScriptableObjectInstaller
@@ -74,8 +104,10 @@ namespace Content.Scripts.Global
             Container.Bind<GameDataObject>().FromInstance(this).AsSingle();
 
             crafts = Resources.LoadAll<CraftObject>("Crafts").ToList();
-            items = Resources.LoadAll<ItemObject>("Item").ToList();
+            var items = Resources.LoadAll<ItemObject>("Item").ToList();
 
+
+            Items.Init(items);
             ActionsData.Init();
             RaftsPriorityData.Init();
             NativesListData.Init();
@@ -89,12 +121,12 @@ namespace Content.Scripts.Global
         [SerializeField] private NativesListSO nativesListData;
         [SerializeField] private TradesDataObject tradesData;
         [SerializeField] private TextAsset plotLines;
+        [SerializeField] private ItemsManager items;
         
         [SerializeField] private NameGenerator namesList = new NameGenerator();
         [SerializeField] private List<SkillObject> skillsList;
         [SerializeField] private List<Material> skinColors;
         [SerializeField] private List<CraftObject> crafts;
-        [SerializeField] private List<ItemObject> items;
         [SerializeField] private List<MobObject> mobs;
         [SerializeField] private List<int> levelXps;
         [SerializeField] private List<MapPathObject> mapPaths;
@@ -121,7 +153,7 @@ namespace Content.Scripts.Global
 
         public ConfigDataObject ConfigData => configData;
 
-        public List<ItemObject> Items => items;
+        public ItemsManager Items => items;
 
         public RaftsPriorityObject RaftsPriorityData => raftsPriorityData;
 
@@ -134,7 +166,7 @@ namespace Content.Scripts.Global
 
         public ItemObject GetItem(string id)
         {
-            return Items.Find(x => x.ID == id);
+            return items.Find(id);
         }
 
 

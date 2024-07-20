@@ -14,8 +14,6 @@ namespace Content.Scripts.BoatGame.Characters.States
         private string targetCharacterWeaponID;
         private ItemObject targetCharacterWeapon;
         private Transform characterHips;
-
-        [SerializeField] private float baseDamage = 15;
         
         public override void ResetState()
         {
@@ -94,14 +92,7 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         public virtual void AttackEnemy()
         {
-            if (targetCharacterWeapon != null)
-            {
-                attackObject.Damage(targetCharacterWeapon.ParametersData.Damage, Machine.gameObject);
-            }
-            else
-            {
-                attackObject.Damage(baseDamage, Machine.gameObject);
-            }
+            attackObject.Damage(Machine.ParametersCalculator.Damage, Machine.gameObject);
         }
 
         private void RotateToTarget()
