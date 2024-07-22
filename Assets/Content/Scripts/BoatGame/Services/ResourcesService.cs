@@ -22,12 +22,12 @@ namespace Content.Scripts.BoatGame.Services
 
     public class ResourcesService : MonoBehaviour
     {
-        [SerializeField] private List<RaftStorage.StorageItem> allItemsList = new List<RaftStorage.StorageItem>(20);
+        [SerializeField] private Dictionary<ItemObject, int> allItemsList = new Dictionary<ItemObject, int>(20);
 
         private RaftBuildService raftBuildService;
 
         public event Action OnChangeResources;
-        public List<RaftStorage.StorageItem> AllItemsList => allItemsList;
+        public Dictionary<ItemObject, int> AllItemsList => allItemsList;
 
         [Inject]
         private void Construct(RaftBuildService raftBuildService, GameDataObject gameData)
@@ -48,30 +48,37 @@ namespace Content.Scripts.BoatGame.Services
             }
         }
 
+        private bool isAnyRaftBeenChanged = false;
         private void OnAnyStorageChange()
         {
+            isAnyRaftBeenChanged = true;
+            PlayerItemsList();
             OnChangeResources?.Invoke();
         }
 
 
         public void PlayerItemsList()
         {
+            if (!isAnyRaftBeenChanged) return;
+            
             allItemsList.Clear();
             foreach (var raftStorage in raftBuildService.Storages)
             {
                 for (int i = 0; i < raftStorage.Items.Count; i++)
                 {
-                    var itemInArray = allItemsList.Find(x => x.Item.ID == raftStorage.Items[i].Item.ID);
-                    if (itemInArray == null)
+                    if (allItemsList.ContainsKey(raftStorage.Items[i].Item))
                     {
-                        allItemsList.Add(new RaftStorage.StorageItem(raftStorage.Items[i].Item, raftStorage.Items[i].Count));
+                        allItemsList[raftStorage.Items[i].Item] += raftStorage.Items[i].Count;
                     }
                     else
                     {
-                        itemInArray.Add(raftStorage.Items[i].Count);
+                        
+                        allItemsList.Add(raftStorage.Items[i].Item, raftStorage.Items[i].Count);
                     }
                 }
             }
+            
+            isAnyRaftBeenChanged = false;
         }
 
         public void RemoveItemFromAnyRaft(ItemObject itemObject)
@@ -225,11 +232,9 @@ namespace Content.Scripts.BoatGame.Services
 
         public bool IsHaveItem(RaftStorage.StorageItem sellItem)
         {
-            var item = allItemsList.Find(x => x.Item == sellItem.Item);
-
-            if (item != null)
+            if (allItemsList.ContainsKey(sellItem.Item))
             {
-                return item.Count >= sellItem.Count;
+                return allItemsList[sellItem.Item] >= sellItem.Count;
             }
 
             return false;
@@ -264,7 +269,7 @@ namespace Content.Scripts.BoatGame.Services
         {
             foreach (var currentCraftIngredient in currentCraftIngredients)
             {
-                if (allItemsList.Find(x => x.Item == currentCraftIngredient.ResourceName).Count < currentCraftIngredient.Count)
+                if (allItemsList[currentCraftIngredient.ResourceName] < currentCraftIngredient.Count)
                 {
                     return false;
                 }
@@ -277,6 +282,34 @@ namespace Content.Scripts.BoatGame.Services
         {
             var isCan = IsHaveItem(sellItem) && GetEmptySpace() + sellItem.Space >= resultItem.Space;
             return isCan;
+        }
+
+        private List<RaftStorage.StorageItem> tmpSearchList = new List<RaftStorage.StorageItem>(20);
+        public List<RaftStorage.StorageItem> GetItemsByType(EResourceTypes Type)
+        {
+            tmpSearchList.Clear();
+            foreach (var val in allItemsList)
+            {
+                if (val.Key.Type == Type)
+                {
+                    if (val.Value > 0)
+                    {
+                        tmpSearchList.Add(new RaftStorage.StorageItem(val.Key, val.Value));
+                    }
+                }
+            }
+
+            return tmpSearchList;
+        }
+
+        public int GetItemsValue(ItemObject resourceName)
+        {
+            if (allItemsList.ContainsKey(resourceName))
+            {
+                return allItemsList[resourceName];
+            }
+            
+            return 0;
         }
     }
 }

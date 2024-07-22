@@ -33,7 +33,8 @@ namespace Content.Scripts.IslandGame
         [SerializeField] private Vector3 size;
         [SerializeField] private Vector3 offcet;
         [SerializeField] private BotSpawnersManager botsSpawnerManager;
-        
+        private TerrainBiomeSO biome;
+
         public int TemperatureAdd => temperatureAdd;
 
         public Terrain Terrain => terrain;
@@ -41,6 +42,8 @@ namespace Content.Scripts.IslandGame
         public List<SpawnPoint> SpawnPoints => spawnPoints;
 
         public BotSpawnersManager BotsSpawnerManager => botsSpawnerManager;
+
+        public TerrainBiomeSO Biome => biome;
 
         private void OnValidate()
         {
@@ -50,6 +53,7 @@ namespace Content.Scripts.IslandGame
 
         public void Init(GameDataObject gameData, PrefabSpawnerFabric prefabSpawner, TerrainBiomeSO biome)
         {
+            this.biome = biome;
             if (botsSpawnerManager)
             {
                 botsSpawnerManager.Init(gameData, prefabSpawner, biome);

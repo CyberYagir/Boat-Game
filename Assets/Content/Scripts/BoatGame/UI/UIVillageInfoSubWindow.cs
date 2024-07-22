@@ -192,9 +192,10 @@ namespace Content.Scripts.BoatGame.UI
         {
             if (SlaveData.TargetStamina < 100f)
             {
-                var eat = resourcesService.AllItemsList.Find(x => x.Item.Type == EResourceTypes.Eat);
-                if (eat != null)
+                var eatList = resourcesService.GetItemsByType(EResourceTypes.Eat);
+                if (eatList.Count != 0)
                 {
+                    var eat = eatList[0];
                     resourcesService.RemoveItemFromAnyRaft(eat.Item);
                     slaveDataCalculator.AddEat(eat.Item.ParametersData.Hunger * gameDataObject.ConfigData.SlaveEatEfficiencyMultiplier);
                     Redraw();

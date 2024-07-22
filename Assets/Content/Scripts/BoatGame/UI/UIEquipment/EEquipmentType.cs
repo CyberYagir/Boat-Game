@@ -2,6 +2,7 @@
 {
     public enum EEquipmentType
     {
+        None,
         Helmet,
         Armor,
         Weapon,

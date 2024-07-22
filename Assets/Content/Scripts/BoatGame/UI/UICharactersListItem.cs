@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Content.Scripts.BoatGame.UI
 {
-    public partial class UICharactersListItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public partial class UICharactersListItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,  IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private ActionsDataSO actionsData;
         [SerializeField] private TMP_Text text;
@@ -19,6 +19,8 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIBar healthBar;
         [SerializeField] private float unactiveX, activeX;
         [SerializeField] private RawImage rawImage;
+
+        private bool isOver;
         private RenderTexture renderTexture;
         
         private PlayerCharacter targetCharacter;
@@ -29,6 +31,8 @@ namespace Content.Scripts.BoatGame.UI
         private Camera camera;
 
         public PlayerCharacter TargetCharacter => targetCharacter;
+
+        public bool IsOver => isOver;
 
         public void Init(PlayerCharacter character, TickService tickService, SelectionService selectionService, CharacterService characterService, Camera camera)
         {
@@ -114,6 +118,16 @@ namespace Content.Scripts.BoatGame.UI
         private void AnimateButtonAnimated(PlayerCharacter character)
         {
             background.DOAnchorPosY(character == targetCharacter ? activeX : unactiveX, 0.2f);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            isOver = true;
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            isOver = false;
         }
     }
 }

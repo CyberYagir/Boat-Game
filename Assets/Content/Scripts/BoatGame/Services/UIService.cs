@@ -117,7 +117,7 @@ namespace Content.Scripts.BoatGame.Services
             resourcesList.Init(raftBuildService, gameDataObject, resourcesService, tickService);
             storagesCounter.Init(raftBuildService);
 
-            potionsList.Init(resourcesService);
+            potionsList.Init(resourcesService, selectionService, characterService, charactersList);
 
             windowsManager.Init(this, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow);
             

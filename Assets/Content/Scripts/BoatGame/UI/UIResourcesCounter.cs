@@ -86,7 +86,7 @@ namespace Content.Scripts.BoatGame.UI
             resourcesService.PlayerItemsList();
             foreach (var header in headers)
             {
-                header.Value.DrawList(resourcesService.AllItemsList.FindAll(x => x.Item.Type == header.Key).OrderBy(x=>x.Item.ItemName).ToList());
+                header.Value.DrawList(resourcesService.GetItemsByType(header.Key).OrderBy(x=>x.Item.ItemName).ToList());
             }
         }
 

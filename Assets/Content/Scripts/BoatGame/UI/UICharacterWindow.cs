@@ -122,7 +122,7 @@ namespace Content.Scripts.BoatGame.UI
         {
             if (item != null)
             {
-                if (item.Type != EResourceTypes.Other) return false;
+                if (item.Type != EResourceTypes.Other || item.Equipment == EEquipmentType.None) return false;
                 if (type != item.Equipment) return false;
             }
 

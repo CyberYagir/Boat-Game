@@ -109,7 +109,7 @@ namespace Content.Scripts.BoatGame.Services
 
         private void NormalStateSelectionLogic()
         {
-            var hit = Camera.MouseRaycast(out bool isHit, Input.mousePosition, Mathf.Infinity, LayerMask.GetMask("Default", "Raft", "Builds", "Water", "Trees", "Player", "Drop", "Terrain"));
+            var hit = GetClickHit(out var isHit);
 
             if (isHit)
             {
@@ -138,6 +138,12 @@ namespace Content.Scripts.BoatGame.Services
                     }
                 }
             }
+        }
+
+        private RaycastHit GetClickHit(out bool isHit)
+        {
+            var hit = Camera.MouseRaycast(out isHit, Input.mousePosition, Mathf.Infinity, LayerMask.GetMask("Default", "Raft", "Builds", "Water", "Trees", "Player", "Drop", "Terrain"));
+            return hit;
         }
 
         public bool CheckUILogic()
@@ -182,6 +188,13 @@ namespace Content.Scripts.BoatGame.Services
                 selectedObject = null;
                 OnChangeSelectObject?.Invoke(null);
             }
+        }
+
+        public Vector3 GetUnderMousePosition(out bool isNotEmpty)
+        {
+            var hit = GetClickHit(out bool isHit);
+            isNotEmpty = isHit;
+            return hit.point;
         }
     }
 }

@@ -34,14 +34,18 @@ namespace Content.Scripts.Mobs
         public ItemObject GetItem()
         {
             if (table.Count == 0) return null;
-            weights.Clear();
 
-            for (int i = 0; i < table.Count; i++)
+            if (weights.Count != table.Count)
             {
-                weights.Add(table[i].Weight);
+                weights.Clear();
+
+                for (int i = 0; i < table.Count; i++)
+                {
+                    weights.Add(table[i].Weight);
+                }
+
+                weights.RecalculateWeights();
             }
-            
-            weights.RecalculateWeights();
 
             var index = weights.ChooseRandomIndexFromWeights();
 

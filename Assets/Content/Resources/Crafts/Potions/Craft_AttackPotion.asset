@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8f93f690eacda47a0d515e8545ef73, type: 3}
+  m_Name: Craft_AttackPotion
+  m_EditorClassIdentifier: 
+  craftName: Attack Potion
+  type: 1
+  subType: 1
+  table: 2
+  uid: 9932ec41-a51c-45ec-b7ea-f8f9b5372b18
+  tooltip: {fileID: 0}
+  icon: {fileID: 0}
+  ingredients:
+  - item: {fileID: 11400000, guid: b2a1e04d027096049a7faff13978ab86, type: 2}
+    count: 50
+  - item: {fileID: 11400000, guid: 23f3dcf551306a54386d46bce10e435c, type: 2}
+    count: 3
+  craftTime: 20
+  finalItem:
+    item: {fileID: 11400000, guid: e6597e22e15c4fb4ea578cbe78b8bab3, type: 2}
+    count: 1

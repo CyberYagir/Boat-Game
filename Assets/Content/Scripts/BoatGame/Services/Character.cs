@@ -195,12 +195,41 @@ namespace Content.Scripts.BoatGame.Services
             }
         }
 
+        [System.Serializable]
+        public class EffectsListData
+        {
+            [System.Serializable]
+            public class SavedEffectData
+            {
+                [SerializeField] private string itemSenderID;
+                [SerializeField] private int remainingSeconds;
+
+                public SavedEffectData(string itemSenderID, int remainingSeconds)
+                {
+                    this.itemSenderID = itemSenderID;
+                    this.remainingSeconds = remainingSeconds;
+                }
+
+                public int RemainingSeconds => remainingSeconds;
+
+                public string ItemSenderID => itemSenderID;
+            }
+
+            [SerializeField] private List<SavedEffectData> effectsList = new List<SavedEffectData>();
+            public List<SavedEffectData> EffectsList => effectsList;
+
+            public void SetData(List<SavedEffectData> data)
+            {
+                effectsList = data;
+            }
+        }
 
         [SerializeField] private string name;
         [SerializeField] private string uid;
         [SerializeField] private SkillsData skillsData = new SkillsData();
         [SerializeField] private ParametersData parametersData = new ParametersData();
         [SerializeField] private EquipmentData equipmentData = new EquipmentData();
+        [SerializeField] private EffectsListData effectsData = new EffectsListData();
         [SerializeField] private int skinColorID;
         [SerializeField] private int hatID;
         
@@ -217,6 +246,8 @@ namespace Content.Scripts.BoatGame.Services
         public SkillsData SkillData => skillsData;
 
         public EquipmentData Equipment => equipmentData;
+
+        public EffectsListData EffectsData => effectsData;
 
         public event Action OnSkillUpgraded;
 
@@ -353,6 +384,11 @@ namespace Content.Scripts.BoatGame.Services
             }
 
             return characters;
+        }
+
+        public void SetEffects(List<EffectsListData.SavedEffectData> data)
+        {
+            EffectsData.SetData(data);
         }
     }
 }

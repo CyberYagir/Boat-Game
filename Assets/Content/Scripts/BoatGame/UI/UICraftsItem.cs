@@ -70,8 +70,8 @@ namespace Content.Scripts.BoatGame.UI
             {
                 int count = 0;
                 
-                var items = resourcesService.AllItemsList.FindAll(x => x.Item.ID == Item.Ingredients[i].ResourceName.ID);
-                count += items.Sum(x => x.Count);
+                var itemCount = resourcesService.GetItemsValue(Item.Ingredients[i].ResourceName);
+                count += itemCount;
 
                 if (count < Item.Ingredients[i].Count)
                 {

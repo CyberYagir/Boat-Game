@@ -109,6 +109,7 @@ namespace Content.Scripts.BoatGame.Services
                 if (!sp.NeedManager.IsDead)
                 {
                     sp.Character.SetParameters(sp.NeedManager.GetParameters());
+                    sp.Character.SetEffects(sp.ParametersCalculator.GetEffectsData());
                 }
             }
         }
@@ -149,6 +150,26 @@ namespace Content.Scripts.BoatGame.Services
                     }
                 }
             }
+        }
+
+        public PlayerCharacter GetClosestCharacter(Vector3 pos, out float distance)
+        {
+            var minDist = 9999f;
+            var character = spawnedCharacters[0];
+            foreach (var c in spawnedCharacters)
+            {
+                var dist = Vector3.Distance(pos, c.transform.position);
+
+                if (minDist > dist)
+                {
+                    minDist = dist;
+                    character = c;
+                }
+            }
+
+
+            distance = minDist;
+            return character;
         }
     }
 }

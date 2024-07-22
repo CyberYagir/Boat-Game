@@ -8,12 +8,12 @@ namespace Content.Scripts.BoatGame.UI
     {
         [SerializeField] private Camera camera;
         [SerializeField] private UICharactersListItem item;
-
         private CharacterService characterService;
         private List<UICharactersListItem> spawnedItems = new List<UICharactersListItem>();
         private TickService tickService;
         private SelectionService selectionService;
-
+        
+        
         public void Init(
             CharacterService characterService,
             TickService tickService,
@@ -56,6 +56,22 @@ namespace Content.Scripts.BoatGame.UI
                     spawnedItems[i].Init(characterService.SpawnedCharacters[i], tickService, selectionService, characterService, camera);
                 }
             }
+        }
+
+        public PlayerCharacter GetCharacterUnderMouse()
+        {
+            for (int i = 0; i < spawnedItems.Count; i++)
+            {
+                if (spawnedItems[i].gameObject.activeInHierarchy)
+                {
+                    if (spawnedItems[i].IsOver)
+                    {
+                        return spawnedItems[i].TargetCharacter;
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -16,61 +16,6 @@ namespace Content.Scripts.BoatGame
 {
     public partial class PlayerCharacter : MonoBehaviour, ICharacter, IDamagable
     {
-        [System.Serializable]
-        public class CharacterParameters
-        {
-            [SerializeField] private float baseDamage = 15;
-            
-            private Character selfCharacter;
-            private GameDataObject gameData;
-
-            public float Defence => CalculateDefencePercent();
-            public float Damage => CalculateDamage();
-
-            private float CalculateDamage()
-            {
-                float damage = baseDamage;
-                var targetCharacterWeapon = gameData.GetItem(selfCharacter.Equipment.WeaponID);
-                if (targetCharacterWeapon != null)
-                {
-                    damage = targetCharacterWeapon.ParametersData.Damage;
-                }
-
-
-                return damage;
-            }
-
-            public void Init(Character selfCharacter, GameDataObject gameData)
-            {
-                this.gameData = gameData;
-                this.selfCharacter = selfCharacter;
-            }
-            
-            private float CalculateDefencePercent()
-            {
-                var armor = gameData.GetItem(selfCharacter.Equipment.ArmorID);
-                var helmet = gameData.GetItem(selfCharacter.Equipment.HelmetID);
-                float defencePercent = 0;
-
-                if (armor != null)
-                {
-                    defencePercent += armor.ParametersData.Defence;
-                }
-
-                if (helmet != null)
-                {
-                    defencePercent += helmet.ParametersData.Defence;
-                }
-                
-                return defencePercent;
-            }
-
-            public float ModifyDamageByDefence(float dmg)
-            {
-                return dmg * (1f - Defence);
-            }
-        }
-        
         [SerializeField, ReadOnly] private Character character;
         [SerializeField] private AppearanceManager appearanceManager;
         [SerializeField] private AnimationsManager animationsManager;
@@ -141,7 +86,7 @@ namespace Content.Scripts.BoatGame
             aiManager.Init(raftBuildService, navMeshProvider, character);
             
             animationsManager.Init(weatherService, appearanceManager);
-            ParametersCalculator.Init(character, this.gameData);
+            parametersCalculator.Init(character, this.gameData, this);
             needsManager.Init(character, weatherService, this.selectionService, gameData);
             actionsHolder.Construct(selectionService, gameData);
 
@@ -319,6 +264,11 @@ namespace Content.Scripts.BoatGame
                     ActiveAction(EStateType.Attack);
                 }
             }
+        }
+
+        public void ActivatePotion(ItemObject storageItem)
+        {
+            parametersCalculator.ApplyEffect(storageItem);
         }
     }
 }

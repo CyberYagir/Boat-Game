@@ -1,4 +1,5 @@
 using System;
+using Content.Scripts.BoatGame.Scriptable;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI.UIEquipment;
 using Content.Scripts.IslandGame;
@@ -69,6 +70,7 @@ namespace Content.Scripts.ItemsSystem
         [SerializeField] private ItemFurnaceParameters furnaceData;
         [SerializeField] private bool hasSize = true;
         [SerializeField, ShowIf("@itemType == EItemType.Item")] private DroppedItem dropPrefab;
+        [SerializeField, ShowIf("@type == EResourceTypes.Potions")] private PotionLogicBaseSO potionLogic;
         [SerializeField, ShowIf("@itemType == EItemType.Armor")] private GameObject prefab;
         [SerializeField, ShowIf("@itemType == EItemType.Armor")] private EEquipmentType equipment;
         [SerializeField, ShowIf("@equipment == EEquipmentType.Weapon")] private EWeaponAnimationType animationType;
@@ -95,6 +97,8 @@ namespace Content.Scripts.ItemsSystem
         public ItemFurnaceParameters FurnaceData => furnaceData;
 
         public bool HasSize => hasSize;
+
+        public PotionLogicBaseSO PotionLogic => potionLogic;
 
 
         [Button]

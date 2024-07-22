@@ -34,6 +34,10 @@ namespace Content.Scripts.BoatGame
             [SerializeField] private HatsHolder hatsHolder;
             [SerializeField] private ParticleSystem inWaterRippleParticlePrefab;
             [SerializeField] private ParticleSystem levelUpParticlesPrefab;
+            [SerializeField] private ParticleSystem healingParticle;
+            [SerializeField] private ParticleSystem defenceParticle;
+            [SerializeField] private ParticleSystem attackParticle;
+            [SerializeField] private ParticleSystem healSlaveParticle;
             [SerializeField] private List<Transform> bones;
 
 
@@ -83,7 +87,39 @@ namespace Content.Scripts.BoatGame
                 
                 OnEquipmentChange();
             }
+
+            public void PlayHealParticles()
+            {
+                healingParticle.Play(true);
+            }
+            public void PlayHealSlaveParticles()
+            {
+                healSlaveParticle.Play(true);
+            }
+
+            public void PlayDefenceParticles(bool state)
+            {
+                if (state)
+                {
+                    defenceParticle.Play(true);
+                }
+                else
+                {
+                    defenceParticle.Stop(true);
+                }
+            }
             
+            public void PlayAttackParticles(bool state)
+            {
+                if (state)
+                {
+                    attackParticle.Play(true);
+                }
+                else
+                {
+                    attackParticle.Stop(true);
+                }
+            }
 
             private void SkillDataOnOnLevelUp()
             {
@@ -117,13 +153,16 @@ namespace Content.Scripts.BoatGame
                         item = gameData.GetItem(id);
                         if (item != null)
                         {
-                            Transform targetBone = GetBone(item.Prefab.GetComponent<EquipmentWorker>().TargetBone);
-                            
-                            var spawn = Instantiate(item.Prefab, targetBone)
-                                .With(x => x.GetComponent<EquipmentWorker>()
-                                    .Init(this));
+                            if (item.Prefab != null)
+                            {
+                                Transform targetBone = GetBone(item.Prefab.GetComponent<EquipmentWorker>().TargetBone);
 
-                            return spawn;
+                                var spawn = Instantiate(item.Prefab, targetBone)
+                                    .With(x => x.GetComponent<EquipmentWorker>()
+                                        .Init(this));
+
+                                return spawn;
+                            }
                         }
                     }
 
