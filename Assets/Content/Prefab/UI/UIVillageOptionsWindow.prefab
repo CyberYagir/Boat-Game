@@ -1371,7 +1371,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1184268209877424552}
   m_HandleRect: {fileID: 4318800077883590957}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2568,6 +2568,7 @@ MonoBehaviour:
   killSlaveButton: {fileID: 3755236928054295130}
   makeHumanSlaveButton: {fileID: 879159989754397849}
   openStorageSlaveButton: {fileID: 5343213437420617565}
+  hireSlaveButton: {fileID: 879159989754397849}
   tooltips:
   - tooltip: {fileID: 4781661472320829893}
     tooltipDataObject: {fileID: 11400000, guid: b4eff3248bae1fe478633c32dd29f9e8, type: 2}
@@ -4985,7 +4986,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6597430559558799158}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3777821700118838639}
+        m_TargetAssemblyTypeName: Content.Scripts.BoatGame.UI.UIVillageInfoSubWindow,
+          Assembly-CSharp
+        m_MethodName: HealSlaveButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5027498676923924033
 GameObject:
   m_ObjectHideFlags: 0

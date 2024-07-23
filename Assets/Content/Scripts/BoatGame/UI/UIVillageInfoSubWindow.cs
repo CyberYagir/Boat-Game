@@ -58,6 +58,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private Button killSlaveButton;
         [SerializeField] private Button makeHumanSlaveButton;
         [SerializeField] private Button openStorageSlaveButton;
+        [SerializeField] private Button hireSlaveButton;
         
         [SerializeField] private List<TooltipInit> tooltips;
         [SerializeField] private List<UIVillageActionItem> actionItems;
@@ -145,7 +146,7 @@ namespace Content.Scripts.BoatGame.UI
             killSlaveButton.interactable = makeHumanSlaveButton.interactable = !SlaveData.IsWorking;
             feedSlaveButton.interactable = !SlaveData.IsWorking && SlaveData.TargetStamina < 100;
             openStorageSlaveButton.interactable = !SlaveData.IsWorking && slaveDataCalculator.GetItemsCount() != 0;
-            
+            hireSlaveButton.interactable = saveDataObject.Characters.Count < 4;
             
             openStorageText.text = $"Open Storage ({slaveDataCalculator.GetItemsCount()})";
             
@@ -241,7 +242,23 @@ namespace Content.Scripts.BoatGame.UI
             }
 
             window.TransferSlave(slaveDataCalculator);
+        }
 
+        public void HealSlaveButton()
+        {
+            bool isCanConvert = resourcesService.IsHaveItem(gameDataObject.ConfigData.HealSlaveItem, 1);
+            if (!isCanConvert)
+            {
+                messageBoxManager.ShowMessageBox("In order to cure a slave, you need a cure for slaves potion <sprite=6>.", null, "Ok", "_disabled");
+                return;
+            }
+            else
+            {
+                messageBoxManager.ShowMessageBox("Are you ready to spend 1 healing slave potion <sprite=6> to heal him and add him to your team?.", delegate
+                {
+                    window.HealSlave(SlaveData);
+                });
+            }
         }
     }
 }

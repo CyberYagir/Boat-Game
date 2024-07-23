@@ -105,7 +105,17 @@ namespace Content.Scripts.BoatGame.Services
             {
                 if (saveDataObject.GetTargetIsland().HasVillage())
                 {
-                    villageWindow?.Init(selectionService, raftBuildService, saveDataObject, gameDataObject, resourcesService, tickService, this, messageBoxManager);
+                    villageWindow?.Init(
+                        selectionService,
+                        raftBuildService,
+                        saveDataObject,
+                        gameDataObject,
+                        resourcesService,
+                        tickService,
+                        this,
+                        messageBoxManager,
+                        scenesService,
+                        saveService);
                 }
 
                 if (saveDataObject.Map.IsHavePlotOnIsland(saveDataObject.GetTargetIsland().IslandSeed))

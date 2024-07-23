@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using OmniSARTechnologies.LiteFPSCounter;
 using Packs.YagirConsole.ShellScripts.Base.Shell;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ConsoleShell
 {
@@ -47,6 +49,15 @@ namespace ConsoleShell
 
             AddCommand("/quit", new List<Argument>(), ApplicationQuit);
             AddCommand("/q", new List<Argument>(), ApplicationQuit);
+            
+            AddCommand("/restart_progress", new List<Argument>(), delegate(ArgumentsShell shell)
+            {
+                var saveData = Resources.Load<SaveDataObject>("SaveData");
+
+                saveData.DeleteFile();
+
+                SceneManager.LoadScene("Boot");
+            });
         }
 
         public void ShowFPS()

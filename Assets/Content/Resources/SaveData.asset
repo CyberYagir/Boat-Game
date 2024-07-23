@@ -14,33 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charactersData:
     characters:
-    - name: "Alex\r"
-      uid: 73e65713-fa73-4fc3-ad1b-545498b7ca54
+    - name: "Danil\r"
+      uid: 11ced2ac-59ee-48c0-9e3b-d8487811f084
       skillsData:
-        xp: 4
-        scores: 3
-        level: 5
+        xp: 0
+        scores: 0
+        level: 0
         skills:
-        - skillID: 20b3171e-8a60-4361-bfe4-c12a4b154163
-          value: 2
-        - skillID: 8518e033-cd1f-4e96-87e9-7e0e788eab51
-          value: 2
         - skillID: 3b8443e2-2fef-4110-95aa-d61d78459f6f
           value: 1
         - skillID: bd91198f-eeab-4ae1-acef-2551fa57d4d9
-          value: 2
+          value: 3
+        - skillID: f3b559d4-e0e2-42ef-b5d1-71101d0e10ca
+          value: 1
       parametersData:
         health: 100
-        hunger: 93.61183
-        thirsty: 87.18866
+        hunger: 60.506798
+        thirsty: 21.017597
       equipmentData:
         helmetID: 
         armorID: 
         weaponID: 
       effectsData:
         effectsList: []
-      skinColorID: 4
-      hatID: 2
+      skinColorID: 1
+      hatID: 4
   raftsData:
     rafts:
     - uid: edf60970-41af-4e87-9b55-a95f7545bd96
@@ -74,6 +72,8 @@ MonoBehaviour:
         count: 3
       - itemID: 85623158-423c-4089-b9b7-2d4edf827ab8
         count: 1
+      - itemID: 67dd6094-d10c-438d-a180-17db87422e08
+        count: 6779
     furnaces: []
     waterSources: []
     raftsInBuild: []
@@ -239,7 +239,7 @@ MonoBehaviour:
       droppedItems: []
       villagesData:
       - uid: a3de886b-2b47-d873-c56d-dbbec8cbb4a9
-        socialRating: 0
+        socialRating: 3221
         villagers:
         - uid: a2cd0ced-8ea5-7c66-f6ab-1eacfdae4555
           isDead: 0
@@ -261,7 +261,19 @@ MonoBehaviour:
           isDead: 0
         - uid: b5715e23-94fd-5ea8-66b5-211f25e0d330
           isDead: 0
-        slaves: []
+        slaves:
+        - uid: 9ff6ef4d-e90e-68e2-3dec-a226ec56877e
+          lastTimeStamp: 07/23/2024 18:19:29
+          targetStamina: 100
+          isWorking: 0
+          isStorage: 0
+          isDead: 0
+          transferData:
+            seed: -33783
+            islandLevel: 8
+            transferState: 3
+          activities: []
+          storageItems: []
     - islandName: 
       islandPos: {x: 93, y: 303}
       islandSeed: 1599315400
@@ -1060,15 +1072,15 @@ MonoBehaviour:
       plotRowNumber: 11
       isCollected: 0
   globalData:
-    totalSecondsInGame: 4493.84
-    totalSecondsOnRaft: 5571.3394
+    totalSecondsInGame: 4939.9185
+    totalSecondsOnRaft: 5583.674
     islandSeed: -358411411
     damagersData:
-      tickCount: 569
-      maxTickCount: 5054
+      tickCount: 204
+      maxTickCount: 7197
       spawnedItems: []
     weathersData:
-      tickCount: 925
+      tickCount: 1130
       maxTickCount: 2265
       currentWeather: 0
   tutorialsData:

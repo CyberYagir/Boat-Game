@@ -29,19 +29,20 @@ namespace Content.Scripts.ManCreator
                 nameText.text = getCharacterName;
             }
         }
-        
+
         [System.Serializable]
         public class SkillsDrawer
         {
             [SerializeField] private UISkillItem item;
             private List<UISkillItem> items = new List<UISkillItem>();
-            
+
             public void Redraw(List<SkillObject> skillObjects, CharacterCustomizationService currentCharacter)
             {
                 foreach (var it in items)
                 {
                     Destroy(it.gameObject);
                 }
+
                 item.gameObject.SetActive(true);
                 for (int i = 0; i < skillObjects.Count; i++)
                 {
@@ -49,6 +50,7 @@ namespace Content.Scripts.ManCreator
                     spawned.Init(skillObjects[i], currentCharacter);
                     items.Add(spawned);
                 }
+
                 item.gameObject.SetActive(false);
             }
 
@@ -60,9 +62,9 @@ namespace Content.Scripts.ManCreator
                 }
             }
         }
-        
-        
-        
+
+
+
         [SerializeField] private NamePopup namePopup;
         [SerializeField] private SkillsDrawer skillsDrawer;
         [SerializeField] private UIChangeNameWindow changeNameWindow;
@@ -73,28 +75,31 @@ namespace Content.Scripts.ManCreator
         private CharacterCustomizationService characterService;
         private GameDataObject gameDataObject;
         private ScenesService scenesService;
+        private SaveDataObject saveData;
 
 
         [Inject]
-        public void Construct(CharacterCustomizationService characterService, GameDataObject gameDataObject, ScenesService scenesService)
+        public void Construct(CharacterCustomizationService characterService, GameDataObject gameDataObject, ScenesService scenesService, SaveDataObject saveData)
         {
+            this.saveData = saveData;
             this.scenesService = scenesService;
             this.gameDataObject = gameDataObject;
             this.characterService = characterService;
-            
+
             UpdateName();
-            
+
             applyButton.interactable = false;
             skillDiceButton.interactable = true;
-            
+
             characterService.OnNameChanged += UpdateName;
             characterService.OnChangeSkillsCount += OnScoresChanged;
-            
+
             skillsDrawer.Redraw(gameDataObject.SkillsList, characterService);
             changeNameWindow.Init(this);
         }
-        
-        public void ShowChangeNameWindow(){
+
+        public void ShowChangeNameWindow()
+        {
             changeNameWindow.gameObject.SetActive(true);
             changeNameWindow.ShowWindow();
         }
@@ -111,7 +116,7 @@ namespace Content.Scripts.ManCreator
         {
             namePopup.SetName(characterService.GetCharacterName());
         }
-    
+
 
         private void Update()
         {
@@ -138,6 +143,7 @@ namespace Content.Scripts.ManCreator
         {
             characterService.NextHat();
         }
+
         public void PrevHat()
         {
             characterService.PrevHat();
@@ -152,10 +158,7 @@ namespace Content.Scripts.ManCreator
 
         public void Apply()
         {
-            scenesService.FadeScene(ESceneName.BoatGame, delegate
-            {
-                characterService.ApplyCharacter();
-            });
+            scenesService.FadeScene(saveData.Global.isOnIsland ? ESceneName.IslandGame : ESceneName.BoatGame, delegate { characterService.ApplyCharacter(); });
         }
     }
 }

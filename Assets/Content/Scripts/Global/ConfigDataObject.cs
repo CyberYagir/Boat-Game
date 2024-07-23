@@ -19,6 +19,7 @@ namespace Content.Scripts.Global
         [SerializeField] private ItemObject paddleItem;
         [SerializeField] private ItemObject moneyItem;
         [SerializeField] private ItemObject loreItem;
+        [SerializeField] private ItemObject healSlaveItem;
         [SerializeField] private List<ItemObject> itemsForRaftTransitionAfterDestroying;
 
         [SerializeField] private NoiseGenerator mapNoisePreset;
@@ -38,5 +39,7 @@ namespace Content.Scripts.Global
         public float SlaveEatEfficiencyMultiplier => slaveEatEfficiencyMultiplier;
         public int PlotPerIslands => plotPerIsland;
         public ItemObject LoreItem => loreItem;
+
+        public ItemObject HealSlaveItem => healSlaveItem;
     }
 }

@@ -74,12 +74,11 @@ namespace Content.Scripts.BoatGame.UI
                 {
                     isTransferedFromIsland = SlavesInfo[i].SlaveData.TransferInfo.TransferState == ETransferState.SendFromIsland;
 
-                    if (SlavesInfo[i].SlaveData.TransferInfo.TransferState == ETransferState.NewOnIsland)
+                    if (SlavesInfo[i].SlaveData.TransferInfo.TransferState is ETransferState.NewOnIsland or ETransferState.Hired)
                     {
                         spawnedItems[i].gameObject.SetActive(false);
                     }
                 }
-                
                 
                 spawnedItems[i].UpdateItem(isBuyed || isTransferedFromIsland);
             }

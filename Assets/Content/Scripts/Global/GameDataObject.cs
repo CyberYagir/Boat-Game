@@ -166,7 +166,12 @@ namespace Content.Scripts.Global
 
         public ItemObject GetItem(string id)
         {
-            return items.Find(id);
+            if (!string.IsNullOrEmpty(id))
+            {
+                return items.Find(id);
+            }
+
+            return null;
         }
 
 

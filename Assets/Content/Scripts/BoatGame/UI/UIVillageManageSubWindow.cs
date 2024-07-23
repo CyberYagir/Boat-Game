@@ -107,7 +107,7 @@ namespace Content.Scripts.BoatGame.UI
                     {
                         if (villageData.IsHaveSlave(slave.Uid) && !slave.IsDead)
                         {
-                            if (slave.TransferInfo.TransferState != ETransferState.SendFromIsland)
+                            if (slave.TransferInfo.TransferState is not ETransferState.SendFromIsland and not ETransferState.Hired)
                             {
                                 var infoIndex = generator.SlavesInfos.FindIndex(x => x.Character.Uid == slave.Uid);
                                 if (infoIndex != -1)
@@ -156,6 +156,11 @@ namespace Content.Scripts.BoatGame.UI
         {
             window.TransferSlave(slaveDataCalculator);
             selectedCharacter = null;
+        }
+
+        public void HealSlave(SaveDataObject.MapData.IslandData.VillageData.SlaveData slaveData)
+        {
+            window.HealSlave(slaveData);
         }
     }
 }

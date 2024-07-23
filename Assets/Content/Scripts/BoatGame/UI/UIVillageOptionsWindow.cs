@@ -2,9 +2,11 @@ using System;
 using System.Numerics;
 using Content.Scripts.BoatGame.Characters.States;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using Content.Scripts.IslandGame;
 using Content.Scripts.IslandGame.Scriptable;
+using Content.Scripts.ManCreator;
 using UnityEngine;
 using static Content.Scripts.Global.SaveDataObject.MapData.IslandData.VillageData.SlaveData;
 using Random = System.Random;
@@ -31,6 +33,8 @@ namespace Content.Scripts.BoatGame.UI
         private TickService tickService;
         private UIService uiService;
         private UIMessageBoxManager messageBoxManager;
+        private ScenesService scenesService;
+        private SaveService saveService;
 
         public void Init(
             SelectionService selectionService,
@@ -40,9 +44,13 @@ namespace Content.Scripts.BoatGame.UI
             ResourcesService resourcesService,
             TickService tickService,
             UIService uiService,
-            UIMessageBoxManager messageBoxManager
+            UIMessageBoxManager messageBoxManager,
+            ScenesService scenesService,
+            SaveService saveService
         )
         {
+            this.saveService = saveService;
+            this.scenesService = scenesService;
             this.messageBoxManager = messageBoxManager;
             this.uiService = uiService;
             this.tickService = tickService;
@@ -212,6 +220,14 @@ namespace Content.Scripts.BoatGame.UI
         public void TransferSlave(SlaveDataCalculator slaveDataCalculator)
         {
             transferSubWindow.OpenTransfer(slaveDataCalculator, villageData);
+        }
+
+        public void HealSlave(SaveDataObject.MapData.IslandData.VillageData.SlaveData slaveData)
+        {
+            CharacterCustomizationService.SetTargetSlave(slaveData.Uid);
+            resourcesService.RemoveItemFromAnyRaft(gameDataObject.ConfigData.HealSlaveItem);
+            saveService.SaveWorld();
+            scenesService.FadeScene(ESceneName.ManCreator);
         }
     }
 }

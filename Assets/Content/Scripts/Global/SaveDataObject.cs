@@ -382,7 +382,8 @@ namespace Content.Scripts.Global
                             {
                                 None,
                                 SendFromIsland,
-                                NewOnIsland
+                                NewOnIsland,
+                                Hired
                             }
                             
                             [SerializeField] private int seed, islandLevel;
@@ -559,6 +560,11 @@ namespace Content.Scripts.Global
                         public void SetActivityData(List<ActivitySkill> slaveDataActivities)
                         {
                             activities = slaveDataActivities;
+                        }
+
+                        public void SetSlaveConvert()
+                        {
+                            transferData.SetTransferState(TransferData.ETransferState.Hired);
                         }
                     }
 

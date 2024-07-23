@@ -11,7 +11,7 @@ namespace Content.Scripts.ManCreator
 {
     public class CharacterCustomizationService : MonoBehaviour
     {
-        
+        private static string TargetSlave = String.Empty;
         [SerializeField] private Renderer characterRenderer;
         [SerializeField] private Transform upperHeadPoint;
         [SerializeField] private HatsHolder hatsHolder;
@@ -130,6 +130,19 @@ namespace Content.Scripts.ManCreator
 
         public void ApplyCharacter()
         {
+            if (TargetSlave != String.Empty)
+            {
+                foreach (var villageData in saveData.GetTargetIsland().VillagesData)
+                {
+                    var slave = villageData.GetSlave(TargetSlave);
+                    if (slave != null)
+                    {
+                        slave.SetSlaveConvert();
+                    }
+                }
+            }
+            TargetSlave = String.Empty;
+            
             saveData.Characters.AddCharacter(character);
             if (!saveData.Map.IsGenerated)
             {
@@ -138,7 +151,9 @@ namespace Content.Scripts.ManCreator
             saveData.SaveFile();
         }
 
-
-
+        public static void SetTargetSlave(string id)
+        {
+            TargetSlave = id;
+        }
     }
 }
