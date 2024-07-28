@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace Content.Scripts.BoatGame.Services
     {
         [SerializeField] private List<Vector3> gridPoints;
 
+
+        public List<Vector3> GetAllPoints() => gridPoints;
 
         public bool IsHavePoint(Vector3 point)
         {
@@ -53,5 +56,13 @@ namespace Content.Scripts.BoatGame.Services
                 gridPoints.Add(getPoints[i]);
             }
         }
+
+        // private void OnDrawGizmos()
+        // {
+        //     foreach (var c in gridPoints)
+        //     {
+        //         Gizmos.DrawCube(c, Vector3.one);
+        //     }
+        // }
     }
 }

@@ -792,5 +792,12 @@ namespace Content.Scripts
         {
             return asset.text.Split("\n").ToList();
         }
+        
+        
+        
+        public static float NextFloat(this System.Random rnd, float minimum, float maximum)
+        { 
+            return (float)rnd.NextDouble() * (maximum - minimum) + minimum;
+        }
     }
 }

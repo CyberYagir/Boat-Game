@@ -8,8 +8,12 @@ namespace Content.Scripts.DungeonGame
     {
         public override void InstallBindings()
         {
-            BindService<WorldGridService>();
+            BindService<DungeonService>();
+            BindService<WorldGridServiceTyped>();
             BindService<RoomsPlacerService>();
+            BindService<TriangulationService>();
+            BindService<MSTCalculatorService>();
+            BindService<PathfindService>();
         }
     }
 }
