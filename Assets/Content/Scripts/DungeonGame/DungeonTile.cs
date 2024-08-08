@@ -30,6 +30,7 @@ namespace Content.Scripts.DungeonGame
 
         [SerializeField] private Wall[] walls;
         [SerializeField] private PropsSelector[] propSelectors;
+        [SerializeField] private PropsSelector[] propsForAll;
         [SerializeField] private PropSpawner[] propSpawners;
 
         public void Init(List<Vector3> disabledDirections, WorldGridServiceTyped.ECellType eCellType)
@@ -70,6 +71,11 @@ namespace Content.Scripts.DungeonGame
                 {
                     spawner.gameObject.SetActive(false);
                 }
+            }
+            
+            foreach (var spawner in propsForAll)
+            {
+                spawner.Init();
             }
         }
 

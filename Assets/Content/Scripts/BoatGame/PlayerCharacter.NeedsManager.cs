@@ -43,7 +43,7 @@ namespace Content.Scripts.BoatGame
 
                 public void Update(SelectionService selectionService)
                 {
-                    if (needPopup.gameObject.active)
+                    if (needPopup.gameObject.active && selectionService)
                     {
                         needPopup.transform.LookAt(selectionService.Camera.transform);
                         needPopup.transform.position = Vector3.Lerp(needPopup.transform.position, parent.TransformPoint(needPopupPoint), 10 * TimeService.DeltaTime);
@@ -118,9 +118,15 @@ namespace Content.Scripts.BoatGame
                 hunger = parametersData.Hunger;
                 thirsty = parametersData.Thirsty;
 
-                currentModifiers = weatherService.CurrentModifiers;
-                
-                popUp.Init();
+                if (weatherService)
+                {
+                    currentModifiers = weatherService.CurrentModifiers;
+                }
+
+                if (selectionService)
+                {
+                    popUp.Init();
+                }
             }
             
 

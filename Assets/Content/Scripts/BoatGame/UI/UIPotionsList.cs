@@ -15,12 +15,12 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private Transform holder;
         [SerializeField] private Image draggedItem;
         private List<UIPotionItem> items = new List<UIPotionItem>();
-        private ResourcesService resourcesService;
-        private SelectionService selectionService;
-        private CharacterService characterService;
+        private IResourcesService resourcesService;
+        private ISelectionService selectionService;
+        private ICharacterService characterService;
         private UICharactersList charactersList;
 
-        public void Init(ResourcesService resourcesService, SelectionService selectionService, CharacterService characterService, UICharactersList charactersList)
+        public void Init(IResourcesService resourcesService, ISelectionService selectionService, ICharacterService characterService, UICharactersList charactersList)
         {
             this.charactersList = charactersList;
             this.characterService = characterService;
@@ -82,13 +82,17 @@ namespace Content.Scripts.BoatGame.UI
 
         private void DropItem(ItemObject storageItem)
         {
-            var character = charactersList.GetCharacterUnderMouse();
-            if (character != null)
+            PlayerCharacter character = null;
+            if (charactersList)
             {
-                AddPotionEffect(storageItem, character);
-                return;
+                character = charactersList.GetCharacterUnderMouse();
+                if (character != null)
+                {
+                    AddPotionEffect(storageItem, character);
+                    return;
+                }
             }
-            
+
             var pos = selectionService.GetUnderMousePosition(out var isHitted);
             if (isHitted)
             {

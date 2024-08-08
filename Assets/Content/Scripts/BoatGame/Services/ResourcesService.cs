@@ -4,30 +4,15 @@ using Content.Scripts.BoatGame.UI.UIEquipment;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
-using UnityEngine;
 using Zenject;
 
 namespace Content.Scripts.BoatGame.Services
 {
-
-    public enum EResourceTypes
+    public class ResourcesService : ResourcesServiceBase, IResourcesService
     {
-        Eat,
-        Water,
-        Build,
-        Money,
-        Other,
-        Potions
-    }
-
-    public class ResourcesService : MonoBehaviour
-    {
-        [SerializeField] private Dictionary<ItemObject, int> allItemsList = new Dictionary<ItemObject, int>(20);
-
         private RaftBuildService raftBuildService;
 
-        public event Action OnChangeResources;
-        public Dictionary<ItemObject, int> AllItemsList => allItemsList;
+        public override event Action OnChangeResources;
 
         [Inject]
         private void Construct(RaftBuildService raftBuildService, GameDataObject gameData)
@@ -48,50 +33,8 @@ namespace Content.Scripts.BoatGame.Services
             }
         }
 
-        private bool isAnyRaftBeenChanged = false;
-        private void OnAnyStorageChange()
-        {
-            isAnyRaftBeenChanged = true;
-            PlayerItemsList();
-            OnChangeResources?.Invoke();
-        }
-
-
-        public void PlayerItemsList()
-        {
-            if (!isAnyRaftBeenChanged) return;
-            
-            allItemsList.Clear();
-            foreach (var raftStorage in raftBuildService.Storages)
-            {
-                for (int i = 0; i < raftStorage.Items.Count; i++)
-                {
-                    if (allItemsList.ContainsKey(raftStorage.Items[i].Item))
-                    {
-                        allItemsList[raftStorage.Items[i].Item] += raftStorage.Items[i].Count;
-                    }
-                    else
-                    {
-                        
-                        allItemsList.Add(raftStorage.Items[i].Item, raftStorage.Items[i].Count);
-                    }
-                }
-            }
-            
-            isAnyRaftBeenChanged = false;
-        }
-
-        public void RemoveItemFromAnyRaft(ItemObject itemObject)
-        {
-            if (itemObject == null) return;
-
-            var storage = raftBuildService.Storages.Find(x => x.HaveItem(itemObject));
-
-            if (storage != null)
-            {
-                storage.RemoveFromStorage(itemObject);
-            }
-        }
+        public override List<RaftStorage> GetRafts() => raftBuildService.Storages;
+        
 
         public bool GetGlobalEmptySpace(RaftStorage.StorageItem storageItem, int offcet = 0)
         {
@@ -283,24 +226,7 @@ namespace Content.Scripts.BoatGame.Services
             var isCan = IsHaveItem(sellItem) && GetEmptySpace() + sellItem.Space >= resultItem.Space;
             return isCan;
         }
-
-        private List<RaftStorage.StorageItem> tmpSearchList = new List<RaftStorage.StorageItem>(20);
-        public List<RaftStorage.StorageItem> GetItemsByType(EResourceTypes Type)
-        {
-            tmpSearchList.Clear();
-            foreach (var val in allItemsList)
-            {
-                if (val.Key.Type == Type)
-                {
-                    if (val.Value > 0)
-                    {
-                        tmpSearchList.Add(new RaftStorage.StorageItem(val.Key, val.Value));
-                    }
-                }
-            }
-
-            return tmpSearchList;
-        }
+        
 
         public int GetItemsValue(ItemObject resourceName)
         {

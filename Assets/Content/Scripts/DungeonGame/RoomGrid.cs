@@ -8,6 +8,7 @@ namespace Content.Scripts.DungeonGame
     public class RoomGrid : MonoBehaviour
     {
         [SerializeField] private Vector2Int size;
+        public Vector2Int Size => size;
 
         private void OnDrawGizmos()
         {

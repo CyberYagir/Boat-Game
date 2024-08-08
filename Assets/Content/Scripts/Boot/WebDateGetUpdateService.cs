@@ -35,16 +35,25 @@ namespace Content.Scripts.Boot
                 {
                     var json = webRequest.downloadHandler.text;
 
-                    var time = JsonUtility.FromJson<JsonDateTime>(json);
-
-                    if (time == null)
+                    try
                     {
+                        var time = JsonUtility.FromJson<JsonDateTime>(json);
+
+                        if (time == null)
+                        {
+                            DateService.SetDateTime(DateTime.UtcNow, DateService.WebTimeType.Local);
+                        }
+                        else
+                        {
+                            DateService.SetDateTime(time.GetDateTime(), DateService.WebTimeType.FromWeb);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        
                         DateService.SetDateTime(DateTime.UtcNow, DateService.WebTimeType.Local);
                     }
-                    else
-                    {
-                        DateService.SetDateTime(time.GetDateTime(), DateService.WebTimeType.FromWeb);
-                    }
+                   
                 }
             }
             

@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using Content.Scripts.ItemsSystem;
+
+namespace Content.Scripts.BoatGame.Services
+{
+    public interface IResourcesService
+    {
+        public Dictionary<ItemObject, int> AllItemsList { get; }
+        event Action OnChangeResources;
+        void PlayerItemsList();
+        void RemoveItemFromAnyRaft(ItemObject itemObject);
+        List<RaftStorage.StorageItem> GetItemsByType(EResourceTypes Type);
+    }
+}

@@ -1,3 +1,4 @@
+using System;
 using Content.Scripts.BoatGame.Services;
 using UnityEngine;
 using Zenject;
@@ -44,14 +45,16 @@ namespace Content.Scripts.DungeonGame.Services
 
                     pathCost.cost = Vector2Int.Distance(b.Position, endPos); //heuristic
 
+                    worldGridService.IsHavePoint(new Vector3(b.Position.x, 0, b.Position.y), out var type);
 
-                    if (worldGridService.IsHavePoint(new Vector3(b.Position.x, 0, b.Position.y)))
+                    switch (type)
                     {
-                        pathCost.cost += 10;
-                    }
-                    else
-                    {
-                        pathCost.cost += 1;
+                        case WorldGridServiceTyped.ECellType.Filled:
+                            pathCost.cost += 5;
+                            break;
+                        case WorldGridServiceTyped.ECellType.Room:
+                            pathCost.cost += 10;
+                            break;
                     }
 
                     pathCost.traversable = true;

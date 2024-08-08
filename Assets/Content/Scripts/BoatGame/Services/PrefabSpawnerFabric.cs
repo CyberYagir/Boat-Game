@@ -24,6 +24,17 @@ namespace Content.Scripts.BoatGame.Services
         {
             return container.InstantiatePrefab(prefab, pos, rot, parent);
         }
+
+        public T SpawnItem<T>(T prefab, Transform parent) where T : Object
+        {
+            return container.InstantiatePrefabForComponent<T>(prefab, parent);
+        }
+
+
+        public GameObject SpawnItem(GameObject prefab, Transform parent)
+        {
+            return container.InstantiatePrefab(prefab, parent);
+        }
         
         
         public T SpawnItemOnGround<T>(T prefab, Vector3 pos = default, Quaternion rot = default, Transform parent = null, int layer = ~0, float yOffcet = 1) where T : Object

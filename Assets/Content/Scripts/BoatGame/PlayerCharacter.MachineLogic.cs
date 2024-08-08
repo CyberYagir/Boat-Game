@@ -5,7 +5,7 @@ namespace Content.Scripts.BoatGame
 {
     public partial class PlayerCharacter
     {
-        private void OnStateMachineStateChanged()
+        protected void OnStateMachineStateChanged()
         {
             OnChangeState?.Invoke();
         }

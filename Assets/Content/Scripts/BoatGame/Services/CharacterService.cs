@@ -9,7 +9,40 @@ using Zenject;
 
 namespace Content.Scripts.BoatGame.Services
 {
-    public class CharacterService : MonoBehaviour
+    public interface ICharacterService
+    {
+        List<PlayerCharacter> GetSpawnedCharacters();
+        PlayerCharacter GetClosestCharacter(Vector3 pos, out float distance);
+    }
+
+    public abstract class CharacterServiceBase : MonoBehaviour
+    {
+        public virtual List<PlayerCharacter> GetSpawnedCharacters() => null;
+        
+        public PlayerCharacter GetClosestCharacter(Vector3 pos, out float distance)
+        {
+            var minDist = 9999f;
+
+            var characters = GetSpawnedCharacters();
+            var character = characters[0];
+            foreach (var c in characters)
+            {
+                var dist = Vector3.Distance(pos, c.transform.position);
+
+                if (minDist > dist)
+                {
+                    minDist = dist;
+                    character = c;
+                }
+            }
+
+
+            distance = minDist;
+            return character;
+        }
+    }
+
+    public class CharacterService : CharacterServiceBase, ICharacterService
     {
         [SerializeField] private PlayerCharacter prefab;
         [SerializeField] private List<PlayerCharacter> spawnedCharacters;
@@ -76,6 +109,7 @@ namespace Content.Scripts.BoatGame.Services
 
         }
 
+        public override List<PlayerCharacter> GetSpawnedCharacters() => spawnedCharacters;
         private void OnDeath(Character target)
         {
             SpawnedCharacters.RemoveAll(x => x == null || x.NeedManager.IsDead);
@@ -150,26 +184,6 @@ namespace Content.Scripts.BoatGame.Services
                     }
                 }
             }
-        }
-
-        public PlayerCharacter GetClosestCharacter(Vector3 pos, out float distance)
-        {
-            var minDist = 9999f;
-            var character = spawnedCharacters[0];
-            foreach (var c in spawnedCharacters)
-            {
-                var dist = Vector3.Distance(pos, c.transform.position);
-
-                if (minDist > dist)
-                {
-                    minDist = dist;
-                    character = c;
-                }
-            }
-
-
-            distance = minDist;
-            return character;
         }
     }
 }

@@ -16,25 +16,25 @@ namespace Content.Scripts.BoatGame
 {
     public partial class PlayerCharacter : MonoBehaviour, ICharacter, IDamagable
     {
-        [SerializeField, ReadOnly] private Character character;
-        [SerializeField] private AppearanceManager appearanceManager;
-        [SerializeField] private AnimationsManager animationsManager;
+        [SerializeField, ReadOnly] protected Character character;
+        [SerializeField] protected AppearanceManager appearanceManager;
+        [SerializeField] protected AnimationsManager animationsManager;
         [SerializeField] private AIManager aiManager;
-        [SerializeField] private NeedsManager needsManager;
+        [SerializeField] protected NeedsManager needsManager;
         [SerializeField] private RagdollController ragdollController;
-        [SerializeField] private CharacterParameters parametersCalculator;
+        [SerializeField] protected CharacterParameters parametersCalculator;
         
-        [SerializeField] private StateMachine<PlayerCharacter, EStateType> stateMachine;
+        [SerializeField] protected StateMachine<PlayerCharacter, EStateType> stateMachine;
         [SerializeField] private ActionsHolder actionsHolder;
 
         [SerializeField] private bool onlyVisuals;
 
-        private CharacterGrounder characterGrounder = new CharacterGrounder();
+        protected CharacterGrounder characterGrounder = new CharacterGrounder();
         private SelectionService selectionService;
         private TickService tickService;
         private RaftBuildService raftBuildService;
-        private PrefabSpawnerFabric prefabSpawnerFabric;
-        private GameDataObject gameData;
+        protected PrefabSpawnerFabric prefabSpawnerFabric;
+        protected GameDataObject gameData;
 
 
         public EStateType CurrentState => stateMachine.CurrentStateType;
@@ -55,7 +55,7 @@ namespace Content.Scripts.BoatGame
         public CharacterParameters ParametersCalculator => parametersCalculator;
 
         public Action OnChangeState;
-        private SaveDataObject saveDataObject;
+        protected SaveDataObject saveDataObject;
 
 
         public void Init(
@@ -102,6 +102,36 @@ namespace Content.Scripts.BoatGame
 
             Select(false);
         }
+        
+        
+        public void InitDungeonPlayer(
+            Character character,
+            GameDataObject gameData,
+            PrefabSpawnerFabric prefabSpawnerFabric,
+            INavMeshProvider navMeshProvider, 
+            SaveDataObject saveDataObject
+        )
+        {
+            this.saveDataObject = saveDataObject;
+            this.gameData = gameData;
+            this.character = character;
+            this.prefabSpawnerFabric = prefabSpawnerFabric;
+            
+
+            appearanceManager.Init(character, gameData);
+            aiManager.Init(navMeshProvider, this.character);
+            characterGrounder.Init(transform);
+            animationsManager.Init(null, appearanceManager);
+            parametersCalculator.Init(character, this.gameData, this);
+            needsManager.Init(character, null, null, gameData);
+            needsManager.OnDeath += Death;
+            
+            stateMachine.Init(this);
+            stateMachine.OnChangeState += OnStateMachineStateChanged;
+
+            Select(false);
+        }
+        
 
         public void SetCharacterRaftPosition()
         {
@@ -119,7 +149,7 @@ namespace Content.Scripts.BoatGame
             }
         }
 
-        private void Death(Character target)
+        protected void Death(Character target)
         {
             ragdollController.ActiveRagdoll();
             stateMachine.enabled = false;
@@ -191,6 +221,11 @@ namespace Content.Scripts.BoatGame
             aiManager.ExtraRotation();
             needsManager.Update();
 
+            GroundCharacter();
+        }
+
+        public void GroundCharacter()
+        {
             characterGrounder.PlaceUnitOnGround();
         }
 

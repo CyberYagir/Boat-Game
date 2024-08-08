@@ -14,6 +14,7 @@ namespace Content.Scripts.DungeonGame.Services
         [Inject]
         private void Construct()
         {
+            seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
             random = new System.Random(seed);
         }
     }

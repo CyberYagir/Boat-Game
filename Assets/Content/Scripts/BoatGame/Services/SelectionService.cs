@@ -10,8 +10,54 @@ using Zenject;
 
 namespace Content.Scripts.BoatGame.Services
 {
-    public class SelectionService : MonoBehaviour
+
+    public class OverUIChecker
     {
+        private bool isUIBlocked;
+        private GameObject lastBlocked;
+        
+        private List<GraphicRaycaster> raycasters = new List<GraphicRaycaster>(10);
+        private List<RaycastResult> raycastResults = new List<RaycastResult>(10);
+
+        public OverUIChecker(GameObject raycastersHolder)
+        {
+            if (raycastersHolder != null)
+            {
+                raycasters = raycastersHolder.GetComponentsInChildren<GraphicRaycaster>(true).ToList();
+            }
+        }
+
+
+        public GameObject LastBlocked => lastBlocked;
+
+        public bool IsUIBlocked => isUIBlocked;
+
+        public bool CheckUILogic()
+        {
+            raycastResults.Clear();
+            var pointer = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+            for (int i = 0; i < raycasters.Count; i++)
+            {
+                if (raycasters[i] == null) continue;
+                raycasters[i].Raycast(pointer, raycastResults);
+
+                if (raycastResults.Count > 0)
+                {
+                    lastBlocked = raycastResults[0].gameObject;
+                    isUIBlocked = true;
+                    return true;
+                }
+            }
+            isUIBlocked = false;
+            return false;
+        }
+    }
+    public class SelectionService : MonoBehaviour, ISelectionService
+    {
+
         [SerializeField] private new Camera camera;
         [SerializeField] private UIService uiService;
         
@@ -21,11 +67,7 @@ namespace Content.Scripts.BoatGame.Services
 
         
         private Vector3 lastWorldClick;
-        private bool isUIBlocked;
-        private GameObject lastBlocked;
-        
-        private List<GraphicRaycaster> raycasters = new List<GraphicRaycaster>(10);
-        private List<RaycastResult> raycastResults = new List<RaycastResult>(10);
+        private OverUIChecker overUIChecker;
         
         private GameStateService gameStateService;
         private ScenesService scenesService;
@@ -33,10 +75,7 @@ namespace Content.Scripts.BoatGame.Services
         public Action<ISelectable> OnChangeSelectObject;
         public Action<PlayerCharacter> OnChangeSelectCharacter;
         public Action<RaftTapToBuild> OnTapOnBuildingRaft;
-        
 
-        
-        
         public Camera Camera => camera;
 
         public Vector3 LastWorldClick => lastWorldClick;
@@ -44,8 +83,8 @@ namespace Content.Scripts.BoatGame.Services
 
         public ISelectable SelectedObject => selectedObject;
 
-        public bool IsUIBlocked => isUIBlocked;
-        public GameObject LastUIBlockedTransform => lastBlocked;
+        public bool IsUIBlocked => overUIChecker.IsUIBlocked;
+        public GameObject LastUIBlockedTransform => overUIChecker.LastBlocked;
         
 
         [Inject]
@@ -53,7 +92,9 @@ namespace Content.Scripts.BoatGame.Services
         {
             this.scenesService = scenesService;
             this.gameStateService = gameStateService;
-            raycasters = uiService.transform.parent.GetComponentsInChildren<GraphicRaycaster>(true).ToList();
+            
+            overUIChecker = new OverUIChecker(uiService.transform.parent.gameObject);
+
             scenesService.OnChangeActiveScene += ScenesServiceOnOnChangeActiveScene;  
         }
 
@@ -74,7 +115,7 @@ namespace Content.Scripts.BoatGame.Services
             {
                 if (scenesService.GetActiveScene() == ESceneName.Map) return;
                 
-                if (isUIBlocked) return;
+                if (IsUIBlocked) return;
                 
                 switch (gameStateService.GameState)
                 {
@@ -90,7 +131,7 @@ namespace Content.Scripts.BoatGame.Services
 
         private void FixedUpdate()
         {
-            CheckUILogic();
+            overUIChecker.CheckUILogic();
         }
 
         private void BuildingStateSelectionLogic()
@@ -146,28 +187,7 @@ namespace Content.Scripts.BoatGame.Services
             return hit;
         }
 
-        public bool CheckUILogic()
-        {
-            raycastResults.Clear();
-            var pointer = new PointerEventData(EventSystem.current)
-            {
-                position = Input.mousePosition
-            };
-            for (int i = 0; i < raycasters.Count; i++)
-            {
-                if (raycasters[i] == null) continue;
-                raycasters[i].Raycast(pointer, raycastResults);
-
-                if (raycastResults.Count > 0)
-                {
-                    lastBlocked = raycastResults[0].gameObject;
-                    isUIBlocked = true;
-                    return true;
-                }
-            }
-            isUIBlocked = false;
-            return false;
-        }
+       
 
 
         public void ChangeCharacter(ICharacter character)

@@ -22,6 +22,7 @@ namespace Content.Scripts.BoatGame
                 LeftShoulder,
                 RightShoulder,
                 RightHand,
+                LeftHand,
                 BackSword,
                 Hips,
                 Spine2,
@@ -32,6 +33,7 @@ namespace Content.Scripts.BoatGame
             [SerializeField] private Renderer renderer;
             [SerializeField] private GameObject selectedCircle;
             [SerializeField] private HatsHolder hatsHolder;
+            [SerializeField] private GameObject torchPrefab;
             [SerializeField] private ParticleSystem inWaterRippleParticlePrefab;
             [SerializeField] private ParticleSystem levelUpParticlesPrefab;
             [SerializeField] private ParticleSystem healingParticle;
@@ -266,6 +268,11 @@ namespace Content.Scripts.BoatGame
                 target.transform.localPosition = Vector3.zero;;
                 target.transform.localEulerAngles = Vector3.zero;;
                 target.transform.localScale = Vector3.one;;
+            }
+
+            public void ShowTorch()
+            {
+                Instantiate(torchPrefab, bonesMap[EBones.LeftHand]);
             }
         }
     }

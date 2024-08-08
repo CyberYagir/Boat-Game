@@ -57,6 +57,10 @@ namespace Content.Scripts
             return rb.transform.InverseTransformDirection(rb.velocity);
         }
 
+        public static Vector3 ToXZ(this Vector2 dir) => new Vector3(dir.x, 0, dir.y); 
+        
+        public static Vector3 RemoveY(this Vector3 dir) => new Vector3(dir.x, 0, dir.z); 
+
         #region Vector2
 
         public static Vector2 MinusVector2(this ref Vector2 vector2, Vector2 value)

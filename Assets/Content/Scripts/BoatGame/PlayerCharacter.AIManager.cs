@@ -40,6 +40,17 @@ namespace Content.Scripts.BoatGame
                 character.OnSkillUpgraded += CharacterOnOnSkillUpgraded;
                 CharacterOnOnSkillUpgraded();
             }
+            
+            public void Init(INavMeshProvider navMeshProvider, Character character)
+            {
+                this.character = character;
+                this.navMeshProvider = navMeshProvider;
+                agent = navMeshAgent.GetComponent<INavAgentProvider>();
+
+                startSpeed = agent.MaxSpeed;
+                character.OnSkillUpgraded += CharacterOnOnSkillUpgraded;
+                CharacterOnOnSkillUpgraded();
+            }
 
             private void CharacterOnOnSkillUpgraded()
             {

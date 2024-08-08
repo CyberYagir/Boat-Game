@@ -30,6 +30,7 @@ namespace Content.Scripts.BoatGame
             private static readonly int TG_GetDamage = Animator.StringToHash("TG_Damaged");
             private static readonly int HugFish = Animator.StringToHash("HugFish");
             private static readonly int DamageType = Animator.StringToHash("DamageType");
+            private static readonly int RandomModify = Animator.StringToHash("RandomModify");
 
             
             [SerializeField] private Animator animator;
@@ -50,8 +51,12 @@ namespace Content.Scripts.BoatGame
             public void Init(WeatherService weatherService, AppearanceManager appearanceManager)
             {
                 this.appearanceManager = appearanceManager;
-                weatherService.OnChangeWeather += ApplyHood;
-                ApplyHood(weatherService.CurrentWeather);
+                animator.SetFloat(RandomModify, Random.Range(0.9f, 1.1f));
+                if (weatherService != null)
+                {
+                    weatherService.OnChangeWeather += ApplyHood;
+                    ApplyHood(weatherService.CurrentWeather);
+                }
             }
 
             private void ApplyHood(WeatherService.EWeatherType type)
@@ -198,6 +203,13 @@ namespace Content.Scripts.BoatGame
             public Animator GetAnimator()
             {
                 return animator;
+            }
+
+            private const int TORCH_LAYER = 4;
+
+            public void ShowTorch()
+            {
+                animator.SetLayerWeight(TORCH_LAYER, 1f);
             }
         }
     }
