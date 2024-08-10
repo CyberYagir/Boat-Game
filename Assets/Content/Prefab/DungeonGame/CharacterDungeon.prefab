@@ -321,7 +321,7 @@ PrefabInstance:
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[2].stateAction
       value: 
-      objectReference: {fileID: 7890346803500124639}
+      objectReference: {fileID: 1251148695710040334}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[3].stateAction
       value: 
@@ -484,6 +484,9 @@ PrefabInstance:
       addedObject: {fileID: 1670381270932160211}
     - targetCorrespondingSourceObject: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1251148695710040334}
+    - targetCorrespondingSourceObject: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1469291191329793736}
   m_SourcePrefab: {fileID: 100100000, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
 --- !u!114 &1534519521214580625 stripped
@@ -516,6 +519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCharacter: {fileID: 1534519521214580625}
   rvoController: {fileID: 1469291191329793736}
+  attackRange: 2.5
 --- !u!114 &7890346803500124639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,6 +544,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab02c2058d1d5b34ba53065c1ccffbad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnded: 0
+  machine: {fileID: 0}
+--- !u!114 &1251148695710040334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7161605741687318096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940eb2345f794d346bd78bc53be83cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isEnded: 0

@@ -45,16 +45,23 @@ namespace ConsoleShell
         {
             var tmp_text = originalMessage;
 
-
-            if (!string.IsNullOrEmpty(stacktrace))
+            try
             {
-                if (stacktrace.Length > 100)
+                if (!string.IsNullOrEmpty(stacktrace))
                 {
-                    stacktrace = stacktrace.Substring(0, 200) + "...";
-                }
+                    if (stacktrace.Length > 100)
+                    {
+                        stacktrace = stacktrace.Substring(0, 200) + "...";
+                    }
 
-                tmp_text += "\n" + stacktrace;
+                    tmp_text += "\n" + stacktrace;
+                }
             }
+            catch (Exception e)
+            {
+                // ignored
+            }
+
 
             text.text = ConsoleLogger.GetLog(tmp_text, type);
         }

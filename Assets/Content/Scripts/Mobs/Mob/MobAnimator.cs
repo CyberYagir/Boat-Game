@@ -23,6 +23,7 @@ namespace Content.Scripts.Mobs.Mob
 
         private float moving = 0;
         private Tweener tweener;
+        private static readonly int AttackType = Animator.StringToHash("AttackType");
 
         public MobAnimationEvents AnimationEvents => animationEvents;
 
@@ -108,6 +109,16 @@ namespace Content.Scripts.Mobs.Mob
             animator.ResetTrigger(TG_Drink);
             animator.ResetTrigger(TG_Idle);
             animator.SetTrigger(TG_Idle);
+        }
+
+        public bool IsIdleOrMove()
+        {
+            return animator.GetCurrentAnimatorStateInfo(0).IsTag("IdleMove");
+        }
+
+        public void SetAttackType(int i)
+        {
+            animator.SetInteger(AttackType, Random.Range(0, i));
         }
     }
 }

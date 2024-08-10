@@ -27,6 +27,8 @@ namespace Content.Scripts.DungeonGame.Services
 
         private void Update()
         {
+            if (charactersService.SpawnedCharacters.Count == 0) return;
+            
             var pos = Vector3.zero;
             foreach (var c in charactersService.SpawnedCharacters)
             {

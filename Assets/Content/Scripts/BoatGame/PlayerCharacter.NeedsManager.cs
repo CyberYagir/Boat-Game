@@ -92,8 +92,8 @@ namespace Content.Scripts.BoatGame
             [SerializeField] private PopUp popUp;
             [SerializeField] private SkillObject vitalitySkill;
 
-            public Action<Character> OnDeath;
-            public Action OnDamaged;
+            public event Action<Character> OnDeath;
+            public event Action OnDamaged;
             
  
             private WeatherService.WeatherModifiers currentModifiers;
@@ -215,6 +215,8 @@ namespace Content.Scripts.BoatGame
                 health += param.Health;
                 hunger += param.Hunger;
                 thirsty += param.Thirsty;
+                ClampValues();
+                OnDamaged?.Invoke();
             }
 
             public Character.ParametersData GetParameters()

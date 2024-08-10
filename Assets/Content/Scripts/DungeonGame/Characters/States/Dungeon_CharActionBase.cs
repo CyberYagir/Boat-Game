@@ -7,16 +7,18 @@ namespace Content.Scripts.DungeonGame.Characters.States
     public class Dungeon_CharActionBase : CharActionBase
     {
         private DungeonSelectionService dungeonSelectionService;
+        private DungeonCharacter character;
 
         public DungeonSelectionService SelectionService => dungeonSelectionService;
+        public DungeonCharacter DungeonCharacter => character;
 
         public override void StartState()
         {
             base.StartState();
             if (SelectionService == null)
             {
-                dungeonSelectionService = Machine.Get<DungeonCharacter>().SelectionService;
-               
+                character = Machine.Get<DungeonCharacter>();
+                dungeonSelectionService = character.SelectionService;
             }
         }
     }

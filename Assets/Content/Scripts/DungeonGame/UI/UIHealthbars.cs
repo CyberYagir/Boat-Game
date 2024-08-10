@@ -31,7 +31,11 @@ namespace Content.Scripts.DungeonGame.UI
 
             public Vector3 GetPlayerPosition()
             {
-                return player.transform.position + Vector3.up * offset;
+                if (player != null)
+                {
+                    return player.transform.position + Vector3.up * offset;
+                }
+                return Vector3.zero;
             }
 
             public void SetPosition(Vector3 worldToScreenPoint)

@@ -26,7 +26,7 @@ namespace Content.Scripts.DungeonGame
             {
                 foreach (var c in charactersService.SpawnedCharacters)
                 {
-                    if (Vector3.Distance(c.transform.position.RemoveY(), mark.transform.position.RemoveY()) <= 1.5f)
+                    if (Vector3.Distance(c.transform.position.RemoveY(), mark.transform.position.RemoveY()) <= 1.6f)
                     {
 
                         mark.transform.DOKill();

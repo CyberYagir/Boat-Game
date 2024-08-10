@@ -54,7 +54,7 @@ namespace Content.Scripts.BoatGame.Characters
 
 
         public K CurrentStateType => lastStateKey;
-        public Action OnChangeState;
+        public event Action OnChangeState;
 
         public void Init(T target)
         {

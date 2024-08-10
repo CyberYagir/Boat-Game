@@ -21,7 +21,8 @@ namespace Content.Scripts.DungeonGame.Services
             PrefabSpawnerFabric prefabSpawnerFab,
             INavMeshProvider navMeshProvider,
             RoomsPlacerService roomsPlacerService,
-            DungeonSelectionService selectionService
+            DungeonSelectionService selectionService,
+            DungeonEnemiesService enemiesService
         )
 
         {
@@ -37,10 +38,17 @@ namespace Content.Scripts.DungeonGame.Services
                         prefabSpawnerFab,
                         navMeshProvider,
                         saveData,
-                        selectionService
+                        selectionService,
+                        enemiesService
                     ))
-                    .With(x => SpawnedCharacters.Add(x));
+                    .With(x => SpawnedCharacters.Add(x))
+                    .With(x => x.PlayerCharacter.NeedManager.OnDeath += OnDeath);
             }
+        }
+
+        private void OnDeath(Character obj)
+        {
+            spawnedCharacters.RemoveAll(x => x.PlayerCharacter.Character == obj);
         }
 
         public override List<PlayerCharacter> GetSpawnedCharacters() => GetPlayers();

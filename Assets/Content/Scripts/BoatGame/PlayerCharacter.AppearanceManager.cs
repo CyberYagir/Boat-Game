@@ -22,12 +22,12 @@ namespace Content.Scripts.BoatGame
                 LeftShoulder,
                 RightShoulder,
                 RightHand,
-                LeftHand,
                 BackSword,
                 Hips,
                 Spine2,
                 RightLeg,
-                LeftLeg
+                LeftLeg,
+                LeftHand
             }
 
             [SerializeField] private Renderer renderer;

@@ -13,12 +13,17 @@ namespace Content.Scripts.DungeonGame
     {
         [SerializeField] private PlayerCharacter playerCharacter;
         [SerializeField] private RVOController rvoController;
-        
+        [SerializeField] private float attackRange;
+
         private DungeonSelectionService dungeonSelectionService;
+        private DungeonEnemiesService enemiesService;
+        private DungeonMob targetEnemy;
 
         public DungeonSelectionService SelectionService => dungeonSelectionService;
-
         public PlayerCharacter PlayerCharacter => playerCharacter;
+        public float AttackRange => attackRange;
+
+        public DungeonMob TargetEnemy => targetEnemy;
 
         public void Init(
             Character character,
@@ -26,10 +31,13 @@ namespace Content.Scripts.DungeonGame
             PrefabSpawnerFabric prefabSpawnerFabric,
             INavMeshProvider navMeshProvider,
             SaveDataObject saveDataObject,
-            DungeonSelectionService dungeonSelectionService
+            DungeonSelectionService dungeonSelectionService,
+            DungeonEnemiesService enemiesService
         )
         {
+            this.enemiesService = enemiesService;
             this.dungeonSelectionService = dungeonSelectionService;
+
             PlayerCharacter.InitDungeonPlayer(character, gameData, prefabSpawnerFabric, navMeshProvider, saveDataObject);
             PlayerCharacter.AnimationManager.ShowTorch();
             PlayerCharacter.AppearanceDataManager.ShowTorch();
@@ -41,11 +49,14 @@ namespace Content.Scripts.DungeonGame
             {
                 rvoController.enabled = true;
             }
+
+            UpdateAttackRange();
         }
 
         public void MoveToPoint()
         {
             PlayerCharacter.ActiveAction(EStateType.MoveTo);
+            targetEnemy = null;
         }
 
         public void SetPosition(Vector3 getStartRoomRandomPos)
@@ -53,9 +64,26 @@ namespace Content.Scripts.DungeonGame
             transform.position = getStartRoomRandomPos;
         }
 
-        public Vector3 GetVelocity()
+        public void UpdateAttackRange()
         {
-            return PlayerCharacter.AIMoveManager.NavMeshAgent.Velocity;
+            if (!InputService.IsLMBPressed)
+            {
+                if (PlayerCharacter.CurrentState == EStateType.Idle)
+                {
+                    if (dungeonSelectionService.LastPoint.ToDistance(transform.position) < attackRange)
+                    {
+                        var enemy = enemiesService.GetNearMob(transform.position);
+                        if (enemy != null)
+                        {
+                            if (enemy.transform.position.ToDistance(transform.position) < attackRange)
+                            {
+                                targetEnemy = enemy;
+                                PlayerCharacter.ActiveAction(EStateType.Attack);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
