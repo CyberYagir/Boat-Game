@@ -24,7 +24,7 @@ namespace Content.Scripts.DungeonGame.Characters.States
             base.StartState();
             characterHips = Machine.AppearanceDataManager.GetBone(PlayerCharacter.AppearanceManager.EBones.Hips);
             Agent.SetStopped(false);
-
+            DungeonCharacter.PlayerCharacter.AnimationManager.HideTorch();
             if (DungeonCharacter.TargetEnemy != null)
             {
                 Machine.AnimationManager.AnimationEvents.OnAttack += AttackEnemy;
@@ -33,10 +33,24 @@ namespace Content.Scripts.DungeonGame.Characters.States
 
         private void AttackEnemy()
         {
-            DungeonCharacter.TargetEnemy.Damage(Machine.ParametersCalculator.Damage, Machine.gameObject);
+            var allMobs = DungeonCharacter.GetAllEnemiesNear(DungeonCharacter.TargetEnemy.transform.position);
+
+            foreach (var mob in allMobs)
+            {
+                mob.Damage(Machine.ParametersCalculator.Damage, Machine.gameObject);
+            }
+            
             if (DungeonCharacter.TargetEnemy.IsDead)
             {
-                EndState();
+                var notDeadMob = allMobs.Find(x => x.IsDead == false);
+                if (!notDeadMob)
+                {
+                    EndState();
+                }
+                else
+                {
+                    DungeonCharacter.SetTarget(notDeadMob);
+                }
             }
         }
 
@@ -44,7 +58,7 @@ namespace Content.Scripts.DungeonGame.Characters.States
         {
             base.ProcessState();
 
-            if (DungeonCharacter.TargetEnemy != null)
+            if (DungeonCharacter.TargetEnemy != null || DungeonCharacter.TargetEnemy.transform.position.ToDistance(transform.position) > DungeonCharacter.AttackRange * 1.5f)
             {
                 RotateToTarget();
                 
@@ -80,6 +94,7 @@ namespace Content.Scripts.DungeonGame.Characters.States
         {
             base.EndState();
             
+            DungeonCharacter.PlayerCharacter.AnimationManager.ShowTorch();
             Machine.AnimationManager.AnimationEvents.OnAttack -= AttackEnemy;
             Machine.AppearanceDataManager.ActiveMeleeWeapon(false);
             ToIdleAnimation();

@@ -5,6 +5,7 @@ using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Scriptable;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
+using Content.Scripts.DungeonGame.Mobs;
 using Content.Scripts.IslandGame.Natives;
 using Content.Scripts.IslandGame.Scriptable;
 using Content.Scripts.IslandGame.WorldStructures;
@@ -15,6 +16,7 @@ using Content.Scripts.SkillsSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
+using Random = System.Random;
 
 namespace Content.Scripts.Global
 {
@@ -128,6 +130,7 @@ namespace Content.Scripts.Global
         [SerializeField] private List<Material> skinColors;
         [SerializeField] private List<CraftObject> crafts;
         [SerializeField] private List<MobObject> mobs;
+        [SerializeField] private List<DungeonMobObject> dungeonMobs;
         [SerializeField] private List<int> levelXps;
         [SerializeField] private List<MapPathObject> mapPaths;
         [SerializeField] private List<RandomStructureMaterialsBase.MatsByBiome> structuresMaterials;
@@ -199,6 +202,11 @@ namespace Content.Scripts.Global
         public MobObject GetMob(MobObject.EMobType mobType)
         {
             return mobs.Find(x => x.Type == mobType);
+        }
+        
+        public DungeonMobObject GetMob(DungeonMobObject.EMobDifficult difficult, Random rnd)
+        {
+            return dungeonMobs.FindAll(x => x.Difficult == difficult).GetRandomItem(rnd);
         }
 
         public Sprite GetResourceIcon(EResourceTypes type)

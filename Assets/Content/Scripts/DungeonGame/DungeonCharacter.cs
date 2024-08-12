@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.DungeonGame.Characters.States;
 using Content.Scripts.DungeonGame.Services;
 using Content.Scripts.Global;
 using Pathfinding.RVO;
@@ -18,6 +21,7 @@ namespace Content.Scripts.DungeonGame
         private DungeonSelectionService dungeonSelectionService;
         private DungeonEnemiesService enemiesService;
         private DungeonMob targetEnemy;
+        private EStateType preRollState;
 
         public DungeonSelectionService SelectionService => dungeonSelectionService;
         public PlayerCharacter PlayerCharacter => playerCharacter;
@@ -41,22 +45,45 @@ namespace Content.Scripts.DungeonGame
             PlayerCharacter.InitDungeonPlayer(character, gameData, prefabSpawnerFabric, navMeshProvider, saveDataObject);
             PlayerCharacter.AnimationManager.ShowTorch();
             PlayerCharacter.AppearanceDataManager.ShowTorch();
+            
+            PlayerCharacter.GetCharacterAction<Dungeon_CharActionRoll>().OnRollEnd += OnRollEnd;
+
+            RVOSimulator.OnInited += () => rvoController.enabled = true;
         }
+        
+
+        private void OnRollEnd()
+        {
+            PlayerCharacter.ActiveAction(preRollState);
+        }
+
 
         private void Update()
         {
-            if (!rvoController.enabled)
+            if (PlayerCharacter.CurrentState != EStateType.Roll)
             {
-                rvoController.enabled = true;
-            }
+                UpdateAttackRange();
 
-            UpdateAttackRange();
+                if (InputService.SpaceDown)
+                {
+                    StartRoll();
+                }
+            }
+        }
+
+        private void StartRoll()
+        {
+            preRollState = PlayerCharacter.CurrentState;
+            PlayerCharacter.ActiveAction(EStateType.Roll);
         }
 
         public void MoveToPoint()
         {
-            PlayerCharacter.ActiveAction(EStateType.MoveTo);
-            targetEnemy = null;
+            if (playerCharacter.CurrentState != EStateType.Roll)
+            {
+                PlayerCharacter.ActiveAction(EStateType.MoveTo);
+                SetTarget(null);
+            }
         }
 
         public void SetPosition(Vector3 getStartRoomRandomPos)
@@ -68,21 +95,56 @@ namespace Content.Scripts.DungeonGame
         {
             if (!InputService.IsLMBPressed)
             {
-                if (PlayerCharacter.CurrentState == EStateType.Idle)
+                if (PlayerCharacter.CurrentState == EStateType.Idle || IsAttackOnDestination())
                 {
-                    if (dungeonSelectionService.LastPoint.ToDistance(transform.position) < attackRange)
+                    var enemy = enemiesService.GetNearMob(transform.position.RemoveY());
+                    if (enemy != null)
                     {
-                        var enemy = enemiesService.GetNearMob(transform.position);
-                        if (enemy != null)
+                        if (enemy.transform.position.ToDistance(transform.position) < attackRange)
                         {
-                            if (enemy.transform.position.ToDistance(transform.position) < attackRange)
-                            {
-                                targetEnemy = enemy;
-                                PlayerCharacter.ActiveAction(EStateType.Attack);
-                            }
+                            SetTarget(enemy);
+                            PlayerCharacter.ActiveAction(EStateType.Attack);
                         }
                     }
                 }
+            }
+        }
+
+        private bool IsAttackOnDestination()
+        {
+            if (PlayerCharacter.CurrentState == EStateType.MoveTo)
+            {
+                var targetMovePoint = playerCharacter.AIMoveManager.NavMeshAgent.Destination;
+                var enemy = enemiesService.GetNearMob(targetMovePoint);
+
+                if (enemy != null)
+                {
+                    if (Vector3.Distance(enemy.transform.position, targetMovePoint) < attackRange)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public List<DungeonMob> GetAllEnemiesNear(Vector3 transformPosition)
+        {
+            return enemiesService.GetAllNearMobs(transformPosition, 1f);
+        }
+
+        public void SetTarget(DungeonMob notDeadMob)
+        {
+            targetEnemy = notDeadMob;
+        }
+
+        public void SetRollDirection(Vector3 position)
+        {
+            if (playerCharacter.CurrentState != EStateType.Roll)
+            {
+                playerCharacter.GetCharacterAction<Dungeon_CharActionRoll>().SetCustomRollPosition(position);
+                StartRoll();
             }
         }
     }

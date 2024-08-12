@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Profiling;
 
@@ -27,6 +28,7 @@ namespace Pathfinding.RVO {
 		/// <summary>First RVOSimulator in the scene (usually there is only one)</summary>
 		public static RVOSimulator active { get; private set; }
 
+        public static event Action OnInited;
 		/// <summary>
 		/// Desired FPS for rvo simulation.
 		/// It is usually not necessary to run a crowd simulation at a very high fps.
@@ -134,6 +136,7 @@ namespace Pathfinding.RVO {
 			}
 
 			active = this;
+            OnInited?.Invoke();
 		}
 
 		/// <summary>Update the simulation</summary>
@@ -161,7 +164,9 @@ namespace Pathfinding.RVO {
 				simulatorBurst.OnDestroy();
 				simulatorBurst = null;
 			}
-		}
+
+            OnInited = null;
+        }
 
 		// static Color ObstacleColor = new Color(255/255f, 60/255f, 15/255f, 1.0f);
 		public override void DrawGizmos () {

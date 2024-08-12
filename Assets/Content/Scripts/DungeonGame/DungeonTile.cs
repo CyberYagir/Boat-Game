@@ -32,9 +32,15 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private PropsSelector[] propSelectors;
         [SerializeField] private PropsSelector[] propsForAll;
         [SerializeField] private PropSpawner[] propSpawners;
+        private Vector3Int coords;
+        private WorldGridServiceTyped.ECellType targetCellType;
 
-        public void Init(List<Vector3> disabledDirections, WorldGridServiceTyped.ECellType eCellType)
+        public WorldGridServiceTyped.ECellType TargetCellType => targetCellType;
+
+        public void Init(List<Vector3> disabledDirections, WorldGridServiceTyped.ECellType eCellType, Vector3Int coords)
         {
+            targetCellType = eCellType;
+            this.coords = coords;
             ActiveWallsByDirections(disabledDirections);
 
             ActivateDecor(eCellType);

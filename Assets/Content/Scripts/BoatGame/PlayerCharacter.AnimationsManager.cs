@@ -21,6 +21,7 @@ namespace Content.Scripts.BoatGame
             private static readonly int TG_Hook = Animator.StringToHash("TG_Hook");
             private static readonly int TG_Eat = Animator.StringToHash("TG_Eat");
             private static readonly int TG_Drink = Animator.StringToHash("TG_Drink");
+            private static readonly int TG_Roll = Animator.StringToHash("TG_Roll");
             private static readonly int TG_Building = Animator.StringToHash("TG_Building");
             private static readonly int TG_Crafting = Animator.StringToHash("TG_Crafting");
             private static readonly int TG_Attack = Animator.StringToHash("TG_Attack");
@@ -119,6 +120,7 @@ namespace Content.Scripts.BoatGame
                 animator.ResetTrigger(TG_ChopTree);
                 animator.ResetTrigger(TG_Pickup);
                 animator.ResetTrigger(TG_Mine);
+                animator.ResetTrigger(TG_Roll);
                 
                 
                 isAttackTriggerActived = false;
@@ -211,6 +213,16 @@ namespace Content.Scripts.BoatGame
             {
                 animator.SetLayerWeight(TORCH_LAYER, 1f);
             }
+            public void HideTorch()
+            {
+                animator.SetLayerWeight(TORCH_LAYER, 0f);
+            }
+
+            public void TriggerRoll()
+            {
+                ResetAllTriggers();
+                animator.SetTrigger(TG_Roll);
+             }
         }
     }
 }

@@ -9,8 +9,20 @@ namespace Content.Scripts.DungeonGame.Mobs.States
         [SerializeField] private float attackDamage;
         [SerializeField] private float attackDistance;
         [SerializeField] private float attackCooldown;
-
+        [SerializeField] private float attackDelay;
+        [SerializeField] private int maxAttacks = 3;
+        
+        private int attackCounter;
+        
         private bool isCooldown;
+
+        public override void ResetState()
+        {
+            base.ResetState();
+            
+            
+            attackCounter = 0;
+        }
 
         public override void StartState()
         {
@@ -21,7 +33,19 @@ namespace Content.Scripts.DungeonGame.Mobs.States
 
         private void OnAttack()
         {
-            Machine.AttackedPlayer.Damage(attackDamage, gameObject);
+            attackCounter++;
+            if (attackCounter >= maxAttacks)
+            {
+                attackCounter = 0;
+            }
+            
+            if (Machine.AttackedPlayer.CurrentState != EStateType.Roll)
+            {
+                if (IsCanAttack())
+                {
+                    Machine.AttackedPlayer.Damage(attackDamage, gameObject);
+                }
+            }
         }
 
         public override void ProcessState()
@@ -40,10 +64,16 @@ namespace Content.Scripts.DungeonGame.Mobs.States
                 {
                     if (!isCooldown)
                     {
-                        Machine.MobAnimator.SetAttackType(2);
-                        Machine.MobAnimator.TriggerAttack();
+                        DOVirtual.DelayedCall(attackDelay, delegate
+                        {
+                            if (!Machine.IsDead)
+                            {
+                                Machine.MobAnimator.SetAttackType(attackCounter);
+                                Machine.MobAnimator.TriggerAttack();
+                                DOVirtual.DelayedCall(attackCooldown, delegate { isCooldown = false; });
+                            }
+                        });
                         isCooldown = true;
-                        DOVirtual.DelayedCall(attackCooldown, delegate { isCooldown = false; });
                     }
                 }
 
@@ -75,7 +105,6 @@ namespace Content.Scripts.DungeonGame.Mobs.States
         public override void EndState()
         {
             base.EndState();
-            
             Machine.MobAnimator.AnimationEvents.OnAttack -= OnAttack;
         }
     }

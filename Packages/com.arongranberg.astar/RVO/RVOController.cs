@@ -419,7 +419,7 @@ namespace Pathfinding.RVO {
 			if (ai is AIBase aiBase) aiBase.FindComponents();
 
 			if (RVOSimulator.active == null) {
-				Debug.LogError("No RVOSimulator component found in the scene. Please add one.");
+				// Debug.LogError("No RVOSimulator component found in the scene. Please add one.");
 				enabled = false;
 			} else {
 				simulator = RVOSimulator.active.GetSimulator();

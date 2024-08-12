@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using Content.Scripts.BoatGame;
+using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.DungeonGame.Characters.States;
 using UnityEngine;
 using Zenject;
 
@@ -44,6 +46,23 @@ namespace Content.Scripts.DungeonGame.Services
             if (!InputService.IsLMBPressed)
             {
                 isDown = false;
+            }
+            
+            if (InputService.IsRMBPressed)
+            {
+                SetRollDirections();
+            }
+        }
+
+        private void SetRollDirections()
+        {
+            var hit = camera.MouseRaycast(out var isHit, InputService.MousePosition);
+            if (isHit)
+            {
+                for (int i = 0; i < dungeonCharactersService.SpawnedCharacters.Count; i++)
+                {
+                    dungeonCharactersService.SpawnedCharacters[i].SetRollDirection(hit.point);
+                }
             }
         }
 

@@ -118,7 +118,7 @@ namespace Content.Scripts.Mobs.Mob
 
         public void SetAttackType(int i)
         {
-            animator.SetInteger(AttackType, Random.Range(0, i));
+            animator.SetInteger(AttackType, i);
         }
     }
 }

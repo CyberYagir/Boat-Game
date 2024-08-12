@@ -12,7 +12,7 @@ namespace Content.Scripts.BoatGame.Services
             Room
         }
         [SerializeField] private Dictionary<Vector3,ECellType> gridPoints = new Dictionary<Vector3, ECellType>();
-        
+
         
         public bool IsHavePoint(Vector3 point, out ECellType type)
         {

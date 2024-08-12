@@ -295,8 +295,12 @@ namespace Content.Scripts.BoatGame
                 var attackTarget = sender.GetComponent<DamageObject>();
                 if (attackTarget)
                 {
-                    stateMachine.GetStateByType<CharActionAttack>().SetAutoAttackMob(attackTarget);
-                    ActiveAction(EStateType.Attack);
+                    var attackAction = stateMachine.GetStateByType<CharActionAttack>();
+                    if (attackAction)
+                    {
+                        stateMachine.GetStateByType<CharActionAttack>()?.SetAutoAttackMob(attackTarget);
+                        ActiveAction(EStateType.Attack);
+                    }
                 }
             }
         }

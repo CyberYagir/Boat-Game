@@ -1,15 +1,19 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.BoatGame;
+using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.DungeonGame.Services;
 using Content.Scripts.Mobs.Mob;
 using Content.Scripts.Mobs.MobCrab;
 using Pathfinding;
+using Pathfinding.RVO;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Content.Scripts.DungeonGame
 {
@@ -78,23 +82,32 @@ namespace Content.Scripts.DungeonGame
                 Gizmos.DrawWireSphere(transform.position, unAgrDistance);
             }
         }
-        
+
         [System.Serializable]
         public class AIModule
         {
-            [SerializeField] private AIPath aiPath;
+            private INavAgentProvider agent;
 
-            public void MoveToPoint(Vector3 pos) => aiPath.destination = pos;
+            public void Init(Transform transform) => agent = transform.GetComponent<INavAgentProvider>();
+            public void MoveToPoint(Vector3 pos) => agent.SetDestination(pos);
 
-            public bool IsArrived() => aiPath.remainingDistance <= 1.5f;
+            public bool IsArrived() => agent.IsArrived();
+
+            public void Stop()
+            {
+                agent.Disable();
+            }
+
+            public bool IsMoving() => agent.Velocity.magnitude >= 0.1f;
         }
-        
-        
+
+
         [SerializeField] private DungeonEnemyStateMachine stateMachine;
         [SerializeField] private MobAnimator mobAnimator;
         [SerializeField] private AggressionModule aggressionModule;
-        [SerializeField] private AIModule aiModule;
+        [SerializeField] private RVOController rvoController;
         private DungeonEnemiesService enemiesService;
+        private AIModule aiModule;
 
         public MobAnimator MobAnimator => mobAnimator;
 
@@ -109,10 +122,15 @@ namespace Content.Scripts.DungeonGame
         {
             this.enemiesService = enemiesService;
             SetHealth();
+            aiModule = new AIModule()
+                .With(x => x.Init(transform));
             aggressionModule.Init(characterService, transform);
             stateMachine.Init(this);
             aggressionModule.OnAgressionChanged += OnAggressionChange;
             enemiesService.AddMob(this);
+            
+            
+            RVOSimulator.OnInited += () => rvoController.enabled = true;
         }
 
         public override void Damage(float dmg, GameObject sender)
@@ -129,7 +147,7 @@ namespace Content.Scripts.DungeonGame
             MobAnimator.TriggerDeath();
 
             enemiesService.RemoveMob(this);
-            
+            aiModule.Stop();
             gameObject.ChangeLayerWithChilds(LayerMask.NameToLayer("Default"));
         }
 
@@ -154,6 +172,11 @@ namespace Content.Scripts.DungeonGame
         public void MoveToTargetPlayer()
         {
             aiModule.MoveToPoint(aggressionModule.PlayerCharacter.transform.position);
+        }
+
+        public void MoveToRandomPoint()
+        {
+            aiModule.MoveToPoint(transform.position + UnityEngine.Random.insideUnitSphere * Random.Range(5, 15));
         }
     }
 }

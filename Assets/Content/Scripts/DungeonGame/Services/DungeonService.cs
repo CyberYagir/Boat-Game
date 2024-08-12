@@ -11,11 +11,13 @@ namespace Content.Scripts.DungeonGame.Services
 
         public Random TargetRnd => random;
 
+        public int Seed => seed;
+
         [Inject]
         private void Construct()
         {
             seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
-            random = new System.Random(seed);
+            random = new System.Random(Seed);
         }
     }
 }

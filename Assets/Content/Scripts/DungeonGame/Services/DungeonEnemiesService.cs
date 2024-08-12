@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using Content.Scripts.BoatGame.Services;
 using UnityEngine;
+using Zenject;
 
 namespace Content.Scripts.DungeonGame.Services
 {
     public class DungeonEnemiesService : MonoBehaviour
     {
         [SerializeField] private List<DungeonMob> mobsList = new List<DungeonMob>();
-
 
         public void AddMob(DungeonMob mob)
         {
@@ -36,6 +37,22 @@ namespace Content.Scripts.DungeonGame.Services
         public void RemoveMob(DungeonMob dungeonMob)
         {
             mobsList.Remove(dungeonMob);
+        }
+
+        private List<DungeonMob> tmpMobsList = new List<DungeonMob>(5);
+        public List<DungeonMob> GetAllNearMobs(Vector3 transformPosition, float dist)
+        {
+            tmpMobsList.Clear();
+            for (int i = 0; i < mobsList.Count; i++)
+            {
+                var btwDist = mobsList[i].transform.position.ToDistance(transformPosition);
+                if (btwDist < dist)
+                {
+                    tmpMobsList.Add(mobsList[i]);
+                }   
+            }
+
+            return tmpMobsList;
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Content.Scripts.DungeonGame
             BindService<DungeonCameraMoveService>();
             BindService<VirtualRaftsService>();
             BindService<DungeonResourcesService>();
+            BindService<MobsSpawnService>();
             BindService<DungeonEnemiesService>();
         }
     }

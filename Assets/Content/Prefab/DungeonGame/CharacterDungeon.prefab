@@ -268,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[1].stateType
@@ -277,6 +277,10 @@ PrefabInstance:
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[2].stateType
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: statesList.Array.data[3].stateType
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[12].stateType
@@ -325,7 +329,7 @@ PrefabInstance:
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[3].stateAction
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6245171956517454875}
     - target: {fileID: 3345180625285823089, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: statesList.Array.data[4].stateAction
       value: 
@@ -408,11 +412,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4770986152678125077, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: autoRepath.mode
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4770986152678125077, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: slowdownDistance
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770986152678125077, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: autoRepath.period
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4770986152678125077, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: endReachedDistance
@@ -424,6 +432,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4770986152678125077, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       propertyPath: pickNextWaypointDist
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770986152678125077, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      propertyPath: autoRepath.visualizeSensitivity
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4837807613949212433, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
@@ -485,6 +497,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1251148695710040334}
+    - targetCorrespondingSourceObject: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6245171956517454875}
     - targetCorrespondingSourceObject: {fileID: 4325884780641852090, guid: c09b3db7a75a24e4297f4f2909d255e8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1469291191329793736}
@@ -562,7 +577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnded: 0
   machine: {fileID: 0}
---- !u!114 &1469291191329793736
+--- !u!114 &6245171956517454875
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -570,6 +585,21 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7161605741687318096}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc69e27b1547c6d43be3eccba7e9b418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnded: 0
+  machine: {fileID: 0}
+  rollDistance: 3
+--- !u!114 &1469291191329793736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7161605741687318096}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 560112f876f5746c780eca0d404e7139, type: 3}
   m_Name: 

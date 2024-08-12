@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using UnityEngine;
@@ -12,6 +13,11 @@ namespace Content.Scripts.DungeonGame.Services
 
         private List<Vector3> tmpDirs = new List<Vector3>();
         private WorldGridServiceTyped worldGridService;
+        private bool isGenerated = false;
+
+        public event Action OnLevelGenerated;
+
+        public bool IsGenerated => isGenerated;
 
         [Inject]
         private void Construct(
@@ -27,7 +33,7 @@ namespace Content.Scripts.DungeonGame.Services
             {
                 worldGridService.IsHavePoint(point, out tileType);
                 var obj = Instantiate(tile, point, Quaternion.identity, transform)
-                    .With(x => x.Init(GetDirectionsData(point), tileType));
+                    .With(x => x.Init(GetDirectionsData(point), tileType, Vector3Int.RoundToInt(new Vector3(point.x, point.y, point.z))));
                 
                 fabric.InjectComponent(obj.gameObject);
             }
@@ -63,6 +69,9 @@ namespace Content.Scripts.DungeonGame.Services
             {
                 spawned.SetPosition(roomsPlacerService.GetStartRoomRandomPos());
             }
+            
+            OnLevelGenerated?.Invoke();
+            isGenerated = true;
         }
 
         private List<Vector3> GetDirectionsData(Vector3 point)

@@ -27,7 +27,8 @@ namespace Content.Scripts.BoatGame.Characters
         GetFromSourceWater,
         VillageViewInfo,
         HitAWoman,
-        LoreView
+        LoreView,
+        Roll,
     }
 
     
