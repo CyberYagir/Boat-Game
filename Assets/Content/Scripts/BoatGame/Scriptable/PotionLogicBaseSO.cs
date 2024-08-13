@@ -67,5 +67,7 @@ namespace Content.Scripts.BoatGame.Scriptable
         {
             seconds = effectRemainingSeconds;
         }
+
+        public virtual PlayerCharacter.CharacterParameters.EffectBonusValueType GetPotionBonusValue() => PlayerCharacter.CharacterParameters.EffectBonusValueType.Regen;
     }
 }

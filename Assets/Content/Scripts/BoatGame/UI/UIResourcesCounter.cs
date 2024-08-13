@@ -15,13 +15,15 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIResourcesCounterGroup counterGroupPrefab;
         [SerializeField] private RectTransform holder, scroll;
         [SerializeField] private float maxY = 775;
-        
+
+        [SerializeField] private List<EResourceTypes> availableResources;
+
         private Dictionary<EResourceTypes, UIResourcesCounterGroup> headers = new Dictionary<EResourceTypes, UIResourcesCounterGroup>(5);
         private IEnumerator waiterCoroutine;
-        private ResourcesService resourcesService;
-        private RaftBuildService raftBuildService;
+        private IResourcesService resourcesService;
+        private IRaftBuildService raftBuildService;
 
-        public void Init(RaftBuildService raftBuildService, GameDataObject gameData, ResourcesService resourcesService, TickService tickService)
+        public void Init(IRaftBuildService raftBuildService, GameDataObject gameData, IResourcesService resourcesService, TickService tickService)
         {
             this.raftBuildService = raftBuildService;
             this.resourcesService = resourcesService;
@@ -35,10 +37,12 @@ namespace Content.Scripts.BoatGame.UI
             for (int i = 0; i < enums.Length; i++)
             {
                 var en = (EResourceTypes)Enum.Parse(typeof(EResourceTypes), enums[i]);
-                
-                Instantiate(counterGroupPrefab, counterGroupPrefab.transform.parent)
-                    .With(x=>x.Init(this, gameData, en))
-                    .With(x=>headers.Add(en, x));
+                if (availableResources.Count == 0 || availableResources.Contains(en)){
+
+                    Instantiate(counterGroupPrefab, counterGroupPrefab.transform.parent)
+                        .With(x => x.Init(this, gameData, en))
+                        .With(x => headers.Add(en, x));
+                }
             }
             counterGroupPrefab.gameObject.SetActive(false);
 

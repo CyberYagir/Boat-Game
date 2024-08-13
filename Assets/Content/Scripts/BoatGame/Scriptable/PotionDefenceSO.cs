@@ -1,5 +1,6 @@
 ﻿using Content.Scripts.ItemsSystem;
 using UnityEngine;
+using static Content.Scripts.BoatGame.PlayerCharacter.CharacterParameters;
 
 namespace Content.Scripts.BoatGame.Scriptable
 {
@@ -20,7 +21,10 @@ namespace Content.Scripts.BoatGame.Scriptable
 
         public override void AddEffectBonus()
         {
-            playerCharacter.ParametersCalculator.AddEffectMult(PlayerCharacter.CharacterParameters.EffectBonusValueType.Defence, Multiply);
+            playerCharacter.ParametersCalculator.AddEffectMult(GetPotionBonusValue(), Multiply);
         }
+        
+        
+        public override EffectBonusValueType GetPotionBonusValue() => EffectBonusValueType.Defence;
     }
 }

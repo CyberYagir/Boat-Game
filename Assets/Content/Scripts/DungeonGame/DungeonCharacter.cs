@@ -17,7 +17,9 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private PlayerCharacter playerCharacter;
         [SerializeField] private RVOController rvoController;
         [SerializeField] private float attackRange;
-
+        public event Action OnAttackStarts;
+        
+        
         private DungeonSelectionService dungeonSelectionService;
         private DungeonEnemiesService enemiesService;
         private DungeonMob targetEnemy;
@@ -104,6 +106,7 @@ namespace Content.Scripts.DungeonGame
                         {
                             SetTarget(enemy);
                             PlayerCharacter.ActiveAction(EStateType.Attack);
+                            OnAttackStarts?.Invoke();
                         }
                     }
                 }

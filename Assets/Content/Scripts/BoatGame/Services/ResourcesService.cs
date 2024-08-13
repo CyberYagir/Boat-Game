@@ -36,23 +36,6 @@ namespace Content.Scripts.BoatGame.Services
         public override List<RaftStorage> GetRafts() => raftBuildService.Storages;
         
 
-        public bool GetGlobalEmptySpace(RaftStorage.StorageItem storageItem, int offcet = 0)
-        {
-            if (!storageItem.Item.HasSize) return true;
-            return GetEmptySpace() + offcet >= storageItem.Count;
-        }
-
-        public int GetEmptySpace()
-        {
-            int emptySpace = 0;
-            foreach (var storage in raftBuildService.Storages)
-            {
-                emptySpace += storage.GetEmptySlots();
-            }
-
-            return emptySpace;
-        }
-
         public void RemoveItemsFromAnyRaft(RaftStorage.StorageItem storageItem)
         {
             for (int i = 0; i < raftBuildService.Storages.Count; i++)
@@ -114,41 +97,7 @@ namespace Content.Scripts.BoatGame.Services
             return false;
         }
 
-        public void AddItemsToAnyRafts(RaftStorage.StorageItem oldItem)
-        {
-            if (oldItem.Item.HasSize)
-            {
-                for (int j = 0; j < raftBuildService.Storages.Count; j++)
-                {
-                    if (oldItem.Count <= 0) return;
 
-                    var empty = raftBuildService.Storages[j].GetEmptySlots();
-
-                    if (empty > oldItem.Count)
-                    {
-                        empty = oldItem.Count;
-                    }
-                    
-                    raftBuildService.Storages[j].AddToStorage(oldItem.Item, empty);
-                    
-                    oldItem.Add(-empty);
-                    // while (raftBuildService.Storages[j].IsEmptyStorage(oldItem.Item, 1))
-                    // {
-                    //     raftBuildService.Storages[j].AddToStorage(oldItem.Item, 1);
-                    //     oldItem.Add(-1);
-                    //     if (oldItem.Count <= 0) return;
-                    // }
-                }
-            }
-            else
-            {
-                if (raftBuildService.Storages.Count != 0)
-                {
-                    var randomStorage = raftBuildService.Storages.GetRandomItem();
-                    randomStorage.AddToStorage(oldItem.Item, oldItem.Count);
-                }
-            }
-        }
 
         public bool AddToAnyStorage(ItemObject item)
         {

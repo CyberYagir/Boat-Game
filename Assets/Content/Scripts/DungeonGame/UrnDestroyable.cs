@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.DungeonGame.Services;
 using Content.Scripts.Misc;
+using Content.Scripts.Mobs;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
@@ -17,7 +18,10 @@ namespace Content.Scripts.DungeonGame
     {
         [SerializeField] private GameObject mesh;
         [SerializeField] private GameObject demolished;
+        [SerializeField] private DropTableObject dropTable;
         [SerializeField] private List<Rigidbody> rb;
+
+        public DropTableObject DropTable => dropTable;
 
         [Inject]
         private void Construct(UrnCollectionService urnCollectionService)

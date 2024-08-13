@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
+using Content.Scripts.BoatGame.Scriptable;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.ItemsSystem;
 using DG.Tweening;
@@ -110,7 +111,21 @@ namespace Content.Scripts.BoatGame.UI
 
         private void AddPotionEffect(ItemObject storageItem, ICharacter character)
         {
-            character.ActivatePotion(storageItem);
+            if (storageItem.PotionLogic.PotionType == PotionLogicBaseSO.EPotionType.Moment)
+            {
+                character.ActivatePotion(storageItem);
+            }else{
+                var ch = characterService.GetSpawnedCharacters().Find(x=>!x.IsHaveEffect(storageItem.PotionLogic.GetPotionBonusValue()));
+                if (ch)
+                {
+                    ch.ActivatePotion(storageItem);
+                }
+                else
+                {
+                    character.ActivatePotion(storageItem);
+                }
+            }
+
             resourcesService.RemoveItemFromAnyRaft(storageItem);
             resourcesService.PlayerItemsList();
         }

@@ -309,5 +309,10 @@ namespace Content.Scripts.BoatGame
         {
             parametersCalculator.ApplyEffect(storageItem);
         }
+
+        public bool IsHaveEffect(CharacterParameters.EffectBonusValueType type)
+        {
+            return parametersCalculator.IsHaveEffect(type);
+        }
     }
 }

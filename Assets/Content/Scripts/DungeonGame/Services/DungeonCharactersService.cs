@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame;
+using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Unity.VisualScripting;
@@ -42,7 +44,28 @@ namespace Content.Scripts.DungeonGame.Services
                         enemiesService
                     ))
                     .With(x => SpawnedCharacters.Add(x))
-                    .With(x => x.PlayerCharacter.NeedManager.OnDeath += OnDeath);
+                    .With(x => x.PlayerCharacter.NeedManager.OnDeath += OnDeath)
+                    .With(x => x.PlayerCharacter.NeedManager.OnDamaged += CalculateHelp);
+            }
+        }
+
+        private void CalculateHelp()
+        {
+            foreach (var spawnedCharacter in spawnedCharacters)
+            {
+                if (spawnedCharacter.TargetEnemy == null)
+                {
+                    spawnedCharacter.UpdateAttackRange();
+                    if (spawnedCharacter.TargetEnemy == null)
+                    {
+                        var playerWithTarget = spawnedCharacters.Find(x => x.TargetEnemy != null);
+                        if (playerWithTarget)
+                        {
+                            spawnedCharacter.SetTarget(playerWithTarget.TargetEnemy);
+                            spawnedCharacter.PlayerCharacter.ActiveAction(EStateType.Attack);
+                        }
+                    }
+                }
             }
         }
 

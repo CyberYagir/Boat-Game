@@ -40,7 +40,6 @@ namespace Content.Scripts.BoatGame.UI
         public void Animate(Vector3 pos)
         {
             transform.DOKill();
-            
             transform.position = pos;
             transform.DOMoveY(pos.y + upHeight, liveTime).SetUpdate(true).onComplete += delegate
             {

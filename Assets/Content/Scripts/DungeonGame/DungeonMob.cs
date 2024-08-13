@@ -121,7 +121,7 @@ namespace Content.Scripts.DungeonGame
         private void Construct(DungeonCharactersService characterService, DungeonEnemiesService enemiesService)
         {
             this.enemiesService = enemiesService;
-            SetHealth();
+            SetHealth(MaxHealth * characterService.SpawnedCharacters.Count);
             aiModule = new AIModule()
                 .With(x => x.Init(transform));
             aggressionModule.Init(characterService, transform);
@@ -145,7 +145,8 @@ namespace Content.Scripts.DungeonGame
             stateMachine.StartAction(EMobsState.Idle);
             stateMachine.enabled = false;
             MobAnimator.TriggerDeath();
-
+            rvoController.enabled = false;
+            
             enemiesService.RemoveMob(this);
             aiModule.Stop();
             gameObject.ChangeLayerWithChilds(LayerMask.NameToLayer("Default"));

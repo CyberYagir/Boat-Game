@@ -9,6 +9,7 @@ namespace Content.Scripts.DungeonGame
         public override void InstallBindings()
         {
             Container.Bind<PrefabSpawnerFabric>().AsSingle().NonLazy();
+            BindService<TickService>();
             BindService<DungeonService>();
             BindService<WorldGridServiceTyped>();
             BindService<RoomsPlacerService>();

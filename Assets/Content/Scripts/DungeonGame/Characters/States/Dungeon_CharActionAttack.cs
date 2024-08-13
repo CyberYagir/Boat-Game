@@ -17,6 +17,7 @@ namespace Content.Scripts.DungeonGame.Characters.States
         {
             targetCharacterWeaponID = null;
             targetCharacterWeapon = null;
+            isMove = false;
         }
 
         public override void StartState()
@@ -28,7 +29,13 @@ namespace Content.Scripts.DungeonGame.Characters.States
             if (DungeonCharacter.TargetEnemy != null)
             {
                 Machine.AnimationManager.AnimationEvents.OnAttack += AttackEnemy;
+              
             }
+            else
+            {
+                EndState();
+            }
+
         }
 
         private void AttackEnemy()
@@ -54,12 +61,14 @@ namespace Content.Scripts.DungeonGame.Characters.States
             }
         }
 
+        bool isMove = false;
         public override void ProcessState()
         {
             base.ProcessState();
 
-            if (DungeonCharacter.TargetEnemy != null || DungeonCharacter.TargetEnemy.transform.position.ToDistance(transform.position) > DungeonCharacter.AttackRange * 1.5f)
+            if (DungeonCharacter.TargetEnemy != null && DungeonCharacter.TargetEnemy.transform.position.ToDistance(transform.position) < DungeonCharacter.AttackRange * 1.5f)
             {
+                isMove = false;
                 RotateToTarget();
                 
                 if (targetCharacterWeaponID != Machine.Character.Equipment.WeaponID)
@@ -73,12 +82,19 @@ namespace Content.Scripts.DungeonGame.Characters.States
                 Machine.AnimationManager.SetAttackTarget(
                     targetCharacterWeapon != null ? targetCharacterWeapon.AnimationType : EWeaponAnimationType.None,
                     DungeonCharacter.TargetEnemy.HeightPoint.position.y < characterHips.position.y);
-                
-                
             }
             else
             {
-                EndState();
+                if (DungeonCharacter.TargetEnemy.transform.ToDistance(transform) > DungeonCharacter.AttackRange && !isMove)
+                {
+                    MoveToPoint(DungeonCharacter.TargetEnemy.transform.position + Random.insideUnitSphere * 1.5f);
+                    ToIdleAnimation();
+                    isMove = true;
+                }
+                else
+                {
+                    EndState();
+                }
             }
         }
 

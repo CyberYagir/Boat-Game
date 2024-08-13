@@ -188,6 +188,11 @@ namespace Content.Scripts.BoatGame
 
                 return list;
             }
+
+            public bool IsHaveEffect(EffectBonusValueType type)
+            {
+                return effectsBonuses.ContainsKey(type);
+            }
         }
     }
 }

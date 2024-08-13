@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Content.Scripts.BoatGame;
 using Content.Scripts.ItemsSystem;
+using DG.DemiLib;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,10 +20,19 @@ namespace Content.Scripts.Mobs
         {
             [SerializeField] private float weight;
             [SerializeField] private ItemObject item;
-
+            [SerializeField] private Range count = new Range(1, 1);
             public float Weight => weight;
 
             public ItemObject Item => item;
+            public int GetItemsCount()
+            {
+                var value = count.RandomWithin();
+                if (value <= 1f)
+                {
+                    return 1;
+                }
+                return Mathf.RoundToInt(value);
+            }
 
             public void SetWeight(float targetWeight)
             {
@@ -50,6 +61,19 @@ namespace Content.Scripts.Mobs
             var index = weights.ChooseRandomIndexFromWeights();
 
             return table[index].Item;
+        }
+
+        public RaftStorage.StorageItem GetItems()
+        {
+            var it = GetItem();
+            if (it)
+            {
+                return new RaftStorage.StorageItem(it, table.Find(x => x.Item == it).GetItemsCount());
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public ItemObject GetItem(System.Random rnd)

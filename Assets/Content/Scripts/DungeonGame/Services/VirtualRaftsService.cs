@@ -9,11 +9,12 @@ using Zenject;
 
 namespace Content.Scripts.DungeonGame.Services
 {
-    public class VirtualRaftsService : MonoBehaviour
+    public class VirtualRaftsService : MonoBehaviour, IRaftBuildService
     {
         [SerializeField] private List<RaftStorage> storages = new List<RaftStorage>();
         [SerializeField] private RaftStorage raftStoragePrefab;
         public List<RaftStorage> Storages => storages;
+        public event Action OnChangeRaft;
 
         [Inject]
         private void Construct(SaveDataObject saveData, GameDataObject gameData)
@@ -22,8 +23,14 @@ namespace Content.Scripts.DungeonGame.Services
             {
                 Instantiate(raftStoragePrefab, transform)
                     .With(x => storages.Add(x))
-                    .With(x => x.LoadStorage(raftStorageData, gameData));
+                    .With(x => x.LoadStorage(raftStorageData, gameData))
+                    .With(x=>x.OnStorageChange += ChangeStorage);
             }
+        }
+
+        private void ChangeStorage()
+        {
+            OnChangeRaft?.Invoke();
         }
     }
 }

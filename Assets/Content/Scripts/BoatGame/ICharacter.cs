@@ -6,5 +6,7 @@ namespace Content.Scripts.BoatGame
     {
         public void Select(bool state);
         void ActivatePotion(ItemObject storageItem);
+
+        bool IsHaveEffect(PlayerCharacter.CharacterParameters.EffectBonusValueType type);
     }
 }

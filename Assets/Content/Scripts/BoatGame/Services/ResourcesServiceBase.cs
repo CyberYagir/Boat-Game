@@ -76,5 +76,54 @@ namespace Content.Scripts.BoatGame.Services
 
             return tmpSearchList;
         }
+        
+        public void AddItemsToAnyRafts(RaftStorage.StorageItem oldItem, bool spawnPopup = true)
+        {
+            var storages = GetRafts();
+            if (oldItem.Item.HasSize)
+            {
+                for (int j = 0; j < storages.Count; j++)
+                {
+                    if (oldItem.Count <= 0) return;
+
+                    var empty = storages[j].GetEmptySlots();
+
+                    if (empty > oldItem.Count)
+                    {
+                        empty = oldItem.Count;
+                    }
+                    
+                    storages[j].AddToStorage(oldItem.Item, empty, spawnPopup);
+                    
+                    oldItem.Add(-empty);
+                }
+            }
+            else
+            {
+                if (storages.Count != 0)
+                {
+                    var randomStorage = storages.GetRandomItem();
+                    randomStorage.AddToStorage(oldItem.Item, oldItem.Count, spawnPopup);
+                }
+            }
+        }
+        
+        public bool GetGlobalEmptySpace(RaftStorage.StorageItem storageItem, int offcet = 0)
+        {
+            if (!storageItem.Item.HasSize) return true;
+            return GetEmptySpace() + offcet >= storageItem.Count;
+        }
+
+        public int GetEmptySpace()
+        {
+            int emptySpace = 0;
+            var storages = GetRafts();
+            foreach (var storage in storages)
+            {
+                emptySpace += storage.GetEmptySlots();
+            }
+
+            return emptySpace;
+        }
     }
 }
