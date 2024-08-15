@@ -19065,6 +19065,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &4322113630857684657
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2869563516770507979}
+  m_Layer: 12
+  m_Name: BackSabre
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2869563516770507979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4322113630857684657}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.01049037, y: 0.0029055823, z: -0.18703039, w: -0.98229384}
+  m_LocalPosition: {x: 0.453, y: 0.18, z: -0.241}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8258262045124321230}
+  m_LocalEulerAnglesHint: {x: -1.453, y: -360.265, z: 21.606}
 --- !u!1 &4325884780641852090
 GameObject:
   m_ObjectHideFlags: 0
@@ -19198,6 +19229,7 @@ MonoBehaviour:
     - {fileID: 4398567894235862288}
     - {fileID: 2871763750078756306}
     - {fileID: 6080177543086641055}
+    - {fileID: 2869563516770507979}
   animationsManager:
     animator: {fileID: 1349104748021026184}
     hoodAnimations: {fileID: 2727952339653336360}
@@ -21260,6 +21292,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -5671910290767253545, guid: 4db6461ca9751294d883c5f922849171, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2869563516770507979}
     - targetCorrespondingSourceObject: {fileID: -8069032694317455793, guid: 4db6461ca9751294d883c5f922849171, type: 3}
       insertIndex: -1
       addedObject: {fileID: 838932606009399700}

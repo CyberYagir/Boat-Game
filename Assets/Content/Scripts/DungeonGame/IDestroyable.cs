@@ -7,6 +7,8 @@ namespace Content.Scripts.DungeonGame
     {
         Transform transform { get; }
         DropTableObject DropTable { get; }
+        float ActivationDistance { get; }
+        int DropsCount { get; }
         void Demolish(Vector3 pos);
     }
 }

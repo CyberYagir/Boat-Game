@@ -60,6 +60,17 @@ namespace Content.Scripts.BoatGame.Equipment
             {
                 Destroy(kneePadRight);
             }
+            
+            
+            if (bracersLeft != null)
+            {
+                Destroy(bracersLeft);
+            }
+            
+            if (bracersRight != null)
+            {
+                Destroy(bracersRight);
+            }
         }
     }
 }

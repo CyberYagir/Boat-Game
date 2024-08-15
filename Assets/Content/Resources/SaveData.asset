@@ -15,29 +15,79 @@ MonoBehaviour:
   charactersData:
     characters:
     - name: "Danil\r"
-      uid: 11ced2ac-59ee-48c0-9e3b-d8487811f084
+      uid: b2272b93-89a4-47c0-92a4-725b5f7e5a55
+      skillsData:
+        xp: 1
+        scores: 0
+        level: 0
+        skills:
+        - skillID: f3b559d4-e0e2-42ef-b5d1-71101d0e10ca
+          value: 2
+        - skillID: 8518e033-cd1f-4e96-87e9-7e0e788eab51
+          value: 1
+        - skillID: bd91198f-eeab-4ae1-acef-2551fa57d4d9
+          value: 2
+      parametersData:
+        health: 100
+        hunger: 85.12094
+        thirsty: 70.24188
+      equipmentData:
+        helmetID: 
+        armorID: 
+        weaponID: 531e7093-f805-4836-b92a-766610072867
+      effectsData:
+        effectsList: []
+      skinColorID: 1
+      hatID: 5
+    - name: "Yaroslav\r"
+      uid: 2c256bc7-1e2c-4a67-96df-5aaf36784be5
       skillsData:
         xp: 0
         scores: 0
         level: 0
         skills:
-        - skillID: 3b8443e2-2fef-4110-95aa-d61d78459f6f
-          value: 1
         - skillID: bd91198f-eeab-4ae1-acef-2551fa57d4d9
-          value: 3
+          value: 2
+        - skillID: 20b3171e-8a60-4361-bfe4-c12a4b154163
+          value: 2
         - skillID: f3b559d4-e0e2-42ef-b5d1-71101d0e10ca
           value: 1
       parametersData:
         health: 100
-        hunger: 60.506798
-        thirsty: 21.017597
+        hunger: 83.97582
+        thirsty: 67.951645
       equipmentData:
-        helmetID: 
-        armorID: 
-        weaponID: 
+        helmetID: 0acfe562-05e1-4a51-a33c-2f6fc93e168a
+        armorID: 329bdacd-0be4-4ca5-8122-a33a095be25c
+        weaponID: d635d20b-83b8-4f0d-b910-d4807a1b8a90
       effectsData:
         effectsList: []
       skinColorID: 1
+      hatID: 1
+    - name: "Yaroslav\r"
+      uid: b0212d36-725a-433e-9430-80ee691173d6
+      skillsData:
+        xp: 0
+        scores: 0
+        level: 0
+        skills:
+        - skillID: 8518e033-cd1f-4e96-87e9-7e0e788eab51
+          value: 1
+        - skillID: 20b3171e-8a60-4361-bfe4-c12a4b154163
+          value: 3
+        - skillID: bd91198f-eeab-4ae1-acef-2551fa57d4d9
+          value: 1
+      parametersData:
+        health: 100
+        hunger: 82.8307
+        thirsty: 65.66141
+      equipmentData:
+        helmetID: 
+        armorID: 
+        weaponID: 86f0ac12-112d-4952-819c-89084d296f81
+      effectsData:
+        effectsList: []
+      skinColorID: 3
       hatID: 4
   raftsData:
     rafts:
@@ -64,16 +114,20 @@ MonoBehaviour:
     storages:
     - raftUid: 3fc645fd-5606-4242-abbd-88443c3a9662
       storagesData:
+      - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
+        count: 5
+      - itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
+        count: 5
+      - itemID: 67dd6094-d10c-438d-a180-17db87422e08
+        count: 364
+      - itemID: 9c8f5708-4a51-44c2-b5e8-ffdd814ceb38
+        count: 2
       - itemID: 573942d0-7bd3-4679-abe2-e5ddb9cf6c00
         count: 1
-      - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
-        count: 4
-      - itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
-        count: 3
-      - itemID: 85623158-423c-4089-b9b7-2d4edf827ab8
+      - itemID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
         count: 1
-      - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 6779
+      - itemID: 257ad57f-ceb7-45b2-8f46-03b25eb48787
+        count: 1
     furnaces: []
     waterSources: []
     raftsInBuild: []
@@ -239,7 +293,7 @@ MonoBehaviour:
       droppedItems: []
       villagesData:
       - uid: a3de886b-2b47-d873-c56d-dbbec8cbb4a9
-        socialRating: 3221
+        socialRating: 10636
         villagers:
         - uid: a2cd0ced-8ea5-7c66-f6ab-1eacfdae4555
           isDead: 0
@@ -273,6 +327,36 @@ MonoBehaviour:
             islandLevel: 8
             transferState: 3
           activities: []
+          storageItems: []
+        - uid: d36b5c15-d59c-ddbf-83fe-4e8783c5d467
+          lastTimeStamp: 07/24/2024 08:52:36
+          targetStamina: 100
+          isWorking: 0
+          isStorage: 0
+          isDead: 0
+          transferData:
+            seed: 41410
+            islandLevel: 8
+            transferState: 3
+          activities: []
+          storageItems: []
+        - uid: a83d14e6-5041-dea0-8649-db3ae1215443
+          lastTimeStamp: 08/09/2024 09:51:14
+          targetStamina: 100
+          isWorking: 1
+          isStorage: 0
+          isDead: 0
+          transferData:
+            seed: -87494
+            islandLevel: 8
+            transferState: 0
+          activities:
+          - activityID: 7e5a36a5-a4bc-4bf2-834c-c8b906243a01
+            modify: 1
+            isActive: 1
+          - activityID: 42fede67-d20b-40f6-9f79-e62f941a2c55
+            modify: 1
+            isActive: 1
           storageItems: []
     - islandName: 
       islandPos: {x: 93, y: 303}
@@ -1072,16 +1156,16 @@ MonoBehaviour:
       plotRowNumber: 11
       isCollected: 0
   globalData:
-    totalSecondsInGame: 4939.9185
-    totalSecondsOnRaft: 5583.674
-    islandSeed: -358411411
+    totalSecondsInGame: 7482.836
+    totalSecondsOnRaft: 6166.058
+    islandSeed: 0
     damagersData:
-      tickCount: 204
-      maxTickCount: 7197
+      tickCount: 625
+      maxTickCount: 8253
       spawnedItems: []
     weathersData:
-      tickCount: 1130
-      maxTickCount: 2265
+      tickCount: 214
+      maxTickCount: 954
       currentWeather: 0
   tutorialsData:
     clickTutorial: 1

@@ -34,14 +34,14 @@ namespace Content.Scripts.DungeonGame.Services
                 var charPos = sp.transform.position.RemoveY();
                 for (var i = 0; i < demolished.Count; i++)
                 {
-                    if (Vector3.Distance(charPos, demolished[i].transform.position.RemoveY()) < 1f)
+                    if (Vector3.Distance(charPos, demolished[i].transform.position.RemoveY()) < demolished[i].ActivationDistance)
                     {
                         urnsListDemolishedTmp.Add(demolished[i]);
                         demolished[i].Demolish(sp.transform.position);
                         if (demolished[i].DropTable)
                         {
-                            var item = demolished[i].DropTable.GetItems();
-                            if (item != null)
+                            var items = demolished[i].DropTable.GetItemsIterated(demolished[i].DropsCount);
+                            foreach (var item in items)
                             {
                                 if (dungeonResourcesService.GetGlobalEmptySpace(item))
                                 {

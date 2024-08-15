@@ -29,7 +29,8 @@ namespace Content.Scripts.BoatGame
                 LeftLeg,
                 LeftHand,
                 RightForeArm,
-                LeftForeArm
+                LeftForeArm,
+                BackSabre,
             }
 
             [SerializeField] private Renderer renderer;
@@ -258,7 +259,7 @@ namespace Content.Scripts.BoatGame
                 {
                     if (weaponInHand)
                     {
-                        ChangeWeaponParent(spawnedWeapon.transform, GetBone(EBones.BackSword));
+                        ChangeWeaponParent(spawnedWeapon.transform, GetBone(weaponItem.AnimationType != EWeaponAnimationType.Sabre ? EBones.BackSword : EBones.BackSabre));
                         weaponInHand = false;
                     }
                 }

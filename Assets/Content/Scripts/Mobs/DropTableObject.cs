@@ -63,7 +63,7 @@ namespace Content.Scripts.Mobs
             return table[index].Item;
         }
 
-        public RaftStorage.StorageItem GetItems()
+        public RaftStorage.StorageItem GetMultipleItems()
         {
             var it = GetItem();
             if (it)
@@ -74,6 +74,23 @@ namespace Content.Scripts.Mobs
             {
                 return null;
             }
+        }
+
+        private static List<RaftStorage.StorageItem> tmpIteratedItems = new List<RaftStorage.StorageItem>(5);
+        public List<RaftStorage.StorageItem> GetItemsIterated(int iterations)
+        {
+            tmpIteratedItems.Clear();
+
+            for (int i = 0; i < iterations; i++)
+            {
+                var it = GetMultipleItems();
+                if (it != null)
+                {
+                    tmpIteratedItems.Add(it);
+                }
+            }
+
+            return tmpIteratedItems;
         }
 
         public ItemObject GetItem(System.Random rnd)

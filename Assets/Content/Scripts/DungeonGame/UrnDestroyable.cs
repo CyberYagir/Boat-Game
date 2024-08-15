@@ -20,8 +20,11 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private GameObject demolished;
         [SerializeField] private DropTableObject dropTable;
         [SerializeField] private List<Rigidbody> rb;
+        [SerializeField] private float minDistance = 1f;
 
         public DropTableObject DropTable => dropTable;
+        public float ActivationDistance => minDistance;
+        public int DropsCount => 1;
 
         [Inject]
         private void Construct(UrnCollectionService urnCollectionService)
@@ -37,6 +40,11 @@ namespace Content.Scripts.DungeonGame
             demolished.gameObject.SetActive(false);
             
             urnCollectionService.AddUrn(this);
+        }
+        
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawWireSphere(transform.position, ActivationDistance);
         }
 
         [Button]

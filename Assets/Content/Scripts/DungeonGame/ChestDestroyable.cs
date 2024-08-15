@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Content.Scripts.DungeonGame.Services;
 using Content.Scripts.Mobs;
-using DG.DemiLib;
 using DG.Tweening;
 using UnityEngine;
 using Zenject;
+using Range = DG.DemiLib.Range;
 
 namespace Content.Scripts.DungeonGame
 {
@@ -21,8 +22,12 @@ namespace Content.Scripts.DungeonGame
             public Range Range => range;
         }
         [SerializeField] private Transform cover;
+        [SerializeField] private float minDistance;
+        [SerializeField] private int dropIterations;
         [SerializeField] private List<DropsByLevel> dropTable = new List<DropsByLevel>();
-        
+        public float ActivationDistance => minDistance;
+        public int DropsCount => dropIterations;
+
         private DungeonService dungeonService;
         public DropTableObject DropTable => dropTable.Find(x=>x.Range.IsInRange(dungeonService.Level)).DropTable;
         public void Demolish(Vector3 pos)
@@ -37,6 +42,11 @@ namespace Content.Scripts.DungeonGame
             if (!gameObject.activeInHierarchy) return;
             
             urnCollectionService.AddUrn(this);
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawWireSphere(transform.position, ActivationDistance);
         }
     }
 }
