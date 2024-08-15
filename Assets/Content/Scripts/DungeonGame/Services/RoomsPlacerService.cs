@@ -9,31 +9,31 @@ namespace Content.Scripts.DungeonGame.Services
 {
     public class RoomsPlacerService : MonoBehaviour
     {
-        [SerializeField] private float maxDistance;
-        [SerializeField] private int roomsCount = 10;
-        [SerializeField] private List<RoomGrid> roomPrefabs;
         [SerializeField] private RoomGrid roomStart, roomEnd;
- 
-        private List<RoomGrid> spawnedRooms = new List<RoomGrid>();
-        
-        
-        private List<RoomGrid> tmpRoomsList = new List<RoomGrid>();
-        
-        private List<Vector3> centers = new List<Vector3>();
-        
+
         private RoomGrid spawnedStart;
         private RoomGrid spawnedEnd;
+        private DungeonService dungeonService;
+        
+        private List<RoomGrid> spawnedRooms = new List<RoomGrid>();
+        private List<RoomGrid> tmpRoomsList = new List<RoomGrid>();
+        private List<Vector3> centers = new List<Vector3>();
 
+        
+        private float maxDistance => dungeonService.TargetConfig.Size.MaxDistance;
+        private int roomsCount => dungeonService.TargetConfig.Size.RoomsCount;
+        private List<RoomGrid> roomPrefabs => dungeonService.TargetConfig.Rooms;
+ 
+        
         public List<Vector3> RoomsCenters => centers;
-
         public Vector2Int Size => new Vector2Int((int)maxDistance, (int)maxDistance) + Vector2Int.one;
-
         public List<RoomGrid> SpawnedRooms => spawnedRooms;
 
 
         [Inject]
         private void Construct(WorldGridServiceTyped worldGridService, DungeonService dungeonService)
         {
+            this.dungeonService = dungeonService;
             var rnd = dungeonService.TargetRnd;
 
 

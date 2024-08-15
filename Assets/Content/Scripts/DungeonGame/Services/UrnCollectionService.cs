@@ -8,7 +8,7 @@ namespace Content.Scripts.DungeonGame.Services
 {
     public class UrnCollectionService : MonoBehaviour
     {
-        [SerializeField] private List<UrnDestroyable> urnsList = new List<UrnDestroyable>(100);
+        [SerializeField] private List<IDestroyable> demolished = new List<IDestroyable>(100);
         private DungeonCharactersService charactersService;
 
         [Inject]
@@ -18,12 +18,12 @@ namespace Content.Scripts.DungeonGame.Services
             this.charactersService = charactersService;
         }
 
-        public void AddUrn(UrnDestroyable urn)
+        public void AddUrn(IDestroyable urn)
         {
-            urnsList.Add(urn);
+            demolished.Add(urn);
         }
 
-        private List<UrnDestroyable> urnsListDemolishedTmp = new List<UrnDestroyable>(5);
+        private List<IDestroyable> urnsListDemolishedTmp = new List<IDestroyable>(5);
         private DungeonResourcesService dungeonResourcesService;
 
         private void LateUpdate()
@@ -32,19 +32,22 @@ namespace Content.Scripts.DungeonGame.Services
             foreach (var sp in charactersService.SpawnedCharacters)
             {
                 var charPos = sp.transform.position.RemoveY();
-                for (var i = 0; i < urnsList.Count; i++)
+                for (var i = 0; i < demolished.Count; i++)
                 {
-                    if (Vector3.Distance(charPos, urnsList[i].transform.position.RemoveY()) < 1f)
+                    if (Vector3.Distance(charPos, demolished[i].transform.position.RemoveY()) < 1f)
                     {
-                        urnsListDemolishedTmp.Add(urnsList[i]);
-                        urnsList[i].Demolish(sp.transform.position);
-                        var item = urnsList[i].DropTable.GetItems();
-                        if (item != null)
+                        urnsListDemolishedTmp.Add(demolished[i]);
+                        demolished[i].Demolish(sp.transform.position);
+                        if (demolished[i].DropTable)
                         {
-                            if (dungeonResourcesService.GetGlobalEmptySpace(item))
+                            var item = demolished[i].DropTable.GetItems();
+                            if (item != null)
                             {
-                                WorldPopupService.StaticSpawnPopup(urnsList[i].transform.position, item);
-                                dungeonResourcesService.AddItemsToAnyRafts(item, false);
+                                if (dungeonResourcesService.GetGlobalEmptySpace(item))
+                                {
+                                    WorldPopupService.StaticSpawnPopup(demolished[i].transform.position, item);
+                                    dungeonResourcesService.AddItemsToAnyRafts(item, false);
+                                }
                             }
                         }
 
@@ -53,11 +56,11 @@ namespace Content.Scripts.DungeonGame.Services
                 }
             }
 
-            if (urnsList.Count != 0)
+            if (demolished.Count != 0)
             {
                 for (int i = 0; i < urnsListDemolishedTmp.Count; i++)
                 {
-                    urnsList.Remove(urnsListDemolishedTmp[i]);
+                    demolished.Remove(urnsListDemolishedTmp[i]);
                 }
             }
             

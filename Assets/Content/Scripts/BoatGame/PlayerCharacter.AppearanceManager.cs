@@ -27,7 +27,9 @@ namespace Content.Scripts.BoatGame
                 Spine2,
                 RightLeg,
                 LeftLeg,
-                LeftHand
+                LeftHand,
+                RightForeArm,
+                LeftForeArm
             }
 
             [SerializeField] private Renderer renderer;

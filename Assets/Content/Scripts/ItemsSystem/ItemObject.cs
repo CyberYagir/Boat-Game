@@ -19,6 +19,8 @@ namespace Content.Scripts.ItemsSystem
     {
         None = 0,
         Sword = 1,
+        HeavySword = 2,
+        Sabre = 3,
     }
 
     [Flags]

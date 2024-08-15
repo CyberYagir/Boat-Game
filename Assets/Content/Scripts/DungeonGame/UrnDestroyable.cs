@@ -14,7 +14,7 @@ using Random = UnityEngine.Random;
 
 namespace Content.Scripts.DungeonGame
 {
-    public class UrnDestroyable : MonoBehaviour
+    public class UrnDestroyable : MonoBehaviour, IDestroyable
     {
         [SerializeField] private GameObject mesh;
         [SerializeField] private GameObject demolished;

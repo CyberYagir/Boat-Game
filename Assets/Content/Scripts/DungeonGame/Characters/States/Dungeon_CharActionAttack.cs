@@ -66,6 +66,12 @@ namespace Content.Scripts.DungeonGame.Characters.States
         {
             base.ProcessState();
 
+            if (DungeonCharacter.TargetEnemy != null && DungeonCharacter.TargetEnemy.IsDead)
+            {
+                EndState();
+                return;
+            }
+            
             if (DungeonCharacter.TargetEnemy != null && DungeonCharacter.TargetEnemy.transform.position.ToDistance(transform.position) < DungeonCharacter.AttackRange * 1.5f)
             {
                 isMove = false;

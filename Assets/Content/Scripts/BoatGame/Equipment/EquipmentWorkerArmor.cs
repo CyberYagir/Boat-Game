@@ -7,6 +7,7 @@ namespace Content.Scripts.BoatGame.Equipment
     {
         [SerializeField] private GameObject epauletLeft, epauletRight;
         [SerializeField] private GameObject kneePadLeft, kneePadRight;
+        [SerializeField] private GameObject bracersLeft, bracersRight;
 
         public override void Init(PlayerCharacter.AppearanceManager appearanceManager)
         {
@@ -18,6 +19,10 @@ namespace Content.Scripts.BoatGame.Equipment
             
             SetEpaulet(kneePadLeft, appearanceManager.GetBone(EBones.LeftLeg));
             SetEpaulet(kneePadRight, appearanceManager.GetBone(EBones.RightLeg));
+            
+            
+            SetEpaulet(bracersLeft, appearanceManager.GetBone(EBones.LeftForeArm));
+            SetEpaulet(bracersRight, appearanceManager.GetBone(EBones.RightForeArm));
         }
 
         public void SetEpaulet(GameObject obj, Transform bone)

@@ -101,7 +101,12 @@ namespace Content.Scripts.Mobs
             {
                 if (table[i].Item != null)
                 {
-                    dic.Add(table[i].Item.ItemName, table[i].Weight);
+                    if (!dic.ContainsKey(table[i].Item.ItemName)){
+                        dic.Add(table[i].Item.ItemName, table[i].Weight);
+                    }else
+                    {
+                        Debug.LogError(table[i].Item.ItemName + " not one in table");
+                    }
                 }
                 else
                 {

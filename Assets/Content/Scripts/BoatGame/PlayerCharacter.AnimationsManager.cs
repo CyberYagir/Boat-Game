@@ -12,9 +12,11 @@ namespace Content.Scripts.BoatGame
         [System.Serializable]
         public class AnimationsManager
         {
+
+
             private static readonly int WeaponType = Animator.StringToHash("WeaponType");
             private static readonly int IsLegAttack = Animator.StringToHash("IsLegAttack");
-            private static readonly int IsMove = Animator.StringToHash("IsMove");        
+            private static readonly int IsMove = Animator.StringToHash("IsMove");
             private static readonly int Hood = Animator.StringToHash("ApplyHood");
             private static readonly int TG_Fishing = Animator.StringToHash("TG_Fishing");
             private static readonly int TG_Idle = Animator.StringToHash("TG_Idle");
@@ -32,16 +34,17 @@ namespace Content.Scripts.BoatGame
             private static readonly int HugFish = Animator.StringToHash("HugFish");
             private static readonly int DamageType = Animator.StringToHash("DamageType");
             private static readonly int RandomModify = Animator.StringToHash("RandomModify");
+            private static readonly int RandomAttackAnim = Animator.StringToHash("RandomAttackAnim");
 
-            
+
             [SerializeField] private Animator animator;
             [SerializeField] private Animation hoodAnimations;
             [SerializeField] private ParticleSystem bloodParticles;
             [SerializeField] private CharAnimationEvents animationEvents;
-            
+
             [SerializeField] private Transform rightHand;
             [SerializeField] private Transform fishPoint;
-            
+
             private AppearanceManager appearanceManager;
             public Transform RightHand => rightHand;
 
@@ -77,8 +80,8 @@ namespace Content.Scripts.BoatGame
                         return;
                     }
                 }
-                
-                
+
+
                 animator.ResetTrigger(Hood);
                 animator.SetTrigger(Hood);
                 hoodAnimations.Play(inHood ? "HoodAnimationDisable" : "HoodAnimationApply");
@@ -96,7 +99,7 @@ namespace Content.Scripts.BoatGame
             public void TriggerFishingAnimation(bool isReset = false)
             {
                 if (!isReset)
-                {                    
+                {
                     animator.ResetTrigger(TG_Fishing);
                     animator.SetTrigger(TG_Fishing);
                 }
@@ -121,10 +124,11 @@ namespace Content.Scripts.BoatGame
                 animator.ResetTrigger(TG_Pickup);
                 animator.ResetTrigger(TG_Mine);
                 animator.ResetTrigger(TG_Roll);
-                
-                
+
+
                 isAttackTriggerActived = false;
             }
+
             public void TriggerHoldFishAnimation(bool state)
             {
                 animator.SetBool(HugFish, state);
@@ -135,7 +139,7 @@ namespace Content.Scripts.BoatGame
                 ResetAllTriggers();
                 animator.SetTrigger(TG_Idle);
             }
-            
+
             public void TriggerHook()
             {
                 ResetAllTriggers();
@@ -159,22 +163,25 @@ namespace Content.Scripts.BoatGame
                 ResetAllTriggers();
                 animator.SetTrigger(TG_Building);
             }
+
             public void TriggerCrafting()
             {
                 ResetAllTriggers();
                 animator.SetTrigger(TG_Crafting);
-            } 
-            
+            }
+
             public void TriggerChopTree()
             {
                 ResetAllTriggers();
                 animator.SetTrigger(TG_ChopTree);
             }
+
             public void TriggerPickUpAnim()
             {
                 ResetAllTriggers();
                 animator.SetTrigger(TG_Pickup);
             }
+
             public void TriggerMineAnim()
             {
                 ResetAllTriggers();
@@ -182,6 +189,7 @@ namespace Content.Scripts.BoatGame
             }
 
             private bool isAttackTriggerActived = false;
+
             public void SetAttackTarget(EWeaponAnimationType animationType, bool isLegPunch)
             {
                 if (!isAttackTriggerActived)
@@ -192,6 +200,13 @@ namespace Content.Scripts.BoatGame
 
                 animator.SetInteger(WeaponType, (int) animationType);
                 animator.SetBool(IsLegAttack, isLegPunch);
+
+                SetRandomAttack();
+            }
+
+            private void SetRandomAttack()
+            {
+                animator.SetInteger(RandomAttackAnim, Random.Range(0, 3));
             }
 
             public void TriggerGetDamage()
@@ -213,6 +228,7 @@ namespace Content.Scripts.BoatGame
             {
                 animator.SetLayerWeight(TORCH_LAYER, 1f);
             }
+
             public void HideTorch()
             {
                 animator.SetLayerWeight(TORCH_LAYER, 0f);
@@ -222,7 +238,7 @@ namespace Content.Scripts.BoatGame
             {
                 ResetAllTriggers();
                 animator.SetTrigger(TG_Roll);
-             }
+            }
         }
     }
 }

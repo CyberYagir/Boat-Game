@@ -8,12 +8,14 @@ namespace Content.Scripts.DungeonGame.Services
 {
     public class DungeonTileGenerationService : MonoBehaviour
     {
-        [SerializeField] private DungeonTile tile;
-        [SerializeField] private NoneTile noneTile;
+        private DungeonTile tile => dungeonService.TargetConfig.MainTile;
+        private NoneTile noneTile => dungeonService.TargetConfig.NoneTile;
 
         private List<Vector3> tmpDirs = new List<Vector3>();
-        private WorldGridServiceTyped worldGridService;
         private bool isGenerated = false;
+        
+        private WorldGridServiceTyped worldGridService;
+        private DungeonService dungeonService;
 
         public event Action OnLevelGenerated;
 
@@ -25,8 +27,10 @@ namespace Content.Scripts.DungeonGame.Services
             RoomsPlacerService roomsPlacerService, 
             INavMeshProvider navMeshProvider, 
             PrefabSpawnerFabric fabric, 
-            DungeonCharactersService dungeonCharactersService)
+            DungeonCharactersService dungeonCharactersService,
+            DungeonService dungeonService)
         {
+            this.dungeonService = dungeonService;
             this.worldGridService = worldGridService;
             WorldGridServiceTyped.ECellType tileType;
             foreach (var point in worldGridService.GetAllPoints())
