@@ -19,7 +19,7 @@ namespace Content.Scripts.IslandGame
         
         [SerializeField, ReadOnly] private float targetHealth;
 
-        public event Action<DroppedItem> OnSpawnDrop;
+        public event Action<DroppedItemBase> OnSpawnDrop;
 
 
 
@@ -127,8 +127,9 @@ namespace Content.Scripts.IslandGame
             var bounds = respawnedMesh.GetComponentInChildren<MeshRenderer>().bounds;
             var randomBoundsPoint = new Vector3(Random.Range(bounds.min.x, bounds.max.x), Random.Range(bounds.min.y, bounds.max.y), Random.Range(bounds.min.z, bounds.max.z));
 
-            var item = prefabSpawnerFabric.SpawnItemOnGround(original.DropItem, randomBoundsPoint, Quaternion.Euler(Random.insideUnitSphere), null)
-                .With(x => x.Animate());
+            var item = prefabSpawnerFabric.SpawnItemOnGround(original.DropItem.GetDropPrefab(islandGenerator.GameData), randomBoundsPoint, Quaternion.Euler(Random.insideUnitSphere), null)
+                .With(x => x.Animate())
+                .With(x=>x.SetItem(original.DropItem));
             
             
             

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
+using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
@@ -90,10 +91,12 @@ namespace Content.Scripts.IslandGame.Mobs
         {
             if (item != null)
             {
-                if (item.DropPrefab)
-                {
-                    spawner.SpawnItemOnGround(item.DropPrefab, spawnedMob.transform.position + Random.insideUnitSphere, Quaternion.Euler(Random.insideUnitSphere));
-                }
+
+                spawner.SpawnItemOnGround(
+                        item.GetDropPrefab(gameData),
+                        spawnedMob.transform.position + Random.insideUnitSphere,
+                        Quaternion.Euler(Random.insideUnitSphere))
+                    .With(x => x.SetItem(item));
             }
         }
 

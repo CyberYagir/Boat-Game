@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Content.Scripts.Boot;
 using Content.Scripts.IslandGame;
 using Content.Scripts.ItemsSystem;
 using DG.DemiLib;
@@ -20,6 +21,7 @@ namespace Content.Scripts.Global
         [SerializeField] private ItemObject moneyItem;
         [SerializeField] private ItemObject loreItem;
         [SerializeField] private ItemObject healSlaveItem;
+        [SerializeField] private DroppedItemBase dropBagForAnyItem;
         [SerializeField] private List<ItemObject> itemsForRaftTransitionAfterDestroying;
 
         [SerializeField] private NoiseGenerator mapNoisePreset;
@@ -41,5 +43,11 @@ namespace Content.Scripts.Global
         public ItemObject LoreItem => loreItem;
 
         public ItemObject HealSlaveItem => healSlaveItem;
+        
+        
+        public DroppedItemBase DropBagForAnyItem()
+        {
+            return dropBagForAnyItem;
+        }
     }
 }

@@ -13,8 +13,8 @@ namespace Content.Scripts.BoatGame.Characters.States
         private bool isMoving;
         protected Vector3 currentTarget;
 
-        private DroppedItem droppedItem;
-        private DroppedItem cachedItem;
+        private DroppedItemBase droppedItem;
+        private DroppedItemBase cachedItem;
 
         protected bool dontStartIfDroppedItemNull = true;
         
@@ -47,7 +47,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             if (cachedItem == null)
             {
                 currentTarget = SelectionService.LastWorldClick;
-                droppedItem = SelectionService.SelectedObject.Transform.GetComponent<DroppedItem>();
+                droppedItem = SelectionService.SelectedObject.Transform.GetComponent<DroppedItemBase>();
             }
             else
             {
@@ -89,13 +89,13 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             if (droppedItem)
             {
-                var storage = Machine.AIMoveManager.GoToEmptyStorage(droppedItem.Item, 1);
+                var storage = Machine.AIMoveManager.GoToEmptyStorage(droppedItem.StorageItem.Item, droppedItem.StorageItem.Space);
                 
                 if (storage != null)
                 {
-                    storage.AddToStorage(droppedItem.Item, 1, false);
+                    storage.AddToStorage(droppedItem.StorageItem.Item, droppedItem.StorageItem.Space, false);
                     Machine.AddExp(1);
-                    WorldPopupService.StaticSpawnPopup(droppedItem.transform.position, droppedItem.Item, 1);
+                    WorldPopupService.StaticSpawnPopup(droppedItem.transform.position, droppedItem.StorageItem.Item, 1);
                     droppedItem.DeleteItem();
                 }
                 else
@@ -123,7 +123,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             ToIdleAnimation();
         }
 
-        public void SetCachedItem(DroppedItem droppedItem)
+        public void SetCachedItem(DroppedItemBase droppedItem)
         {
             cachedItem = droppedItem;
         }

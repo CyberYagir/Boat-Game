@@ -10,13 +10,13 @@ namespace Content.Scripts.IslandGame
         [SerializeField] private CollisionSO collisionObject;
         [SerializeField] private EStateType action;
         [SerializeField] private Range healthRange;
-        [SerializeField] private DroppedItem dropItem;
+        [SerializeField] private ItemObject dropItem;
         [SerializeField] private bool withFallAnimation;
         public EStateType Action => action;
 
         public Range HealthRange => healthRange;
 
-        public DroppedItem DropItem => dropItem;
+        public ItemObject DropItem => dropItem;
 
         public bool WithFallAnimation => withFallAnimation;
 

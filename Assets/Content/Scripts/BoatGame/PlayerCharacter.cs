@@ -54,6 +54,8 @@ namespace Content.Scripts.BoatGame
 
         public CharacterParameters ParametersCalculator => parametersCalculator;
 
+        public GameDataObject GameData => gameData;
+
         public Action OnChangeState;
         protected SaveDataObject saveDataObject;
 
@@ -86,7 +88,7 @@ namespace Content.Scripts.BoatGame
             aiManager.Init(raftBuildService, navMeshProvider, character);
             
             animationsManager.Init(weatherService, appearanceManager);
-            parametersCalculator.Init(character, this.gameData, this);
+            parametersCalculator.Init(character, this.GameData, this);
             needsManager.Init(character, weatherService, this.selectionService, gameData);
             actionsHolder.Construct(selectionService, gameData);
 
@@ -122,7 +124,7 @@ namespace Content.Scripts.BoatGame
             aiManager.Init(navMeshProvider, this.character);
             characterGrounder.Init(transform);
             animationsManager.Init(null, appearanceManager);
-            parametersCalculator.Init(character, this.gameData, this);
+            parametersCalculator.Init(character, this.GameData, this);
             needsManager.Init(character, null, null, gameData);
             needsManager.OnDeath += Death;
             
@@ -204,7 +206,7 @@ namespace Content.Scripts.BoatGame
 
         private void NeedsManagerTick(float delta)
         {
-            if (saveDataObject.Global.TotalSecondsInGame + TimeService.PlayedTime >= gameData.ConfigData.StartNeedsActiveTime)
+            if (saveDataObject.Global.TotalSecondsInGame + TimeService.PlayedTime >= GameData.ConfigData.StartNeedsActiveTime)
             {
                 needsManager.OnTick(delta);
             }
@@ -243,13 +245,13 @@ namespace Content.Scripts.BoatGame
         public void ChangeCharacter(Character ch)
         {
             character = ch;
-            appearanceManager.Init(ch, gameData);
+            appearanceManager.Init(ch, GameData);
         }
 
         public void AddExp(int exp)
         {
             var xp = character.SkillData.Xp;
-            var maxXp = gameData.GetLevelXP(character.SkillData.Level);
+            var maxXp = GameData.GetLevelXP(character.SkillData.Level);
 
             if (xp + exp >= maxXp)
             {
@@ -282,7 +284,7 @@ namespace Content.Scripts.BoatGame
 
         public ItemObject GetEquipmentWeapon()
         {
-            return gameData.GetItem(character.Equipment.WeaponID);
+            return GameData.GetItem(character.Equipment.WeaponID);
         }
 
         public void Damage(float dmg, GameObject sender)

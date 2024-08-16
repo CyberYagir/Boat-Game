@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4311916691997263995}
-  - component: {fileID: 2347769629857741314}
+  - component: {fileID: 736997817900571703}
+  - component: {fileID: 6513602915984731113}
   - component: {fileID: 1243333464465221553}
   - component: {fileID: 5331609700055552785}
   - component: {fileID: 1087477973279732810}
@@ -36,7 +37,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2347769629857741314
+--- !u!114 &736997817900571703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7097879755234075192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3ca7dc10eec42db8d5d78e970e485be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbody: {fileID: 5331609700055552785}
+--- !u!114 &6513602915984731113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,10 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ed6e9575491084ea5260d0a4181a5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
-  rigidbody: {fileID: 5331609700055552785}
-  actionsHolder: {fileID: 1087477973279732810}
-  craftItem: {fileID: 0}
+  dropItem: {fileID: 736997817900571703}
+  saveItem: 1
 --- !u!65 &1243333464465221553
 BoxCollider:
   m_ObjectHideFlags: 0

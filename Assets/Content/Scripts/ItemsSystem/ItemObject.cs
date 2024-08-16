@@ -2,6 +2,8 @@ using System;
 using Content.Scripts.BoatGame.Scriptable;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI.UIEquipment;
+using Content.Scripts.Boot;
+using Content.Scripts.Global;
 using Content.Scripts.IslandGame;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -71,7 +73,7 @@ namespace Content.Scripts.ItemsSystem
         [SerializeField] private ItemsParameters parametersData;
         [SerializeField] private ItemFurnaceParameters furnaceData;
         [SerializeField] private bool hasSize = true;
-        [SerializeField, ShowIf("@itemType == EItemType.Item")] private DroppedItem dropPrefab;
+        [SerializeField, ShowIf("@itemType == EItemType.Item")] private DroppedItemBase dropPrefab;
         [SerializeField, ShowIf("@type == EResourceTypes.Potions")] private PotionLogicBaseSO potionLogic;
         [SerializeField, ShowIf("@itemType == EItemType.Armor")] private GameObject prefab;
         [SerializeField, ShowIf("@itemType == EItemType.Armor")] private EEquipmentType equipment;
@@ -94,13 +96,18 @@ namespace Content.Scripts.ItemsSystem
 
         public EWeaponAnimationType AnimationType => animationType;
 
-        public DroppedItem DropPrefab => dropPrefab;
 
         public ItemFurnaceParameters FurnaceData => furnaceData;
 
         public bool HasSize => hasSize;
 
         public PotionLogicBaseSO PotionLogic => potionLogic;
+
+
+        public DroppedItemBase GetDropPrefab(GameDataObject gameDataObject)
+        {
+            return dropPrefab != null ? dropPrefab : gameDataObject.ConfigData.DropBagForAnyItem();
+        }
 
 
         [Button]

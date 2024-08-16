@@ -34,6 +34,8 @@ namespace Content.Scripts.BoatGame
             {
                 count += value;
             }
+
+            public StorageItem Clone() => new StorageItem(item, count);
         }
         
         [SerializeField] private List<StorageItem> items = new List<StorageItem>();

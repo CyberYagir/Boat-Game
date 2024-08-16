@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Global;
+using Content.Scripts.IslandGame;
+using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
@@ -12,8 +16,9 @@ namespace Content.Scripts.DungeonGame.Services
         private DungeonCharactersService charactersService;
 
         [Inject]
-        private void Construct(DungeonCharactersService charactersService, DungeonResourcesService dungeonResourcesService)
+        private void Construct(DungeonCharactersService charactersService, DungeonResourcesService dungeonResourcesService, GameDataObject gameDataObject, DropCollectionService dropService)
         {
+            this.dropService = dropService;
             this.dungeonResourcesService = dungeonResourcesService;
             this.charactersService = charactersService;
         }
@@ -25,8 +30,9 @@ namespace Content.Scripts.DungeonGame.Services
 
         private List<IDestroyable> urnsListDemolishedTmp = new List<IDestroyable>(5);
         private DungeonResourcesService dungeonResourcesService;
+        private DropCollectionService dropService;
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             urnsListDemolishedTmp.Clear();
             foreach (var sp in charactersService.SpawnedCharacters)
@@ -38,16 +44,32 @@ namespace Content.Scripts.DungeonGame.Services
                     {
                         urnsListDemolishedTmp.Add(demolished[i]);
                         demolished[i].Demolish(sp.transform.position);
+                        var targetPos = demolished[i].transform.position;
                         if (demolished[i].DropTable)
                         {
                             var items = demolished[i].DropTable.GetItemsIterated(demolished[i].DropsCount);
+                            int id = 0;
                             foreach (var item in items)
                             {
                                 if (dungeonResourcesService.GetGlobalEmptySpace(item))
                                 {
-                                    WorldPopupService.StaticSpawnPopup(demolished[i].transform.position, item);
-                                    dungeonResourcesService.AddItemsToAnyRafts(item, false);
+                                    if (items.Count > 1)
+                                    {
+                                        DOVirtual.DelayedCall(id / 3f, delegate { WorldPopupService.StaticSpawnPopup(targetPos, item); });
+                                    }
+                                    else
+                                    {
+                                        WorldPopupService.StaticSpawnPopup(targetPos, item);
+                                    }
+
+                                    dungeonResourcesService.AddItemsToAnyRafts(item.Clone(), false);
                                 }
+                                else
+                                {
+                                    dropService.SpawnDrop(item, targetPos);
+                                }
+
+                                id++;
                             }
                         }
 

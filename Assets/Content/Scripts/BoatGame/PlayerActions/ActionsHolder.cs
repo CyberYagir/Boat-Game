@@ -25,6 +25,11 @@ namespace Content.Scripts.BoatGame.PlayerActions
                 ac.Init(selectionService, gameDataObject);
             }
         }
+        
+        [Inject]
+        public void Construct(GameDataObject gameDataObject)
+        {
+        }
 
         private void OnDestroy()
         {

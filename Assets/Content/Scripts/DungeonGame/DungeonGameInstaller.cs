@@ -19,6 +19,7 @@ namespace Content.Scripts.DungeonGame
             BindService<INavMeshProvider>();
             BindService<DungeonCharactersService>();
             BindService<DungeonTileGenerationService>();
+            BindService<DropCollectionService>();
             BindService<UrnCollectionService>();
             BindService<DungeonSelectionService>();
             BindService<DungeonCameraMoveService>();

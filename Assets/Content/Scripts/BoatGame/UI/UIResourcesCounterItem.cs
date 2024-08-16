@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.ItemsSystem;
@@ -35,6 +36,11 @@ namespace Content.Scripts.BoatGame.UI
         }
 
         public void OnPointerExit(PointerEventData eventData)
+        {
+            trashIcon.gameObject.SetActive(false);
+        }
+
+        private void OnDisable()
         {
             trashIcon.gameObject.SetActive(false);
         }

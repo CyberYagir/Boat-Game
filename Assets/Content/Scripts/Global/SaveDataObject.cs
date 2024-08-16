@@ -682,16 +682,16 @@ namespace Content.Scripts.Global
                     return removedTrees.Contains(intPos);
                 }
 
-                public void AddDroppedItem(DroppedItem item)
+                public void AddDroppedItem(DroppedItemBase item)
                 {
                     if (droppedItems.Find(x => x.DropID == item.DropID) == null)
                     {
-                        var data = new DroppedItemData(item.transform.position, item.transform.eulerAngles, item.Item.ID, item.DropID);
+                        var data = new DroppedItemData(item.transform.position, item.transform.eulerAngles, item.StorageItem.Item.ID, item.DropID);
                         droppedItems.Add(data);
                     }
                 }
 
-                public void RemoveDroppedItem(DroppedItem droppedItem)
+                public void RemoveDroppedItem(DroppedItemBase droppedItem)
                 {
                     droppedItems.RemoveAll(x=>x.DropID == droppedItem.DropID);
                 }

@@ -22,11 +22,10 @@ namespace Content.Scripts.Boot
         [SerializeField] private Fader fader;
 
         private List<ESceneName> overlayLoadedScenes = new List<ESceneName>();
-
         public event Action<ESceneName> OnChangeActiveScene;
         public event Action<ESceneName> OnLoadOtherScene;
         public event Action<ESceneName> OnUnLoadOtherScene;
-        
+
         public void ChangeScene(ESceneName name)
         {
             OnLoadOtherScene?.Invoke(name);

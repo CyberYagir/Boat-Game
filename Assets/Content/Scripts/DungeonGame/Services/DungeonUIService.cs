@@ -13,6 +13,10 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private UIHealthbars healthbars;
         [SerializeField] private UIPotionsList potionsList;
         [SerializeField] private UIResourcesCounter resourcesCounter;
+        [SerializeField] private UIStoragesCounter storagesCounter;
+        [SerializeField] private UIExitDungeonButton exitDungeonButton;
+        [SerializeField] private UIMessageBoxManager messageBoxManager;
+        
         
         [Inject]
         private void Construct(
@@ -29,6 +33,8 @@ namespace Content.Scripts.DungeonGame.Services
             healthbars.Init(charactersService.GetPlayers(), cameraMoveService.Camera);
             potionsList.Init(dungeonResourcesService, selectionService, charactersService, null);
             resourcesCounter.Init(raftsService, gameData, dungeonResourcesService, tickService);
+            storagesCounter.Init(raftsService);
+            exitDungeonButton.Init(messageBoxManager);
         }
 
 

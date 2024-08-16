@@ -11,10 +11,10 @@ namespace Content.Scripts.BoatGame.UI
     {
         [SerializeField] private Canvas canvas;
         [SerializeField] private TMP_Text text;
-        private RaftBuildService raftBuildService;
+        private IRaftBuildService raftBuildService;
         private float startScale;
 
-        public void Init(RaftBuildService raftBuildService)
+        public void Init(IRaftBuildService raftBuildService)
         {
             this.raftBuildService = raftBuildService;
             raftBuildService.OnChangeRaft += UpdateRaftsEvent;

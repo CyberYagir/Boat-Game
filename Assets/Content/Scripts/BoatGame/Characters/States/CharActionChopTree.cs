@@ -45,7 +45,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             }
         }
 
-        private void GoToDrop(DroppedItem obj)
+        private void GoToDrop(DroppedItemBase obj)
         {
             if (Machine.CurrentState == EStateType.Idle)
             {

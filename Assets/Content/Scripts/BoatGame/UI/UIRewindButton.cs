@@ -1,19 +1,15 @@
 ﻿using Content.Scripts.BoatGame.Services;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Content.Scripts.BoatGame.UI
 {
     [System.Serializable]
-    public class UIRewindButton : MonoBehaviour 
+    public class UIRewindButton : UIBigButtonBase 
     {
-        [SerializeField] protected RectTransform button;
-        [SerializeField] protected Image image;
         private TickService tickService;
         protected Vector3 startPosition;
 
-        private bool isPressed = false;
         private bool isSpaceHold = false;
         private UIService uiService;
 
@@ -60,33 +56,15 @@ namespace Content.Scripts.BoatGame.UI
             }
         }
 
-        public void ButtonDown()
+        public override void OnButtonDown()
         {
-            if (isPressed) return;
-            isPressed = true;
-            button.DOScale(Vector3.one * 0.8f, 0.2f);
-            image.DOFade(0.8f, 0.2f);
-            OnButtonDown();
-        }
-
-        public virtual void OnButtonDown()
-        {
+            base.OnButtonDown();
             tickService.ChangeTimeScale(10);
         }
-            
-            
-        public void ButtonUp()
-        {
-            if (!isPressed) return;
-            isPressed = false;
-            button.DOScale(Vector3.one, 0.2f);
-            image.DOFade(1f, 0.2f);
 
-            OnButtonUp();
-        }
-
-        public virtual void OnButtonUp()
+        public override void OnButtonUp()
         {
+            base.OnButtonUp();
             tickService.ChangeTimeScale(1);
         }
     }

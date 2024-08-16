@@ -17,7 +17,7 @@ MonoBehaviour:
     - name: "Danil\r"
       uid: b2272b93-89a4-47c0-92a4-725b5f7e5a55
       skillsData:
-        xp: 1
+        xp: 4
         scores: 0
         level: 0
         skills:
@@ -29,10 +29,10 @@ MonoBehaviour:
           value: 2
       parametersData:
         health: 100
-        hunger: 85.12094
-        thirsty: 70.24188
+        hunger: 99.68149
+        thirsty: 99.362976
       equipmentData:
-        helmetID: 
+        helmetID: 257ad57f-ceb7-45b2-8f46-03b25eb48787
         armorID: 
         weaponID: 531e7093-f805-4836-b92a-766610072867
       effectsData:
@@ -54,8 +54,8 @@ MonoBehaviour:
           value: 1
       parametersData:
         health: 100
-        hunger: 83.97582
-        thirsty: 67.951645
+        hunger: 99.656975
+        thirsty: 99.31395
       equipmentData:
         helmetID: 0acfe562-05e1-4a51-a33c-2f6fc93e168a
         armorID: 329bdacd-0be4-4ca5-8122-a33a095be25c
@@ -79,8 +79,8 @@ MonoBehaviour:
           value: 1
       parametersData:
         health: 100
-        hunger: 82.8307
-        thirsty: 65.66141
+        hunger: 99.63246
+        thirsty: 99.26492
       equipmentData:
         helmetID: 
         armorID: 
@@ -115,7 +115,7 @@ MonoBehaviour:
     - raftUid: 3fc645fd-5606-4242-abbd-88443c3a9662
       storagesData:
       - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
-        count: 5
+        count: 6
       - itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
         count: 5
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
@@ -124,9 +124,9 @@ MonoBehaviour:
         count: 2
       - itemID: 573942d0-7bd3-4679-abe2-e5ddb9cf6c00
         count: 1
-      - itemID: 9ca0fa06-a861-4100-8f6a-61e9319fe4d3
+      - itemID: 176e78e5-a918-4a3c-83f1-3ab859de1d14
         count: 1
-      - itemID: 257ad57f-ceb7-45b2-8f46-03b25eb48787
+      - itemID: 329bdacd-0be4-4ca5-8122-a33a095be25c
         count: 1
     furnaces: []
     waterSources: []
@@ -507,8 +507,15 @@ MonoBehaviour:
     - islandName: 
       islandPos: {x: 138, y: 273}
       islandSeed: 1885434876
-      removedTrees: []
-      droppedItems: []
+      removedTrees:
+      - {x: 186, y: 433}
+      - {x: 192, y: 431}
+      - {x: 197, y: 429}
+      droppedItems:
+      - pos: {x: -64.17879, y: 6.356018, z: 186.86511}
+        rot: {x: 0.15950193, y: 0.6691915, z: 359.68088}
+        itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
+        dropID: bf80776d3b111893-7161efb7535817ff
       villagesData: []
     - islandName: 
       islandPos: {x: 142, y: 198}
@@ -1156,16 +1163,16 @@ MonoBehaviour:
       plotRowNumber: 11
       isCollected: 0
   globalData:
-    totalSecondsInGame: 7482.836
-    totalSecondsOnRaft: 6166.058
-    islandSeed: 0
+    totalSecondsInGame: 8516.613
+    totalSecondsOnRaft: 6526.579
+    islandSeed: 1885434876
     damagersData:
-      tickCount: 625
-      maxTickCount: 8253
+      tickCount: 427
+      maxTickCount: 5057
       spawnedItems: []
     weathersData:
-      tickCount: 214
-      maxTickCount: 954
+      tickCount: 353
+      maxTickCount: 2244
       currentWeather: 0
   tutorialsData:
     clickTutorial: 1

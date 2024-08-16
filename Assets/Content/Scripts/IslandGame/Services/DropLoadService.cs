@@ -1,4 +1,5 @@
 using System;
+using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using UnityEngine;
@@ -20,9 +21,10 @@ namespace Content.Scripts.IslandGame.Services
                 
                 
                 
-                var spawnedDrop = Instantiate(item.DropPrefab, dropped[i].Pos, Quaternion.Euler(dropped[i].Rot));
-                spawnedDrop.LoadItem(dropped[i]);
+                var spawnedDrop = Instantiate(item.GetDropPrefab(gameData), dropped[i].Pos, Quaternion.Euler(dropped[i].Rot));
                 prefabSpawnerFabric.InjectComponent(spawnedDrop.gameObject);
+                spawnedDrop.LoadItem(dropped[i]);
+                spawnedDrop.SetItem(item);
             }
         }
     }
