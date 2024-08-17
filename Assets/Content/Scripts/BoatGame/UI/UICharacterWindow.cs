@@ -20,20 +20,20 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private List<UIEquipmentDestination> equipmentBases;
 
         private PlayerCharacter selectedCharacter;
-        private SelectionService selectionService;
+        private ISelectionService selectionService;
         private TickService tickService;
         private GameDataObject gameDataObject;
-        private RaftBuildService raftBuildService;
-        private ResourcesService resourcesService;
+        private IRaftBuildService raftBuildService;
+        private IResourcesService resourcesService;
 
         public void Init(
-            SelectionService selectionService, 
+            ISelectionService selectionService, 
             GameDataObject gameDataObject, 
             TickService tickService,
-            RaftBuildService raftBuildService,
+            IRaftBuildService raftBuildService,
             UIMessageBoxManager uiMessageBoxManager,
             PrefabSpawnerFabric spawnerFabric,
-            ResourcesService resourcesService)
+            IResourcesService resourcesService)
         {
             this.resourcesService = resourcesService;
             this.raftBuildService = raftBuildService;
@@ -55,9 +55,12 @@ namespace Content.Scripts.BoatGame.UI
         {
             if (obj == null) return;
             var viewCharacter = obj.GetCharacterAction<CharActionViewCharacter>();
-            viewCharacter.OnOpenWindow -= ShowWindow;
-            viewCharacter.OnOpenWindow += ShowWindow;
-            
+            if (viewCharacter)
+            {
+                viewCharacter.OnOpenWindow -= ShowWindow;
+                viewCharacter.OnOpenWindow += ShowWindow;
+            }
+
             obj.NeedManager.OnDeath -= OnDeath;
             obj.NeedManager.OnDeath += OnDeath;
         }

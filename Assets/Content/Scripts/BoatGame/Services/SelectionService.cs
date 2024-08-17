@@ -72,9 +72,9 @@ namespace Content.Scripts.BoatGame.Services
         private GameStateService gameStateService;
         private ScenesService scenesService;
 
-        public Action<ISelectable> OnChangeSelectObject;
-        public Action<PlayerCharacter> OnChangeSelectCharacter;
-        public Action<RaftTapToBuild> OnTapOnBuildingRaft;
+        public event Action<ISelectable> OnChangeSelectObject;
+        public event Action<PlayerCharacter> OnChangeSelectCharacter;
+        public event Action<RaftTapToBuild> OnTapOnBuildingRaft;
 
         public Camera Camera => camera;
 

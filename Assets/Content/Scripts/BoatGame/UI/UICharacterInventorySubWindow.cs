@@ -11,10 +11,10 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIInventoryItem item;
         
         private List<UIInventoryItem> items = new List<UIInventoryItem>();
-        private RaftBuildService raftBuildService;
+        private IRaftBuildService raftBuildService;
 
 
-        public void Init(RaftBuildService raftBuildService)
+        public void Init(IRaftBuildService raftBuildService)
         {
             this.raftBuildService = raftBuildService;
             Redraw();

@@ -104,8 +104,18 @@ namespace Content.Scripts.BoatGame
 
             Select(false);
         }
-        
-        
+
+        public void InitDummy(
+            Character character,
+            GameDataObject gameData
+        )
+        {
+            this.gameData = gameData;
+            
+            appearanceManager.Init(character, gameData);
+        }
+
+
         public void InitDungeonPlayer(
             Character character,
             GameDataObject gameData,

@@ -48,7 +48,7 @@ namespace Content.Scripts.DungeonGame.Services
 
         private void SpawnMob(DungeonMobSpawner dungeonMobSpawner)
         {
-            spawnerFabric.SpawnItem(gameData.GetMob(dungeonMobSpawner.Difficult, rnd).Prefab, dungeonMobSpawner.transform.position, Quaternion.Euler(0, Random.value * 360f, 0));
+            spawnerFabric.SpawnItem(gameData.GetMob(dungeonMobSpawner.Difficult, rnd).Prefab, dungeonMobSpawner.transform.position, Quaternion.Euler(0, Random.value * 360f, 0), transform);
         }
     }
 }

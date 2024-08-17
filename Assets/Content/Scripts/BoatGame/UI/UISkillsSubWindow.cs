@@ -14,14 +14,14 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private TMP_Text scoresText;
         [SerializeField] private GameObject indicator;
         
-        private SelectionService selectionService;
+        private ISelectionService selectionService;
         private Character character;
         private UIMessageBoxManager uiMessageBoxManager;
         private GameDataObject gameData;
 
         private SkillObject lastSelectedSkill;
         
-        public void Init(GameDataObject gameData, SelectionService selectionService, UIMessageBoxManager uiMessageBoxManager)
+        public void Init(GameDataObject gameData, ISelectionService selectionService, UIMessageBoxManager uiMessageBoxManager)
         {
             this.gameData = gameData;
             this.uiMessageBoxManager = uiMessageBoxManager;

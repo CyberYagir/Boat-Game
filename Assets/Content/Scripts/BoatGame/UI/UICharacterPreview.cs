@@ -5,6 +5,7 @@ using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Content.Scripts.BoatGame.UI
 {
@@ -22,24 +23,54 @@ namespace Content.Scripts.BoatGame.UI
         }
         
         [SerializeField] private PlayerCharacter character;
-        [SerializeField] private AnimationClip defaultAnimation;
+        [SerializeField] private Camera camera;
         [SerializeField] private List<AnimationForEquipment> animations;
+        [SerializeField] private bool generateNewRenderTexture;
 
+        public RenderTexture RenderTexture => camera.targetTexture;
 
         private Character targetCharacter;
         private GameDataObject gameDataObject;
 
         private Animator animator;
-        private static readonly int Blend = Animator.StringToHash("Blend");
+        private static readonly int RandomAnim = Animator.StringToHash("RandomAnim");
+        private static readonly int ToStart = Animator.StringToHash("ToStart");
+
+        private int targetIdleAnimationID;
+        
+        private static int animationID;
+        private const int MAX_ANIMATIONS = 9;
 
         [Inject]
-        private void Construct(GameDataObject gameDataObject, INavMeshProvider navMeshService)
+        private void Construct(GameDataObject gameDataObject)
         {
             this.gameDataObject = gameDataObject;
-            character.Init(new Character(), gameDataObject, null, null, null, null, null, navMeshService, null);
+            if (generateNewRenderTexture)
+            {
+                var targetTexture = camera.targetTexture;
+                targetTexture = new RenderTexture(targetTexture.width, targetTexture.height, targetTexture.depth, targetTexture.graphicsFormat);
+                camera.targetTexture = targetTexture;
+            }
+            character.InitDummy(new Character(), gameDataObject);
             animator = character.AnimationManager.GetAnimator();
 
+            if (generateNewRenderTexture)
+            {
+
+                targetIdleAnimationID = animationID;
+                animationID++;
+
+                if (animationID >= MAX_ANIMATIONS)
+                {
+                    animationID = 0;
+                }
+            }
+            else
+            {
+                targetIdleAnimationID = new System.Random(character.Character.Uid.GetHashCode()).Next(0, MAX_ANIMATIONS);
+            }
         }
+
         private void OnEquipmentChange()
         {
             character.gameObject.ChangeLayerWithChilds(LayerMask.NameToLayer("Overlay"));
@@ -48,7 +79,6 @@ namespace Content.Scripts.BoatGame.UI
             var item = gameDataObject.GetItem(character.Character.Equipment.ArmorID);
             if (item != null)
             {
-                print(item.name);
                 for (int i = 0; i < animations.Count; i++)
                 {
                     if (animations[i].Items.Contains(item))
@@ -58,8 +88,14 @@ namespace Content.Scripts.BoatGame.UI
                     }
                 }
             }
-            animator.Play(defaultAnimation.name);
+            SetRandomAnimation();
+        }
 
+        private void SetRandomAnimation()
+        {
+            animator.SetInteger(RandomAnim, targetIdleAnimationID);
+            animator.ResetTrigger(ToStart);
+            animator.SetTrigger(ToStart);
         }
 
         public void UpdateCharacterVisuals(Character ch)

@@ -125,5 +125,74 @@ namespace Content.Scripts.BoatGame.Services
 
             return emptySpace;
         }
+        
+        public bool TrySwapItems(RaftStorage.StorageItem newItem, RaftStorage.StorageItem oldItem)
+        {
+            var calculateSpace = GetEmptySpace() - newItem.Count + oldItem.Count;
+            var maxItemsCount = 0;
+            var storages = GetRafts();
+            for (int i = 0; i < storages.Count; i++)
+            {
+                maxItemsCount += storages[i].MaxItemsCount;
+            }
+
+            if (calculateSpace <= maxItemsCount)
+            {
+                RemoveItemsFromAnyRaft(newItem);
+                AddItemsToAnyRafts(oldItem);
+                return true;
+            }
+
+            return false;
+        }
+        
+        public void RemoveItemsFromAnyRaft(RaftStorage.StorageItem storageItem)
+        {
+            var storages = GetRafts();
+            for (int i = 0; i < storages.Count; i++)
+            {
+                if (storageItem.Count <= 0) break;
+                if (storages[i].HaveItem(storageItem.Item))
+                {
+                    var items = storages[i].GetItem(storageItem.Item);
+
+                    if (storageItem.Count <= items.Count)
+                    {
+                        storages[i].RemoveFromStorage(storageItem.Item, storageItem.Count);
+                        return;
+                    }
+
+                    if (storageItem.Count > items.Count)
+                    {
+                        storages[i].RemoveFromStorage(storageItem.Item, items.Count);
+                        storageItem.Add(-items.Count);
+                    }
+                }
+            }
+        }
+        
+        public bool AddToAnyStorage(ItemObject item)
+        {
+            var storages = GetRafts();
+            var storage = storages.Find(x => x.HaveItem(item) && x.GetEmptySlots() >= 1);
+            if (storage != null)
+            {
+                storage.AddToStorage(item, 1);
+                return true;
+            }
+            else
+            {
+                foreach (var raftStorage in storages)
+                {
+                    if (raftStorage.IsEmptyStorage(item, 1))
+                    {
+                        raftStorage.AddToStorage(item, 1);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }

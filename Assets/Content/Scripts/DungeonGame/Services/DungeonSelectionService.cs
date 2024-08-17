@@ -82,10 +82,18 @@ namespace Content.Scripts.DungeonGame.Services
             }
         }
 
+        public event Action<PlayerCharacter> OnChangeSelectCharacter;
+
+        private PlayerCharacter activePlayer;
+        
         public PlayerCharacter SelectedCharacter
         {
             get
             {
+                if (activePlayer)
+                {
+                    return activePlayer;
+                }
                 var minHealth = dungeonCharactersService.SpawnedCharacters.Min(x => x.PlayerCharacter.NeedManager.Health);
                 return dungeonCharactersService.SpawnedCharacters.Find(x=>x.PlayerCharacter.NeedManager.Health <= minHealth).PlayerCharacter;
             }
@@ -96,6 +104,13 @@ namespace Content.Scripts.DungeonGame.Services
             var hit = camera.MouseRaycast(out var isHit, InputService.MousePosition, Mathf.Infinity, LayerMask.GetMask("Player", "Terrain"));
             isNotEmpty = isHit;
             return hit.point;
+        }
+
+        public void SetActiveCharacter(PlayerCharacter playerCharacter)
+        {
+            activePlayer = playerCharacter;
+
+            OnChangeSelectCharacter?.Invoke(activePlayer);
         }
     }
 }

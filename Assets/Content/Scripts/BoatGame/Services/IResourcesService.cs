@@ -12,5 +12,9 @@ namespace Content.Scripts.BoatGame.Services
         void RemoveItemFromAnyRaft(ItemObject itemObject);
         List<RaftStorage.StorageItem> GetItemsByType(EResourceTypes Type);
         void AddItemsToAnyRafts(RaftStorage.StorageItem oldItem, bool spawnPopup = true);
+
+        bool AddToAnyStorage(ItemObject item);
+
+        bool TrySwapItems(RaftStorage.StorageItem newItem, RaftStorage.StorageItem oldItem);
     }
 }

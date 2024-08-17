@@ -36,49 +36,6 @@ namespace Content.Scripts.BoatGame.Services
         public override List<RaftStorage> GetRafts() => raftBuildService.Storages;
         
 
-        public void RemoveItemsFromAnyRaft(RaftStorage.StorageItem storageItem)
-        {
-            for (int i = 0; i < raftBuildService.Storages.Count; i++)
-            {
-                if (storageItem.Count <= 0) break;
-                if (raftBuildService.Storages[i].HaveItem(storageItem.Item))
-                {
-                    var items = raftBuildService.Storages[i].GetItem(storageItem.Item);
-
-                    if (storageItem.Count <= items.Count)
-                    {
-                        raftBuildService.Storages[i].RemoveFromStorage(storageItem.Item, storageItem.Count);
-                        return;
-                    }
-
-                    if (storageItem.Count > items.Count)
-                    {
-                        raftBuildService.Storages[i].RemoveFromStorage(storageItem.Item, items.Count);
-                        storageItem.Add(-items.Count);
-                    }
-                }
-            }
-        }
-
-        public bool TrySwapItems(RaftStorage.StorageItem newItem, RaftStorage.StorageItem oldItem)
-        {
-            var calculateSpace = GetEmptySpace() - newItem.Count + oldItem.Count;
-            var maxItemsCount = 0;
-            for (int i = 0; i < raftBuildService.Storages.Count; i++)
-            {
-                maxItemsCount += raftBuildService.Storages[i].MaxItemsCount;
-            }
-
-            if (calculateSpace <= maxItemsCount)
-            {
-                RemoveItemsFromAnyRaft(newItem);
-                AddItemsToAnyRafts(oldItem);
-                return true;
-            }
-
-            return false;
-        }
-
         public bool TrySwapItemsWithDrop(RaftStorage.StorageItem newItem, RaftStorage.StorageItem oldItem)
         {
             var calculateSpace = GetEmptySpace() + oldItem.Count;
@@ -99,28 +56,7 @@ namespace Content.Scripts.BoatGame.Services
 
 
 
-        public bool AddToAnyStorage(ItemObject item)
-        {
-            var storage = raftBuildService.Storages.Find(x => x.HaveItem(item) && x.GetEmptySlots() >= 1);
-            if (storage != null)
-            {
-                storage.AddToStorage(item, 1);
-                return true;
-            }
-            else
-            {
-                foreach (var raftStorage in raftBuildService.Storages)
-                {
-                    if (raftStorage.IsEmptyStorage(item, 1))
-                    {
-                        raftStorage.AddToStorage(item, 1);
-                        return true;
-                    }
-                }
-            }
 
-            return false;
-        }
 
         public bool IsHaveItem(RaftStorage.StorageItem sellItem)
         {
