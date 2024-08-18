@@ -12,6 +12,7 @@ namespace Content.Scripts.BoatGame.Services
         
         
         public static float DeltaTime => Time.deltaTime * TimeRate;
+        public static float FixedDeltaTime => Time.fixedTime * TimeRate;
         public static int Ticks => 20;
         public static float TickRate => Ticks * TimeScale;
         public static float TimeScale => Time.timeScale * TimeRate;

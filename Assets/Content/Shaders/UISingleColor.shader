@@ -92,7 +92,7 @@ Shader "UI/DefaultCustom"
 
                 OUT.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
 
-               OUT.color = v.color * _Color;
+                OUT.color = v.color * _Color;
                 return OUT; 
             }
 

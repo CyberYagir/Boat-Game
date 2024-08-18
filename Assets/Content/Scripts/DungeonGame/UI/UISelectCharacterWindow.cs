@@ -33,6 +33,8 @@ namespace Content.Scripts.DungeonGame.UI
                 Instantiate(item, item.transform.parent)
                     .With(x => spawnedItems.Add(x))
                     .With(x => x.Init(preview, spawnedCharacter.Character.Name, spawnedCharacter, this));
+
+                spawnedCharacter.NeedManager.OnDeath += delegate(Character character) { Redraw(); };
             }
 
             item.gameObject.SetActive(false);
@@ -43,14 +45,18 @@ namespace Content.Scripts.DungeonGame.UI
         {
             base.ShowWindow();
 
-            var chars = characterService.GetSpawnedCharacters();
+            Redraw();
+        }
+
+        private void Redraw()
+        {
             for (var i = 0; i < peviewList.Count; i++)
             {
-                peviewList[i].UpdateCharacterVisuals(chars[i].Character);
+                peviewList[i].UpdateCharacterVisuals(characters[i].Character);
             }
-            
+
             for (var i = 0; i < spawnedItems.Count; i++)
-            { 
+            {
                 spawnedItems[i].gameObject.SetActive(!characters[i].NeedManager.IsDead);
             }
         }

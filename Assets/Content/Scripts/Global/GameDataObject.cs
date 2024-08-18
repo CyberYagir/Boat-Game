@@ -130,7 +130,6 @@ namespace Content.Scripts.Global
         [SerializeField] private List<Material> skinColors;
         [SerializeField] private List<CraftObject> crafts;
         [SerializeField] private List<MobObject> mobs;
-        [SerializeField] private List<DungeonMobObject> dungeonMobs;
         [SerializeField] private List<int> levelXps;
         [SerializeField] private List<MapPathObject> mapPaths;
         [SerializeField] private List<RandomStructureMaterialsBase.MatsByBiome> structuresMaterials;
@@ -204,11 +203,6 @@ namespace Content.Scripts.Global
             return mobs.Find(x => x.Type == mobType);
         }
         
-        public DungeonMobObject GetMob(DungeonMobObject.EMobDifficult difficult, Random rnd)
-        {
-            return dungeonMobs.FindAll(x => x.Difficult == difficult).GetRandomItem(rnd);
-        }
-
         public Sprite GetResourceIcon(EResourceTypes type)
         {
             return resourcesIcons.Find(x => x.Key == type).Icon;

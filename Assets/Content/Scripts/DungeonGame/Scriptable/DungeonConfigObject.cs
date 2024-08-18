@@ -32,5 +32,11 @@ namespace Content.Scripts.DungeonGame.Scriptable
 
         public DungeonSize Size => dungeonSize;
         public List<RoomGrid> Rooms => rooms;
+        
+        
+        public DungeonMobObject GetMob(DungeonMobObject.EMobDifficult difficult, System.Random rnd)
+        {
+            return mobs.FindAll(x => x.Difficult == difficult).GetRandomItem(rnd);
+        }
     }
 }
