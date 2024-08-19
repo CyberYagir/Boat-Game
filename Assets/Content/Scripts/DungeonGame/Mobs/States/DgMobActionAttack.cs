@@ -61,11 +61,16 @@ namespace Content.Scripts.DungeonGame.Mobs.States
                     {
                         DOVirtual.DelayedCall(attackDelay, delegate
                         {
+                            Machine.AIManager.Stop(false);
                             if (!Machine.IsDead)
                             {
                                 Machine.MobAnimator.SetAttackType(attackCounter);
                                 Machine.MobAnimator.TriggerAttack();
-                                DOVirtual.DelayedCall(attackCooldown, delegate { isCooldown = false; });
+                                DOVirtual.DelayedCall(attackCooldown, delegate
+                                {
+                                    isCooldown = false;
+                                    Machine.AIManager.Stop(true);
+                                });
                             }
                         });
                         isCooldown = true;

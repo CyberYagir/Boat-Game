@@ -22,6 +22,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIVillageManageSubWindow manageSubWindow;
         [SerializeField] private UIVillageStorageSubWindow storageSubWindow;
         [SerializeField] private UIVillageTransferSubWindow transferSubWindow;
+        [SerializeField] private UIVillageFightsSubWindow fightsSubWindow;
 
 
         private RaftBuildService raftBuildService;
@@ -62,7 +63,7 @@ namespace Content.Scripts.BoatGame.UI
             villageSocialRating.Init(gameDataObject.TradesData);
             storageSubWindow.Init(resourcesService);
             transferSubWindow.Init(saveDataObject, this);
-
+            
             raftBuildService.OnChangeRaft += ChangeRaftsEvents;
             selectionService.OnChangeSelectCharacter += OnChangeSelectCharacter;
             OnChangeSelectCharacter(selectionService.SelectedCharacter);
@@ -127,6 +128,8 @@ namespace Content.Scripts.BoatGame.UI
             slavesGenerator.Show();
             slavesSubWindow.Init(gameDataObject, resourcesService, slavesGenerator, this);
             manageSubWindow.Init(slavesGenerator, villageData, gameDataObject, tickService, resourcesService, saveDataObject, this, messageBoxManager);
+            fightsSubWindow.Init(villageData, gameDataObject, level);
+            
             
             ShowWindow();
         }

@@ -11,10 +11,12 @@ namespace Content.Scripts.BoatGame
         private SaveService saveService;
         private ResourcesService resourcesService;
         private RaftDamagerService raftDamagerService;
+        private SelectionService selectionService;
 
         [Inject]
-        private void Construct(CharacterService characterService, SaveService saveService, ResourcesService resourcesService, RaftDamagerService raftDamagerService)
+        private void Construct(CharacterService characterService, SaveService saveService, ResourcesService resourcesService, RaftDamagerService raftDamagerService, SelectionService selectionService)
         {
+            this.selectionService = selectionService;
             this.raftDamagerService = raftDamagerService;
             Instance = this;
             this.resourcesService = resourcesService;
@@ -26,6 +28,7 @@ namespace Content.Scripts.BoatGame
         public static SaveService GetSaveService() => Instance.saveService;
         public static ResourcesService GetResourcesService() => Instance.resourcesService;
         public static RaftDamagerService GetDamagerService() => Instance.raftDamagerService;
+        public static SelectionService GetSelectionService() => Instance.selectionService;
 
     }
 }

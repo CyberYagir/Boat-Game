@@ -93,12 +93,17 @@ namespace Content.Scripts.DungeonGame
 
             public bool IsArrived() => agent.IsArrived();
 
-            public void Stop()
+            public void Disable()
             {
                 agent.Disable();
             }
 
             public bool IsMoving() => agent.Velocity.magnitude >= 0.1f;
+
+            public void Stop(bool stop)
+            {
+                agent.SetStopped(stop);
+            }
         }
 
 
@@ -148,7 +153,7 @@ namespace Content.Scripts.DungeonGame
             rvoController.enabled = false;
             
             enemiesService.RemoveMob(this);
-            aiModule.Stop();
+            aiModule.Disable();
             gameObject.ChangeLayerWithChilds(LayerMask.NameToLayer("Default"));
         }
 

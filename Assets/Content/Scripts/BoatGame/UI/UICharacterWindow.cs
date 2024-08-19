@@ -17,6 +17,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UISkillsSubWindow skillsSubWindow;
         [SerializeField] private UICharacterInventorySubWindow inventorySubWindow;
         [SerializeField] private UITabManager uiTabManager;
+        [SerializeField] private UICharacterWindowStats statsTray;
         [SerializeField] private List<UIEquipmentDestination> equipmentBases;
 
         private PlayerCharacter selectedCharacter;
@@ -106,6 +107,8 @@ namespace Content.Scripts.BoatGame.UI
             {
                 equipmentBases[i].Init(selectedCharacter.Character, gameDataObject, this, inventorySubWindow);
             }
+
+            statsTray.Redraw(selectedCharacter);
         }
 
 

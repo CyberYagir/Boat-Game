@@ -4,6 +4,7 @@ using Content.Scripts.IslandGame;
 using Content.Scripts.ItemsSystem;
 using DG.DemiLib;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Content.Scripts.Global
 {
@@ -25,7 +26,7 @@ namespace Content.Scripts.Global
         [SerializeField] private List<ItemObject> itemsForRaftTransitionAfterDestroying;
 
         [SerializeField] private NoiseGenerator mapNoisePreset;
-        
+        [SerializeField] private IntRange dungeonsCount;
         public float StartNeedsActiveTime => startNeedsActiveTime;
         public int ActionsCountToTutorial => actionsCountToTutorial;
         public float ActionsTutorialActiveTime => actionsTutorialActiveTime;
@@ -48,6 +49,11 @@ namespace Content.Scripts.Global
         public DroppedItemBase DropBagForAnyItem()
         {
             return dropBagForAnyItem;
+        }
+
+        public int GetDungeonsCount(Random rnd)
+        {
+            return rnd.Next(dungeonsCount.min, dungeonsCount.max);
         }
     }
 }

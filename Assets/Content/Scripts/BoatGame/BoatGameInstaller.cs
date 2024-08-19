@@ -1,3 +1,4 @@
+using Content.Scripts.BoatGame.Services;
 using UnityEngine.Events;
 
 namespace Content.Scripts.BoatGame

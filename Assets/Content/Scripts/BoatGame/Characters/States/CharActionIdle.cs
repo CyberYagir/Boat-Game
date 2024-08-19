@@ -6,23 +6,28 @@ namespace Content.Scripts.BoatGame.Characters.States
 {
     public class CharActionIdle : CharActionBase
     {
-        private float timer;
+        [SerializeField] private float timer;
         [SerializeField] private Range idleTime;
+
         public override void StartState()
         {
             base.StartState();
             var pos = Machine.AIMoveManager.WalkToAnyPoint();
-            MoveToPoint(pos);
+            if (!MoveToPoint(pos))
+            {
+                EndState();
+            }
             timer = idleTime.RandomWithin();
         }
 
         public override void ProcessState()
         {
-            if (Machine.AIMoveManager.NavMeshAgent.Destination == Vector3.zero)
+            if (Machine.AIMoveManager.NavMeshAgent.Destination.magnitude >= Mathf.Infinity)
             {
                 EndState();
                 return;
             }
+            
             if (Machine.AIMoveManager.NavMeshAgent.IsArrived())
             {
                 timer -= TimeService.DeltaTime;

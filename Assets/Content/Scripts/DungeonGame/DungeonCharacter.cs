@@ -22,14 +22,14 @@ namespace Content.Scripts.DungeonGame
         
         private DungeonSelectionService dungeonSelectionService;
         private DungeonEnemiesService enemiesService;
-        private DungeonMob targetEnemy;
+        private DamageObject targetEnemy;
         private EStateType preRollState;
 
         public DungeonSelectionService SelectionService => dungeonSelectionService;
         public PlayerCharacter PlayerCharacter => playerCharacter;
         public float AttackRange => attackRange;
 
-        public DungeonMob TargetEnemy => targetEnemy;
+        public DamageObject TargetEnemy => targetEnemy;
 
         public void Init(
             Character character,
@@ -137,7 +137,7 @@ namespace Content.Scripts.DungeonGame
             return enemiesService.GetAllNearMobs(transformPosition, 1f);
         }
 
-        public void SetTarget(DungeonMob notDeadMob)
+        public void SetTarget(DamageObject notDeadMob)
         {
             targetEnemy = notDeadMob;
         }

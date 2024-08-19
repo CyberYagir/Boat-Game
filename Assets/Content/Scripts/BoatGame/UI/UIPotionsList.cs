@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Resources;
 using Content.Scripts.BoatGame.Scriptable;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Boot;
 using Content.Scripts.ItemsSystem;
 using DG.Tweening;
 using UnityEngine;
@@ -20,9 +21,11 @@ namespace Content.Scripts.BoatGame.UI
         private ISelectionService selectionService;
         private ICharacterService characterService;
         private UICharactersList charactersList;
+        private ScenesService scenesService;
 
-        public void Init(IResourcesService resourcesService, ISelectionService selectionService, ICharacterService characterService, UICharactersList charactersList)
+        public void Init(IResourcesService resourcesService, ISelectionService selectionService, ICharacterService characterService, UICharactersList charactersList, ScenesService scenesService)
         {
+            this.scenesService = scenesService;
             this.charactersList = charactersList;
             this.characterService = characterService;
             this.selectionService = selectionService;
@@ -30,12 +33,40 @@ namespace Content.Scripts.BoatGame.UI
             resourcesService.OnChangeResources += ResourceManagerOnOnChangeResources;
             ResourceManagerOnOnChangeResources();
             draggedItem.gameObject.SetActive(false);
+            
+            
+            scenesService.OnChangeActiveScene += OnChangeScene;
+            scenesService.OnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
+            scenesService.OnUnLoadOtherScene += ScenesServiceOnOnUnLoadOtherScene;
+        }
+        private void OnChangeScene(ESceneName scene)
+        {
+            ResourceManagerOnOnChangeResources();
+        }
+        private void ScenesServiceOnOnLoadOtherScene(ESceneName obj)
+        {
+            RemoveEvents();
+        }
+
+        private void ScenesServiceOnOnUnLoadOtherScene(ESceneName obj)
+        {
+            if (obj == ESceneName.Map)
+            {
+                RemoveEvents();
+            }
+        }
+
+        private void RemoveEvents()
+        {
+            scenesService.OnChangeActiveScene -= OnChangeScene;
+            scenesService.OnLoadOtherScene -= ScenesServiceOnOnUnLoadOtherScene;
+            scenesService.OnUnLoadOtherScene -= ScenesServiceOnOnUnLoadOtherScene;
         }
 
         private void ResourceManagerOnOnChangeResources()
         {
             var potions = resourcesService.GetItemsByType(EResourceTypes.Potions);
-            gameObject.SetActive(potions.Count != 0);
+            gameObject.SetActive(potions.Count != 0 && scenesService.GetActiveScene() != ESceneName.Map);
 
             if (potions.Count != 0)
             {

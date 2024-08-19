@@ -1,6 +1,7 @@
 using System;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI;
+using Content.Scripts.Boot;
 using Content.Scripts.DungeonGame.UI;
 using Content.Scripts.Global;
 using UnityEngine;
@@ -30,13 +31,14 @@ namespace Content.Scripts.DungeonGame.Services
             VirtualRaftsService raftsService,
             GameDataObject gameData,
             TickService tickService,
-            PrefabSpawnerFabric fabric
+            PrefabSpawnerFabric fabric,
+            ScenesService scenesService
         )
         {
             this.selectionService = selectionService;
 
             healthbars.Init(charactersService.GetPlayers(), cameraMoveService.Camera);
-            potionsList.Init(dungeonResourcesService, selectionService, charactersService, null);
+            potionsList.Init(dungeonResourcesService, selectionService, charactersService, null, scenesService);
             resourcesCounter.Init(raftsService, gameData, dungeonResourcesService, tickService);
             storagesCounter.Init(raftsService);
             exitDungeonButton.Init(messageBoxManager);

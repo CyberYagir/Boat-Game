@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Boot;
 using Content.Scripts.Global;
@@ -9,16 +11,20 @@ namespace Content.Scripts.Map
 {
     public class MapSelectionService : MonoBehaviour
     {
+        [SerializeField] private Canvas uiService;
+    
+        private OverUIChecker overUIChecker;
         private MapSpawnerService mapSpawnerService;
         private MapIslandCollector mapIslandCollector;
         private ScenesService scenesService;
-
+        private SelectionService selectionService;
 
         private MapIsland selectedIsland;
         private SaveDataObject saveDataObject;
 
         public event Action<MapIsland> OnSelectIsland;
 
+        bool isCanSelect = false;
 
         [Inject]
         private void Construct(
@@ -32,8 +38,10 @@ namespace Content.Scripts.Map
             this.scenesService = scenesService;
             this.mapIslandCollector = mapIslandCollector;
             this.mapSpawnerService = mapSpawnerService;
+            this.selectionService = CrossSceneContext.GetSelectionService();
 
-
+            overUIChecker = new OverUIChecker(uiService.gameObject);
+            
             scenesService.OnChangeActiveScene += OnChangeScene;
             scenesService.OnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
             scenesService.OnUnLoadOtherScene += ScenesServiceOnOnUnLoadOtherScene;
@@ -64,12 +72,34 @@ namespace Content.Scripts.Map
         private void OnChangeScene(ESceneName scene)
         {
             gameObject.SetActive(scene == ESceneName.Map);
+            if (scene == ESceneName.Map)
+            {
+                StartCoroutine(SkipFrameToSelect());
+            }
+            else
+            {
+                isCanSelect = false;
+            }
+        }
+
+        IEnumerator SkipFrameToSelect()
+        {
+            yield return null;
+            isCanSelect = true;
         }
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            
+            
+            if (Input.GetKeyUp(KeyCode.Mouse0))
             {
+                
+                if (!isCanSelect) return;
+                if (selectionService.IsUIBlocked) return;
+                overUIChecker.CheckUILogic();
+                if (overUIChecker.IsUIBlocked) return;
+                
                 var hit = mapSpawnerService.Camera.MouseRaycast(out bool isHit, Input.mousePosition, Mathf.Infinity, LayerMask.GetMask("Map"));
 
                 if (isHit)

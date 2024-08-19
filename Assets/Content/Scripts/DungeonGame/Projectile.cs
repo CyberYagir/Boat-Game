@@ -1,4 +1,5 @@
 using System;
+using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using UnityEngine;
 
@@ -32,7 +33,10 @@ namespace Content.Scripts.DungeonGame
                 var character = results[i].GetComponent<DungeonCharacter>();
                 if (character)
                 {
-                    character.PlayerCharacter.Damage(damage, gameObject);
+                    if (character.PlayerCharacter.CurrentState != EStateType.Roll)
+                    {
+                        character.PlayerCharacter.Damage(damage, gameObject);
+                    }
                 }
             }
 

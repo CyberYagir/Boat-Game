@@ -68,7 +68,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             
             if (Agent.TryBuildPath(point, out Vector3 newPoint))
             {
-                
+                if (newPoint == new Vector3(float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity)) return false;
                 Agent.SetDestination(newPoint);
                 Agent.SetTargetPoint(point);
                 return true;

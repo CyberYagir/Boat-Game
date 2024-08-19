@@ -43,8 +43,6 @@ namespace Content.Scripts.BoatGame
                 {
                     damage = targetCharacterWeapon.ParametersData.Damage;
                 }
-
-
                 return damage * GetEffectMult(EffectBonusValueType.Attack);
             }
 

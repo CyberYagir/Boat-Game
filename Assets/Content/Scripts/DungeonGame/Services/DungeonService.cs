@@ -8,8 +8,29 @@ using Random = System.Random;
 
 namespace Content.Scripts.DungeonGame.Services
 {
+    [System.Serializable]
+    public class DungeonData
+    {
+        [SerializeField] private int seed;
+        [SerializeField] private int level;
+        private Random random;
+
+        public DungeonData(int seed)
+        {
+            this.seed = seed;
+            random = new System.Random(seed);
+            level = random.Next(1, 10);
+        }
+
+        public Random Random => random;
+
+        public int Level => level;
+
+        public int Seed => seed;
+    }
     public class DungeonService : MonoBehaviour
     {
+        
         [System.Serializable]
         public class ConfigsHolder
         {
@@ -23,12 +44,12 @@ namespace Content.Scripts.DungeonGame.Services
 
         [SerializeField] private List<ConfigsHolder> configs = new List<ConfigsHolder>();
 
+        private DungeonData dungeonData;
         [SerializeField] private int seed;
         [SerializeField] private int level;
         [SerializeField, ReadOnly] private DungeonConfigObject targetConfig;
-        private Random random;
 
-        public Random TargetRnd => random;
+        public Random TargetRnd => dungeonData.Random;
 
         public int Seed => seed;
 
@@ -39,10 +60,8 @@ namespace Content.Scripts.DungeonGame.Services
         [Inject]
         private void Construct()
         {
-            seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
-            random = new System.Random(Seed);
-            level = random.Next(1, 10);
-            targetConfig = configs.Find(x=>x.LevelsRange.IsInRange(level)).Cfg.GetRandomItem(random);
+            dungeonData = new DungeonData(UnityEngine.Random.Range(int.MinValue, int.MaxValue));
+            targetConfig = configs.Find(x=>x.LevelsRange.IsInRange(level)).Cfg.GetRandomItem(TargetRnd);
         }
     }
 }

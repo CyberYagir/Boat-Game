@@ -4,6 +4,7 @@ using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Characters.States;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.DungeonGame;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using Content.Scripts.Mobs.MobSnake;
@@ -312,6 +313,18 @@ namespace Content.Scripts.BoatGame
                     {
                         stateMachine.GetStateByType<CharActionAttack>()?.SetAutoAttackMob(attackTarget);
                         ActiveAction(EStateType.Attack);
+                        return;
+                    }
+
+                    var dungeonPlayer = GetComponent<DungeonCharacter>();
+                    if (dungeonPlayer)
+                    {
+                        if (dungeonPlayer.TargetEnemy == null)
+                        {
+                            dungeonPlayer.SetTarget(attackTarget);
+                            ActiveAction(EStateType.Attack);
+                            return;
+                        }
                     }
                 }
             }
