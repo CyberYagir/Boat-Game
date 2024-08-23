@@ -230,31 +230,11 @@ namespace Content.Scripts.Global
                     ));
                 
                 
-                ConfigureStorage();
+                ConfigureStorage(spawnedRaft);
                 ConfigureBuildRaft();
                 ConfigureFurnaceRaft();
                 ConfigureWaterSources();
                 
-                void ConfigureStorage()
-                {
-                    RaftStorage raftStorage = spawnedRaft.GetComponent<RaftStorage>();
-                    if (raftStorage != null)
-                    {
-                        List<RaftStorageData.StorageItemData> raftStorages = new List<RaftStorageData.StorageItemData>();
-
-
-                        for (int i = 0; i < raftStorage.Items.Count; i++)
-                        {
-                            if (raftStorage.Items[i].Item != null)
-                            {
-                                raftStorages.Add(new RaftStorageData.StorageItemData(raftStorage.Items[i].Item.ID, raftStorage.Items[i].Count));
-                            }
-                        }
-
-                        storages.Add(new RaftStorageData(spawnedRaft.Uid, raftStorages));
-                    }
-                }
-
                 void ConfigureBuildRaft()
                 {
                     var raftBuild = spawnedRaft.GetComponent<RaftBuild>();
@@ -283,7 +263,35 @@ namespace Content.Scripts.Global
                 }
             }
 
+            public void ClearStoragesData()
+            {
+                storages.Clear();
+            }
+            public void SetSpawnedStorage(RaftBase spawnedRaft)
+            {
+                ConfigureStorage(spawnedRaft);
+            }
             
+            void ConfigureStorage(RaftBase spawnedRaft)
+            {
+                RaftStorage raftStorage = spawnedRaft.GetComponent<RaftStorage>();
+                if (raftStorage != null)
+                {
+                    List<RaftStorageData.StorageItemData> raftStorages = new List<RaftStorageData.StorageItemData>();
+
+
+                    for (int i = 0; i < raftStorage.Items.Count; i++)
+                    {
+                        if (raftStorage.Items[i].Item != null)
+                        {
+                            raftStorages.Add(new RaftStorageData.StorageItemData(raftStorage.Items[i].Item.ID, raftStorage.Items[i].Count));
+                        }
+                    }
+
+                    storages.Add(new RaftStorageData(spawnedRaft.Uid, raftStorages));
+                }
+            }
+
         }
 
         [Serializable]
@@ -885,7 +893,7 @@ namespace Content.Scripts.Global
             [SerializeField] private WeatherData weathersData = new WeatherData(0, -1, WeatherService.EWeatherType.Сalm);
 
             public bool isOnIsland => IslandSeed != 0;
-            public bool isInDungeon => dungeonSeed != 0;
+            public bool isInDungeon => DungeonSeed != 0;
             
             public float TotalSecondsInGame => totalSecondsInGame;
 
@@ -896,6 +904,8 @@ namespace Content.Scripts.Global
             public int IslandSeed => islandSeed;
 
             public float TotalSecondsOnRaft => totalSecondsOnRaft;
+
+            public int DungeonSeed => dungeonSeed;
 
             public void SetTimePlayed(float value)
             {
@@ -930,6 +940,11 @@ namespace Content.Scripts.Global
             public void EnterInDungeon(int data)
             {
                 dungeonSeed = data;
+            }
+
+            public void ExitDungeon()
+            {
+                dungeonSeed = 0;
             }
         }
         
@@ -977,12 +992,70 @@ namespace Content.Scripts.Global
         }
         
         
+        [Serializable]
+        public class DungeonsData
+        {
+            [Serializable]
+            public class DungeonData
+            {
+                [SerializeField] private int seed;
+                [SerializeField] private List<string> destroyedUrns = new List<string>();
+                [SerializeField] private List<string> deadMobs = new List<string>();
+                [SerializeField] private int allMobsCount;
+
+
+                public DungeonData(int seed)
+                {
+                    this.seed = seed;
+                }
+
+                public int Seed => seed;
+
+
+                public void AddUrn(string uid) => destroyedUrns.Add(uid);
+                public void AddMob(string uid) => deadMobs.Add(uid);
+
+                public void SetMobsCount(int cout)
+                {
+                    if (allMobsCount < cout)
+                    {
+                        allMobsCount = cout;
+                    }
+                }
+
+                public bool HasUrn(string uid)
+                {
+                    return destroyedUrns.Contains(uid);
+                }
+
+                public bool HasMob(string uid)
+                {
+                    return deadMobs.Contains(uid);
+                }
+            }
+
+            [SerializeField] private List<DungeonData> dungeons = new List<DungeonData>();
+
+
+            public DungeonData RegisterDungeon(int seed)
+            {
+                var dungeon = dungeons.Find(x => x.Seed == seed);
+                if (dungeon == null)
+                {
+                    dungeon = new DungeonData(seed);
+                    dungeons.Add(dungeon);
+                }
+
+                return dungeon;
+            }
+        }
+        
         [SerializeField] private CharactersData charactersData = new CharactersData();
         [SerializeField] private RaftsData raftsData = new RaftsData();
         [SerializeField] private MapData mapData = new MapData();
         [SerializeField] private GlobalData globalData = new GlobalData();
         [SerializeField] private TutorialsData tutorialsData = new TutorialsData();
-        
+        [SerializeField] private DungeonsData dungeonsData = new DungeonsData();
 
 
         public CharactersData Characters => charactersData;
@@ -994,6 +1067,8 @@ namespace Content.Scripts.Global
         public GlobalData Global => globalData;
 
         public TutorialsData Tutorials => tutorialsData;
+
+        public DungeonsData Dungeons => dungeonsData;
 
 
         public override void InstallBindings()

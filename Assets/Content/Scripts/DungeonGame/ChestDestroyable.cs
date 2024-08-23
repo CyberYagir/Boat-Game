@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Content.Scripts.DungeonGame.Services;
 using Content.Scripts.Mobs;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 using Range = DG.DemiLib.Range;
@@ -21,13 +22,18 @@ namespace Content.Scripts.DungeonGame
 
             public Range Range => range;
         }
+        
+        
+        [SerializeField, ReadOnly] private string uid;
         [SerializeField] private Transform cover;
         [SerializeField] private float minDistance;
         [SerializeField] private int dropIterations;
         [SerializeField] private List<DropsByLevel> dropTable = new List<DropsByLevel>();
+        public string UID => uid;
+        
+        
         public float ActivationDistance => minDistance;
         public int DropsCount => dropIterations;
-
         private DungeonService dungeonService;
         public DropTableObject DropTable => dropTable.Find(x=>x.Range.IsInRange(dungeonService.Level)).DropTable;
         public void Demolish(Vector3 pos)
@@ -40,6 +46,13 @@ namespace Content.Scripts.DungeonGame
         {
             this.dungeonService = dungeonService;
             if (!gameObject.activeInHierarchy) return;
+            
+            uid = urnCollectionService.GetNextGuid();
+            if (dungeonService.IsUrnDead(uid))
+            {
+                Demolish(transform.position);
+                return;
+            }
             
             urnCollectionService.AddUrn(this);
         }

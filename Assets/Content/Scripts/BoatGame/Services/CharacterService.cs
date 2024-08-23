@@ -9,39 +9,6 @@ using Zenject;
 
 namespace Content.Scripts.BoatGame.Services
 {
-    public interface ICharacterService
-    {
-        List<PlayerCharacter> GetSpawnedCharacters();
-        PlayerCharacter GetClosestCharacter(Vector3 pos, out float distance);
-    }
-
-    public abstract class CharacterServiceBase : MonoBehaviour
-    {
-        public virtual List<PlayerCharacter> GetSpawnedCharacters() => null;
-        
-        public PlayerCharacter GetClosestCharacter(Vector3 pos, out float distance)
-        {
-            var minDist = 9999f;
-
-            var characters = GetSpawnedCharacters();
-            var character = characters[0];
-            foreach (var c in characters)
-            {
-                var dist = Vector3.Distance(pos, c.transform.position);
-
-                if (minDist > dist)
-                {
-                    minDist = dist;
-                    character = c;
-                }
-            }
-
-
-            distance = minDist;
-            return character;
-        }
-    }
-
     public class CharacterService : CharacterServiceBase, ICharacterService
     {
         [SerializeField] private PlayerCharacter prefab;
@@ -133,18 +100,6 @@ namespace Content.Scripts.BoatGame.Services
             if (buildNavMeshAfterCharacters)
             {
                 navMeshProvider.BuildNavMeshAsync();
-            }
-        }
-
-        public void SaveCharacters()
-        {
-            foreach (var sp in spawnedCharacters)
-            {
-                if (!sp.NeedManager.IsDead)
-                {
-                    sp.Character.SetParameters(sp.NeedManager.GetParameters());
-                    sp.Character.SetEffects(sp.ParametersCalculator.GetEffectsData());
-                }
             }
         }
 

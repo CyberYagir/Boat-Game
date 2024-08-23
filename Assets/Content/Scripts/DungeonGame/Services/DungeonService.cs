@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Content.Scripts.DungeonGame.Scriptable;
+using Content.Scripts.Global;
 using DG.DemiLib;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -8,29 +9,8 @@ using Random = System.Random;
 
 namespace Content.Scripts.DungeonGame.Services
 {
-    [System.Serializable]
-    public class DungeonData
-    {
-        [SerializeField] private int seed;
-        [SerializeField] private int level;
-        private Random random;
-
-        public DungeonData(int seed)
-        {
-            this.seed = seed;
-            random = new System.Random(seed);
-            level = random.Next(1, 10);
-        }
-
-        public Random Random => random;
-
-        public int Level => level;
-
-        public int Seed => seed;
-    }
     public class DungeonService : MonoBehaviour
     {
-        
         [System.Serializable]
         public class ConfigsHolder
         {
@@ -48,6 +28,7 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private int seed;
         [SerializeField] private int level;
         [SerializeField, ReadOnly] private DungeonConfigObject targetConfig;
+        private SaveDataObject.DungeonsData.DungeonData dungeonSaveData;
 
         public Random TargetRnd => dungeonData.Random;
 
@@ -58,10 +39,30 @@ namespace Content.Scripts.DungeonGame.Services
         public DungeonConfigObject TargetConfig => targetConfig;
 
         [Inject]
-        private void Construct()
+        private void Construct(SaveDataObject saveDataObject)
         {
-            dungeonData = new DungeonData(UnityEngine.Random.Range(int.MinValue, int.MaxValue));
+            seed = saveDataObject.Global.DungeonSeed;
+            dungeonData = new DungeonData(seed);
             targetConfig = configs.Find(x=>x.LevelsRange.IsInRange(level)).Cfg.GetRandomItem(TargetRnd);
+            dungeonSaveData = saveDataObject.Dungeons.RegisterDungeon(seed);
+        }
+
+        public void AddDestroyedUrn(string uid) => dungeonSaveData.AddUrn(uid);
+        public void AddDestroyedMob(string uid) => dungeonSaveData.AddMob(uid);
+
+        public bool IsUrnDead(string uid)
+        {
+            return dungeonSaveData.HasUrn(uid);
+        }
+
+        public bool IsMobDead(string uid)
+        {
+            return dungeonSaveData.HasMob(uid);
+        }
+
+        public void SetMobsCount(int mobsListCount)
+        {
+            dungeonSaveData.SetMobsCount(mobsListCount);
         }
     }
 }

@@ -12,8 +12,11 @@ namespace Content.Scripts.DungeonGame.Services
     public class VirtualRaftsService : MonoBehaviour, IRaftBuildService
     {
         [SerializeField] private List<RaftStorage> storages = new List<RaftStorage>();
+        [SerializeField] private List<RaftBase> spawnedRafts = new List<RaftBase>();
         [SerializeField] private RaftStorage raftStoragePrefab;
+        [SerializeField] private RaftBase raftBasePrefab;
         public List<RaftStorage> Storages => storages;
+        public List<RaftBase> SpawnedRafts => throw new NotImplementedException();
         public event Action OnChangeRaft;
 
         [Inject]
@@ -24,7 +27,9 @@ namespace Content.Scripts.DungeonGame.Services
                 Instantiate(raftStoragePrefab, transform)
                     .With(x => storages.Add(x))
                     .With(x => x.LoadStorage(raftStorageData, gameData))
-                    .With(x=>x.OnStorageChange += ChangeStorage);
+                    .With(x=>x.OnStorageChange += ChangeStorage)
+                    .With(x=>spawnedRafts.Add(x.GetComponent<RaftBase>()))
+                    .With(x=>x.GetComponent<RaftBase>().LoadData(100, raftStorageData.RaftUid));
             }
         }
 

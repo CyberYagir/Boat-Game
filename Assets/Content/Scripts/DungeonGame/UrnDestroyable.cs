@@ -16,20 +16,29 @@ namespace Content.Scripts.DungeonGame
 {
     public class UrnDestroyable : MonoBehaviour, IDestroyable
     {
+        [SerializeField, ReadOnly] private string uid;
         [SerializeField] private GameObject mesh;
         [SerializeField] private GameObject demolished;
         [SerializeField] private DropTableObject dropTable;
         [SerializeField] private List<Rigidbody> rb;
         [SerializeField] private float minDistance = 1f;
 
+        public string UID => uid;
         public DropTableObject DropTable => dropTable;
         public float ActivationDistance => minDistance;
         public int DropsCount => 1;
 
         [Inject]
-        private void Construct(UrnCollectionService urnCollectionService)
+        private void Construct(UrnCollectionService urnCollectionService, DungeonService dungeonService)
         {
             if (!gameObject.activeInHierarchy) return;
+            uid = urnCollectionService.GetNextGuid();
+            if (dungeonService.IsUrnDead(uid))
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
             for (var i = 0; i < rb.Count; i++)
             {
                 rb[i].solverIterations = 1;
@@ -38,6 +47,7 @@ namespace Content.Scripts.DungeonGame
             
             mesh.gameObject.SetActive(true);
             demolished.gameObject.SetActive(false);
+            
             
             urnCollectionService.AddUrn(this);
         }

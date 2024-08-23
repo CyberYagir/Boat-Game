@@ -238,7 +238,7 @@ namespace Content.Scripts.BoatGame.UI
             saveService.SaveWorld();
             saveDataObject.Global.EnterInDungeon(data.Seed);
             saveDataObject.SaveFile();
-            scenesService.FadeScene(ESceneName.DungeonGame);
+            scenesService.FadeScene(ESceneName.Loading);
         }
     }
 }

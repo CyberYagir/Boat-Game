@@ -50,5 +50,7 @@ namespace Content.Scripts.DungeonGame.Services
         {
             spawnerFabric.SpawnItem(dungeonService.TargetConfig.GetMob(dungeonMobSpawner.Difficult, rnd).Prefab, dungeonMobSpawner.transform.position, Quaternion.Euler(0, Random.value * 360f, 0), transform);
         }
+        
+
     }
 }

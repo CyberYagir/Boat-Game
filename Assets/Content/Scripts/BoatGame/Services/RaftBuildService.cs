@@ -12,12 +12,6 @@ using Zenject;
 
 namespace Content.Scripts.BoatGame.Services
 {
-    public interface IRaftBuildService
-    {
-        List<RaftStorage> Storages { get; }
-        event Action OnChangeRaft;
-    }
-
     public class RaftBuildService : MonoBehaviour, IRaftBuildService
     {
         [Serializable]

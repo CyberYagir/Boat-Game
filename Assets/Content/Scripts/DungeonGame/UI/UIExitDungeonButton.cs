@@ -1,13 +1,16 @@
 using Content.Scripts.BoatGame.UI;
+using Content.Scripts.DungeonGame.Services;
 
 namespace Content.Scripts.DungeonGame.UI
 {
     public class UIExitDungeonButton : UIBigButtonBase
     {
         private UIMessageBoxManager messageBoxManager;
+        private DungeonUIService uiService;
 
-        public void Init(UIMessageBoxManager messageBoxManager)
+        public void Init(UIMessageBoxManager messageBoxManager, DungeonUIService uiService)
         {
+            this.uiService = uiService;
             this.messageBoxManager = messageBoxManager;
         }
 
@@ -20,7 +23,7 @@ namespace Content.Scripts.DungeonGame.UI
 
         private void OkAction()
         {
-            print("exit");
+            uiService.ExitDungeon();
         }
     }
 }

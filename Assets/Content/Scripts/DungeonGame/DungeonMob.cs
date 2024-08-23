@@ -106,26 +106,38 @@ namespace Content.Scripts.DungeonGame
             }
         }
 
-
+        [SerializeField, ReadOnly] private string uid;
         [SerializeField] private DungeonEnemyStateMachine stateMachine;
         [SerializeField] private MobAnimator mobAnimator;
         [SerializeField] private AggressionModule aggressionModule;
         [SerializeField] private RVOController rvoController;
         private DungeonEnemiesService enemiesService;
         private AIModule aiModule;
+        private DungeonService dungeonService;
 
         public MobAnimator MobAnimator => mobAnimator;
 
         public AIModule AIManager => aiModule;
         public PlayerCharacter AttackedPlayer => aggressionModule.PlayerCharacter;
 
+        public string UID => uid;
+
         // [SerializeField] [SerializeReference] [ListDrawerSettings(DefaultExpandedState = true, ListElementLabelName = "Name", ShowPaging = false, ShowIndexLabels = true)]
         // private List<BaseModule> modules;
 
         [Inject]
-        private void Construct(DungeonCharactersService characterService, DungeonEnemiesService enemiesService)
+        private void Construct(DungeonCharactersService characterService, DungeonEnemiesService enemiesService, DungeonService dungeonService)
         {
+            this.dungeonService = dungeonService;
             this.enemiesService = enemiesService;
+
+            uid = this.enemiesService.GetNextGuid();
+            
+            if (dungeonService.IsMobDead(uid))
+            {
+                return;
+            }
+            
             SetHealth(MaxHealth * characterService.SpawnedCharacters.Count);
             aiModule = new AIModule()
                 .With(x => x.Init(transform));
@@ -136,6 +148,14 @@ namespace Content.Scripts.DungeonGame
             
             
             RVOSimulator.OnInited += () => rvoController.enabled = true;
+        }
+
+        private void OnEnable()
+        {
+            if (dungeonService.IsMobDead(uid))
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         public override void Damage(float dmg, GameObject sender)

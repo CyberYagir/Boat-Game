@@ -212,6 +212,7 @@ Transform:
   - {fileID: 1534985876}
   - {fileID: 130401387}
   - {fileID: 2022220456}
+  - {fileID: 150623496}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &88532443
@@ -305,6 +306,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mobsList: []
+--- !u!1 &150623495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 150623496}
+  - component: {fileID: 150623497}
+  m_Layer: 0
+  m_Name: DungeonSaveService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &150623496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150623495}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 15750114}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &150623497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150623495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bd29562f4a63414baf3454e598076ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &159708277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,7 +1251,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   storages: []
+  spawnedRafts: []
   raftStoragePrefab: {fileID: 1773446040872866836, guid: bd2270a312f85fe4fa14bf13bbddf283, type: 3}
+  raftBasePrefab: {fileID: 0}
 --- !u!1 &717176882
 GameObject:
   m_ObjectHideFlags: 0

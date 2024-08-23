@@ -14,13 +14,23 @@ namespace Content.Scripts.DungeonGame.Services
     {
         [SerializeField] private List<IDestroyable> demolished = new List<IDestroyable>(100);
         private DungeonCharactersService charactersService;
+        private System.Random rnd;
 
         [Inject]
-        private void Construct(DungeonCharactersService charactersService, DungeonResourcesService dungeonResourcesService, GameDataObject gameDataObject, DropCollectionService dropService)
+        private void Construct(
+            DungeonCharactersService charactersService,
+            DungeonResourcesService dungeonResourcesService,
+            GameDataObject gameDataObject,
+            DropCollectionService dropService,
+            DungeonService dungeonService
+        )
         {
+            this.dungeonService = dungeonService;
             this.dropService = dropService;
             this.dungeonResourcesService = dungeonResourcesService;
             this.charactersService = charactersService;
+
+            rnd = new System.Random(dungeonService.Seed);
         }
 
         public void AddUrn(IDestroyable urn)
@@ -31,6 +41,7 @@ namespace Content.Scripts.DungeonGame.Services
         private List<IDestroyable> urnsListDemolishedTmp = new List<IDestroyable>(5);
         private DungeonResourcesService dungeonResourcesService;
         private DropCollectionService dropService;
+        private DungeonService dungeonService;
 
         private void FixedUpdate()
         {
@@ -83,9 +94,15 @@ namespace Content.Scripts.DungeonGame.Services
                 for (int i = 0; i < urnsListDemolishedTmp.Count; i++)
                 {
                     demolished.Remove(urnsListDemolishedTmp[i]);
+                    dungeonService.AddDestroyedUrn(urnsListDemolishedTmp[i].UID);
                 }
             }
             
+        }
+
+        public string GetNextGuid()
+        {
+            return Extensions.GenerateSeededGuid(rnd).ToString();
         }
     }
 }

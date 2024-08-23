@@ -21,6 +21,8 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private UISelectCharacterWindow characterPreviews;
         [SerializeField] private UICharacterWindow characterWindow;
         private DungeonSelectionService selectionService;
+        private SaveDataObject saveDataObject;
+        private ScenesService scenesService;
 
         [Inject]
         private void Construct(
@@ -32,16 +34,19 @@ namespace Content.Scripts.DungeonGame.Services
             GameDataObject gameData,
             TickService tickService,
             PrefabSpawnerFabric fabric,
-            ScenesService scenesService
+            ScenesService scenesService,
+            SaveDataObject saveDataObject
         )
         {
+            this.scenesService = scenesService;
+            this.saveDataObject = saveDataObject;
             this.selectionService = selectionService;
 
             healthbars.Init(charactersService.GetPlayers(), cameraMoveService.Camera);
             potionsList.Init(dungeonResourcesService, selectionService, charactersService, null, scenesService);
             resourcesCounter.Init(raftsService, gameData, dungeonResourcesService, tickService);
             storagesCounter.Init(raftsService);
-            exitDungeonButton.Init(messageBoxManager);
+            exitDungeonButton.Init(messageBoxManager, this);
             characterPreviews.Init(charactersService, fabric, selectionService, this);
             openCharactersButton.Init(this);
             characterWindow.Init(selectionService, gameData, tickService, raftsService, messageBoxManager, fabric, dungeonResourcesService);
@@ -69,6 +74,13 @@ namespace Content.Scripts.DungeonGame.Services
         {
             characterPreviews.CloseWindow();
             characterWindow.ShowWindow();
+        }
+
+        public void ExitDungeon()
+        {
+            saveDataObject.Global.ExitDungeon();
+            saveDataObject.SaveFile();
+            scenesService.FadeScene(ESceneName.Loading);
         }
     }
 }

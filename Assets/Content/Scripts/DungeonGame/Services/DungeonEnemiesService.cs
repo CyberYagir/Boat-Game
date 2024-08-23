@@ -8,10 +8,19 @@ namespace Content.Scripts.DungeonGame.Services
     public class DungeonEnemiesService : MonoBehaviour
     {
         [SerializeField] private List<DungeonMob> mobsList = new List<DungeonMob>();
+        private System.Random rnd;
 
+        [Inject]
+        private void Construct(DungeonService dungeonService)
+        {
+            this.dungeonService = dungeonService;
+            rnd = new System.Random(dungeonService.Seed);
+        }
+        
         public void AddMob(DungeonMob mob)
         {
             mobsList.Add(mob);
+            dungeonService.SetMobsCount(mobsList.Count);
         }
 
         public DungeonMob GetNearMob(Vector3 point)
@@ -37,9 +46,12 @@ namespace Content.Scripts.DungeonGame.Services
         public void RemoveMob(DungeonMob dungeonMob)
         {
             mobsList.Remove(dungeonMob);
+            dungeonService.AddDestroyedMob(dungeonMob.UID);
         }
 
         private List<DungeonMob> tmpMobsList = new List<DungeonMob>(5);
+        private DungeonService dungeonService;
+
         public List<DungeonMob> GetAllNearMobs(Vector3 transformPosition, float dist)
         {
             tmpMobsList.Clear();
@@ -53,6 +65,11 @@ namespace Content.Scripts.DungeonGame.Services
             }
 
             return tmpMobsList;
+        }
+        
+        public string GetNextGuid()
+        {
+            return Extensions.GenerateSeededGuid(rnd).ToString();
         }
     }
 }
