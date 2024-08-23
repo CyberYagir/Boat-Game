@@ -7314,8 +7314,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6400426063553331082}
   m_HandleRect: {fileID: 113917964385067297}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999666
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7853,7 +7853,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0009520192}
+  m_AnchoredPosition: {x: 0, y: -0.00006568479}
   m_SizeDelta: {x: 0, y: 297.04834}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1174367319901117303
@@ -7874,7 +7874,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 31.22
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -8662,6 +8662,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonNames: {fileID: 4900000, guid: bdd142a66cf3f0d4580874b1e96f5243, type: 3}
+  dungeons: []
+  item: {fileID: 2670491640008919504}
+  items: []
 --- !u!1 &7031073744053434280
 GameObject:
   m_ObjectHideFlags: 0
@@ -10912,6 +10915,7 @@ GameObject:
   - component: {fileID: 4295551877564197954}
   - component: {fileID: 4588950061433796411}
   - component: {fileID: 2479360044139579169}
+  - component: {fileID: 2670491640008919504}
   m_Layer: 0
   m_Name: Item
   m_TagString: Untagged
@@ -10980,6 +10984,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 7.82
+--- !u!114 &2670491640008919504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8883495562511311528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f8ac4a9fb08184fa3d4d39b34d7dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mark: {fileID: 5459333895697266416}
+  text: {fileID: 8463768923031422544}
 --- !u!1 &8904881495673179503
 GameObject:
   m_ObjectHideFlags: 0
@@ -13573,12 +13591,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 55b62a69db7df9b4185445f48fe35a58, type: 2}
     - target: {fileID: 3350716654043011812, guid: 889d12af73b2eb34e99548a54d2fcfb0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2670491640008919504}
+    - target: {fileID: 3350716654043011812, guid: 889d12af73b2eb34e99548a54d2fcfb0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Buy
+      value: OnClick
       objectReference: {fileID: 0}
     - target: {fileID: 3350716654043011812, guid: 889d12af73b2eb34e99548a54d2fcfb0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Content.Scripts.BoatGame.UI.UIVillageSlaveItem, Assembly-CSharp
+      value: Content.Scripts.BoatGame.UI.UIVillageFightsDungeonItem, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3401925791781749393, guid: 889d12af73b2eb34e99548a54d2fcfb0, type: 3}
       propertyPath: m_Pivot.x
@@ -14245,6 +14267,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2503489170986297629, guid: 23018dc1018404f4e97d260b14fa09c1, type: 3}
   m_PrefabInstance: {fileID: 7483496465292652152}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5459333895697266416 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3177794359259043976, guid: 23018dc1018404f4e97d260b14fa09c1, type: 3}
+  m_PrefabInstance: {fileID: 7483496465292652152}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba3e387577b85194a811a46477d9ed8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7572096005706359454
 PrefabInstance:
   m_ObjectHideFlags: 0

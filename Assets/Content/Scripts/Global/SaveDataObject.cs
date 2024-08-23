@@ -6,6 +6,7 @@ using System.Text;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.RaftDamagers;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.BoatGame.UI;
 using Content.Scripts.IslandGame;
 using Content.Scripts.IslandGame.Scriptable;
 using Content.Scripts.IslandGame.Sources;
@@ -879,10 +880,12 @@ namespace Content.Scripts.Global
             [SerializeField] private float totalSecondsInGame;
             [SerializeField] private float totalSecondsOnRaft;
             [SerializeField] private int islandSeed = 0;
+            [SerializeField] private int dungeonSeed = 0;
             [SerializeField] private RaftDamagerData damagersData = new RaftDamagerData(0,0, new List<RaftDamagerData.SpawnedItem>());
             [SerializeField] private WeatherData weathersData = new WeatherData(0, -1, WeatherService.EWeatherType.Сalm);
 
             public bool isOnIsland => IslandSeed != 0;
+            public bool isInDungeon => dungeonSeed != 0;
             
             public float TotalSecondsInGame => totalSecondsInGame;
 
@@ -922,6 +925,11 @@ namespace Content.Scripts.Global
             public void SetIslandSeed(int selectedIslandSeed)
             {
                 islandSeed = selectedIslandSeed;
+            }
+
+            public void EnterInDungeon(int data)
+            {
+                dungeonSeed = data;
             }
         }
         

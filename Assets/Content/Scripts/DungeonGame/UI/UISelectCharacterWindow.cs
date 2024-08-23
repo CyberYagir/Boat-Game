@@ -44,7 +44,11 @@ namespace Content.Scripts.DungeonGame.UI
         public override void ShowWindow()
         {
             base.ShowWindow();
-
+            if (characters.Count == 1)
+            {
+                SelectCharacter(characters[0]);
+                return;
+            }
             Redraw();
         }
 

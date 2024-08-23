@@ -471,7 +471,7 @@ MonoBehaviour:
   m_text: 12:00:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
-  m_sharedMaterial: {fileID: -5980896900257070458, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
+  m_sharedMaterial: {fileID: -6973945126334197975, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1905,7 +1905,7 @@ MonoBehaviour:
   m_text: Time until arrival on the island
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
-  m_sharedMaterial: {fileID: -5980896900257070458, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
+  m_sharedMaterial: {fileID: -6973945126334197975, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15655,6 +15655,7 @@ GameObject:
   - component: {fileID: 1733571297}
   - component: {fileID: 1733571296}
   - component: {fileID: 1733571299}
+  - component: {fileID: 1733571300}
   m_Layer: 5
   m_Name: TimeSpend
   m_TagString: Untagged
@@ -15747,6 +15748,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 1733571296}
   text: {fileID: 66014027}
+--- !u!223 &1733571300
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733571294}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 10
+  m_TargetDisplay: 0
 --- !u!1 &1873787245
 GameObject:
   m_ObjectHideFlags: 0

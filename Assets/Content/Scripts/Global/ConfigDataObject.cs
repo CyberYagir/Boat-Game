@@ -16,6 +16,7 @@ namespace Content.Scripts.Global
         [SerializeField] private int actionsCountToTutorial;
         [SerializeField] private int paddlesToTravelCount;
         [SerializeField] private int plotPerIsland = 5;
+        [SerializeField] private int dungeonLevelsOffset = 2;
         [SerializeField] private float slaveStaminaWorkingPerSecond = 3.33f;
         [SerializeField] private float slaveEatEfficiencyMultiplier = 0.3f;
         [SerializeField] private ItemObject paddleItem;
@@ -44,8 +45,9 @@ namespace Content.Scripts.Global
         public ItemObject LoreItem => loreItem;
 
         public ItemObject HealSlaveItem => healSlaveItem;
-        
-        
+        public int DungeonsLevelsOffset => dungeonLevelsOffset;
+
+
         public DroppedItemBase DropBagForAnyItem()
         {
             return dropBagForAnyItem;

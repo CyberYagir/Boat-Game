@@ -51,6 +51,10 @@ namespace Content.Scripts.Loading
             {
                 scenesService.FadeScene(ESceneName.ManCreator);
             }
+            else if (saveData.Global.isInDungeon)
+            {
+                scenesService.FadeScene(ESceneName.DungeonGame);
+            }
             else if (saveData.Global.isOnIsland)
             {
                 scenesService.FadeScene(ESceneName.IslandGame);

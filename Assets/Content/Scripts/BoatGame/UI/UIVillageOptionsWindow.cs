@@ -128,7 +128,7 @@ namespace Content.Scripts.BoatGame.UI
             slavesGenerator.Show();
             slavesSubWindow.Init(gameDataObject, resourcesService, slavesGenerator, this);
             manageSubWindow.Init(slavesGenerator, villageData, gameDataObject, tickService, resourcesService, saveDataObject, this, messageBoxManager);
-            fightsSubWindow.Init(villageData, gameDataObject, level);
+            fightsSubWindow.Init(villageData, gameDataObject, level, messageBoxManager, this);
             
             
             ShowWindow();
@@ -231,6 +231,14 @@ namespace Content.Scripts.BoatGame.UI
             resourcesService.RemoveItemFromAnyRaft(gameDataObject.ConfigData.HealSlaveItem);
             saveService.SaveWorld();
             scenesService.FadeScene(ESceneName.ManCreator);
+        }
+
+        public void EnterDungeon(UIVillageFightsSubWindow.DungeonDataHolder data)
+        {
+            saveService.SaveWorld();
+            saveDataObject.Global.EnterInDungeon(data.Seed);
+            saveDataObject.SaveFile();
+            scenesService.FadeScene(ESceneName.DungeonGame);
         }
     }
 }

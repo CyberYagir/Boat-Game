@@ -24,5 +24,14 @@ namespace Content.Scripts.Map.UI
             middle.color = middleColor[islandData.Level - 1];
             nameText.text = islandName;
         }
+        
+        public void Init(int level)
+        {
+            levelText.text = level.ToString();
+
+            background.color = backgroundColor[level - 1];
+            middle.color = middleColor[level - 1];
+            nameText.text = string.Empty;
+        }
     }
 }
