@@ -27,6 +27,7 @@ namespace Content.Scripts.DungeonGame
             BindService<DungeonResourcesService>();
             BindService<MobsSpawnService>();
             BindService<DungeonEnemiesService>();
+            BindService<DungeonSaveService>();
         }
     }
 }

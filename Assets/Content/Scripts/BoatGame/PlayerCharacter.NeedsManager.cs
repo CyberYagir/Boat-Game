@@ -226,11 +226,14 @@ namespace Content.Scripts.BoatGame
 
             public void Death()
             {
-                isDead = true;
                 health = -100;
                 hunger = 0;
                 thirsty = 0;
-                OnDeath?.Invoke(selfCharacter);
+                if (!isDead)
+                {
+                    OnDeath?.Invoke(selfCharacter);
+                    isDead = true;
+                }
             }
 
 

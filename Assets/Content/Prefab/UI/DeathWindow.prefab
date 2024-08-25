@@ -60,7 +60,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 999
+  m_SortingOrder: 9
   m_TargetDisplay: 0
 --- !u!114 &1133640436227984310
 MonoBehaviour:
@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   window: {fileID: 321089307503288297}
+  canShowOnlySingle: 0
   hintText: {fileID: 1770898157604181017}
   text: {fileID: 4900000, guid: 3bc5089cec62d3a46b6c3e583843cedf, type: 3}
   hints: []
@@ -825,7 +826,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6842834857149040145}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5526796360496245943}
+        m_TargetAssemblyTypeName: Content.Scripts.BoatGame.UI.UIDeathWindow, Assembly-CSharp
+        m_MethodName: NextButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5074400131652371930
 MonoBehaviour:
   m_ObjectHideFlags: 0

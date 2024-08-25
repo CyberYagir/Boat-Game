@@ -20,9 +20,13 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private UIMessageBoxManager messageBoxManager;
         [SerializeField] private UISelectCharacterWindow characterPreviews;
         [SerializeField] private UICharacterWindow characterWindow;
+        [SerializeField] private UIDeathWindow deathWindow;
+        [SerializeField] private UIDungeonMobsCounter mobsCounter;
+        
         private DungeonSelectionService selectionService;
         private SaveDataObject saveDataObject;
         private ScenesService scenesService;
+        private DungeonSaveService saveService;
 
         [Inject]
         private void Construct(
@@ -35,9 +39,14 @@ namespace Content.Scripts.DungeonGame.Services
             TickService tickService,
             PrefabSpawnerFabric fabric,
             ScenesService scenesService,
-            SaveDataObject saveDataObject
+            SaveDataObject saveDataObject, 
+            DungeonSaveService saveService,
+            DungeonEnemiesService enemiesService,
+            DungeonService dungeonService,
+            RoomsPlacerService roomsPlacerService
         )
         {
+            this.saveService = saveService;
             this.scenesService = scenesService;
             this.saveDataObject = saveDataObject;
             this.selectionService = selectionService;
@@ -46,12 +55,23 @@ namespace Content.Scripts.DungeonGame.Services
             potionsList.Init(dungeonResourcesService, selectionService, charactersService, null, scenesService);
             resourcesCounter.Init(raftsService, gameData, dungeonResourcesService, tickService);
             storagesCounter.Init(raftsService);
-            exitDungeonButton.Init(messageBoxManager, this);
+            exitDungeonButton.Init(messageBoxManager, this, charactersService);
             characterPreviews.Init(charactersService, fabric, selectionService, this);
-            openCharactersButton.Init(this);
+            openCharactersButton.Init(this, charactersService);
             characterWindow.Init(selectionService, gameData, tickService, raftsService, messageBoxManager, fabric, dungeonResourcesService);
+            deathWindow.Init(charactersService, saveDataObject, this.scenesService);
+            mobsCounter.Init(enemiesService, dungeonService);
             
+            roomsPlacerService.SpawnedEnd.GetComponent<DungeonRoomEnd>().OnEnter += OnEnterBoss;
             characterWindow.OnClose += DeselectCharacter;
+        }
+
+        private void OnEnterBoss()
+        {
+            messageBoxManager.ShowMessageBox("Do you want to enter the boss?", delegate
+            {
+                
+            });
         }
 
         private void DeselectCharacter(AnimatedWindow obj)
@@ -79,7 +99,8 @@ namespace Content.Scripts.DungeonGame.Services
         public void ExitDungeon()
         {
             saveDataObject.Global.ExitDungeon();
-            saveDataObject.SaveFile();
+            saveService.SaveWorld();
+            
             scenesService.FadeScene(ESceneName.Loading);
         }
     }

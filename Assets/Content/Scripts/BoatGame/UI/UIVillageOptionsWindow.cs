@@ -128,7 +128,7 @@ namespace Content.Scripts.BoatGame.UI
             slavesGenerator.Show();
             slavesSubWindow.Init(gameDataObject, resourcesService, slavesGenerator, this);
             manageSubWindow.Init(slavesGenerator, villageData, gameDataObject, tickService, resourcesService, saveDataObject, this, messageBoxManager);
-            fightsSubWindow.Init(villageData, gameDataObject, level, messageBoxManager, this);
+            fightsSubWindow.Init(villageData, gameDataObject, level, messageBoxManager, this, saveDataObject);
             
             
             ShowWindow();

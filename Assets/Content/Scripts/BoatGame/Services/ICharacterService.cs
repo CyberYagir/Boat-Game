@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.Services
@@ -8,5 +9,6 @@ namespace Content.Scripts.BoatGame.Services
         List<PlayerCharacter> GetSpawnedCharacters();
         PlayerCharacter GetClosestCharacter(Vector3 pos, out float distance);
         void SaveCharacters();
+        event Action OnCharactersChange;
     }
 }

@@ -64,5 +64,15 @@ namespace Content.Scripts.DungeonGame.Services
         {
             dungeonSaveData.SetMobsCount(mobsListCount);
         }
+
+        public int GetMaxMobsCount()
+        {
+            return dungeonSaveData.AllMobsCount;
+        }
+
+        public int GetDeadMobsCount()
+        {
+            return dungeonSaveData.DeadMobs;
+        }
     }
 }

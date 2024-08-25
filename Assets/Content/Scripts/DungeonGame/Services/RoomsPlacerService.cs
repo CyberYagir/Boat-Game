@@ -29,6 +29,8 @@ namespace Content.Scripts.DungeonGame.Services
         public Vector2Int Size => new Vector2Int((int)maxDistance, (int)maxDistance) + Vector2Int.one;
         public List<RoomGrid> SpawnedRooms => spawnedRooms;
 
+        public RoomGrid SpawnedEnd => spawnedEnd;
+
 
         [Inject]
         private void Construct(WorldGridServiceTyped worldGridService, DungeonService dungeonService)

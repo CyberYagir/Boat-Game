@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using UnityEngine;
@@ -8,7 +9,9 @@ namespace Content.Scripts.DungeonGame.Services
     public class DungeonEnemiesService : MonoBehaviour
     {
         [SerializeField] private List<DungeonMob> mobsList = new List<DungeonMob>();
+        public event Action OnChangeEnemies;
         private System.Random rnd;
+        public int MobsCount => mobsList.Count;
 
         [Inject]
         private void Construct(DungeonService dungeonService)
@@ -21,6 +24,8 @@ namespace Content.Scripts.DungeonGame.Services
         {
             mobsList.Add(mob);
             dungeonService.SetMobsCount(mobsList.Count);
+            
+            OnChangeEnemies?.Invoke();
         }
 
         public DungeonMob GetNearMob(Vector3 point)
@@ -47,6 +52,7 @@ namespace Content.Scripts.DungeonGame.Services
         {
             mobsList.Remove(dungeonMob);
             dungeonService.AddDestroyedMob(dungeonMob.UID);
+            OnChangeEnemies?.Invoke();
         }
 
         private List<DungeonMob> tmpMobsList = new List<DungeonMob>(5);

@@ -1,3 +1,4 @@
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI;
 using Content.Scripts.DungeonGame.Services;
 
@@ -7,9 +8,11 @@ namespace Content.Scripts.DungeonGame.UI
     {
         private UIMessageBoxManager messageBoxManager;
         private DungeonUIService uiService;
+        private ICharacterService characterService;
 
-        public void Init(UIMessageBoxManager messageBoxManager, DungeonUIService uiService)
+        public void Init(UIMessageBoxManager messageBoxManager, DungeonUIService uiService, ICharacterService characterService)
         {
+            this.characterService = characterService;
             this.uiService = uiService;
             this.messageBoxManager = messageBoxManager;
         }
@@ -23,7 +26,10 @@ namespace Content.Scripts.DungeonGame.UI
 
         private void OkAction()
         {
-            uiService.ExitDungeon();
+            if (characterService.GetSpawnedCharacters().Count != 0)
+            {
+                uiService.ExitDungeon();
+            }
         }
     }
 }

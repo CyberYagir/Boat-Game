@@ -94,8 +94,14 @@ namespace Content.Scripts.DungeonGame.Services
                 {
                     return activePlayer;
                 }
-                var minHealth = dungeonCharactersService.SpawnedCharacters.Min(x => x.PlayerCharacter.NeedManager.Health);
-                return dungeonCharactersService.SpawnedCharacters.Find(x=>x.PlayerCharacter.NeedManager.Health <= minHealth).PlayerCharacter;
+
+                if (dungeonCharactersService.SpawnedCharacters.Count > 0)
+                {
+                    var minHealth = dungeonCharactersService.SpawnedCharacters.Min(x => x.PlayerCharacter.NeedManager.Health);
+                    return dungeonCharactersService.SpawnedCharacters.Find(x => x.PlayerCharacter.NeedManager.Health <= minHealth).PlayerCharacter;
+                }
+
+                return null;
             }
         }
 

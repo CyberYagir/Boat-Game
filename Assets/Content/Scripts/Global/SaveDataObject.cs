@@ -1009,6 +1009,10 @@ namespace Content.Scripts.Global
                     this.seed = seed;
                 }
 
+                public int AllMobsCount => allMobsCount;
+
+                public int DeadMobs => deadMobs.Count;
+
                 public int Seed => seed;
 
 
@@ -1047,6 +1051,11 @@ namespace Content.Scripts.Global
                 }
 
                 return dungeon;
+            }
+
+            public DungeonData GetDungeonBySeed(int dataSeed)
+            {
+                return dungeons.Find(x => x.Seed == dataSeed);
             }
         }
         
@@ -1129,8 +1138,15 @@ namespace Content.Scripts.Global
             var file = GetFilePath();
             if (File.Exists(file))
             {
-                JsonUtility.FromJsonOverwrite(File.ReadAllText(file), this);
-                return;
+                try
+                {
+                    JsonUtility.FromJsonOverwrite(File.ReadAllText(file), this);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("Save Parse Error");
+                }
             }
 #endif
 #if UNITY_WEBGL

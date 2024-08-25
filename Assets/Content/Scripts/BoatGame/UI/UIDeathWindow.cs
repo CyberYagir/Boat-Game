@@ -16,14 +16,14 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private List<string> hints;
         private SaveDataObject saveDataObject;
         private ScenesService scenesService;
-        private CharacterService characterService;
+        private ICharacterService characterService;
 
-        public void Init(CharacterService characterService, SaveDataObject saveDataObject, ScenesService scenesService)
+        public void Init(ICharacterService characterService, SaveDataObject saveDataObject, ScenesService scenesService)
         {
             this.characterService = characterService;
             this.scenesService = scenesService;
             this.saveDataObject = saveDataObject;
-            if (characterService.SpawnedCharacters.Count == 0)
+            if (characterService.GetSpawnedCharacters().Count == 0)
             {
                 ShowWindow();
             }
@@ -34,7 +34,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public override void ShowWindow()
         {
-            if (characterService.SpawnedCharacters.Count == 0)
+            if (characterService.GetSpawnedCharacters().Count == 0)
             {
                 DOVirtual.DelayedCall(2f, delegate
                 {

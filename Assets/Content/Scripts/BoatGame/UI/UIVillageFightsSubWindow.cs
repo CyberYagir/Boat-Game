@@ -35,15 +35,18 @@ namespace Content.Scripts.BoatGame.UI
         private string lastID;
         private UIMessageBoxManager messageBoxManager;
         private UIVillageOptionsWindow uiVillageOptionsWindow;
+        private SaveDataObject saveDataObject;
 
         public void Init(
             SaveDataObject.MapData.IslandData.VillageData villageData,
             GameDataObject gameDataObject,
             int level,
             UIMessageBoxManager messageBoxManager,
-            UIVillageOptionsWindow uiVillageOptionsWindow
+            UIVillageOptionsWindow uiVillageOptionsWindow,
+            SaveDataObject saveDataObject
         )
         {
+            this.saveDataObject = saveDataObject;
             this.uiVillageOptionsWindow = uiVillageOptionsWindow;
             this.messageBoxManager = messageBoxManager;
             if (lastID == villageData.Uid) return;
@@ -87,7 +90,7 @@ namespace Content.Scripts.BoatGame.UI
 
                 if (i < dungeonsCount)
                 {
-                    items[i].Init(dungeons[i], this);
+                    items[i].Init(dungeons[i], this, saveDataObject);
                 }
             }
         }

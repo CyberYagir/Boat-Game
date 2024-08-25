@@ -15,6 +15,7 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private DungeonCharacter prefab;
         [SerializeField] private List<DungeonCharacter> spawnedCharacters;
         public List<DungeonCharacter> SpawnedCharacters => spawnedCharacters;
+        public event Action OnCharactersChange;
 
         [Inject]
         private void Construct(
@@ -72,6 +73,7 @@ namespace Content.Scripts.DungeonGame.Services
         private void OnDeath(Character obj)
         {
             spawnedCharacters.RemoveAll(x => x.PlayerCharacter.Character == obj);
+            OnCharactersChange?.Invoke();
         }
 
         public override List<PlayerCharacter> GetSpawnedCharacters() => GetPlayers();
