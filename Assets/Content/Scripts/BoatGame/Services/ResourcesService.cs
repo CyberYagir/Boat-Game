@@ -12,8 +12,6 @@ namespace Content.Scripts.BoatGame.Services
     {
         private RaftBuildService raftBuildService;
 
-        public override event Action OnChangeResources;
-
         [Inject]
         private void Construct(RaftBuildService raftBuildService, GameDataObject gameData)
         {
