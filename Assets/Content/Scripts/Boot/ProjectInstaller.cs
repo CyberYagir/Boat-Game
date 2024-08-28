@@ -36,6 +36,8 @@ namespace Content.Scripts.Boot
         {
             BindService<ScenesService>();
             BindService<WebDateGetUpdateService>();
+            BindService<PlayerAuthService>();
+            BindService<CloudService>();
 
             scenesService = Container.Resolve<ScenesService>();
         }

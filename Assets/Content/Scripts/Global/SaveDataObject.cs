@@ -7,6 +7,7 @@ using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.RaftDamagers;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI;
+using Content.Scripts.Boot;
 using Content.Scripts.IslandGame;
 using Content.Scripts.IslandGame.Scriptable;
 using Content.Scripts.IslandGame.Sources;
@@ -1209,6 +1210,28 @@ namespace Content.Scripts.Global
                 }
             }
             Debug.LogError("empty");
+        }
+
+        public void SaveToCloud(CloudService cloudService)
+        {
+            var file = GetFilePath();
+            if (File.Exists(file))
+            {
+                cloudService.SaveJson(File.ReadAllText(file));
+            }
+        }
+
+        public void ReplaceJson(string json)
+        {
+            if (!string.IsNullOrEmpty(json))
+            {
+                var file = GetFilePath();
+                if (File.Exists(file))
+                {
+                    File.Delete(file);
+                }
+                File.WriteAllText(file, json);
+            }
         }
     }
     

@@ -41,6 +41,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIExitIslandButton exitIslandButton;
         [SerializeField] private UIMapButton mapButton;
         [SerializeField] private UIStopBuildButton stopBuildButton;
+        [SerializeField] private UIOptionsButton optionsButton;
         [SerializeField] private UIChestShow chestShow;
         [SerializeField] private UIPotionsList potionsList;
         [SerializeField] private UICraftsWindow craftsWindow;
@@ -77,7 +78,9 @@ namespace Content.Scripts.BoatGame.Services
             SaveDataObject saveDataObject,
             ScenesService scenesService,
             SaveService saveService,
-            PrefabSpawnerFabric spawnerFabric
+            PrefabSpawnerFabric spawnerFabric, 
+            PlayerAuthService authService,
+            CloudService cloudService
         )
         {
             this.gameState = gameState;
@@ -91,7 +94,7 @@ namespace Content.Scripts.BoatGame.Services
             mapButton.Init(raftBuildService, scenesService, saveService);
             stopBuildButton.Init(tickService, gameStateService, this);
             exitIslandButton.Init(messageBoxManager, saveService, scenesService);
-            
+            optionsButton.Init(storagesCounter, authService, saveService, cloudService, scenesService, messageBoxManager);
             chestShow.Init(gameDataObject, selectionService);
             craftsWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
             craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, raftBuildService);

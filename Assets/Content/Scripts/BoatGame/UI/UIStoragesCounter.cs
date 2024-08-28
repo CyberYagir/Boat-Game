@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using Content.Scripts.BoatGame.Services;
@@ -13,6 +14,9 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private TMP_Text text;
         private IRaftBuildService raftBuildService;
         private float startScale;
+
+        public event Action<bool> OnCounterStateChange;
+        public bool IsVisible => canvas.enabled;
 
         public void Init(IRaftBuildService raftBuildService)
         {
@@ -47,6 +51,7 @@ namespace Content.Scripts.BoatGame.UI
             
 
             canvas.enabled = max != 0 && inside != 0;
+            OnCounterStateChange?.Invoke(canvas.enabled);
             text.text = inside + "<b>/</b>" + max;
 
 

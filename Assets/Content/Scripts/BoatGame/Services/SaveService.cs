@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using UnityEngine;
 using Zenject;
@@ -10,24 +11,28 @@ namespace Content.Scripts.BoatGame.Services
     {
         private RaftDamagerService damagerService;
         private WeatherService weatherService;
+        private CloudService cloudService;
 
 
         [Inject]
         private void Construct(
-            SaveDataObject saveDataObject, 
-            CharacterService characterService, 
-            RaftBuildService raftBuildService, 
+            SaveDataObject saveDataObject,
+            CharacterService characterService,
+            RaftBuildService raftBuildService,
             RaftDamagerService damagerService,
-            WeatherService weatherService)
+            WeatherService weatherService,
+            CloudService cloudService
+        )
         {
+            this.cloudService = cloudService;
             this.weatherService = weatherService;
             this.damagerService = damagerService;
             this.raftBuildService = raftBuildService;
             this.characterService = characterService;
             this.saveDataObject = saveDataObject;
-            
-            
-            
+
+
+
             StartCoroutine(AutoSave());
         }
 
@@ -41,7 +46,7 @@ namespace Content.Scripts.BoatGame.Services
             SaveWeather();
 
             saveDataObject.SaveFile();
-            
+            saveDataObject.SaveToCloud(cloudService);
             Debug.Log("Save World");
         }
         

@@ -5,7 +5,13 @@ using UnityEngine;
 
 namespace Content.Scripts.BoatGame.Services
 {
-    public class SaveServiceBase : MonoBehaviour
+    public interface ISaveServiceBase
+    {
+        void SaveWorld();
+        void ReplaceJson(string json);
+    }
+
+    public class SaveServiceBase : MonoBehaviour, ISaveServiceBase
     {
         protected SaveDataObject saveDataObject;
         protected ICharacterService characterService;
@@ -14,6 +20,11 @@ namespace Content.Scripts.BoatGame.Services
         public virtual void SaveWorld()
         {
             
+        }
+
+        public void ReplaceJson(string json)
+        {
+            saveDataObject.ReplaceJson(json);
         }
 
         public virtual void SaveRafts()
