@@ -1109,7 +1109,6 @@ namespace Content.Scripts.Global
         [Button]
         public virtual void SaveFile()
         {
-
             string json = "";
             
 #if UNITY_EDITOR || UNITY_ANDROID || PLATFORM_STANDALONE_WIN
@@ -1231,6 +1230,7 @@ namespace Content.Scripts.Global
                     File.Delete(file);
                 }
                 File.WriteAllText(file, json);
+                LoadFile();
             }
         }
     }

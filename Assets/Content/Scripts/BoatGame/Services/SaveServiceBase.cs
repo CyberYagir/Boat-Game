@@ -19,7 +19,6 @@ namespace Content.Scripts.BoatGame.Services
 
         public virtual void SaveWorld()
         {
-            
         }
 
         public void ReplaceJson(string json)
