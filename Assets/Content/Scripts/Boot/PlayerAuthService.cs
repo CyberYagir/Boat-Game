@@ -90,31 +90,7 @@ namespace Content.Scripts.Boot
                 
                 await SignInWithUnityAsync(playerAccount);
             }
-            //
-            // async Task SignInCachedUserAsync()
-            // {
-            //     try
-            //     {
-            //         await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            //         anonymous = true;
-            //         accessToken = cachedToken;
-            //         PlayerPrefs.SetString(TOKEN_AUTH_PREF_NAME, accessToken);
-            //         OnLoggedIn?.Invoke();
-            //     }
-            //     catch (AuthenticationException ex)
-            //     {
-            //         OnLoggedFailed?.Invoke();
-            //         Debug.LogException(ex);
-            //         PlayerAccountService.Instance.SignOut();
-            //     }
-            //     catch (RequestFailedException ex)
-            //     {
-            //         OnLoggedFailed?.Invoke();
-            //         Debug.LogException(ex);
-            //         PlayerAccountService.Instance.SignOut();
-            //     }  
-            // }
-            
+
             async Task SignInWithUnityAsync(PlayerAccount playerAccount)
             {
                 if (IsAuth)
@@ -145,7 +121,13 @@ namespace Content.Scripts.Boot
 
             public async Task SignCache(PlayerAccount playerAccount)
             {
-                await SignInWithUnityAsync(playerAccount);
+                if (!AuthenticationService.Instance.SessionTokenExists) 
+                {
+                    // if not, then do nothing
+                    return;
+                }
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                accessToken = AuthenticationService.Instance.AccessToken;
             }
         }
 

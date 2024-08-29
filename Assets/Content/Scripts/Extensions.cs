@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Content.Scripts.IslandGame.Natives;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -803,5 +804,15 @@ namespace Content.Scripts
         { 
             return (float)rnd.NextDouble() * (maximum - minimum) + minimum;
         }
+
+
+#if UNITY_EDITOR
+        [MenuItem("Tools/Open Persistant Path")]
+        public static void OpenPersistantPath()
+        {
+            Application.OpenURL(Application.persistentDataPath);
+        }
+#endif
+        
     }
 }
