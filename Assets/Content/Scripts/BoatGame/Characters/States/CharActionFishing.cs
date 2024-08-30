@@ -1,4 +1,3 @@
-    using System;
 using Content.Scripts.BoatGame.Characters.Items;
 using Content.Scripts.BoatGame.Ropes;
 using Content.Scripts.BoatGame.Services;
@@ -6,9 +5,7 @@ using Content.Scripts.ItemsSystem;
 using Content.Scripts.SkillsSystem;
 using DG.Tweening;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 using Random = UnityEngine.Random;
 using Range = DG.DemiLib.Range;
 
@@ -211,7 +208,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         public void DropFish()
         {
             spawnedFish.transform.parent = null;
-            var rb = spawnedFish.AddComponent<Rigidbody>();
+            var rb = spawnedFish.gameObject.AddComponent<Rigidbody>();
             rb.AddForce(transform.forward * Random.Range(100, 200) + Vector3.up * Random.Range(50, 150));
             rb.AddTorque(Random.insideUnitSphere * Random.Range(20, 50));
             Machine.AnimationManager.TriggerHoldFishAnimation(false);

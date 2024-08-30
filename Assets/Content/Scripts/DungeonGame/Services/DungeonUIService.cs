@@ -17,7 +17,7 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private UIStoragesCounter storagesCounter;
         [SerializeField] private UIExitDungeonButton exitDungeonButton;
         [SerializeField] private UICharactersOpenButton openCharactersButton;
-        [SerializeField] private UIOptionsButton optionsButton;
+        [SerializeField] private UIOptionsHolder optionsHolder;
         [SerializeField] private UIMessageBoxManager messageBoxManager;
         [SerializeField] private UISelectCharacterWindow characterPreviews;
         [SerializeField] private UICharacterWindow characterWindow;
@@ -64,7 +64,7 @@ namespace Content.Scripts.DungeonGame.Services
             characterWindow.Init(selectionService, gameData, tickService, raftsService, messageBoxManager, fabric, dungeonResourcesService);
             deathWindow.Init(charactersService, saveDataObject, this.scenesService);
             mobsCounter.Init(enemiesService, dungeonService);
-            optionsButton.Init(storagesCounter, authService, this.saveService, cloudService, scenesService, messageBoxManager);
+            optionsHolder.Init(storagesCounter, authService, this.saveService, cloudService, scenesService, messageBoxManager, saveDataObject);
             
             roomsPlacerService.SpawnedEnd.GetComponent<DungeonRoomEnd>().OnEnter += OnEnterBoss;
             characterWindow.OnClose += DeselectCharacter;

@@ -46,7 +46,6 @@ namespace Content.Scripts.BoatGame.Services
             SaveWeather();
 
             saveDataObject.SaveFile();
-            saveDataObject.SaveToCloud(cloudService);
             Debug.Log("Save World");
         }
         

@@ -56,12 +56,15 @@ namespace Content.Scripts.Mobs.MobSnake
             attackedDamagable = null;
             for (int i = 0; i < characterService.SpawnedCharacters.Count; i++)
             {
-                var dist = Vector3.Distance(transform.position, characterService.SpawnedCharacters[i].transform.position);
-                if (dist < aggressionRadius)
+                if (characterService.SpawnedCharacters[i])
                 {
-                    attackedDamagable = characterService.SpawnedCharacters[i];
-                    attackedTransform = characterService.SpawnedCharacters[i].transform;
-                    break;
+                    var dist = Vector3.Distance(transform.position, characterService.SpawnedCharacters[i].transform.position);
+                    if (dist < aggressionRadius)
+                    {
+                        attackedDamagable = characterService.SpawnedCharacters[i];
+                        attackedTransform = characterService.SpawnedCharacters[i].transform;
+                        break;
+                    }
                 }
             }
 

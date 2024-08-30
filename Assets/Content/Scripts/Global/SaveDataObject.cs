@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.RaftDamagers;
 using Content.Scripts.BoatGame.Services;
@@ -1211,12 +1212,12 @@ namespace Content.Scripts.Global
             Debug.LogError("empty");
         }
 
-        public void SaveToCloud(CloudService cloudService)
+        public async Task SaveToCloud(CloudService cloudService)
         {
             var file = GetFilePath();
             if (File.Exists(file))
             {
-                cloudService.SaveJson(File.ReadAllText(file));
+                await cloudService.SaveJson(File.ReadAllText(file));
             }
         }
 

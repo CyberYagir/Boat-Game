@@ -26,6 +26,7 @@ namespace Content.Scripts.Boot
 
             public string IDToken => idToken;
             public bool IsAuth => PlayerAccountService.Instance.IsSignedIn;
+            public bool IsCachedUser => !string.IsNullOrEmpty(cachedToken);
 
             public event Action OnSignIn;
             public event Action OnSignStart;
@@ -121,13 +122,18 @@ namespace Content.Scripts.Boot
 
             public async Task SignCache(PlayerAccount playerAccount)
             {
-                if (!AuthenticationService.Instance.SessionTokenExists) 
+                if (!AuthenticationService.Instance.SessionTokenExists || !playerAccount.IsCachedUser) 
                 {
                     // if not, then do nothing
                     return;
                 }
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
                 accessToken = AuthenticationService.Instance.AccessToken;
+            }
+
+            public void SignOut()
+            {
+                AuthenticationService.Instance.SignOut();
             }
         }
 
@@ -187,6 +193,15 @@ namespace Content.Scripts.Boot
         public bool IsAuthed()
         {
             return authData.IsAuth;
+        }
+
+        public void LogOut()
+        {
+            playerAccountData.SignOut();
+            authData.SignOut();
+            PlayerPrefs.DeleteKey(TOKEN_AUTH_PREF_NAME);
+            PlayerPrefs.DeleteKey(TOKEN_PLAYER_PREF_NAME);
+            OnLogOut();
         }
     }
 }

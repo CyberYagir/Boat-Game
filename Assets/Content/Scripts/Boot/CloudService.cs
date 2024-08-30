@@ -19,7 +19,7 @@ namespace Content.Scripts.Boot
         }
 
 
-        public async void SaveJson(string json)
+        public async Task SaveJson(string json)
         {
             if (authService.IsAuthed())
             {

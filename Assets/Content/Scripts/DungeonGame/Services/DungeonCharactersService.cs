@@ -4,7 +4,6 @@ using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 

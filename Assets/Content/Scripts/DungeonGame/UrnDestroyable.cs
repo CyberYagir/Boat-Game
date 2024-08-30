@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,6 @@ using Content.Scripts.Misc;
 using Content.Scripts.Mobs;
 using DG.Tweening;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -69,8 +67,8 @@ namespace Content.Scripts.DungeonGame
             {
                 if (!c.Get<Rigidbody>())
                 {
-                    c.AddComponent<Rigidbody>();
-                    c.AddComponent<BoxCollider>();
+                    c.gameObject.AddComponent<Rigidbody>();
+                    c.gameObject.AddComponent<BoxCollider>();
                 }
             }
 

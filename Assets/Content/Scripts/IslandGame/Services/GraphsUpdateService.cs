@@ -1,11 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using Pathfinding;
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
