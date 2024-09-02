@@ -30,6 +30,7 @@ namespace Content.Scripts.DungeonGame.Services
             DungeonCharactersService dungeonCharactersService,
             DungeonService dungeonService)
         {
+            var rnd = new System.Random(dungeonService.Seed);
             this.dungeonService = dungeonService;
             this.worldGridService = worldGridService;
             WorldGridServiceTyped.ECellType tileType;
@@ -37,7 +38,7 @@ namespace Content.Scripts.DungeonGame.Services
             {
                 worldGridService.IsHavePoint(point, out tileType);
                 var obj = Instantiate(tile, point, Quaternion.identity, transform)
-                    .With(x => x.Init(GetDirectionsData(point), tileType, Vector3Int.RoundToInt(new Vector3(point.x, point.y, point.z))));
+                    .With(x => x.Init(GetDirectionsData(point), tileType, Vector3Int.RoundToInt(new Vector3(point.x, point.y, point.z)), rnd));
                 
                 fabric.InjectComponent(obj.gameObject);
             }
@@ -58,7 +59,7 @@ namespace Content.Scripts.DungeonGame.Services
                     if (!worldGridService.IsHavePoint(pos))
                     {
                         var obj = Instantiate(noneTile, pos, Quaternion.identity, transform)
-                            .With(x=>x.Init());
+                            .With(x=>x.Init(rnd));
                         fabric.InjectComponent(obj.gameObject);
                     }
                 }

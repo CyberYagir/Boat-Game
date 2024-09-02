@@ -21,7 +21,7 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] protected List<WeightedProp> prefabs;
 
 
-        public virtual void Init()
+        public virtual void Init(System.Random random)
         {
             notAllocatedWeights.Clear();
             for (int i = 0; i < prefabs.Count; i++)

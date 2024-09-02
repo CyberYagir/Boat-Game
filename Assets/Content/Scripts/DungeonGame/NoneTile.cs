@@ -7,11 +7,11 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private PropsSelector[] props;
 
 
-        public void Init()
+        public void Init(System.Random rnd)
         {
             foreach (var propsSelector in props)
             {
-                propsSelector.Init();
+                propsSelector.Init(rnd);
             }
         }
     }

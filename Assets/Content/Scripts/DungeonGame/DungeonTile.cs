@@ -3,6 +3,7 @@ using Content.Scripts.BoatGame.Services;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Content.Scripts.DungeonGame
 {
@@ -34,11 +35,13 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private PropSpawner[] propSpawners;
         private Vector3Int coords;
         private WorldGridServiceTyped.ECellType targetCellType;
+        private Random rnd;
 
         public WorldGridServiceTyped.ECellType TargetCellType => targetCellType;
 
-        public void Init(List<Vector3> disabledDirections, WorldGridServiceTyped.ECellType eCellType, Vector3Int coords)
+        public void Init(List<Vector3> disabledDirections, WorldGridServiceTyped.ECellType eCellType, Vector3Int coords, System.Random rnd)
         {
+            this.rnd = rnd;
             targetCellType = eCellType;
             this.coords = coords;
             ActiveWallsByDirections(disabledDirections);
@@ -54,7 +57,7 @@ namespace Content.Scripts.DungeonGame
                 {
                     if (spawner.gameObject.activeInHierarchy)
                     {
-                        spawner.Init();
+                        spawner.Init(rnd);
                     }
                 }
 
@@ -62,7 +65,7 @@ namespace Content.Scripts.DungeonGame
                 {
                     if (spawner.gameObject.activeInHierarchy)
                     {
-                        spawner.Init();
+                        spawner.Init(rnd);
                     }
                 }
             }
@@ -81,7 +84,7 @@ namespace Content.Scripts.DungeonGame
             
             foreach (var spawner in propsForAll)
             {
-                spawner.Init();
+                spawner.Init(rnd);
             }
         }
 

@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Content.Scripts.DungeonGame
 {
     public class PropsSelector : PropRandomBase
     {
-        public override void Init()
+        public override void Init(Random random)
         {
-            base.Init();
+            base.Init(random);
 
-            int index = notAllocatedWeights.ChooseRandomIndexFromWeights();
+            int index = notAllocatedWeights.ChooseRandomIndexFromWeights(random);
 
             for (var i = 0; i < prefabs.Count; i++)
             {

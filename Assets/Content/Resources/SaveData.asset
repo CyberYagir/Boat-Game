@@ -32,7 +32,7 @@ MonoBehaviour:
         - skillID: 3b8443e2-2fef-4110-95aa-d61d78459f6f
           value: 1
       parametersData:
-        health: 100
+        health: 95
         hunger: 71.21796
         thirsty: 42.435192
       equipmentData:
@@ -40,7 +40,11 @@ MonoBehaviour:
         armorID: 54ba5fca-4720-4315-94bc-0d887d48ee5a
         weaponID: 90a2aa4d-5ac9-4c5d-bab1-cbc94aa9c0be
       effectsData:
-        effectsList: []
+        effectsList:
+        - itemSenderID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+          remainingSeconds: 235
+        - itemSenderID: 37aa6662-d114-434e-bb3e-0333e250d477
+          remainingSeconds: 86
       skinColorID: 1
       hatID: 2
   raftsData:
@@ -101,31 +105,69 @@ MonoBehaviour:
     - raftUid: 83495d2b-a84a-4c54-9f9a-d5920163afec
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 374
+        count: 1492
       - itemID: 47b167db-86da-4574-92e5-c52823934ba0
         count: 1
+      - itemID: 9d3428e6-2598-47e2-b86f-7ed3818ec54f
+        count: 5
+      - itemID: bcddab5b-dfe3-4642-807d-96e3b0e64c38
+        count: 1
+      - itemID: 51072831-93b5-40da-abae-eaf9c231aea8
+        count: 4
+      - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 1
+      - itemID: 6b24a1b5-0228-416d-8807-940de0fc5144
+        count: 1
+      - itemID: c51df64f-4e4d-44a8-9778-86ba57ced7e3
+        count: 2
     - raftUid: 784dd1c6-1b42-41d4-aac9-5898f70778af
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 367
+        count: 774
+      - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 3
+      - itemID: 37aa6662-d114-434e-bb3e-0333e250d477
+        count: 3
+      - itemID: bcddab5b-dfe3-4642-807d-96e3b0e64c38
+        count: 1
+      - itemID: 9d3428e6-2598-47e2-b86f-7ed3818ec54f
+        count: 5
+      - itemID: 51072831-93b5-40da-abae-eaf9c231aea8
+        count: 2
+      - itemID: e19a6f58-86ce-449c-9916-56b2d295f3ef
+        count: 1
+      - itemID: bf41e758-4e92-47f9-8c14-9ff5dc088e3d
+        count: 1
+      - itemID: 54ba5fca-4720-4315-94bc-0d887d48ee5a
+        count: 1
     - raftUid: 02430558-0946-4103-95a6-6d83ca8d0cef
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 211
+        count: 626
+      - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 1
     - raftUid: db17e99f-5410-4306-833c-bd901efe4402
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 506
+        count: 1664
+      - itemID: 9c8f5708-4a51-44c2-b5e8-ffdd814ceb38
+        count: 1
+      - itemID: 37aa6662-d114-434e-bb3e-0333e250d477
+        count: 1
     - raftUid: 3dbd357b-96bd-422a-8e75-9b9fc0db5fe5
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 185
+        count: 677
       - itemID: 37aa6662-d114-434e-bb3e-0333e250d477
-        count: 1
+        count: 3
+      - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 2
     - raftUid: 50755d31-2eb3-4e17-92b6-da1bfbf4be37
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 163
+        count: 987
+      - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 1
     furnaces:
     - raftUid: 7d99364d-1210-4619-b36d-4204fbdb7926
       smeltItem:
@@ -753,7 +795,7 @@ MonoBehaviour:
       plotRowNumber: 8
       isCollected: 0
   globalData:
-    totalSecondsInGame: 11514.214
+    totalSecondsInGame: 14457.076
     totalSecondsOnRaft: 19161.855
     islandSeed: -1993712995
     dungeonSeed: -202588061
@@ -773,24 +815,6 @@ MonoBehaviour:
   dungeonsData:
     dungeons:
     - seed: -202588061
-      destroyedUrns:
-      - 9d8d1138-593c-af20-c1f4-489519d5a29d
-      - c4f761d5-0240-5135-9ba8-bec5c935408b
-      - 3009b391-c367-da50-1685-d6fb310a3dbb
-      - 5a9dd1bc-1f76-d696-b5f3-044b9ce42925
-      - 5fce1272-f01b-d3d0-a80e-5817362cfea5
-      - 8efc63fc-e832-8e29-025f-e86ad70f6251
-      - 548593e4-0f06-24da-69c1-6f3937717cc3
-      - 6c0e4e95-5512-2691-6b9b-37cbc2187f03
-      - 667c6c41-21d4-764c-b737-b71f50468987
-      - 6e1790e6-0c0c-611d-9678-2692dd41553b
-      - 9e4a9a80-a99e-78ef-8da0-be043593bcbb
-      - 96b86e4e-6a98-81fd-8109-09382243a638
-      - 6d39291e-9caa-37c1-caf5-2d376e8fabe6
-      - 4d23aaba-d675-18e1-d893-3469c4c56a26
-      - f81ae29e-390a-1d8e-e9ec-827fa8a9a948
-      - 36464ceb-1e0f-34d3-73a0-1d4e16d54eca
-      - dac688ed-9929-d8d4-a2e8-730a75f1bb85
-      - 6714fbf1-1a9f-a68b-31c7-30d0f491ee89
+      destroyedUrns: []
       deadMobs: []
       allMobsCount: 27

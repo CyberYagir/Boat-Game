@@ -13,9 +13,15 @@ namespace Content.Scripts.DungeonGame.Services
     public class UrnCollectionService : MonoBehaviour
     {
         [SerializeField] private List<IDestroyable> demolished = new List<IDestroyable>(100);
+        
         private DungeonCharactersService charactersService;
         private System.Random rnd;
-
+        private List<IDestroyable> urnsListDemolishedTmp = new List<IDestroyable>(5);
+        private DungeonResourcesService dungeonResourcesService;
+        private DropCollectionService dropService;
+        private DungeonService dungeonService;
+        
+        
         [Inject]
         private void Construct(
             DungeonCharactersService charactersService,
@@ -38,10 +44,7 @@ namespace Content.Scripts.DungeonGame.Services
             demolished.Add(urn);
         }
 
-        private List<IDestroyable> urnsListDemolishedTmp = new List<IDestroyable>(5);
-        private DungeonResourcesService dungeonResourcesService;
-        private DropCollectionService dropService;
-        private DungeonService dungeonService;
+
 
         private void FixedUpdate()
         {
