@@ -156,7 +156,9 @@ namespace Content.Scripts.DungeonGame.Services
             List<Node> visited = new List<Node>();
             List<Connection> actualConnections = new List<Connection>();
 
-            Node targetNode = Nodes.GetRandomItem(dungeonService.TargetRnd);
+            var rnd = new System.Random(dungeonService.Seed);
+            
+            Node targetNode = Nodes.GetRandomItem(rnd);
 
             visited.Add(targetNode);
 
@@ -193,7 +195,7 @@ namespace Content.Scripts.DungeonGame.Services
 
             for (int i = 0; i < randomEdges; i++)
             {
-                finded.GetRandomItem(dungeonService.TargetRnd).SetActiveConnection();
+                finded.GetRandomItem(rnd).SetActiveConnection();
             }
         }
 

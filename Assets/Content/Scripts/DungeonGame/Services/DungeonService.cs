@@ -30,7 +30,7 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField, ReadOnly] private DungeonConfigObject targetConfig;
         private SaveDataObject.DungeonsData.DungeonData dungeonSaveData;
 
-        public Random TargetRnd => dungeonData.Random;
+        // public Random TargetRnd => dungeonData.Random;
 
         public int Seed => seed;
 
@@ -43,7 +43,7 @@ namespace Content.Scripts.DungeonGame.Services
         {
             seed = saveDataObject.Global.DungeonSeed;
             dungeonData = new DungeonData(seed);
-            targetConfig = configs.Find(x=>x.LevelsRange.IsInRange(level)).Cfg.GetRandomItem(TargetRnd);
+            targetConfig = configs.Find(x=>x.LevelsRange.IsInRange(level)).Cfg.GetRandomItem(dungeonData.Random);
             dungeonSaveData = saveDataObject.Dungeons.RegisterDungeon(seed);
         }
 

@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.Boot;
 using Content.Scripts.DungeonGame.Services;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Content.Scripts.DungeonGame
 {
@@ -15,16 +17,20 @@ namespace Content.Scripts.DungeonGame
 
         private IEnumerator coroutine;
 
-        public event Action OnEnter;
+        public event Action<DungeonRoomEnd> OnEnter;
 
         [SerializeField] private bool isEnter = false;
 
         [Inject]
-        private void Construct(DungeonEnemiesService enemiesService, DungeonService dungeonService, DungeonCharactersService characterService)
+        private void Construct(DungeonEnemiesService enemiesService, DungeonService dungeonService, DungeonCharactersService characterService, RoomsPlacerService roomsPlacerService, ScenesService scenesService)
         {
+            this.scenesService = scenesService;
+            this.roomsPlacerService = roomsPlacerService;
             this.characterService = characterService;
             this.dungeonService = dungeonService;
             enemiesService.OnChangeEnemies += UpdateCounter;
+            
+            
             UpdateCounter();
         }
 
@@ -41,7 +47,9 @@ namespace Content.Scripts.DungeonGame
         }
 
         [SerializeField] private bool isNothingInside;
-        
+        private RoomsPlacerService roomsPlacerService;
+        private ScenesService scenesService;
+
         IEnumerator WaitForPlayer()
         {
             while (true)
@@ -58,8 +66,7 @@ namespace Content.Scripts.DungeonGame
                         isNothingInside = false;    
                         if (!isEnter)
                         {
-                            print("Enter");
-                            OnEnter?.Invoke();
+                            OnEnter?.Invoke(this);
                         }
 
                         isEnter = true;
@@ -73,6 +80,19 @@ namespace Content.Scripts.DungeonGame
                     isEnter = false;
                 }
             }
+        }
+
+        public void EnterBoss()
+        {
+            StopAllCoroutines();
+
+            scenesService.Fade(delegate
+            {
+                foreach (var spawnedCharacter in characterService.GetSpawnedCharacters())
+                {
+                    spawnedCharacter.transform.position = roomsPlacerService.BossPoint.transform.position + new Vector3(Random.Range(-1.5f, 1.5f), 0, Random.Range(-1.5f, 1.5f));
+                }
+            });
         }
     }
 }

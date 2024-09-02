@@ -41,7 +41,7 @@ namespace Content.Scripts.DungeonGame.Characters.States
         private void AttackEnemy()
         {
             var allMobs = DungeonCharacter.GetAllEnemiesNear(DungeonCharacter.TargetEnemy.transform.position);
-
+            Machine.AnimationManager.SetRandomAttack();
             foreach (var mob in allMobs)
             {
                 mob.Damage(Machine.ParametersCalculator.Damage, Machine.gameObject);

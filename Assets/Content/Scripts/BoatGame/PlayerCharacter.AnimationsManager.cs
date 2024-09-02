@@ -204,9 +204,10 @@ namespace Content.Scripts.BoatGame
                 SetRandomAttack();
             }
 
-            private void SetRandomAttack()
+            public void SetRandomAttack()
             {
-                animator.SetInteger(RandomAttackAnim, Random.Range(0, 3));
+                var attack = Random.Range(0, 2);
+                animator.SetInteger(RandomAttackAnim, attack);
             }
 
             public void TriggerGetDamage()
@@ -217,10 +218,7 @@ namespace Content.Scripts.BoatGame
                 bloodParticles.Play();
             }
 
-            public Animator GetAnimator()
-            {
-                return animator;
-            }
+            public Animator GetAnimator() => animator;
 
             private const int TORCH_LAYER = 4;
 

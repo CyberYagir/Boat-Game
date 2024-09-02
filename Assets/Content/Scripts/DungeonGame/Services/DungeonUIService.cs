@@ -23,6 +23,7 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private UICharacterWindow characterWindow;
         [SerializeField] private UIDeathWindow deathWindow;
         [SerializeField] private UIDungeonMobsCounter mobsCounter;
+        [SerializeField] private UIDungeonMobsCompass dungeonCompass;
         
         private DungeonSelectionService selectionService;
         private SaveDataObject saveDataObject;
@@ -65,18 +66,23 @@ namespace Content.Scripts.DungeonGame.Services
             deathWindow.Init(charactersService, saveDataObject, this.scenesService);
             mobsCounter.Init(enemiesService, dungeonService);
             optionsHolder.Init(storagesCounter, authService, this.saveService, cloudService, scenesService, messageBoxManager, saveDataObject);
+            dungeonCompass.Init(enemiesService, charactersService);
             
-            roomsPlacerService.SpawnedEnd.GetComponent<DungeonRoomEnd>().OnEnter += OnEnterBoss;
+            
+            var endRoom = roomsPlacerService.SpawnedEnd.GetComponent<DungeonRoomEnd>();
+            endRoom.OnEnter += OnEnterBoss;
+            
             characterWindow.OnClose += DeselectCharacter;
         }
 
-        private void OnEnterBoss()
+        private void OnEnterBoss(DungeonRoomEnd obj)
         {
             messageBoxManager.ShowMessageBox("Do you want to enter the boss?", delegate
             {
-                
+                obj.EnterBoss();
             });
         }
+
 
         private void DeselectCharacter(AnimatedWindow obj)
         {

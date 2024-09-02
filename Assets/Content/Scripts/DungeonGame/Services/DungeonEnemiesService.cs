@@ -77,5 +77,10 @@ namespace Content.Scripts.DungeonGame.Services
         {
             return Extensions.GenerateSeededGuid(rnd).ToString();
         }
+
+        public Transform GetMobByID(int i)
+        {
+            return mobsList[i].transform;
+        }
     }
 }

@@ -10,7 +10,8 @@ namespace Content.Scripts.DungeonGame.Services
     public class RoomsPlacerService : MonoBehaviour
     {
         [SerializeField] private RoomGrid roomStart, roomEnd;
-
+        [SerializeField] private Transform bossPoint;
+        
         private RoomGrid spawnedStart;
         private RoomGrid spawnedEnd;
         private DungeonService dungeonService;
@@ -31,12 +32,14 @@ namespace Content.Scripts.DungeonGame.Services
 
         public RoomGrid SpawnedEnd => spawnedEnd;
 
+        public Transform BossPoint => bossPoint;
+
 
         [Inject]
         private void Construct(WorldGridServiceTyped worldGridService, DungeonService dungeonService)
         {
             this.dungeonService = dungeonService;
-            var rnd = dungeonService.TargetRnd;
+            var rnd = new System.Random(dungeonService.Seed);
 
 
             spawnedEnd = SpawnRoom(worldGridService, roomEnd, new Vector3(maxDistance - roomStart.Size.x - 1, 0, maxDistance - roomStart.Size.y - 1));
