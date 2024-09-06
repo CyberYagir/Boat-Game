@@ -25,6 +25,7 @@ namespace Content.Scripts.DungeonGame.Scriptable
 
         [SerializeField] private List<DungeonMobObject> mobs = new List<DungeonMobObject>();
         [SerializeField] private List<RoomGrid> rooms = new List<RoomGrid>();
+        [SerializeField] private List<DungeonMobObject> bosses = new List<DungeonMobObject>();
 
         public NoneTile NoneTile => noneTile;
 
@@ -36,7 +37,19 @@ namespace Content.Scripts.DungeonGame.Scriptable
         
         public DungeonMobObject GetMob(DungeonMobObject.EMobDifficult difficult, System.Random rnd)
         {
-            return mobs.FindAll(x => x.Difficult == difficult).GetRandomItem(rnd);
+            if (difficult != DungeonMobObject.EMobDifficult.Boss)
+            {
+                return mobs.FindAll(x => x.Difficult == difficult).GetRandomItem(rnd);
+            }
+            else
+            {
+                return GetBoss(rnd);
+            }
+        }
+        
+        public DungeonMobObject GetBoss(System.Random rnd)
+        {
+            return bosses.GetRandomItem(rnd);
         }
     }
 }

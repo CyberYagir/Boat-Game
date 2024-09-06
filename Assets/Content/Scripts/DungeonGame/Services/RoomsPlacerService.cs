@@ -11,6 +11,7 @@ namespace Content.Scripts.DungeonGame.Services
     {
         [SerializeField] private RoomGrid roomStart, roomEnd;
         [SerializeField] private Transform bossPoint;
+        [SerializeField] private Transform bossSpawner;
         
         private RoomGrid spawnedStart;
         private RoomGrid spawnedEnd;
@@ -33,6 +34,8 @@ namespace Content.Scripts.DungeonGame.Services
         public RoomGrid SpawnedEnd => spawnedEnd;
 
         public Transform BossPoint => bossPoint;
+
+        public Transform BossSpawner => bossSpawner;
 
 
         [Inject]

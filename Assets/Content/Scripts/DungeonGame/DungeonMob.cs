@@ -81,6 +81,12 @@ namespace Content.Scripts.DungeonGame
                 Gizmos.color = Color.blue;
                 Gizmos.DrawWireSphere(transform.position, unAgrDistance);
             }
+
+            public void DisableUpdate()
+            {
+                isAgred = false;
+                OnAgressionChanged?.Invoke(false);
+            }
         }
 
         [System.Serializable]
@@ -103,6 +109,11 @@ namespace Content.Scripts.DungeonGame
             public void Stop(bool stop)
             {
                 agent.SetStopped(stop);
+            }
+
+            public bool HavePath()
+            {
+                return agent.HasPath();
             }
         }
 
@@ -132,12 +143,12 @@ namespace Content.Scripts.DungeonGame
             this.enemiesService = enemiesService;
 
             uid = this.enemiesService.GetNextGuid();
-            
+
             if (dungeonService.IsMobDead(uid))
             {
                 return;
             }
-            
+
             SetHealth(MaxHealth * characterService.SpawnedCharacters.Count);
             aiModule = new AIModule()
                 .With(x => x.Init(transform));
@@ -145,9 +156,11 @@ namespace Content.Scripts.DungeonGame
             stateMachine.Init(this);
             aggressionModule.OnAgressionChanged += OnAggressionChange;
             enemiesService.AddMob(this);
-            
-            
-            RVOSimulator.OnInited += () => rvoController.enabled = true;
+
+            if (rvoController != null)
+            {
+                RVOSimulator.OnInited += () => rvoController.enabled = true;
+            }
         }
 
         private void OnEnable()
@@ -170,18 +183,24 @@ namespace Content.Scripts.DungeonGame
             stateMachine.StartAction(EMobsState.Idle);
             stateMachine.enabled = false;
             MobAnimator.TriggerDeath();
-            rvoController.enabled = false;
-            
+            if (rvoController != null)
+            {
+                rvoController.enabled = false;
+            }
+
             enemiesService.RemoveMob(this);
             aiModule.Disable();
             gameObject.ChangeLayerWithChilds(LayerMask.NameToLayer("Default"));
         }
-
+        
         private void OnAggressionChange(bool state)
         {
             if (state)
             {
-                stateMachine.StartAction(EMobsState.Attack);
+                if (stateMachine.CurrentStateType != EMobsState.AttackNormal && stateMachine.CurrentStateType != EMobsState.AttackSpecial)
+                {
+                    stateMachine.StartAction(EMobsState.Attack);
+                }
             }
         }
 
@@ -203,6 +222,11 @@ namespace Content.Scripts.DungeonGame
         public void MoveToRandomPoint()
         {
             aiModule.MoveToPoint(transform.position + UnityEngine.Random.insideUnitSphere * Random.Range(5, 15));
+        }
+
+        public void UnAgr()
+        {
+            aggressionModule.DisableUpdate();
         }
     }
 }

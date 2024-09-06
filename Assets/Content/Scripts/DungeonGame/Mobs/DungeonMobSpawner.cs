@@ -8,7 +8,8 @@ namespace Content.Scripts.DungeonGame.Mobs
     {
         [SerializeField, Range(0, 1f)] private float spawnChance;
         [SerializeField] private DungeonMobObject.EMobDifficult difficult;
-
+        
+        
         public float SpawnChance => spawnChance;
 
         public DungeonMobObject.EMobDifficult Difficult => difficult;

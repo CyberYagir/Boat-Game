@@ -119,6 +119,11 @@ namespace Content.Scripts.BoatGame.Characters
             aiPath.maxSpeed = value;
         }
 
+        public bool HasPath()
+        {
+            return aiPath.hasPath;
+        }
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;

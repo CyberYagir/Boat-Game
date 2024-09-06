@@ -84,10 +84,7 @@ namespace Content.Scripts.BoatGame.Characters
             {
                 OnChangeState?.Invoke();
             }
-
             currentAction = action.StateAction;
-
-            
         }
 
         public void Update()

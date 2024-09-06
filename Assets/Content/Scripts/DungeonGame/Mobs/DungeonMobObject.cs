@@ -11,7 +11,8 @@ namespace Content.Scripts.DungeonGame.Mobs
         {
             Easy,
             Medium,
-            Hard
+            Hard,
+            Boss
         }
 
         [SerializeField, PreviewField] private List<DungeonMob> prefabVariants;

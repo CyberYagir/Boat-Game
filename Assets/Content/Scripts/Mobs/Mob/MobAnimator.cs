@@ -14,6 +14,7 @@ namespace Content.Scripts.Mobs.Mob
         private static readonly int TG_Sit = Animator.StringToHash("TG_Sit");
         private static readonly int TG_Idle = Animator.StringToHash("TG_Idle");
         private static readonly int TG_Drink = Animator.StringToHash("TG_Drink");
+        private static readonly int TG_Cast = Animator.StringToHash("TG_Cast");
         private static readonly int Moving = Animator.StringToHash("Moving");
             
         [SerializeField] private Animator animator;
@@ -105,9 +106,11 @@ namespace Content.Scripts.Mobs.Mob
 
         public void ResetTriggers()
         {
+            animator.ResetTrigger(TG_Attack);
             animator.ResetTrigger(TG_Sit);
             animator.ResetTrigger(TG_Drink);
             animator.ResetTrigger(TG_Idle);
+            animator.ResetTrigger(TG_Cast);
             animator.SetTrigger(TG_Idle);
         }
 
@@ -119,6 +122,12 @@ namespace Content.Scripts.Mobs.Mob
         public void SetAttackType(int i)
         {
             animator.SetInteger(AttackType, i);
+        }
+
+        public void TriggerCast()
+        {
+            animator.ResetTrigger(TG_Cast);
+            animator.SetTrigger(TG_Cast);
         }
     }
 }

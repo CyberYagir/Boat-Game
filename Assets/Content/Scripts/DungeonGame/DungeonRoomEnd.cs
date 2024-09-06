@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Boot;
+using Content.Scripts.DungeonGame.Mobs;
 using Content.Scripts.DungeonGame.Services;
 using UnityEngine;
 using Zenject;
@@ -12,6 +13,7 @@ namespace Content.Scripts.DungeonGame
     public class DungeonRoomEnd : MonoBehaviour
     {
         [SerializeField] private GameObject glow, gray;
+        [SerializeField] private DungeonMobSpawner bossSpawner;
         private DungeonService dungeonService;
         private ICharacterService characterService;
 
@@ -22,15 +24,23 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private bool isEnter = false;
 
         [Inject]
-        private void Construct(DungeonEnemiesService enemiesService, DungeonService dungeonService, DungeonCharactersService characterService, RoomsPlacerService roomsPlacerService, ScenesService scenesService)
+        private void Construct(
+            DungeonEnemiesService enemiesService,
+            DungeonService dungeonService,
+            DungeonCharactersService characterService,
+            RoomsPlacerService roomsPlacerService,
+            ScenesService scenesService,
+            PrefabSpawnerFabric prefabSpawnerFabric
+        )
         {
+            this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.scenesService = scenesService;
             this.roomsPlacerService = roomsPlacerService;
             this.characterService = characterService;
             this.dungeonService = dungeonService;
             enemiesService.OnChangeEnemies += UpdateCounter;
-            
-            
+
+
             UpdateCounter();
         }
 
@@ -49,6 +59,7 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private bool isNothingInside;
         private RoomsPlacerService roomsPlacerService;
         private ScenesService scenesService;
+        private PrefabSpawnerFabric prefabSpawnerFabric;
 
         IEnumerator WaitForPlayer()
         {
@@ -92,7 +103,18 @@ namespace Content.Scripts.DungeonGame
                 {
                     spawnedCharacter.transform.position = roomsPlacerService.BossPoint.transform.position + new Vector3(Random.Range(-1.5f, 1.5f), 0, Random.Range(-1.5f, 1.5f));
                 }
+                prefabSpawnerFabric.SpawnItem(bossSpawner, roomsPlacerService.BossSpawner);
             });
         }
+
+#if UNITY_EDITOR
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F3))
+            {
+                EnterBoss();
+            }
+        }
+#endif
     }
 }

@@ -30,5 +30,6 @@ namespace Content.Scripts.BoatGame.Characters
         public void SetTargetPoint(Vector3 point);
 
         public void SetMovingSpeed(float value);
+        bool HasPath();
     }
 }

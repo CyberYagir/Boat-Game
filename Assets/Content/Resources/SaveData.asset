@@ -32,7 +32,7 @@ MonoBehaviour:
         - skillID: 3b8443e2-2fef-4110-95aa-d61d78459f6f
           value: 1
       parametersData:
-        health: 95
+        health: 1e+12
         hunger: 71.21796
         thirsty: 42.435192
       equipmentData:
@@ -40,11 +40,7 @@ MonoBehaviour:
         armorID: 54ba5fca-4720-4315-94bc-0d887d48ee5a
         weaponID: 90a2aa4d-5ac9-4c5d-bab1-cbc94aa9c0be
       effectsData:
-        effectsList:
-        - itemSenderID: e096795e-ba1e-43ae-b25f-cd3842a6868d
-          remainingSeconds: 235
-        - itemSenderID: 37aa6662-d114-434e-bb3e-0333e250d477
-          remainingSeconds: 86
+        effectsList: []
       skinColorID: 1
       hatID: 2
   raftsData:
@@ -105,7 +101,7 @@ MonoBehaviour:
     - raftUid: 83495d2b-a84a-4c54-9f9a-d5920163afec
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 1492
+        count: 1654
       - itemID: 47b167db-86da-4574-92e5-c52823934ba0
         count: 1
       - itemID: 9d3428e6-2598-47e2-b86f-7ed3818ec54f
@@ -123,15 +119,15 @@ MonoBehaviour:
     - raftUid: 784dd1c6-1b42-41d4-aac9-5898f70778af
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 774
+        count: 974
       - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
         count: 3
       - itemID: 37aa6662-d114-434e-bb3e-0333e250d477
-        count: 3
+        count: 4
       - itemID: bcddab5b-dfe3-4642-807d-96e3b0e64c38
-        count: 1
+        count: 3
       - itemID: 9d3428e6-2598-47e2-b86f-7ed3818ec54f
-        count: 5
+        count: 6
       - itemID: 51072831-93b5-40da-abae-eaf9c231aea8
         count: 2
       - itemID: e19a6f58-86ce-449c-9916-56b2d295f3ef
@@ -143,21 +139,23 @@ MonoBehaviour:
     - raftUid: 02430558-0946-4103-95a6-6d83ca8d0cef
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 626
+        count: 899
       - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 1
+      - itemID: 90a2aa4d-5ac9-4c5d-bab1-cbc94aa9c0be
         count: 1
     - raftUid: db17e99f-5410-4306-833c-bd901efe4402
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 1664
-      - itemID: 9c8f5708-4a51-44c2-b5e8-ffdd814ceb38
-        count: 1
+        count: 1766
       - itemID: 37aa6662-d114-434e-bb3e-0333e250d477
+        count: 1
+      - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
         count: 1
     - raftUid: 3dbd357b-96bd-422a-8e75-9b9fc0db5fe5
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 677
+        count: 734
       - itemID: 37aa6662-d114-434e-bb3e-0333e250d477
         count: 3
       - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
@@ -165,8 +163,10 @@ MonoBehaviour:
     - raftUid: 50755d31-2eb3-4e17-92b6-da1bfbf4be37
       storagesData:
       - itemID: 67dd6094-d10c-438d-a180-17db87422e08
-        count: 987
+        count: 1036
       - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 1
+      - itemID: 37aa6662-d114-434e-bb3e-0333e250d477
         count: 1
     furnaces:
     - raftUid: 7d99364d-1210-4619-b36d-4204fbdb7926
@@ -795,7 +795,7 @@ MonoBehaviour:
       plotRowNumber: 8
       isCollected: 0
   globalData:
-    totalSecondsInGame: 14457.076
+    totalSecondsInGame: 21636.148
     totalSecondsOnRaft: 19161.855
     islandSeed: -1993712995
     dungeonSeed: -202588061
@@ -815,6 +815,109 @@ MonoBehaviour:
   dungeonsData:
     dungeons:
     - seed: -202588061
-      destroyedUrns: []
-      deadMobs: []
-      allMobsCount: 27
+      destroyedUrns:
+      - b23b344f-cea1-2509-423a-0203008a7c1a
+      - d1d87ab6-a0c5-4d90-b6b6-5a7e4e81ec0a
+      - b9f2da18-57b2-2907-8374-3ef2ac18798a
+      - d70c2c67-2ca6-f93e-3195-f49372df83d7
+      - 3d25ec8e-4274-db73-b44d-8b2f654a218f
+      - 4a04960e-9e7d-a55e-5f89-bbd265ad516a
+      - 2e85a72e-141d-63af-0444-1d3740abddbf
+      - 8fb063f0-8373-6181-3aa3-4d16ba2fdf37
+      - 8349627e-ba2a-73e9-a824-2ffd4ddaa024
+      - d997f78f-5efa-7eb3-a9d6-74eded155fa5
+      - 78203175-1c57-734e-aafc-11d9dd8475f3
+      - b5e7d920-7196-85ad-eecd-251793ff34d1
+      - 9a7d15ec-273f-a653-2b34-c6466ba0c1c2
+      - ffa28cba-e0f2-bd41-c03b-0cafbbefb92e
+      - b201ec63-0741-0b8c-d4c0-d9041ba3eb3c
+      - cf4ca2e4-07ed-21ed-e6dd-08beb54a3340
+      - dce97328-8f7f-4e4e-e47b-34127118576a
+      - 5f213876-3747-c25f-0a25-afbb3ee4067e
+      - d82dd611-5d76-b376-bfe4-1a1937144089
+      - 6fd9801f-58a0-3efd-932d-9f72bb3d3e29
+      - 846e0f51-9103-e570-cbb5-6133357410d6
+      - e5ca3044-99ce-7647-fe05-f71d97aeda4b
+      - 16fd20f5-6ad5-f8aa-122f-f1d6f1fd2a8e
+      - ba602347-c7e1-8917-7152-0515835f5bf1
+      - cf1b4f7a-1957-9fe7-cf37-c63a6e7d935a
+      - a5547852-2efe-3f99-a026-0406b877f52d
+      - 339bd85d-8c43-3999-90b4-d5c6685ed023
+      - 9b5f16d8-3a80-3440-924e-80a253edef19
+      - 71afaae0-0f11-f99a-13bf-4ed6f9e8ff32
+      - deac99ac-a50a-0a51-02cf-5156165ecb9b
+      - 4d42954a-3c8f-3dc0-f49c-7cc9d55802af
+      - 422fea84-6f9d-10a5-6240-cff907535d2a
+      - 42202772-8862-0f28-395a-b7a6e4211206
+      - 42fcd336-7573-d5b1-8bf6-8a83fd5b6024
+      - 834c7b66-d4ff-6289-3cae-4913ef1e861c
+      - be3d34b3-9204-8751-fb50-cc62f2b8d3c9
+      - 00d9c31c-4f66-4ec1-a926-42bb8dc06726
+      - d064a993-dbf0-4ab3-d102-4436ff2cdcbf
+      - 1927f650-01ac-8109-2450-624047623a64
+      - 96ddcc66-5fe2-1517-4f4d-88c55ab7b02c
+      - 09b3845b-3c10-c2cb-e8ed-04defb6674fa
+      - 2ae8758a-91a9-629e-8c27-2ea33a511650
+      - d610dbf3-1d3a-c1c2-6d32-1434851958d2
+      - 72657a24-212a-50b4-9fc4-af24832ac06a
+      - 8a59748c-acb9-474e-c9f4-f3a35827ce46
+      - fcf0b4ff-d1ad-36a6-46db-5b422eb1b71d
+      - f5fb4622-de00-ef6d-1b5d-a76f59f552ee
+      - d2548912-1e44-b0bf-7fb0-a900e70e488f
+      - c0e9c454-c817-e81a-6312-d2dd356feda7
+      - 3a8b7ee2-523b-4a76-6f6c-6e324be17a0f
+      - b7fbdf56-b2e4-866c-69bb-9f8e91bd189a
+      - 0e06e0d9-00fa-64ef-7b82-6731338bbbf3
+      - e5e38aa6-c79b-5235-65a8-32b8dd03de1e
+      - e7323b83-dde2-a38b-022b-0ddfff24128e
+      - f968b278-9821-97c7-117f-36a22ced3903
+      - 25df6d51-53f1-0b0d-a036-0c5dd64c83c3
+      - 61a32200-69a8-2570-a45c-59eb8c6ac1c5
+      - b45d4c3d-22a8-b01b-5759-f8de0cf82a2a
+      - 9d7fc819-653b-b7e4-944a-fe8dd61cf9bf
+      - 0fe25c50-0d0d-25bf-ac39-25f5ce878e62
+      - b85b6019-fb97-5241-4ba8-2af84fa35f06
+      - 7ccf1325-b0f7-0af9-99fe-9c0806e63a66
+      - 36bc7f34-1131-9907-308d-19e7d110b21c
+      - 32164292-4029-d27a-c188-bcee2303185a
+      - 784252d9-2e9a-e3ff-4586-cff73e37d47e
+      - 52436cb2-e1ac-3ccf-398c-4bdcb9a39232
+      - 3004b4bf-55f0-8a09-e74c-86d7408eb20b
+      - 20dbdb4f-06a2-b991-bcab-0afccaeac71a
+      - 7e470df3-c575-8ef4-99cb-c60206b011c0
+      - ee5c956e-684a-a457-368d-6a97b851111a
+      - 6c9edccc-3427-824a-cef1-daaaaab70062
+      - f60b4eb8-78f3-199c-6deb-6cd2dd963061
+      - 8fa8c0e2-b285-b36e-0054-57b4516d8244
+      - 02c3902f-026d-395a-e056-dd3874a9aab1
+      - c96f6f4f-7b0e-6e90-aab9-b1edb79c0822
+      - d954b1d5-9099-2a86-c451-9d7b971c81e1
+      deadMobs:
+      - 2f862ff7-8911-ba31-3886-e4e1a626ed20
+      - 094d22af-c648-1275-e288-748dee8e8bd5
+      - 009db998-8a24-afb3-198a-6e0c03ec4b74
+      - fd36eb45-146b-f133-0da2-d8a6342050ad
+      - 827a1527-c62f-bf35-f548-dc1ee9af8a55
+      - 644a4e76-e054-340b-233a-7893f47fc4e0
+      - fbd618d2-ace1-45b3-2c5c-9ac4169e0de2
+      - 088da96c-837b-a173-f452-ceac4cb57888
+      - 6cdc96b7-c3e6-112b-96a0-9d4c9b06c116
+      - 316d5708-b464-a8eb-e937-65b60de1e986
+      - b7fbdf56-b2e4-866c-69bb-9f8e91bd189a
+      - 072602c3-3a08-5394-d484-449560e8b4d8
+      - 3a8b7ee2-523b-4a76-6f6c-6e324be17a0f
+      - 0e06e0d9-00fa-64ef-7b82-6731338bbbf3
+      - c0e9c454-c817-e81a-6312-d2dd356feda7
+      - d2548912-1e44-b0bf-7fb0-a900e70e488f
+      - e7323b83-dde2-a38b-022b-0ddfff24128e
+      - d5b5efc6-4308-ec4e-cbeb-6e18984fd334
+      - 759ccef3-56eb-e027-df27-f86cfb4aaffc
+      - ec0b29fa-f807-0d90-d8c2-861bc2f9f3c7
+      - 47f95be4-1edb-956a-2e76-0226b57f5377
+      - 27bd4afe-fee2-6570-7b19-67affe142f55
+      - 0128490c-2934-f2a9-db23-2481d1e59e03
+      - de69d7bf-d949-2400-5d98-2c0a36c41f73
+      - c43d7b3e-2b47-661e-1a03-cf0591031f9f
+      - 3e89fa1d-a084-2feb-071e-e97cfe4bddb9
+      - 33c748c5-2028-1d41-bfe9-03677d72eef1
+      allMobsCount: 28

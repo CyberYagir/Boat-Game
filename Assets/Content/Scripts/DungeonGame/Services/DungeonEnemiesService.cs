@@ -11,7 +11,7 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private List<DungeonMob> mobsList = new List<DungeonMob>();
         public event Action OnChangeEnemies;
         private System.Random rnd;
-        public int MobsCount => mobsList.Count;
+        public int MobsCount => mobsList.Count-1;
 
         [Inject]
         private void Construct(DungeonService dungeonService)

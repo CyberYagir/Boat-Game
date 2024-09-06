@@ -81,5 +81,10 @@ namespace Content.Scripts.BoatGame.Characters
         {
             throw new System.NotImplementedException();
         }
+
+        public bool HasPath()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

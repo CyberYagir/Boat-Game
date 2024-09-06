@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 public class DungeonBossRoom : MonoBehaviour
@@ -30,7 +31,8 @@ public class DungeonBossRoom : MonoBehaviour
 
         for (int i = 0; i < poses.Count - 1; i++)
         {
-            var p = Instantiate(walls, poses[i], Quaternion.identity, transform);
+            var p = PrefabUtility.InstantiatePrefab(walls, transform) as GameObject;
+            p.transform.position = poses[i];
             p.transform.LookAt(poses[i + 1]);
             p.gameObject.SetActive(true);
         }

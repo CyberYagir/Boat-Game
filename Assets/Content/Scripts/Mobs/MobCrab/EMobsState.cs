@@ -6,6 +6,8 @@
         PointsMove,
         TakeDamage,
         Attack,
-        Stop
+        Stop,
+        AttackNormal,
+        AttackSpecial
     }
 }
