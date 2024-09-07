@@ -5,6 +5,7 @@ using Content.Scripts.BoatGame.Characters.States;
 using Content.Scripts.BoatGame.UI;
 using Content.Scripts.Boot;
 using Content.Scripts.CraftsSystem;
+using Content.Scripts.DungeonGame.UI;
 using Content.Scripts.Global;
 using Content.Scripts.ManCreator;
 using Sirenix.OdinInspector;
@@ -56,6 +57,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIVillageOptionsWindow villageWindow;
         [SerializeField] private UILoreScrollWindow loreScrollWindow;
         [SerializeField] private RenameIslandWindow renameIslandWindow;
+        [SerializeField] private UIGetScrollWindow getScrollWindow;
         
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
         
@@ -101,6 +103,7 @@ namespace Content.Scripts.BoatGame.Services
             characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager, spawnerFabric, resourcesService);
             furnaceWindow.Init(selectionService, raftBuildService, tickService, resourcesService);
             renameIslandWindow.Init(saveDataObject);
+            getScrollWindow.Init(gameDataObject, resourcesService);
             charactersList?.Init(characterService, tickService, selectionService);
             
             

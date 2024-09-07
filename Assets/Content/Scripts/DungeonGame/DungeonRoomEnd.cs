@@ -20,6 +20,7 @@ namespace Content.Scripts.DungeonGame
         private IEnumerator coroutine;
 
         public event Action<DungeonRoomEnd> OnEnter;
+        public event Action<DungeonRoomEnd> OnEnteredToBoss;
 
         [SerializeField] private bool isEnter = false;
 
@@ -104,6 +105,7 @@ namespace Content.Scripts.DungeonGame
                     spawnedCharacter.transform.position = roomsPlacerService.BossPoint.transform.position + new Vector3(Random.Range(-1.5f, 1.5f), 0, Random.Range(-1.5f, 1.5f));
                 }
                 prefabSpawnerFabric.SpawnItem(bossSpawner, roomsPlacerService.BossSpawner);
+                OnEnteredToBoss?.Invoke(this);
             });
         }
 

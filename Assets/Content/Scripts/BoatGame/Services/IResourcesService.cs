@@ -6,6 +6,7 @@ namespace Content.Scripts.BoatGame.Services
 {
     public interface IResourcesService
     {
+        public event Action<ItemObject> OnAddItemToRaft; 
         public Dictionary<ItemObject, int> AllItemsList { get; }
         event Action OnChangeResources;
         void PlayerItemsList();

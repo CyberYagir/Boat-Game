@@ -24,6 +24,7 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private UIDeathWindow deathWindow;
         [SerializeField] private UIDungeonMobsCounter mobsCounter;
         [SerializeField] private UIDungeonMobsCompass dungeonCompass;
+        [SerializeField] private UIGetScrollWindow getScrollWindow;
         
         private DungeonSelectionService selectionService;
         private SaveDataObject saveDataObject;
@@ -54,12 +55,13 @@ namespace Content.Scripts.DungeonGame.Services
             this.scenesService = scenesService;
             this.saveDataObject = saveDataObject;
             this.selectionService = selectionService;
+            var endRoom = roomsPlacerService.SpawnedEnd.GetComponent<DungeonRoomEnd>();
 
             healthbars.Init(charactersService.GetPlayers(), cameraMoveService.Camera);
             potionsList.Init(dungeonResourcesService, selectionService, charactersService, null, scenesService);
             resourcesCounter.Init(raftsService, gameData, dungeonResourcesService, tickService);
             storagesCounter.Init(raftsService);
-            exitDungeonButton.Init(messageBoxManager, this, charactersService);
+            exitDungeonButton.Init(messageBoxManager, this, charactersService, enemiesService);
             characterPreviews.Init(charactersService, fabric, selectionService, this);
             openCharactersButton.Init(this, charactersService);
             characterWindow.Init(selectionService, gameData, tickService, raftsService, messageBoxManager, fabric, dungeonResourcesService);
@@ -67,9 +69,9 @@ namespace Content.Scripts.DungeonGame.Services
             mobsCounter.Init(enemiesService, dungeonService);
             optionsHolder.Init(storagesCounter, authService, this.saveService, cloudService, scenesService, messageBoxManager, saveDataObject);
             dungeonCompass.Init(enemiesService, charactersService);
+            getScrollWindow.Init(gameData, dungeonResourcesService);
             
             
-            var endRoom = roomsPlacerService.SpawnedEnd.GetComponent<DungeonRoomEnd>();
             endRoom.OnEnter += OnEnterBoss;
             
             characterWindow.OnClose += DeselectCharacter;

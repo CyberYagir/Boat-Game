@@ -1,3 +1,4 @@
+using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI;
 using Content.Scripts.DungeonGame.Services;
@@ -10,11 +11,25 @@ namespace Content.Scripts.DungeonGame.UI
         private DungeonUIService uiService;
         private ICharacterService characterService;
 
-        public void Init(UIMessageBoxManager messageBoxManager, DungeonUIService uiService, ICharacterService characterService)
+        public void Init(UIMessageBoxManager messageBoxManager, DungeonUIService uiService, ICharacterService characterService, DungeonEnemiesService dungeonEnemiesService)
         {
             this.characterService = characterService;
             this.uiService = uiService;
             this.messageBoxManager = messageBoxManager;
+            
+            dungeonEnemiesService.OnBossSpawned += DungeonEnemiesServiceOnOnBossSpawned;
+        }
+
+        private void DungeonEnemiesServiceOnOnBossSpawned(DungeonMob obj)
+        {
+            gameObject.SetActive(false);
+            
+            obj.OnDeath += OnBossDeath;
+        }
+
+        private void OnBossDeath(DamageObject obj)
+        {
+            gameObject.SetActive(true);
         }
 
         public override void OnButtonUp()

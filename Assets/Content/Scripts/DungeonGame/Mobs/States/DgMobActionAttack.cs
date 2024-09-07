@@ -111,6 +111,7 @@ namespace Content.Scripts.DungeonGame.Mobs.States
         IEnumerator SkipFrame()
         {
             yield return null;
+            if (Machine.IsDead) yield break;
             Machine.UnAgr();
         }
     }

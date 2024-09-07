@@ -46,9 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 1
-  meshRenderers: []
+  meshRenderers:
+  - {fileID: 1030273688173539676}
   particles:
   - {fileID: 1524551734270636589}
+  damage: 60
   attackIDAnimation: -1
   points:
   - {fileID: 4504817164003250533}
@@ -122,6 +124,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a088b134c5e7fe428f0d9da7e5ebb23, type: 3}
+--- !u!137 &1030273688173539676 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1742464278260901079, guid: 7a088b134c5e7fe428f0d9da7e5ebb23, type: 3}
+  m_PrefabInstance: {fileID: 1612920278156809611}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1524551734270636589 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 237131445471520678, guid: 7a088b134c5e7fe428f0d9da7e5ebb23, type: 3}

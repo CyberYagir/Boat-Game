@@ -1004,6 +1004,8 @@ namespace Content.Scripts.Global
                 [SerializeField] private List<string> destroyedUrns = new List<string>();
                 [SerializeField] private List<string> deadMobs = new List<string>();
                 [SerializeField] private int allMobsCount;
+                [SerializeField] private int allDungeonMobsCount;
+                [SerializeField] private bool isBossKilled;
 
 
                 public DungeonData(int seed)
@@ -1017,6 +1019,9 @@ namespace Content.Scripts.Global
 
                 public int Seed => seed;
 
+                public int AllDungeonMobsCount => allDungeonMobsCount;
+                public bool IsBossDead => isBossKilled;
+
 
                 public void AddUrn(string uid) => destroyedUrns.Add(uid);
                 public void AddMob(string uid) => deadMobs.Add(uid);
@@ -1028,6 +1033,14 @@ namespace Content.Scripts.Global
                         allMobsCount = cout;
                     }
                 }
+                
+                public void SetDungeonMobsCount(int cout)
+                {
+                    if (allDungeonMobsCount < cout)
+                    {
+                        allDungeonMobsCount = cout;
+                    }
+                }
 
                 public bool HasUrn(string uid)
                 {
@@ -1037,6 +1050,11 @@ namespace Content.Scripts.Global
                 public bool HasMob(string uid)
                 {
                     return deadMobs.Contains(uid);
+                }
+
+                public void DefeatBoss()
+                {
+                    isBossKilled = true;
                 }
             }
 

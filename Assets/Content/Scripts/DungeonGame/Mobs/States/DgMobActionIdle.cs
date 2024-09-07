@@ -26,8 +26,6 @@ namespace Content.Scripts.DungeonGame.Mobs.States
             base.StartState();
             Machine.MobAnimator.StopMove();
             nextTime = range.RandomWithin();
-            
-            print("Start Idle");
         }
 
         public override void ProcessState()
@@ -54,7 +52,6 @@ namespace Content.Scripts.DungeonGame.Mobs.States
             
             if (Machine.AIManager.IsArrived() && Machine.AIManager.HavePath() && waitForEnd)
             {
-                print("Arrived");
                 EndState();
             }
             else

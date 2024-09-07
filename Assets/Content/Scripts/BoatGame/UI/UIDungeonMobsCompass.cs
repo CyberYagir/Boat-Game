@@ -33,7 +33,7 @@ namespace Content.Scripts.BoatGame.UI
 
         private void Update()
         {
-            if (enemiesService.MobsCount == 0)
+            if (enemiesService.MobsCount <= 0)
             {
                 enabled = false;
                 gameObject.SetActive(false);

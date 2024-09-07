@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 4103584943000171462}
   - component: {fileID: 1092056449906092330}
   - component: {fileID: 615595344739006142}
+  - component: {fileID: 7249096354746758338}
   m_Layer: 12
   m_Name: Mob_Knight_Boss
   m_TagString: Untagged
@@ -103,6 +104,7 @@ MonoBehaviour:
     unAgrDistance: 199
     isAgred: 0
   rvoController: {fileID: 0}
+  isBoss: 1
 --- !u!114 &7362937455545948032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,8 +254,8 @@ MonoBehaviour:
   attacksPrefabs:
   - {fileID: 2539725863663581554, guid: cb8a215f715522d40819e7b68d1f9d9b, type: 3}
   - {fileID: 8614953761922393927, guid: 50ddb6dab5986344fb43f5544cc765bb, type: 3}
-  - {fileID: 1232795498217849719, guid: f2f6ab6a1fd171e4d85a72c7352b12fc, type: 3}
-  - {fileID: 7811397797907450880, guid: fbcfff1e822e2494cb4a817a8712ca42, type: 3}
+  - {fileID: 6338051902920321345, guid: f2f6ab6a1fd171e4d85a72c7352b12fc, type: 3}
+  - {fileID: 2029449196810771523, guid: fbcfff1e822e2494cb4a817a8712ca42, type: 3}
 --- !u!114 &4103584943000171462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnded: 0
   machine: {fileID: 0}
-  attackDamage: 20
+  attackDamage: 30
   attackDistance: 10
   attackCooldown: 1
   attackDelay: 0.5
@@ -300,6 +302,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnded: 0
   machine: {fileID: 0}
+--- !u!114 &7249096354746758338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7106265472713349919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59a2982311eb42409384437558fdb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7796866944828755366
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,8 +10,11 @@ namespace Content.Scripts.DungeonGame.Services
     {
         [SerializeField] private List<DungeonMob> mobsList = new List<DungeonMob>();
         public event Action OnChangeEnemies;
+        public event Action<DungeonMob> OnBossSpawned;
+        
         private System.Random rnd;
         public int MobsCount => mobsList.Count-1;
+        private int dungeonMobsCount;
 
         [Inject]
         private void Construct(DungeonService dungeonService)
@@ -20,11 +23,20 @@ namespace Content.Scripts.DungeonGame.Services
             rnd = new System.Random(dungeonService.Seed);
         }
         
-        public void AddMob(DungeonMob mob)
+        public void AddMob(DungeonMob mob, bool isDungeonMob)
         {
             mobsList.Add(mob);
-            dungeonService.SetMobsCount(mobsList.Count);
             
+            dungeonService.SetMobsCount(mobsList.Count);
+            if (isDungeonMob)
+            {
+                dungeonMobsCount++;
+                dungeonService.SetDungeonsMobCount(dungeonMobsCount);
+            }
+            else
+            {
+                OnBossSpawned?.Invoke(mob);
+            }
             OnChangeEnemies?.Invoke();
         }
 

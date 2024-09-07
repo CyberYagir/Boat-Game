@@ -15,8 +15,8 @@ namespace Content.Scripts.DungeonGame.Mobs.States
         public override void StartState()
         {
             base.StartState();
-            
-            var attack = Instantiate(attacksPrefabs[attackID], transform.position, transform.rotation);
+
+            var attack = Machine.SpawnerFabric.SpawnItem(attacksPrefabs[attackID], transform.position, transform.rotation);
             attack.Init(Machine);
             attackID++;
             if (attacksPrefabs.Length <= attackID)
@@ -35,9 +35,11 @@ namespace Content.Scripts.DungeonGame.Mobs.States
         public override void EndState()
         {
             base.EndState();
-
-            Machine.MobAnimator.ResetTriggers();
-            StartCoroutine(SkipFrame());
+            if (!Machine.IsDead)
+            {
+                Machine.MobAnimator.ResetTriggers();
+                StartCoroutine(SkipFrame());
+            }
         }
 
         IEnumerator SkipFrame()

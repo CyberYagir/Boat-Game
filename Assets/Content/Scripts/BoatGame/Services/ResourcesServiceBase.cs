@@ -10,6 +10,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] protected Dictionary<ItemObject, int> allItemsList = new Dictionary<ItemObject, int>(20);
         private bool isAnyRaftBeenChanged = false;
         public virtual event Action OnChangeResources;
+        public event Action<ItemObject> OnAddItemToRaft; 
         public Dictionary<ItemObject, int> AllItemsList => allItemsList;
 
         protected void OnAnyStorageChange()
@@ -77,7 +78,7 @@ namespace Content.Scripts.BoatGame.Services
             return tmpSearchList;
         }
         
-        public void AddItemsToAnyRafts(RaftStorage.StorageItem oldItem, bool spawnPopup = true)
+        public  void AddItemsToAnyRafts(RaftStorage.StorageItem oldItem, bool spawnPopup = true)
         {
             var storages = GetRafts();
             if (oldItem.Item.HasSize)
@@ -106,6 +107,7 @@ namespace Content.Scripts.BoatGame.Services
                     randomStorage.AddToStorage(oldItem.Item, oldItem.Count, spawnPopup);
                 }
             }
+            OnAddItemToRaft?.Invoke(oldItem.Item);
         }
         
         public bool GetGlobalEmptySpace(RaftStorage.StorageItem storageItem, int offcet = 0)
@@ -171,13 +173,14 @@ namespace Content.Scripts.BoatGame.Services
             }
         }
         
-        public bool AddToAnyStorage(ItemObject item)
+        public virtual bool AddToAnyStorage(ItemObject item)
         {
             var storages = GetRafts();
             var storage = storages.Find(x => x.HaveItem(item) && x.GetEmptySlots() >= 1);
             if (storage != null)
             {
                 storage.AddToStorage(item, 1);
+                OnAddItemToRaft?.Invoke(item);
                 return true;
             }
             else
@@ -187,6 +190,7 @@ namespace Content.Scripts.BoatGame.Services
                     if (raftStorage.IsEmptyStorage(item, 1))
                     {
                         raftStorage.AddToStorage(item, 1);
+                        OnAddItemToRaft?.Invoke(item);
                         return true;
                     }
                 }

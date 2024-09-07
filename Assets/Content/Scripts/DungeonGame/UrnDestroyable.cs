@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private float minDistance = 1f;
 
         public string UID => uid;
+        public event Action OnOpen;
         public DropTableObject DropTable => dropTable;
         public float ActivationDistance => minDistance;
         public int DropsCount => 1;
@@ -93,6 +95,7 @@ namespace Content.Scripts.DungeonGame
 
             DOVirtual.DelayedCall(Random.Range(10, 30), RemoveAllDebris);
             DOVirtual.DelayedCall(2, KinematicDebris);
+            OnOpen?.Invoke();
             isDead = true;
         }
 

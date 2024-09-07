@@ -1,7 +1,9 @@
 ﻿using System;
+using Content.Scripts.DungeonGame.Services;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace Content.Scripts.DungeonGame.BossAttacks
 {
@@ -10,13 +12,20 @@ namespace Content.Scripts.DungeonGame.BossAttacks
         [SerializeField] private float time;
         [SerializeField] private SkinnedMeshRenderer[] meshRenderers;
         [SerializeField] private GameObject[] particles;
+        [SerializeField] protected float damage;
 
         [SerializeField] private int attackIDAnimation;
-        private DungeonMob dungeonMob;
+        protected DungeonMob dungeonMob;
+        protected DungeonCharactersService dungeonCharactersService;
 
         public event Action OnEnded;
+
+        [Inject]
+        private void Construct(DungeonCharactersService dungeonCharactersService)
+        {
+            this.dungeonCharactersService = dungeonCharactersService;
+        }
         
-        [Button]
         public void Init(DungeonMob dungeonMob)
         {
             this.dungeonMob = dungeonMob;
@@ -40,11 +49,18 @@ namespace Content.Scripts.DungeonGame.BossAttacks
                 particle.gameObject.SetActive(true);
             }
 
-            if (attackIDAnimation == -1)
+            if (dungeonMob.IsDead)
+            {
+                OnEnded?.Invoke();
+                return;
+            }
+            
+            if (attackIDAnimation != -1)
             {
                 dungeonMob.MobAnimator.ResetTriggers();
                 dungeonMob.MobAnimator.SetAttackType(attackIDAnimation);
                 dungeonMob.MobAnimator.TriggerAttack();
+                print("Animation starts");
             }
             
             

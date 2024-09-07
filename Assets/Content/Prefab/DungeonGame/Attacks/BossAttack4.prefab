@@ -1,5 +1,58 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5054529979482880791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2812862723370505976}
+  - component: {fileID: 632530235704499177}
+  m_Layer: 12
+  m_Name: Bounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2812862723370505976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5054529979482880791}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.4832, y: 1.4832, z: 1.4832}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7542701994823609970}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &632530235704499177
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5054529979482880791}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 10.216279, y: 18.37, z: 3.4900148}
+  m_Center: {x: -0.032340024, y: 0, z: 3.7350168}
 --- !u!1 &8108882383881008898
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +62,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7542701994823609970}
-  - component: {fileID: 7811397797907450880}
+  - component: {fileID: 2029449196810771523}
   m_Layer: 12
   m_Name: BossAttack4
   m_TagString: Untagged
@@ -30,11 +83,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2812862723370505976}
   - {fileID: 8016673194533678152}
   - {fileID: 5031473299714846094}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7811397797907450880
+--- !u!114 &2029449196810771523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +97,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8108882383881008898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 551a878dbd924e0687f916f4843c13ac, type: 3}
+  m_Script: {fileID: 11500000, guid: a0e642a963055024e8fff48d08f6c8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   time: 1
@@ -51,6 +105,9 @@ MonoBehaviour:
   - {fileID: 600151892505940599}
   particles:
   - {fileID: 8016673194533678157}
+  damage: 40
+  attackIDAnimation: 1
+  boxCollider: {fileID: 632530235704499177}
 --- !u!1001 &317502979910149806
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -67,12 +67,27 @@ namespace Content.Scripts.DungeonGame.Services
 
         public int GetMaxMobsCount()
         {
-            return dungeonSaveData.AllMobsCount-1;
+            return dungeonSaveData.AllDungeonMobsCount;
         }
 
         public int GetDeadMobsCount()
         {
             return dungeonSaveData.DeadMobs;
+        }
+
+        public void SetDungeonsMobCount(int dungeonMobsCount)
+        {
+            dungeonSaveData.SetDungeonMobsCount(dungeonMobsCount);
+        }
+
+        public void SetBossDead()
+        {
+            dungeonSaveData.DefeatBoss();
+        }
+
+        public bool IsBossDead()
+        {
+            return dungeonSaveData.IsBossDead;
         }
     }
 }

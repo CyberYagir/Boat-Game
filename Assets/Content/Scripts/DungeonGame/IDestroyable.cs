@@ -6,7 +6,9 @@ namespace Content.Scripts.DungeonGame
 {
     public interface IDestroyable
     {
+        
         string UID { get; }
+        public event Action OnOpen;
         Transform transform { get; }
         DropTableObject DropTable { get; }
         float ActivationDistance { get; }

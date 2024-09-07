@@ -19,6 +19,7 @@ namespace Content.Scripts.Global
         [SerializeField] private int dungeonLevelsOffset = 2;
         [SerializeField] private float slaveStaminaWorkingPerSecond = 3.33f;
         [SerializeField] private float slaveEatEfficiencyMultiplier = 0.3f;
+        [SerializeField, Range(0, 1f)] private float scrollDropChance = 0.5f;
         [SerializeField] private ItemObject paddleItem;
         [SerializeField] private ItemObject moneyItem;
         [SerializeField] private ItemObject loreItem;
@@ -46,6 +47,7 @@ namespace Content.Scripts.Global
 
         public ItemObject HealSlaveItem => healSlaveItem;
         public int DungeonsLevelsOffset => dungeonLevelsOffset;
+        public float ScrollDropChance => scrollDropChance;
 
 
         public DroppedItemBase DropBagForAnyItem()

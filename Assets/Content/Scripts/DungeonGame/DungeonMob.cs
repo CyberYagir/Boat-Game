@@ -122,9 +122,13 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private MobAnimator mobAnimator;
         [SerializeField] private AggressionModule aggressionModule;
         [SerializeField] private RVOController rvoController;
+        [SerializeField] private bool isBoss;
+        
+        
         private DungeonEnemiesService enemiesService;
         private AIModule aiModule;
         private DungeonService dungeonService;
+        private PrefabSpawnerFabric prefabSpawnerFabric;
 
         public MobAnimator MobAnimator => mobAnimator;
 
@@ -133,12 +137,15 @@ namespace Content.Scripts.DungeonGame
 
         public string UID => uid;
 
+        public PrefabSpawnerFabric SpawnerFabric => prefabSpawnerFabric;
+
         // [SerializeField] [SerializeReference] [ListDrawerSettings(DefaultExpandedState = true, ListElementLabelName = "Name", ShowPaging = false, ShowIndexLabels = true)]
         // private List<BaseModule> modules;
 
         [Inject]
-        private void Construct(DungeonCharactersService characterService, DungeonEnemiesService enemiesService, DungeonService dungeonService)
+        private void Construct(DungeonCharactersService characterService, DungeonEnemiesService enemiesService, DungeonService dungeonService, PrefabSpawnerFabric prefabSpawnerFabric)
         {
+            this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.dungeonService = dungeonService;
             this.enemiesService = enemiesService;
 
@@ -155,7 +162,7 @@ namespace Content.Scripts.DungeonGame
             aggressionModule.Init(characterService, transform);
             stateMachine.Init(this);
             aggressionModule.OnAgressionChanged += OnAggressionChange;
-            enemiesService.AddMob(this);
+            enemiesService.AddMob(this, !isBoss);
 
             if (rvoController != null)
             {

@@ -30,8 +30,9 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private int dropIterations;
         [SerializeField] private List<DropsByLevel> dropTable = new List<DropsByLevel>();
         public string UID => uid;
-        
-        
+        public event Action OnOpen;
+
+
         public float ActivationDistance => minDistance;
         public int DropsCount => dropIterations;
         private DungeonService dungeonService;
@@ -39,6 +40,7 @@ namespace Content.Scripts.DungeonGame
         public void Demolish(Vector3 pos)
         {
             cover.transform.DOLocalRotate(new Vector3(-90, 0, 0), 0.5f, RotateMode.Fast);
+            OnOpen?.Invoke();
         }
         
         [Inject]

@@ -13,6 +13,7 @@ namespace Content.Scripts.DungeonGame.Services
     {
         private VirtualRaftsService virtualRaftsService;
 
+
         [Inject]
         private void Construct(SaveDataObject saveData, GameDataObject gameData, VirtualRaftsService virtualRaftsService)
         {
