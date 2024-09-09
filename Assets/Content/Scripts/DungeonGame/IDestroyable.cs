@@ -14,5 +14,6 @@ namespace Content.Scripts.DungeonGame
         float ActivationDistance { get; }
         int DropsCount { get; }
         void Demolish(Vector3 pos);
+        bool IsCanDemolish();
     }
 }

@@ -6,6 +6,7 @@ using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.DungeonGame.Services;
+using Content.Scripts.Mobs;
 using Content.Scripts.Mobs.Mob;
 using Content.Scripts.Mobs.MobCrab;
 using Pathfinding;
@@ -122,6 +123,8 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private MobAnimator mobAnimator;
         [SerializeField] private AggressionModule aggressionModule;
         [SerializeField] private RVOController rvoController;
+        [SerializeField] private DropTableObject dropTable;
+        
         [SerializeField] private bool isBoss;
         
         
@@ -129,6 +132,7 @@ namespace Content.Scripts.DungeonGame
         private AIModule aiModule;
         private DungeonService dungeonService;
         private PrefabSpawnerFabric prefabSpawnerFabric;
+        private DropCollectionService dropCollectionService;
 
         public MobAnimator MobAnimator => mobAnimator;
 
@@ -143,8 +147,9 @@ namespace Content.Scripts.DungeonGame
         // private List<BaseModule> modules;
 
         [Inject]
-        private void Construct(DungeonCharactersService characterService, DungeonEnemiesService enemiesService, DungeonService dungeonService, PrefabSpawnerFabric prefabSpawnerFabric)
+        private void Construct(DungeonCharactersService characterService, DungeonEnemiesService enemiesService, DungeonService dungeonService, PrefabSpawnerFabric prefabSpawnerFabric, DropCollectionService dropCollectionService)
         {
+            this.dropCollectionService = dropCollectionService;
             this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.dungeonService = dungeonService;
             this.enemiesService = enemiesService;
@@ -187,6 +192,9 @@ namespace Content.Scripts.DungeonGame
         public override void Death()
         {
             base.Death();
+
+            DropLoot();
+
             stateMachine.StartAction(EMobsState.Idle);
             stateMachine.enabled = false;
             MobAnimator.TriggerDeath();
@@ -199,7 +207,20 @@ namespace Content.Scripts.DungeonGame
             aiModule.Disable();
             gameObject.ChangeLayerWithChilds(LayerMask.NameToLayer("Default"));
         }
-        
+
+        private void DropLoot()
+        {
+            if (dropTable)
+            {
+                var item = dropTable.GetItem();
+                if (item)
+                {
+                    print(item.ItemName);
+                    dropCollectionService.SpawnDrop(new RaftStorage.StorageItem(item, 1), transform.position);
+                }
+            }
+        }
+
         private void OnAggressionChange(bool state)
         {
             if (state)

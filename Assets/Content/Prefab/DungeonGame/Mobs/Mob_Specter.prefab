@@ -58,6 +58,7 @@ MonoBehaviour:
   health: 0
   attackPoint: {fileID: 8023296071818767856}
   heightPoint: {fileID: 5701703392091407871}
+  uid: 
   stateMachine: {fileID: 5062776793418608794}
   mobAnimator:
     animator: {fileID: 5728538792993962187}
@@ -69,6 +70,8 @@ MonoBehaviour:
     unAgrDistance: 8
     isAgred: 0
   rvoController: {fileID: 1262059657006786855}
+  dropTable: {fileID: 11400000, guid: da3179ea08229e74ab533b418fd2a43b, type: 2}
+  isBoss: 0
 --- !u!114 &5062776793418608794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +246,7 @@ MonoBehaviour:
   attackCooldown: 1.5
   attackDelay: 0.5
   maxAttacks: 3
+  stopAfterAttack: 0
 --- !u!1 &6706447818065862167
 GameObject:
   m_ObjectHideFlags: 0

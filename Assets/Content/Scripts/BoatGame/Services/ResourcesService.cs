@@ -52,24 +52,6 @@ namespace Content.Scripts.BoatGame.Services
             return false;
         }
 
-
-
-
-
-        public bool IsHaveItem(RaftStorage.StorageItem sellItem)
-        {
-            if (allItemsList.ContainsKey(sellItem.Item))
-            {
-                return allItemsList[sellItem.Item] >= sellItem.Count;
-            }
-
-            return false;
-        }
-        public bool IsHaveItem(ItemObject item, int count)
-        {
-            return IsHaveItem(new RaftStorage.StorageItem(item, count));
-        }
-
         private List<RaftStorage> emptyStoragesArray = new List<RaftStorage>(10);
         public List<RaftStorage> FindEmptyStorages(ItemObject item, int value)
         {

@@ -11,6 +11,8 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIMark mark;
         [SerializeField] private TMP_Text text;
         [SerializeField] private UIBar progressBar;
+        [SerializeField] private GameObject bossRemain;
+        [SerializeField] private GameObject completedText;
 
         private UIVillageFightsSubWindow.DungeonDataHolder data;
         private UIVillageFightsSubWindow fightsWindow;
@@ -24,13 +26,25 @@ namespace Content.Scripts.BoatGame.UI
 
             var dungeon = saveDataObject.Dungeons.GetDungeonBySeed(data.Seed);
 
+            progressBar.gameObject.SetActive(false);
+            completedText.gameObject.SetActive(false);
+            bossRemain.gameObject.SetActive(false);
+            
             if (dungeon != null)
             {
-                progressBar.Init("Progress", dungeon.DeadMobs, dungeon.AllMobsCount);
-            }
-            else
-            {
-                progressBar.gameObject.SetActive(false);
+                if (dungeon.DeadMobs < dungeon.AllMobsCount && !dungeon.IsBossDead)
+                {
+                    progressBar.Init("Progress", dungeon.DeadMobs, dungeon.AllMobsCount);
+                    progressBar.gameObject.SetActive(true);
+                }
+                else if (dungeon.DeadMobs >= dungeon.AllMobsCount && !dungeon.IsBossDead)
+                {
+                    bossRemain.gameObject.SetActive(true);
+                }
+                else
+                {
+                    completedText.gameObject.SetActive(true);
+                }
             }
         }
 

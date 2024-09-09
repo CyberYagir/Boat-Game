@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Content.Scripts.DungeonGame.Services;
+using Content.Scripts.Global;
 using Content.Scripts.Mobs;
 using DG.Tweening;
 using Sirenix.OdinInspector;
@@ -29,6 +30,7 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private float minDistance;
         [SerializeField] private int dropIterations;
         [SerializeField] private List<DropsByLevel> dropTable = new List<DropsByLevel>();
+        [SerializeField] private bool needsKey;
         public string UID => uid;
         public event Action OnOpen;
 
@@ -36,16 +38,35 @@ namespace Content.Scripts.DungeonGame
         public float ActivationDistance => minDistance;
         public int DropsCount => dropIterations;
         private DungeonService dungeonService;
+        private DungeonResourcesService dungeonResourcesService;
+        private GameDataObject gameDataObject;
         public DropTableObject DropTable => dropTable.Find(x=>x.Range.IsInRange(dungeonService.Level)).DropTable;
+
         public void Demolish(Vector3 pos)
         {
             cover.transform.DOLocalRotate(new Vector3(-90, 0, 0), 0.5f, RotateMode.Fast);
             OnOpen?.Invoke();
+            if (needsKey)
+            {
+                dungeonResourcesService.RemoveItemFromAnyRaft(gameDataObject.ConfigData.ChestKeyItem);
+            }
         }
-        
-        [Inject]
-        private void Construct(UrnCollectionService urnCollectionService, DungeonService dungeonService)
+
+        public bool IsCanDemolish()
         {
+            if (needsKey)
+            {
+                return dungeonResourcesService.IsHaveItem(gameDataObject.ConfigData.ChestKeyItem, 1);
+            }
+
+            return true;
+        }
+
+        [Inject]
+        private void Construct(UrnCollectionService urnCollectionService, DungeonService dungeonService, DungeonResourcesService dungeonResourcesService, GameDataObject gameDataObject)
+        {
+            this.gameDataObject = gameDataObject;
+            this.dungeonResourcesService = dungeonResourcesService;
             this.dungeonService = dungeonService;
             if (!gameObject.activeInHierarchy) return;
             

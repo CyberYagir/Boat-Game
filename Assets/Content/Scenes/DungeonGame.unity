@@ -7465,7 +7465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1021016630310708605, guid: 2f78e6564c8ea894597f493f06211063, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -19.099182
+      value: -19.099243
       objectReference: {fileID: 0}
     - target: {fileID: 1021016631235997218, guid: 2f78e6564c8ea894597f493f06211063, type: 3}
       propertyPath: m_AnchorMax.x
@@ -13068,12 +13068,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configs:
   - cfg:
-    - {fileID: 11400000, guid: 1f32701da3ece364bb0e4acb79ec214e, type: 2}
-    - {fileID: 11400000, guid: 1508f2430aad5084293b8e62feda7385, type: 2}
     - {fileID: 11400000, guid: ad40558e3ed77aa4ab87ea6522d8cb53, type: 2}
     levelsRange:
-      min: 0
+      min: 8
       max: 10
+  - cfg: []
+    levelsRange:
+      min: 4
+      max: 7
+  - cfg:
+    - {fileID: 11400000, guid: 1508f2430aad5084293b8e62feda7385, type: 2}
+    levelsRange:
+      min: 0
+      max: 3
+  - cfg:
+    - {fileID: 11400000, guid: 1f32701da3ece364bb0e4acb79ec214e, type: 2}
+    levelsRange:
+      min: 0
+      max: 0
   seed: -1416506366
   level: 0
   targetConfig: {fileID: 0}

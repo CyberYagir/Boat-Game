@@ -143,5 +143,15 @@ namespace Content.Scripts.Mobs
         }
 
 
+        [Button]
+        public void DebugButton()
+        {
+            for (int i = 0; i < 10000; i++)
+            {
+                var item = GetItem();
+                Debug.Log(item != null ? item.ItemName : null);
+            }
+        }
+
     }
 }

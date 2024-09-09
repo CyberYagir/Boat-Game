@@ -99,6 +99,8 @@ namespace Content.Scripts.DungeonGame
             isDead = true;
         }
 
+        public bool IsCanDemolish() => true;
+
         private void KinematicDebris()
         {
             for (int q = 0; q < rb.Count; q++)

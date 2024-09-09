@@ -13,6 +13,9 @@ public class DungeonBossRoom : MonoBehaviour
 
     [SerializeField] private GameObject walls;
 
+
+#if UNITY_EDITOR
+
     [Button]
     public void Generate()
     {
@@ -37,6 +40,8 @@ public class DungeonBossRoom : MonoBehaviour
             p.gameObject.SetActive(true);
         }
     }
+
+#endif
 
 
     private void OnDrawGizmos()

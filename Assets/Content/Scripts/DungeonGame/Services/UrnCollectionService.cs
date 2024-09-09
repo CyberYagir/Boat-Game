@@ -56,38 +56,41 @@ namespace Content.Scripts.DungeonGame.Services
                 {
                     if (Vector3.Distance(charPos, demolished[i].transform.position.RemoveY()) < demolished[i].ActivationDistance)
                     {
-                        urnsListDemolishedTmp.Add(demolished[i]);
-                        demolished[i].Demolish(sp.transform.position);
-                        var targetPos = demolished[i].transform.position;
-                        if (demolished[i].DropTable)
+                        if (demolished[i].IsCanDemolish())
                         {
-                            var items = demolished[i].DropTable.GetItemsIterated(demolished[i].DropsCount);
-                            int id = 0;
-                            foreach (var item in items)
+                            urnsListDemolishedTmp.Add(demolished[i]);
+                            demolished[i].Demolish(sp.transform.position);
+                            var targetPos = demolished[i].transform.position;
+                            if (demolished[i].DropTable)
                             {
-                                if (dungeonResourcesService.GetGlobalEmptySpace(item))
+                                var items = demolished[i].DropTable.GetItemsIterated(demolished[i].DropsCount);
+                                int id = 0;
+                                foreach (var item in items)
                                 {
-                                    if (items.Count > 1)
+                                    if (dungeonResourcesService.GetGlobalEmptySpace(item))
                                     {
-                                        DOVirtual.DelayedCall(id / 3f, delegate { WorldPopupService.StaticSpawnPopup(targetPos, item); });
+                                        if (items.Count > 1)
+                                        {
+                                            DOVirtual.DelayedCall(id / 3f, delegate { WorldPopupService.StaticSpawnPopup(targetPos, item); });
+                                        }
+                                        else
+                                        {
+                                            WorldPopupService.StaticSpawnPopup(targetPos, item);
+                                        }
+
+                                        dungeonResourcesService.AddItemsToAnyRafts(item.Clone(), false);
                                     }
                                     else
                                     {
-                                        WorldPopupService.StaticSpawnPopup(targetPos, item);
+                                        dropService.SpawnDrop(item, targetPos);
                                     }
 
-                                    dungeonResourcesService.AddItemsToAnyRafts(item.Clone(), false);
+                                    id++;
                                 }
-                                else
-                                {
-                                    dropService.SpawnDrop(item, targetPos);
-                                }
-
-                                id++;
                             }
-                        }
 
-                        break;
+                            break;
+                        }
                     }
                 }
             }
