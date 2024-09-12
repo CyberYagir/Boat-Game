@@ -16,7 +16,7 @@ namespace Content.Scripts.BoatGame.Services
 
         private void NavMeshServiceOnOnNavMeshBuild()
         {
-            if (AstarPath.active.data.graphs[0].isScanned && isTerrainGraphRecalculated)
+            if (AstarPath.active.data.graphs[0].isScanned && !isTerrainGraphRecalculated)
             {
                 var playerNode = AstarPath.active.GetNearest(Vector3.zero, NNConstraint.Walkable).node;
                 AstarPath.active.AddWorkItem(() =>
