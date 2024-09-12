@@ -71,8 +71,7 @@ namespace Content.Scripts.BoatGame.Characters
             NNInfo info = new NNInfo();
 
             info = AstarPath.active.GetNearest(target, constraint);
-            
-            
+
             newPoint = info.position;
             return true;
         }
@@ -128,9 +127,11 @@ namespace Content.Scripts.BoatGame.Characters
         {
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(Destination, 0.2f);
+            Gizmos.DrawLine(transform.position, Destination);
             
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(TargetPoint + Vector3.up * 0.2f, 0.2f);
+            Gizmos.DrawLine(transform.position, TargetPoint);
         }
     }
 }

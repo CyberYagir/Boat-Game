@@ -51,7 +51,6 @@ namespace Content.Scripts.BoatGame.Characters.States
             state = EState.MovingToPoint;
             stuckTimer = 0;
             Machine.AnimationManager.TriggerFishingAnimation(true);
-            Agent.SetStopped(false);
             timer = 0;
             tween = null;
         }
@@ -63,6 +62,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             fishingTarget = Machine.SelectionService.LastWorldClick;
             waitTime = waitTimeRange.RandomWithin() * Machine.Character.GetSkillMultiply(fishingSkill.SkillID);
 
+            Agent.SetStopped(false);
             MoveToPoint(fishingTarget);
         }
 

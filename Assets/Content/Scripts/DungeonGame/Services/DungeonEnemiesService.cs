@@ -13,7 +13,7 @@ namespace Content.Scripts.DungeonGame.Services
         public event Action<DungeonMob> OnBossSpawned;
         
         private System.Random rnd;
-        public int MobsCount => mobsList.Count-1;
+        public int MobsCount => mobsList.Count;
         private int dungeonMobsCount;
 
         [Inject]

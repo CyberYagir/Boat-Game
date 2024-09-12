@@ -78,9 +78,16 @@ namespace Content.Scripts.IslandGame.Mobs
         {
             var point = Random.insideUnitSphere * radius;
 
-            point.y = 10;
-            if (Physics.Raycast(transform.position + point, Vector3.down, out RaycastHit hit))
+            point.y = radius + 10f;
+
+            if (Physics.Raycast(transform.position + point, Vector3.down, out RaycastHit obstacle, Mathf.Infinity, LayerMask.GetMask("Obstacle")))
             {
+                return GetRandomPointInRange();
+            }
+            
+            if (Physics.Raycast(transform.position + point, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Terrain")))
+            {
+                
                 return hit.point;
             }
 

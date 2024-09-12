@@ -68,7 +68,6 @@ namespace Content.Scripts.BoatGame.Characters.States
             
             if (Agent.TryBuildPath(point, out Vector3 newPoint))
             {
-                if (newPoint == new Vector3(float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity)) return false;
                 Agent.SetDestination(newPoint);
                 Agent.SetTargetPoint(point);
                 return true;
@@ -79,6 +78,23 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         private bool AddMoveFromRaftSubPath()
         {
+            var terrainMask = LayerMask.GetMask("Terrain", "Raft", "Water");
+            var offset = Vector3.up * 50;
+            
+            bool IsPlayerNotOnTerrain(out RaycastHit hit)
+            {
+                if (Physics.Raycast(transform.position + offset, Vector3.down, out hit, Mathf.Infinity, terrainMask, QueryTriggerInteraction.Ignore))
+                {
+                    if (!hit.collider.GetComponent<Terrain>())
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            
+            
             if (Machine.AIMoveManager.NavMesh.GetGraphsCount() > 1)
             {
                 var isOnRaftGraph = IsOnRaftGraph();
@@ -88,35 +104,31 @@ namespace Content.Scripts.BoatGame.Characters.States
                 {
                     if (Machine.BuildService.RaftEndPoint != null)
                     {
-                        var terrainMask = LayerMask.GetMask("Terrain", "Raft", "Water");
-                        var offcet = Vector3.up * 50;
-                        if (Physics.Raycast(transform.position + offcet, Vector3.down, out RaycastHit hit, Mathf.Infinity, terrainMask, QueryTriggerInteraction.Ignore))
+                        if (IsPlayerNotOnTerrain(out RaycastHit hit))
                         {
-                            if (!hit.collider.GetComponent<Terrain>())
+                            if (Physics.Raycast(targetPoint + offset, Vector3.down, out hit, Mathf.Infinity, terrainMask, QueryTriggerInteraction.Ignore))
                             {
-                                if (Physics.Raycast(targetPoint + offcet, Vector3.down, out hit, Mathf.Infinity, terrainMask, QueryTriggerInteraction.Ignore))
+                                var mask = LayerMask.GetMask("Terrain", "Water");
+                                if (( mask & (1 << hit.collider.transform.gameObject.layer)) != 0)
                                 {
-                                    if (hit.collider.transform.gameObject.layer == LayerMask.NameToLayer("Terrain"))
+                                    var raftDelta = (Machine.BuildService.RaftEndPoint.position - Machine.BuildService.Holder.transform.position);
+
+                                    var raftGraph = Machine.AIMoveManager.NavMesh.GetNavMeshByID(NavMeshConstants.IslandRaftGraph) as GridGraph;
+
+                                    tempPoint =
+                                        Machine.BuildService.Holder.position +
+                                        raftDelta.normalized * ((raftGraph.size.magnitude * raftGraph.nodeSize) * 2f);
+
+
+                                    Debug.DrawLine(tempPoint, tempPoint + Vector3.up * 100, Color.green, 5);
+
+                                    if (Physics.Raycast(tempPoint + offset, Vector3.down, out hit, Mathf.Infinity, terrainMask, QueryTriggerInteraction.Ignore))
                                     {
-                                        var raftDelta = (Machine.BuildService.RaftEndPoint.position - Machine.BuildService.Holder.transform.position);
-
-                                        var raftGraph = Machine.AIMoveManager.NavMesh.GetNavMeshByID(NavMeshConstants.IslandRaftGraph) as GridGraph;
-                                        
-                                        tempPoint =
-                                            Machine.BuildService.Holder.position +
-                                            raftDelta.normalized * ((raftGraph.size.magnitude * raftGraph.nodeSize) * 2f);
-
-                                        
-                                        Debug.DrawLine(tempPoint, tempPoint + Vector3.up * 100, Color.green, 5);
-                                        
-                                        if (Physics.Raycast(tempPoint + offcet, Vector3.down, out hit, Mathf.Infinity, terrainMask, QueryTriggerInteraction.Ignore))
-                                        {
-                                            tempPoint = hit.point;
-                                            Agent.SetDestination(tempPoint);
-                                            Agent.SetTargetPoint(tempPoint);
-                                            waitForMoveFromRaft = true;
-                                            return true;
-                                        }
+                                        tempPoint = hit.point;
+                                        Agent.SetDestination(tempPoint);
+                                        Agent.SetTargetPoint(tempPoint);
+                                        waitForMoveFromRaft = true;
+                                        return true;
                                     }
                                 }
                             }

@@ -1,3 +1,4 @@
+using System;
 using Content.Scripts.BoatGame.Characters;
 using UnityEngine;
 
@@ -48,6 +49,11 @@ namespace Content.Scripts.Mobs.Mob.States
         public void GetLastPoint()
         {
             lastPoint = Machine.Spawner.GetRandomPointInRange();
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawSphere(lastPoint, 0.5f);
         }
     }
 }
