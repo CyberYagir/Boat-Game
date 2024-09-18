@@ -28,6 +28,7 @@ namespace Content.Scripts.DungeonGame.Services
         )
 
         {
+            this.saveData = saveData;
             for (int i = 0; i < saveData.Characters.Count; i++)
             {
                 var character = saveData.Characters.GetCharacter(i);
@@ -44,6 +45,7 @@ namespace Content.Scripts.DungeonGame.Services
                         enemiesService
                     ))
                     .With(x => SpawnedCharacters.Add(x))
+                    .With(x => x.PlayerCharacter.NeedManager.OnDeath += AddSoul)
                     .With(x => x.PlayerCharacter.NeedManager.OnDeath += OnDeath)
                     .With(x => x.PlayerCharacter.NeedManager.OnDamaged += CalculateHelp);
             }

@@ -16,6 +16,11 @@ namespace Content.Scripts.BoatGame.UI
             icon.sprite = item;
         }
 
+        public void DrawValues(int value)
+        {
+            count.text = $"{value}";
+        }
+
         public void UpdateItem(int value)
         {
             count.alpha = value < maxValue ? 0.6f : 1;

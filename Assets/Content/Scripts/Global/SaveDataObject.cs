@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.RaftDamagers;
 using Content.Scripts.BoatGame.Services;
-using Content.Scripts.BoatGame.UI;
 using Content.Scripts.Boot;
 using Content.Scripts.IslandGame;
 using Content.Scripts.IslandGame.Scriptable;
@@ -15,6 +14,7 @@ using Content.Scripts.IslandGame.Sources;
 using Content.Scripts.Map;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -847,7 +847,6 @@ namespace Content.Scripts.Global
                     public int ItemIndex => itemIndex;
                 }
                 
-                
                 [SerializeField] private float tickCount, maxTickCount;
                 [SerializeField] private List<SpawnedItem> spawnedItems = new List<SpawnedItem>();
 
@@ -891,6 +890,7 @@ namespace Content.Scripts.Global
             [SerializeField] private float totalSecondsOnRaft;
             [SerializeField] private int islandSeed = 0;
             [SerializeField] private int dungeonSeed = 0;
+            [SerializeField] private bool shopEventCreated;
             [SerializeField] private RaftDamagerData damagersData = new RaftDamagerData(0,0, new List<RaftDamagerData.SpawnedItem>());
             [SerializeField] private WeatherData weathersData = new WeatherData(0, -1, WeatherService.EWeatherType.Сalm);
 
@@ -908,6 +908,13 @@ namespace Content.Scripts.Global
             public float TotalSecondsOnRaft => totalSecondsOnRaft;
 
             public int DungeonSeed => dungeonSeed;
+
+            public bool ShopEventCreated => shopEventCreated;
+
+            public void CreateShopEvent()
+            {
+                shopEventCreated = true;
+            }
 
             public void SetTimePlayed(float value)
             {
@@ -993,7 +1000,6 @@ namespace Content.Scripts.Global
             }
         }
         
-        
         [Serializable]
         public class DungeonsData
         {
@@ -1078,14 +1084,36 @@ namespace Content.Scripts.Global
                 return dungeons.Find(x => x.Seed == dataSeed);
             }
         }
-        
+
+        [Serializable]
+        public class CrossGameData
+        {
+            [SerializeField] private int soulsCount;
+
+            public int SoulsCount => soulsCount;
+
+            [System.NonSerialized] public UnityEvent OnSoulsChanged = new UnityEvent();
+            
+
+            public void AddSoul()
+            {
+                soulsCount++;
+                OnSoulsChanged.Invoke();
+            }
+
+            public CrossGameData Clone()
+            {
+                return (CrossGameData) MemberwiseClone();
+            }
+        }
+
         [SerializeField] private CharactersData charactersData = new CharactersData();
         [SerializeField] private RaftsData raftsData = new RaftsData();
         [SerializeField] private MapData mapData = new MapData();
         [SerializeField] private GlobalData globalData = new GlobalData();
         [SerializeField] private TutorialsData tutorialsData = new TutorialsData();
         [SerializeField] private DungeonsData dungeonsData = new DungeonsData();
-
+        [SerializeField] private CrossGameData crossGameData = new CrossGameData();
 
         public CharactersData Characters => charactersData;
 
@@ -1098,6 +1126,8 @@ namespace Content.Scripts.Global
         public TutorialsData Tutorials => tutorialsData;
 
         public DungeonsData Dungeons => dungeonsData;
+
+        public CrossGameData CrossGame => crossGameData;
 
 
         public override void InstallBindings()
@@ -1178,14 +1208,20 @@ namespace Content.Scripts.Global
 #endif
             
             JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(CreateInstance<SaveDataObject>()), this);
+            
             SaveFile();
 
         }
 
         [Button]
-        public void DeleteFile()
+        public void DeleteFile(bool saveCrossGame)
         {
-
+            string crossGameJson = string.Empty;
+            if (saveCrossGame)
+            {
+                crossGameJson = JsonUtility.ToJson(crossGameData);
+            }
+            
 #if UNITY_EDITOR || UNITY_ANDROID || PLATFORM_STANDALONE_WIN
             var file = GetFilePath();
             if (File.Exists(file))
@@ -1197,6 +1233,13 @@ namespace Content.Scripts.Global
             PlayerPrefs.DeleteAll();
 #endif
             LoadFile();
+
+            if (saveCrossGame)
+            {
+                this.crossGameData = JsonUtility.FromJson<CrossGameData>(crossGameJson);
+            }
+
+            SaveFile();
         }
 
         [Button]

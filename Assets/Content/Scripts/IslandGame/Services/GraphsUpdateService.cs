@@ -132,6 +132,8 @@ namespace Content.Scripts.IslandGame.Services
         {
             for (int i = 0; i < charactersDatas.Count; i++)
             {
+                if (charactersDatas[i].Character == null) continue;
+                
                 var dist = Vector3.Distance(charactersDatas[i].Character.transform.position, raftConverterService.RaftPoint) <= switchRadius * switchRadiusModify;
                 var targetGraph = dist ? raftGraphMask : terrainGraphMask;
                 var constrainInGraph = dist;

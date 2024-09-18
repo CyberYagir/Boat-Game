@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using Content.Scripts.Global;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.Services
 {
     public abstract class CharacterServiceBase : MonoBehaviour
     {
+        protected SaveDataObject saveData;
         public virtual List<PlayerCharacter> GetSpawnedCharacters() => null;
         
         public PlayerCharacter GetClosestCharacter(Vector3 pos, out float distance)
@@ -39,6 +41,12 @@ namespace Content.Scripts.BoatGame.Services
                     sp.Character.SetEffects(sp.ParametersCalculator.GetEffectsData());
                 }
             }
+        }
+
+        protected void AddSoul(Character obj)
+        {
+            saveData.CrossGame.AddSoul();
+            saveData.SaveFile();
         }
     }
 }

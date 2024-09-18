@@ -53,11 +53,13 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UICharactersList charactersList;
         [SerializeField] private UIResourcesCounter resourcesList;
         [SerializeField] private UIStoragesCounter storagesCounter;
+        [SerializeField] private UISoulsCounter soulsCounter;
         [SerializeField] private UIFurnaceWindow furnaceWindow;
         [SerializeField] private UIVillageOptionsWindow villageWindow;
         [SerializeField] private UILoreScrollWindow loreScrollWindow;
         [SerializeField] private RenameIslandWindow renameIslandWindow;
         [SerializeField] private UIGetScrollWindow getScrollWindow;
+        [SerializeField] private UISoulsShopWindow soulsShopWindow;
         
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
         
@@ -105,7 +107,8 @@ namespace Content.Scripts.BoatGame.Services
             renameIslandWindow.Init(saveDataObject);
             getScrollWindow.Init(gameDataObject, resourcesService);
             charactersList?.Init(characterService, tickService, selectionService);
-            
+            soulsCounter.Init(saveDataObject);
+            soulsShopWindow.Init(gameDataObject);
             
             if (saveDataObject.Global.isOnIsland)
             {
@@ -135,7 +138,7 @@ namespace Content.Scripts.BoatGame.Services
 
             potionsList.Init(resourcesService, selectionService, characterService, charactersList, scenesService);
 
-            windowsManager.Init(this, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow);
+            windowsManager.Init(this, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow, soulsShopWindow);
             
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
             resourcesService.OnChangeResources += OnChangeResources;
@@ -143,6 +146,13 @@ namespace Content.Scripts.BoatGame.Services
 
             ChangeCharacter(selectionService.SelectedCharacter);
             
+        }
+
+
+        [Button]
+        public void OpenSoulsWindow()
+        {
+            soulsShopWindow.ShowWindow();
         }
 
         private void OnChangeResources()

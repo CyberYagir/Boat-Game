@@ -15,7 +15,6 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private List<PlayerCharacter> spawnedCharacters;
         [SerializeField] private bool buildNavMeshAfterCharacters = true;
         private SelectionService selectionService;
-        private SaveDataObject saveData;
         private INavMeshProvider navMeshProvider;
 
         public List<PlayerCharacter> SpawnedCharacters => spawnedCharacters;
@@ -59,6 +58,7 @@ namespace Content.Scripts.BoatGame.Services
                         saveData
                     ))
                     .With(x => SpawnedCharacters.Add(x))
+                    .With(x => x.NeedManager.OnDeath += AddSoul)
                     .With(x => x.NeedManager.OnDeath += OnDeath)
                     .With(x => x.GetComponent<PlayerCharacterTutorial>()?.Init(gameDataObject, this.saveData));
             }
@@ -79,7 +79,7 @@ namespace Content.Scripts.BoatGame.Services
         public override List<PlayerCharacter> GetSpawnedCharacters() => spawnedCharacters;
         private void OnDeath(Character target)
         {
-            SpawnedCharacters.RemoveAll(x => x == null || x.NeedManager.IsDead);
+            SpawnedCharacters.RemoveAll(x => x.Character == target);
             if (SpawnedCharacters.Count != 0)
             {
                 selectionService.ChangeCharacter(SpawnedCharacters[0]);

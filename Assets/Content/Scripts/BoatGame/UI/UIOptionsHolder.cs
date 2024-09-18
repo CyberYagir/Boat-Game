@@ -45,7 +45,7 @@ namespace Content.Scripts.BoatGame.UI
 
             private void SetNotLoggedVisuals()
             {
-                
+
                 authButton.interactable = true;
                 text.text = "Authorize";
                 loadingIcon.gameObject.SetActive(false);
@@ -101,7 +101,7 @@ namespace Content.Scripts.BoatGame.UI
             {
                 authButton.interactable = playerAuthService.IsAuthed();
             }
-            
+
             public void Discard()
             {
                 playerAuthService.OnLoggedStart -= UpdateButtonState;
@@ -120,7 +120,7 @@ namespace Content.Scripts.BoatGame.UI
             }
         }
 
-        [SerializeField] private RectTransform withStoragePos, withoutStoragePos;
+        [SerializeField] private RectTransform withStoragePos, withoutStoragePos, withStorageAndSouls, withSoulsOnly;
         [SerializeField] private RectTransform button;
         [SerializeField] private AnimatedWindow window;
         [SerializeField] private AnimatedWindow downloadWindow;
@@ -130,7 +130,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private Button logoutButton;
         [SerializeField] private TooltipDataObject authorizeTipObject;
         [SerializeField] private UITooltip uiToolTip;
-        
+
         private PlayerAuthService authService;
         private ISaveServiceBase saveService;
         private CloudService cloudService;
@@ -152,8 +152,8 @@ namespace Content.Scripts.BoatGame.UI
 
             authButton.Init(authService);
             cloudButton.Init(authService);
-            
-            
+
+
             authService.OnLoggedIn += AuthServiceOnOnLoggedIn;
             authService.OnLoggedFailed += AuthServiceOnOnLoggedFailed;
 
@@ -165,7 +165,7 @@ namespace Content.Scripts.BoatGame.UI
             {
                 AuthServiceOnOnLoggedFailed();
             }
-            
+
             uiToolTip.Init(authorizeTipObject);
         }
 
@@ -205,9 +205,10 @@ namespace Content.Scripts.BoatGame.UI
             cloudButton.Active(true);
             saveToCloudButton.interactable = true;
         }
+
         private async void DownloadFromCloud()
         {
-            
+
             saveToCloudButton.interactable = false;
             downloadWindow.ShowWindow();
             try
@@ -219,9 +220,10 @@ namespace Content.Scripts.BoatGame.UI
             catch (Exception e)
             {
                 downloadWindow.CloseWindow();
-                
+
                 messageBoxManager.ShowMessageBox("The download ended with an error.", null, "Ok", "_disabled");
             }
+
             saveToCloudButton.interactable = true;
         }
 
@@ -249,15 +251,23 @@ namespace Content.Scripts.BoatGame.UI
         {
             window.ShowWindow();
         }
-        
+
         public void HideWindow()
         {
             window.CloseWindow();
         }
 
-        private void UpdateButtonPos(bool isVisible)
+        private void UpdateButtonPos(bool storageVisible)
         {
-            if (isVisible)
+            if (storageVisible && saveDataObject.CrossGame.SoulsCount > 0)
+            {
+                button.anchoredPosition = withStorageAndSouls.anchoredPosition;
+            }else
+            if (!storageVisible && saveDataObject.CrossGame.SoulsCount > 0)
+            {
+                button.anchoredPosition = withSoulsOnly.anchoredPosition;
+            }
+            else if (storageVisible)
             {
                 button.anchoredPosition = withStoragePos.anchoredPosition;
             }
@@ -266,6 +276,6 @@ namespace Content.Scripts.BoatGame.UI
                 button.anchoredPosition = withoutStoragePos.anchoredPosition;
             }
         }
-        
+
     }
 }

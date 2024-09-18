@@ -11,6 +11,9 @@ namespace Content.Scripts.BoatGame.UI
 {
     public class UIDeathWindow : AnimatedWindow
     {
+        [SerializeField] private UITooltip soulsTooltip;
+        [SerializeField] private TooltipDataObject soulsTooltipText;
+        [SerializeField] private TMP_Text soulsCounter;
         [SerializeField] private TMP_Text hintText;
         [SerializeField] private TextAsset text;
         [SerializeField] private List<string> hints;
@@ -23,6 +26,10 @@ namespace Content.Scripts.BoatGame.UI
             this.characterService = characterService;
             this.scenesService = scenesService;
             this.saveDataObject = saveDataObject;
+            
+            soulsTooltip.Init(soulsTooltipText);
+            soulsCounter.text = 000.ToString("000");
+            
             if (characterService.GetSpawnedCharacters().Count == 0)
             {
                 ShowWindow();
@@ -43,10 +50,11 @@ namespace Content.Scripts.BoatGame.UI
                     hintText.text = hints.GetRandomItem();
                     hintText.SetAlpha(0);
                     hintText.DOFade(0.5f, 2f).SetDelay(1);
+                    DOVirtual.Float(0, 1f, 1f, delegate(float value) { soulsCounter.text = Mathf.RoundToInt(saveDataObject.CrossGame.SoulsCount * value).ToString("000"); }).SetDelay(0.5f);
                 });
 
 
-                saveDataObject.DeleteFile();
+                saveDataObject.DeleteFile(true);
                 saveDataObject.LoadFile();
             }
         }

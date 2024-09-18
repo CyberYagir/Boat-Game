@@ -135,6 +135,7 @@ namespace Content.Scripts.Global
         [SerializeField] private List<RandomStructureMaterialsBase.MatsByBiome> structuresMaterials;
         [SerializeField] private List<RandomStructureMaterialsBase.MatsByBiome> structuresRoofMaterials;
         [SerializeField] private List<ActionsDataSO.IconsKeys<EResourceTypes>> resourcesIcons;
+        [SerializeField] private List<SoulsResourceContainerSO> soulsShopContainers;
 
         public List<Material> SkinColors => skinColors;
 
@@ -164,6 +165,8 @@ namespace Content.Scripts.Global
         public TradesDataObject TradesData => tradesData;
 
         public TextAsset PlotLines => plotLines;
+
+        public List<SoulsResourceContainerSO> SoulsShopContainers => soulsShopContainers;
 
 
         public ItemObject GetItem(string id)

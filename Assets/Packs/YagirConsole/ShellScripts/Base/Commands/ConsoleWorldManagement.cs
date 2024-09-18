@@ -50,7 +50,7 @@ namespace ConsoleShell
             {
                 var saveData = Resources.Load<SaveDataObject>("SaveData");
 
-                saveData.DeleteFile();
+                saveData.DeleteFile(false);
 
                 SceneManager.LoadScene("Boot");
             });

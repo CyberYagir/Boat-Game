@@ -143,7 +143,7 @@ namespace Content.Scripts.BoatGame.UI
                 selectedCharacter = null;
             }
             
-            
+            saveData.CrossGame.AddSoul();
             villageData.KillSlave(info.Character.Uid);
             villageData.AddSocialRating(info.Cost / 2);
             
