@@ -53,7 +53,7 @@ namespace Content.Scripts.IslandGame.Scriptable
                 max = maxTrades;
             }
             
-            var count = rnd.Next((int)(max/3f), max);
+            var count = rnd.Next((int)(max/2f), max);
             for (int i = 0; i < count; i++)
             {
                 TradeOfferObject item = null;

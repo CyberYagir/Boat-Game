@@ -74,6 +74,7 @@ namespace Content.Scripts.BoatGame
                     yield return new WaitForSecondsRealtime(1f);
 
                     effectsBonuses.Clear();
+                    unactiveEffects.Clear();
                     
                     foreach (var active in activeEffects)
                     {

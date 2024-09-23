@@ -33,7 +33,6 @@ namespace Content.Scripts.BoatGame.Services
             {
                 raftsData.AddSpawnedRaft(raftBuildService.SpawnedRafts[i]);
             }
-
             saveDataObject.SetRaftsData(raftsData);
         }
 

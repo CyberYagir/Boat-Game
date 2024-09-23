@@ -19,6 +19,7 @@ namespace Content.Scripts.BoatGame.Characters.States
             targetDroppedItem = null;
             buildTimer = 0;
         }
+        
 
         public override void GetTargetAndStart()
         {
@@ -88,6 +89,8 @@ namespace Content.Scripts.BoatGame.Characters.States
             {
                 targetDroppedItem.SetKinematic(false);
             }
+            
+            print("End State");
         }
     }
 }

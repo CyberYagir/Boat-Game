@@ -41,6 +41,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIRewindButton rewindButton;
         [SerializeField] private UIExitIslandButton exitIslandButton;
         [SerializeField] private UIMapButton mapButton;
+        [SerializeField] private UIPlayerStorageButton playerStorageButton;
         [SerializeField] private UIStopBuildButton stopBuildButton;
         [SerializeField] private UIOptionsHolder optionsHolder;
         [SerializeField] private UIChestShow chestShow;
@@ -60,6 +61,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private RenameIslandWindow renameIslandWindow;
         [SerializeField] private UIGetScrollWindow getScrollWindow;
         [SerializeField] private UISoulsShopWindow soulsShopWindow;
+        [SerializeField] private UIPlayerInventoryWindow playerInventoryWindow;
         
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
         
@@ -98,6 +100,7 @@ namespace Content.Scripts.BoatGame.Services
             mapButton.Init(raftBuildService, scenesService, saveService);
             stopBuildButton.Init(tickService, gameStateService, this);
             exitIslandButton.Init(messageBoxManager, saveService, scenesService);
+            playerStorageButton.Init(saveDataObject);
             optionsHolder.Init(storagesCounter, authService, saveService, cloudService, scenesService, messageBoxManager, saveDataObject);
             chestShow.Init(gameDataObject, selectionService);
             craftsWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
@@ -108,7 +111,10 @@ namespace Content.Scripts.BoatGame.Services
             getScrollWindow.Init(gameDataObject, resourcesService);
             charactersList?.Init(characterService, tickService, selectionService);
             soulsCounter.Init(saveDataObject);
-            soulsShopWindow.Init(gameDataObject);
+            soulsShopWindow.Init(gameDataObject, saveDataObject, selectionService);
+            playerInventoryWindow
+                .With(x => x.Init(resourcesService))
+                .With(x => x.SetPlayerStorage(saveDataObject, gameDataObject));
             
             if (saveDataObject.Global.isOnIsland)
             {
@@ -138,7 +144,7 @@ namespace Content.Scripts.BoatGame.Services
 
             potionsList.Init(resourcesService, selectionService, characterService, charactersList, scenesService);
 
-            windowsManager.Init(this, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow, soulsShopWindow);
+            windowsManager.Init(this, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow, soulsShopWindow, playerInventoryWindow);
             
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
             resourcesService.OnChangeResources += OnChangeResources;

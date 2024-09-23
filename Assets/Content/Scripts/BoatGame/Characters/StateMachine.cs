@@ -29,6 +29,7 @@ namespace Content.Scripts.BoatGame.Characters
         HitAWoman,
         LoreView,
         Roll,
+        SoulsShop
     }
 
     

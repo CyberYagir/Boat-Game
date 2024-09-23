@@ -600,7 +600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7097879755234075192, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
       propertyPath: m_Name
-      value: Log Variant
+      value: IsDrop_Log Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7097879755234075192, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
       propertyPath: m_Layer
@@ -628,6 +628,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7097879755234075192, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
       insertIndex: -1
       addedObject: {fileID: -5574961613765235543}
+    - targetCorrespondingSourceObject: {fileID: 7097879755234075192, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3911407449820813203}
   m_SourcePrefab: {fileID: 100100000, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
 --- !u!1 &468685747796819286 stripped
 GameObject:
@@ -647,6 +650,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 14
+--- !u!114 &3911407449820813203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468685747796819286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaf0ed6bd2eb5da48b3e5652050cde99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  craftItem: {fileID: 11400000, guid: 6c002eaf457e5ae42b4c122a41c4a47f, type: 2}
 --- !u!4 &6905889947288164117 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4311916691997263995, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}

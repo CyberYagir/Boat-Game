@@ -14,664 +14,1095 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charactersData:
     characters:
-    - name: "Sasha\r"
-      uid: 1ee7361a-9856-4214-ae0c-329fb8fd567e
+    - name: "Richard\r"
+      uid: 53a60d05-bc0d-4870-8857-f394a91198f0
       skillsData:
         xp: 3
-        scores: 0
-        level: 0
+        scores: 1
+        level: 10
         skills:
         - skillID: 20b3171e-8a60-4361-bfe4-c12a4b154163
-          value: 2
-        - skillID: bd91198f-eeab-4ae1-acef-2551fa57d4d9
-          value: 2
+          value: 4
+        - skillID: 3b8443e2-2fef-4110-95aa-d61d78459f6f
+          value: 3
         - skillID: f3b559d4-e0e2-42ef-b5d1-71101d0e10ca
+          value: 6
+        - skillID: 8518e033-cd1f-4e96-87e9-7e0e788eab51
           value: 1
       parametersData:
         health: 100
-        hunger: 62.18299
-        thirsty: 52.8416
+        hunger: 83.36345
+        thirsty: 73.46693
       equipmentData:
-        helmetID: 
-        armorID: 
-        weaponID: 
+        helmetID: b09574fc-706e-41da-9eca-320bd1f4638d
+        armorID: 54ba5fca-4720-4315-94bc-0d887d48ee5a
+        weaponID: 90a2aa4d-5ac9-4c5d-bab1-cbc94aa9c0be
       effectsData:
         effectsList: []
-      skinColorID: 2
-      hatID: 2
+      skinColorID: 4
+      hatID: 1
   raftsData:
     rafts:
-    - uid: efe32fea-b30a-4057-9dc0-da9f2a5ab9b8
+    - uid: e8618d4a-95e8-404a-99d8-9bbc5fe30878
       pos: {x: 0, y: 0, z: 0}
-      health: 100
+      health: 100.43671
       raftType: 0
-    - uid: 76612a77-b7f4-4368-b0e0-043bdf659a57
+    - uid: 739d44bc-e761-4a47-80e4-422a27dac3cc
       pos: {x: 0, y: 0, z: 1}
       health: 100
       raftType: 0
-    - uid: 09c6fc61-7b8b-4f0d-9bc7-e4f75651e619
+    - uid: da8075d1-feef-45c3-bac1-990d74b13e50
       pos: {x: 1, y: 0, z: 0}
       health: 100
       raftType: 0
-    - uid: 83ecdaef-8dfe-4e3b-b4a8-58dbd87a2a04
+    - uid: 176c3e75-0a09-48e8-965c-be3da74a665f
       pos: {x: 1, y: 0, z: 1}
       health: 100
       raftType: 1
+    - uid: 3f120a7a-fd6d-4018-aac1-7a0f8387996a
+      pos: {x: 2, y: 0, z: 1}
+      health: 100.92976
+      raftType: 1
+    - uid: 23d364eb-0bde-4303-85a3-1ddf4297471a
+      pos: {x: -1, y: 0, z: 1}
+      health: 100
+      raftType: 3
+    - uid: 74550cc7-de78-492d-94ce-39db91d1eb77
+      pos: {x: 0, y: 0, z: 2}
+      health: 100
+      raftType: 4
+    - uid: e621b4db-a255-464e-be53-92051a96bcbe
+      pos: {x: -1, y: 0, z: 2}
+      health: 100
+      raftType: 6
+    - uid: 1624648e-4fcf-46e1-9f87-87077e093c05
+      pos: {x: -1, y: 0, z: 0}
+      health: 100
+      raftType: 1
+    - uid: cb47a40d-b4a1-4674-9d3a-4e96591d62b4
+      pos: {x: -2, y: 0, z: 0}
+      health: 100
+      raftType: 1
+    - uid: 1d3c6d85-7260-404f-9cb6-860a1cdb7ece
+      pos: {x: -2, y: 0, z: 1}
+      health: 100
+      raftType: 1
     storages:
-    - raftUid: 83ecdaef-8dfe-4e3b-b4a8-58dbd87a2a04
-      storagesData: []
-    furnaces: []
+    - raftUid: 176c3e75-0a09-48e8-965c-be3da74a665f
+      storagesData:
+      - itemID: f6641f47-0e9f-4a5a-9de2-37e3b844c08b
+        count: 1
+      - itemID: 9d3428e6-2598-47e2-b86f-7ed3818ec54f
+        count: 8
+      - itemID: bf41e758-4e92-47f9-8c14-9ff5dc088e3d
+        count: 1
+      - itemID: 6b24a1b5-0228-416d-8807-940de0fc5144
+        count: 1
+      - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 1
+      - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
+        count: 0
+      - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
+        count: 0
+      - itemID: 47b167db-86da-4574-92e5-c52823934ba0
+        count: 0
+      - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
+        count: 3
+      - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
+        count: 1
+    - raftUid: 3f120a7a-fd6d-4018-aac1-7a0f8387996a
+      storagesData:
+      - itemID: f6641f47-0e9f-4a5a-9de2-37e3b844c08b
+        count: 3
+      - itemID: 9d3428e6-2598-47e2-b86f-7ed3818ec54f
+        count: 1
+      - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 1
+      - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
+        count: 7
+      - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
+        count: 3
+      - itemID: 47b167db-86da-4574-92e5-c52823934ba0
+        count: 2
+      - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
+        count: 1
+      - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
+        count: 0
+    - raftUid: 1624648e-4fcf-46e1-9f87-87077e093c05
+      storagesData:
+      - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 1
+      - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
+        count: 7
+      - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
+        count: 3
+      - itemID: 47b167db-86da-4574-92e5-c52823934ba0
+        count: 0
+    - raftUid: cb47a40d-b4a1-4674-9d3a-4e96591d62b4
+      storagesData:
+      - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 1
+      - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
+        count: 5
+      - itemID: 47b167db-86da-4574-92e5-c52823934ba0
+        count: 3
+      - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
+        count: 3
+      - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
+        count: 3
+      - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
+        count: 0
+    - raftUid: 1d3c6d85-7260-404f-9cb6-860a1cdb7ece
+      storagesData:
+      - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 2
+      - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
+        count: 1
+      - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
+        count: 2
+      - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
+        count: 8
+      - itemID: 47b167db-86da-4574-92e5-c52823934ba0
+        count: 3
+    furnaces:
+    - raftUid: e621b4db-a255-464e-be53-92051a96bcbe
+      smeltItem:
+        itemID: 
+        count: 0
+      fuelItem:
+        itemID: 
+        count: 0
+      resultItem:
+        itemID: 
+        count: 0
+      progressTicks: 0
+      fuelTicks: 0
+      maxFuelTicks: 0
     waterSources: []
     raftsInBuild: []
   mapData:
-    worldSeed: 748445887
+    worldSeed: -789295420
     islands:
     - islandName: 
-      islandPos: {x: 31, y: 73}
-      islandSeed: -1272496042
+      islandPos: {x: 24, y: 376}
+      islandSeed: 1050912826
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 34, y: 190}
-      islandSeed: -1720566007
+      islandPos: {x: 25, y: 76}
+      islandSeed: 1824014027
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 39, y: 112}
-      islandSeed: -209340520
+      islandPos: {x: 25, y: 291}
+      islandSeed: -798459768
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 40, y: 82}
-      islandSeed: -2077892944
+      islandPos: {x: 37, y: 313}
+      islandSeed: 479763588
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 40, y: 228}
-      islandSeed: 1914987016
+      islandPos: {x: 42, y: 316}
+      islandSeed: -1905007837
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 51, y: 280}
-      islandSeed: -2130664400
+      islandPos: {x: 69, y: 325}
+      islandSeed: 1259826119
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 52, y: 177}
-      islandSeed: -1875992797
+      islandPos: {x: 73, y: 252}
+      islandSeed: 754073534
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 54, y: 121}
-      islandSeed: 86194189
+      islandPos: {x: 79, y: 177}
+      islandSeed: -1907569977
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 57, y: 181}
-      islandSeed: -1663165396
+      islandPos: {x: 82, y: 325}
+      islandSeed: 76359698
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 58, y: 99}
-      islandSeed: -863024136
+      islandPos: {x: 84, y: 102}
+      islandSeed: -1661105414
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 58, y: 319}
-      islandSeed: 1922073542
+      islandPos: {x: 91, y: 258}
+      islandSeed: -1490827391
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 64, y: 142}
-      islandSeed: -191764551
+      islandPos: {x: 97, y: 114}
+      islandSeed: 1916850660
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 67, y: 154}
-      islandSeed: -583707975
+      islandPos: {x: 97, y: 147}
+      islandSeed: 1865401605
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 70, y: 135}
-      islandSeed: -1237294507
+      islandPos: {x: 111, y: 117}
+      islandSeed: -2098972004
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 76, y: 37}
-      islandSeed: 85233621
+      islandPos: {x: 114, y: 9}
+      islandSeed: 7198255
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 81, y: 145}
-      islandSeed: 987164248
+      islandPos: {x: 129, y: 87}
+      islandSeed: -1616064268
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 88, y: 202}
-      islandSeed: 386452621
+      islandPos: {x: 141, y: 84}
+      islandSeed: 1241150285
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 91, y: 277}
-      islandSeed: 2146081565
+      islandPos: {x: 145, y: 198}
+      islandSeed: -1128737586
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 91, y: 346}
-      islandSeed: 653311964
+      islandPos: {x: 145, y: 204}
+      islandSeed: -1793482449
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 97, y: 60}
-      islandSeed: 1086688164
+      islandPos: {x: 162, y: 208}
+      islandSeed: 1303717215
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 100, y: 34}
-      islandSeed: -2050506569
+      islandPos: {x: 175, y: 348}
+      islandSeed: 915041117
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 102, y: 46}
-      islandSeed: 740813902
+      islandPos: {x: 192, y: 225}
+      islandSeed: 1947489828
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 102, y: 52}
-      islandSeed: 1321086464
+      islandPos: {x: 195, y: 150}
+      islandSeed: 829820699
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 102, y: 168}
-      islandSeed: 1079191870
+      islandPos: {x: 199, y: 393}
+      islandSeed: -1079229485
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 105, y: 346}
-      islandSeed: -1516768454
+      islandPos: {x: 202, y: 286}
+      islandSeed: 305167961
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 106, y: 157}
-      islandSeed: -208538976
+      islandPos: {x: 207, y: 318}
+      islandSeed: -615411068
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 118, y: 127}
-      islandSeed: 211064300
+      islandPos: {x: 210, y: 360}
+      islandSeed: 76793136
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 121, y: 130}
-      islandSeed: 821097113
+      islandPos: {x: 216, y: 162}
+      islandSeed: -774766710
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 124, y: 139}
-      islandSeed: 400300340
+      islandPos: {x: 225, y: 52}
+      islandSeed: -2104270588
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 124, y: 354}
-      islandSeed: -988824752
+      islandPos: {x: 225, y: 196}
+      islandSeed: -1740721021
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 132, y: 337}
-      islandSeed: 42155610
+      islandPos: {x: 225, y: 267}
+      islandSeed: -989520748
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 133, y: 76}
-      islandSeed: 1282267818
+      islandPos: {x: 237, y: 76}
+      islandSeed: -435143995
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 135, y: 169}
-      islandSeed: 1573459004
+      islandPos: {x: 237, y: 291}
+      islandSeed: -1697301395
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 135, y: 313}
-      islandSeed: -2115290361
+      islandPos: {x: 265, y: 93}
+      islandSeed: 1628809532
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 136, y: 33}
-      islandSeed: 1813843123
+      islandPos: {x: 270, y: 229}
+      islandSeed: -785911067
       removedTrees: []
       droppedItems: []
       villagesData: []
-    - islandName: 
-      islandPos: {x: 136, y: 61}
-      islandSeed: -864082360
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 138, y: 223}
-      islandSeed: -1130266292
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 150, y: 304}
-      islandSeed: 423982382
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 157, y: 79}
-      islandSeed: -1601337940
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 157, y: 292}
-      islandSeed: -2134498009
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 159, y: 37}
-      islandSeed: -1871736533
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 163, y: 268}
-      islandSeed: 2143342634
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 166, y: 292}
-      islandSeed: -1253174677
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 166, y: 300}
-      islandSeed: -1230091506
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 168, y: 289}
-      islandSeed: -987979398
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 178, y: 343}
-      islandSeed: -1902678275
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 180, y: 172}
-      islandSeed: -880939881
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 193, y: 349}
-      islandSeed: 413683648
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 196, y: 316}
-      islandSeed: -1364854328
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 204, y: 114}
-      islandSeed: 88176066
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 219, y: 54}
-      islandSeed: 1270928371
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 235, y: 31}
-      islandSeed: 2108638377
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 244, y: 88}
-      islandSeed: 2076307321
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 246, y: 171}
-      islandSeed: -214248851
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 247, y: 106}
-      islandSeed: -51860570
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 249, y: 142}
-      islandSeed: -463103364
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 249, y: 190}
-      islandSeed: 87987064
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 249, y: 217}
-      islandSeed: 90908436
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 253, y: 319}
-      islandSeed: -2028392652
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 255, y: 228}
-      islandSeed: -236253981
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 256, y: 24}
-      islandSeed: -1277850350
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 258, y: 330}
-      islandSeed: 966108876
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 265, y: 277}
-      islandSeed: -1471735666
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 267, y: 193}
-      islandSeed: -1963066017
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 273, y: 91}
-      islandSeed: -1147114215
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 277, y: 265}
-      islandSeed: -570885588
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 280, y: 33}
-      islandSeed: -454965979
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 282, y: 154}
-      islandSeed: 1344972615
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 285, y: 48}
-      islandSeed: -887773911
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 289, y: 142}
-      islandSeed: -560991255
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 291, y: 316}
-      islandSeed: 410949229
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 292, y: 286}
-      islandSeed: -2007534384
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 300, y: 43}
-      islandSeed: -816412751
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 300, y: 258}
-      islandSeed: 22706199
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 303, y: 202}
-      islandSeed: 192352787
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 312, y: 60}
-      islandSeed: 1205097397
-      removedTrees: []
-      droppedItems: []
-      villagesData: []
-    - islandName: 
-      islandPos: {x: 312, y: 316}
-      islandSeed: 550041283
-      removedTrees: []
+    - islandName: Stone
+      islandPos: {x: 271, y: 30}
+      islandSeed: -249301813
+      removedTrees:
+      - {x: 89, y: 344}
+      - {x: 176, y: 344}
+      - {x: 150, y: 279}
+      - {x: 362, y: 276}
+      - {x: 402, y: 223}
+      - {x: 362, y: 176}
+      - {x: 362, y: 166}
+      - {x: 371, y: 132}
+      - {x: 345, y: 81}
+      - {x: 320, y: 109}
+      - {x: 276, y: 125}
+      - {x: 167, y: 168}
+      - {x: 135, y: 167}
+      - {x: 131, y: 192}
+      - {x: 116, y: 184}
+      - {x: 159, y: 192}
+      - {x: 182, y: 175}
+      - {x: 199, y: 175}
+      - {x: 203, y: 184}
+      - {x: 218, y: 192}
+      - {x: 209, y: 208}
+      - {x: 177, y: 252}
+      - {x: 167, y: 262}
+      - {x: 116, y: 271}
+      - {x: 132, y: 251}
+      - {x: 370, y: 294}
+      - {x: 344, y: 293}
+      - {x: 346, y: 326}
+      - {x: 177, y: 293}
       droppedItems: []
-      villagesData: []
+      villagesData:
+      - uid: 513fce39-f09f-09ed-aaae-191f056d4512
+        socialRating: 802
+        villagers:
+        - uid: 76d60770-7df4-ea77-a766-2dc5d11c2800
+          isDead: 0
+        - uid: 20ce3da4-81be-30d2-5791-bab738bb929a
+          isDead: 0
+        - uid: 4a149d6d-f048-7732-fee5-3a47df59b26f
+          isDead: 0
+        - uid: e18486ae-7b9e-22e1-394b-869abcda576a
+          isDead: 0
+        - uid: b99cc6a0-a335-244c-c7da-d6d09924bbeb
+          isDead: 0
+        - uid: 7ca6986e-7add-c894-cdcb-596cdee2c0b3
+          isDead: 0
+        - uid: b160d143-a8a5-167d-40e8-af6fbf2de7db
+          isDead: 0
+        - uid: bffc4d60-0633-b811-82ec-9e1405c80f39
+          isDead: 0
+        - uid: c295faad-3f6e-9d74-647a-1ba8b1d674aa
+          isDead: 0
+        - uid: 2f5f1fc3-e3ca-b49c-2cd8-fd3ac68ed1c8
+          isDead: 0
+        slaves: []
     - islandName: 
-      islandPos: {x: 315, y: 48}
-      islandSeed: -1409954073
-      removedTrees: []
+      islandPos: {x: 297, y: 325}
+      islandSeed: -1175606703
+      removedTrees:
+      - {x: 448, y: 326}
+      - {x: 454, y: 319}
+      - {x: 440, y: 312}
+      - {x: 439, y: 303}
+      - {x: 438, y: 292}
+      - {x: 457, y: 294}
+      - {x: 466, y: 260}
+      - {x: 440, y: 243}
+      - {x: 423, y: 243}
+      - {x: 424, y: 209}
+      - {x: 439, y: 260}
+      - {x: 431, y: 261}
+      - {x: 421, y: 260}
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 324, y: 246}
-      islandSeed: 1820064055
+      islandPos: {x: 298, y: 331}
+      islandSeed: -266543770
       removedTrees: []
       droppedItems: []
-      villagesData: []
+      villagesData:
+      - uid: d47ad6a3-97ce-1bea-4a40-b68bc98d85cd
+        socialRating: 0
+        villagers:
+        - uid: deed3d9c-3e80-da00-29c1-ec583af7fb21
+          isDead: 0
+        - uid: 961dc212-302f-3cc3-ac33-b91870af53c1
+          isDead: 0
+        - uid: 9d3b4eef-a3be-667a-67db-3b538267536c
+          isDead: 0
+        - uid: f3cd7f9b-9ee7-6e26-bb6b-e9d9bfface6e
+          isDead: 0
+        - uid: f78c0682-7f39-b38e-6e2b-baf923a0419b
+          isDead: 0
+        - uid: 4fb7e57c-b39d-a09e-a449-e4140d41210e
+          isDead: 0
+        - uid: 2c6f42d4-3384-0359-1a4f-604485f12557
+          isDead: 0
+        slaves: []
     - islandName: 
-      islandPos: {x: 325, y: 334}
-      islandSeed: 539308215
-      removedTrees: []
+      islandPos: {x: 319, y: 42}
+      islandSeed: 1781599204
+      removedTrees:
+      - {x: 348, y: 192}
+      - {x: 337, y: 216}
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 331, y: 76}
-      islandSeed: 216492546
+      islandPos: {x: 321, y: 214}
+      islandSeed: 1498533109
       removedTrees: []
       droppedItems: []
       villagesData: []
+    - islandName: Village
+      islandPos: {x: 324, y: 27}
+      islandSeed: 1018327786
+      removedTrees:
+      - {x: 292, y: 217}
+      - {x: 294, y: 218}
+      - {x: 287, y: 219}
+      - {x: 288, y: 210}
+      - {x: 283, y: 201}
+      - {x: 321, y: 226}
+      - {x: 295, y: 284}
+      - {x: 261, y: 302}
+      - {x: 260, y: 302}
+      - {x: 245, y: 295}
+      - {x: 293, y: 235}
+      - {x: 328, y: 259}
+      - {x: 234, y: 301}
+      - {x: 329, y: 108}
+      - {x: 345, y: 115}
+      - {x: 321, y: 313}
+      - {x: 335, y: 304}
+      - {x: 302, y: 311}
+      - {x: 285, y: 338}
+      - {x: 293, y: 345}
+      - {x: 296, y: 345}
+      - {x: 294, y: 348}
+      - {x: 295, y: 348}
+      - {x: 284, y: 354}
+      - {x: 311, y: 347}
+      - {x: 251, y: 422}
+      - {x: 302, y: 404}
+      droppedItems:
+      - pos: {x: 24.941803, y: 11.732712, z: -115.78989}
+        rot: {x: 359.74557, y: 0.5427164, z: 0.6665669}
+        itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
+        dropID: ed0a15f0d6efc7d0-7cdc18d60a97dffa
+      - pos: {x: 49.835327, y: 8.844383, z: -53.587067}
+        rot: {x: 0.6402524, y: 359.8555, z: 0.42633063}
+        itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
+        dropID: 6c2997d543a689c4-fce66be7b209c4f0
+      - pos: {x: 36.060608, y: 17.51027, z: -110.75383}
+        rot: {x: 0.003901857, y: 359.5202, z: 359.9546}
+        itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
+        dropID: 67c612107ddeab4a-d92258076fccdd02
+      - pos: {x: 24.53479, y: 2.4304001, z: 32.10369}
+        rot: {x: 0, y: 0, z: 0}
+        itemID: 0ff8c361-acdf-4297-96ad-9293834dcb92
+        dropID: 459b80f5312c2f68-6ac985a3930f3a94
+      villagesData:
+      - uid: 1e4e0920-4e93-66ed-6139-9c8082f9fff8
+        socialRating: 3092
+        villagers:
+        - uid: 3e29c704-34e1-212e-65d1-bcf91eb28691
+          isDead: 0
+        - uid: 59d0653f-8fcb-122b-8228-1b5221de1089
+          isDead: 0
+        - uid: 15ade88b-8a5d-a5d6-a1c6-f1c00a9b5da0
+          isDead: 0
+        - uid: b3dbf847-0fd2-2d15-cc21-d51dd7a8db3f
+          isDead: 0
+        - uid: 0b6a8215-70b8-1b1b-14eb-1bfa404c4e39
+          isDead: 0
+        - uid: 26642549-d8a9-10db-a44f-1ce34585525a
+          isDead: 0
+        - uid: ff646dd4-9654-aa1a-6d7c-775849e81ecd
+          isDead: 0
+        slaves:
+        - uid: e554ee2f-fd14-4759-73ac-913a023c8e34
+          lastTimeStamp: 09/22/2024 11:46:45
+          targetStamina: 97.333336
+          isWorking: 0
+          isStorage: 0
+          isDead: 1
+          transferData:
+            seed: -70877
+            islandLevel: 2
+            transferState: 0
+          activities: []
+          storageItems: []
+        - uid: 89334a84-c18b-386a-9daa-807af5d5c90e
+          lastTimeStamp: 09/22/2024 11:45:21
+          targetStamina: 100
+          isWorking: 1
+          isStorage: 0
+          isDead: 0
+          transferData:
+            seed: -3409
+            islandLevel: 2
+            transferState: 0
+          activities:
+          - activityID: 7e5a36a5-a4bc-4bf2-834c-c8b906243a01
+            modify: 1
+            isActive: 1
+          - activityID: 42fede67-d20b-40f6-9f79-e62f941a2c55
+            modify: 1
+            isActive: 1
+          storageItems: []
     - islandName: 
-      islandPos: {x: 333, y: 127}
-      islandSeed: 711464734
+      islandPos: {x: 328, y: 213}
+      islandSeed: -382846087
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 333, y: 271}
-      islandSeed: 2085113785
+      islandPos: {x: 354, y: 333}
+      islandSeed: 1130333021
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 334, y: 298}
-      islandSeed: 572511900
+      islandPos: {x: 360, y: 267}
+      islandSeed: 1096513188
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 337, y: 124}
-      islandSeed: 2034584196
+      islandPos: {x: 375, y: 0}
+      islandSeed: -1824944507
       removedTrees: []
       droppedItems: []
-      villagesData: []
+      villagesData:
+      - uid: 6f30d9cc-fc94-8e94-0ea8-e78a7d2fcbc9
+        socialRating: 0
+        villagers:
+        - uid: 140d69b8-4cda-dcaf-f784-8db0f91b234f
+          isDead: 0
+        - uid: fedf110f-2dc1-133c-468b-87dca2d14a61
+          isDead: 0
+        - uid: 4042256a-2681-4d1c-5352-1524ead648c5
+          isDead: 0
+        - uid: 0d0c6424-aa58-80c4-9131-615d7bf793b1
+          isDead: 0
+        - uid: 7e0355f2-5809-fb13-8db9-dbf32d1ee1b2
+          isDead: 0
+        - uid: bfb628d5-abbf-85e6-c594-da381959ecbf
+          isDead: 0
+        - uid: d2651308-ae9a-86f2-a25a-89ccf95264ca
+          isDead: 0
+        - uid: b87e5d20-1a34-4134-fb90-32a9d1e5e786
+          isDead: 0
+        - uid: 16f89bf9-4df3-3ea0-ee10-17c1b1b75a18
+          isDead: 0
+        slaves: []
     - islandName: 
-      islandPos: {x: 337, y: 339}
-      islandSeed: -1238503804
+      islandPos: {x: 384, y: 3}
+      islandSeed: -609001257
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 343, y: 337}
-      islandSeed: 2077947946
+      islandPos: {x: 385, y: 120}
+      islandSeed: 1554041405
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 349, y: 238}
-      islandSeed: 797690499
+      islandPos: {x: 394, y: 102}
+      islandSeed: 1306649665
       removedTrees: []
       droppedItems: []
       villagesData: []
     - islandName: 
-      islandPos: {x: 349, y: 240}
-      islandSeed: 1743414200
+      islandPos: {x: 399, y: 187}
+      islandSeed: -1034389908
       removedTrees: []
       droppedItems: []
       villagesData: []
     plotParts:
-    - islandIDs: -864082360
+    - islandIDs: 305167961
       plotRowNumber: 0
       isCollected: 0
-    - islandIDs: 400300340
+    - islandIDs: 1018327786
       plotRowNumber: 1
-      isCollected: 0
-    - islandIDs: 211064300
+      isCollected: 1
+    - islandIDs: 7198255
       plotRowNumber: 2
       isCollected: 0
-    - islandIDs: -2130664400
+    - islandIDs: -1905007837
       plotRowNumber: 3
       isCollected: 0
-    - islandIDs: 987164248
+    - islandIDs: 1498533109
       plotRowNumber: 4
       isCollected: 0
-    - islandIDs: -463103364
+    - islandIDs: -609001257
       plotRowNumber: 5
-      isCollected: 0
-    - islandIDs: 1282267818
+      isCollected: 1
+    - islandIDs: -1490827391
       plotRowNumber: 6
       isCollected: 0
-    - islandIDs: 88176066
+    - islandIDs: 1130333021
       plotRowNumber: 7
-      isCollected: 0
-    - islandIDs: 87987064
+      isCollected: 1
+    - islandIDs: -1034389908
       plotRowNumber: 8
       isCollected: 0
-    - islandIDs: 1344972615
-      plotRowNumber: 9
-      isCollected: 0
-    - islandIDs: 1820064055
-      plotRowNumber: 10
-      isCollected: 0
-    - islandIDs: -583707975
-      plotRowNumber: 11
-      isCollected: 0
-    - islandIDs: 572511900
-      plotRowNumber: 0
-      isCollected: 0
-    - islandIDs: 539308215
-      plotRowNumber: 1
-      isCollected: 0
-    - islandIDs: 653311964
-      plotRowNumber: 2
-      isCollected: 0
-    - islandIDs: 2077947946
-      plotRowNumber: 3
-      isCollected: 0
-    - islandIDs: -1516768454
-      plotRowNumber: 4
-      isCollected: 0
   globalData:
-    totalSecondsInGame: 751.5838
-    totalSecondsOnRaft: 702.9971
+    totalSecondsInGame: 6863.6787
+    totalSecondsOnRaft: 28055.271
     islandSeed: 0
     dungeonSeed: 0
     shopEventCreated: 1
     damagersData:
-      tickCount: 0
-      maxTickCount: 6826
+      tickCount: 561
+      maxTickCount: 7403.4
       spawnedItems: []
     weathersData:
-      tickCount: 1387
-      maxTickCount: 1758
+      tickCount: 1356
+      maxTickCount: 1914
       currentWeather: 2
   tutorialsData:
     clickTutorial: 1
     eatTutorial: 1
-    storageTutorial: 0
-    levelUpTutorial: 0
+    storageTutorial: 1
+    levelUpTutorial: 1
   dungeonsData:
-    dungeons: []
+    dungeons:
+    - seed: 1565884464
+      destroyedUrns:
+      - 275b9ba1-3fe7-b6e1-2cb2-68b570c01337
+      - 3ee79b67-361b-9d49-d049-28d0857a2f8d
+      - ad0dde71-e576-cc4c-aed1-298bb93484a8
+      - 444c9230-b0c6-346e-d565-c6888a99243e
+      - 3a1113cc-47ee-3ad8-9570-dc2dbd7b4634
+      - c66b80f7-94b2-3df4-46b2-aa1a9cccea52
+      - c45de42c-6da6-ec85-9785-ddbfb1899f00
+      - 32aba581-d6e1-a05f-2514-91295bd8e2bd
+      - b7ededd0-266f-14ac-1fbf-9b5bf9a0ef9c
+      - 4a54c9ed-d7bc-205f-20cb-a09d02cbe26e
+      - 0a00b99f-9745-c47b-3a73-817818f62cf4
+      - 177adfc7-3f9e-131c-c829-bd4d4b08f639
+      - 7fb18912-4723-b51a-46c9-54cf5f05e532
+      - ebb6789a-1b89-2dda-204e-032f33d5af1d
+      - 3db23c03-0d54-5bfa-3347-4569ae7f56d0
+      - bf35444c-c87a-17c3-ff16-ed1d7e2dc682
+      - 695719c8-c99a-f079-9b7f-72d1ffc3fc85
+      - e137ac25-20e9-5550-9347-2e9b91589086
+      - ab5eb55a-aba8-2ccd-5e47-5dcf7614ed57
+      - ba3cea34-c0b2-384d-4771-2c18ff5fb459
+      - bdb0d7d5-92b2-8bbe-770f-034a45d87dfc
+      - 90ef3074-d27a-2b53-1b97-60423ec0c97d
+      - bfc4e9d6-9c89-3f8f-919a-935ed71d9bd2
+      - 652efa4e-79fd-0e0a-8d5f-72c171df631f
+      - 4ccb9c9b-e0df-54cf-6980-db1574e354c6
+      - 99daac0a-35f1-e0f5-9fcc-11abbe0dbc05
+      - 2eeed8e7-bb2a-fefd-3a34-22c19863b5cb
+      - 5eb110cb-b2b4-a2c9-5780-0350bf806045
+      - 855713a9-32a6-7b2d-9d0a-18ac7a8d02b6
+      - c939612d-0984-46d6-4fc0-1371ff7df9ce
+      - 04c6af4b-ef9c-c28d-d391-5d45ff187a30
+      - a39a36ab-3069-625b-35b6-b07294bbf923
+      - 54e0ced5-01f0-80e4-8588-d232c8df06cc
+      - 07ebe0b1-79e8-9b51-8745-d3c96cb80455
+      - c69c3b5b-a4db-0133-839b-8f4016304067
+      - 141b6802-e8c8-0962-4624-3142e8045a74
+      - 9da28e3e-5029-40b2-ca9a-f8e12aecb4de
+      - e24a4fcc-7347-2d6e-a225-1c5cf2ec3449
+      - b9bf9882-bb87-c7ce-2dd9-238b8b8aa44e
+      - 2dd2b3ea-0d28-e0a8-779a-c3090b66579d
+      - 2d885691-b867-fcbd-b2da-351288513d3f
+      - 81c9cf53-2371-f985-099c-811d3b29e9e3
+      - de7d031e-b84c-8447-aea7-b6ccf5b3f04b
+      - b5edbeba-1b96-ecda-bade-5c951448d057
+      - 806b5037-ac64-58c8-da94-c27a57ab7694
+      - c4ef6fa2-e79b-c791-1d3f-2afd3c032780
+      - 8ab8ced5-2bb0-8d01-0073-74446d021781
+      - 712804db-508f-38e9-ec99-313282d14737
+      - c8ff2315-78c0-523d-85b7-d702b55e454c
+      - dd2b0f96-d8ca-321d-83d2-51fc93cd8782
+      - 2d1653aa-094b-dee7-31bc-bf97e25bc041
+      - 2f0d04bb-b85f-6fde-1e33-f6c171429018
+      - bd635673-48f3-c214-7166-a53fd45c047d
+      - c4a85e2d-2730-71b3-1351-7956b23c9cf9
+      - fc84304a-0328-2f38-c731-d6d232593846
+      - 4c9ebfc9-5872-9950-c9b3-c3f8c82bd4cc
+      - 67c3e42d-69c4-4cc6-7902-57c0fe8fa848
+      - 4511cc6c-d056-af7c-3683-3d66af996e82
+      - c832e5d1-d3ce-5d02-825e-0851da69fb7b
+      - 8db2f61d-3c43-58f5-e238-417032a4211e
+      - cb39c188-07d6-67be-1fe6-4ecb7b425ff3
+      - 026c0de4-e0e8-f6a4-5bb6-3c46d9d7cb72
+      - 756b2920-412d-7c33-d206-73bb20d7c69f
+      - 276cf59f-95b6-552d-824f-eed045f72165
+      - e6ee1d4e-a8fa-b699-eb70-bc558a0f348d
+      - 52c9d5bb-1d91-8abb-fb16-f3dd536236da
+      - 1b87bfb5-aeca-d409-932a-9d10a6ce844e
+      - f19d0061-220a-d89d-4dc5-1a93817dcb0d
+      - 082adb75-2be8-317d-3269-bade9e6d573a
+      - d7703335-b14f-d6e6-05bd-bb6445a32489
+      - 0842cf53-b9a3-d901-b764-38ac69adc151
+      - 52a44d53-b953-6960-6493-900f0f661ec6
+      - 8eec1ef7-fd5c-55cb-6482-746948fe4472
+      - 3c378a2d-dd55-c172-0036-2c8b09851d87
+      - d6bc150d-7c8b-74aa-885e-84f1a4c65753
+      - 7c71e139-31a3-dba4-30d2-f6dbe074b123
+      - f80db352-4e66-e8ce-bc3a-3e5bd8f950ed
+      - f2c3814b-c74c-15ac-393b-a085f5c041a0
+      - 6f15601a-ce2e-31d4-6263-ebe3b5bb6388
+      - 3498c7b2-71f8-723c-345c-4368911fe66f
+      - 7a584a06-0326-8a63-1544-b2bfc3d19386
+      - a61ec76d-c253-e125-988b-a422c1ccd51a
+      - 549f2a98-eaf0-e5c5-5628-68ab9dab3387
+      - 0e5ef859-4c11-f7c6-780e-cfc86077b586
+      - 6e0bd3a1-4ed1-b2a9-7e65-ef8e5524b6c3
+      - a6dc6118-a670-f97a-1e82-f7a241b4e32d
+      - 90889e6f-9bf9-b3d8-db1b-748762519ff0
+      - f558a786-ae5f-05fd-2a5f-069771c7dda7
+      - 07e3c6d5-eca8-4b20-8a3d-ec9b70d92164
+      - 317098db-22dc-c7ea-9220-8aceac9addc0
+      - 164388fa-77fb-9370-2bb8-3f752ae1fe64
+      - 4d387698-65c6-b207-03d7-a1b0205115dc
+      - 2d24dbaf-671b-f6df-96d4-2b6aae00e27f
+      - e6445d30-a25d-64e0-225c-b607d084dc19
+      - 1851906b-88cb-67d9-79bb-46ef14a4eaf8
+      - 10a9d70f-81d3-4d9d-e53d-8b590153483b
+      - 4fdb68f9-47eb-c213-9d91-4a997dd53979
+      - b0434477-0a21-2625-aac7-36ca3ec79160
+      - 86a68e5f-aadc-93ad-8d79-383c285921fb
+      - 00f33bb9-a93b-8c1c-79bd-9742912391f1
+      - c4173318-643c-f15a-e90f-eb1e033a0dde
+      - 0536855b-259c-0991-8edd-bc3b6a9c875a
+      - ffa4e034-6ada-279b-1a7e-2256fcb08db6
+      - 26e50fbf-89f6-32fc-96a2-c58e8de4c942
+      - 501dddb8-9846-67f4-04a0-8d4ca5e06334
+      - 7a9e0f49-41a6-c748-116f-82d6591522da
+      - 76be9d45-5535-3a6f-70ac-7265c554987c
+      - e7dd190c-4161-96a7-3aab-e27c55ad5547
+      - 53108b93-2fde-152b-3efe-235cdcf7bbe2
+      - f1e3d3fb-f6a5-deda-c404-65b0db57ebd2
+      - 9aa5c2d5-ae99-1363-94b8-00c2e528b09e
+      - cbb62f97-c84b-403c-2c17-68f614814b87
+      - a2aed482-f6a1-a1fe-35e8-d20c27c121d1
+      - 17074bb6-dac3-d847-dd42-f59d3fbcf01c
+      - fde1a9d3-bb0f-7f96-dd5d-a46192e3efd1
+      - 259fbaac-7b66-5adb-a55e-14f340606d33
+      - 117949fa-fa29-9ecc-0872-7bd98ec0b0e9
+      - 04dee35a-9f16-55d7-3f84-eb090c4ab30d
+      - 6e01d5dd-75a8-d85b-b17a-ec8da14fbe40
+      - 05a1a22a-4b49-8793-82c8-425fff705266
+      - d08fdb2c-694a-cbc8-8bc6-34ce3488f47a
+      - 096adad3-3c52-6efe-b96c-792e045958e2
+      - fdb13865-be5c-2322-561b-656e72a8520c
+      - c36bafa7-c735-9378-1056-28546e1cac66
+      - 3aae6269-8465-4f58-5ec7-55cf41043a5b
+      deadMobs: []
+      allMobsCount: 23
+      allDungeonMobsCount: 23
+      isBossKilled: 0
+    - seed: 1767705573
+      destroyedUrns:
+      - 8bbb15f3-5cf2-5c8e-ae3a-097082d7b65c
+      - ee1e4152-6d9e-25c9-e8e9-b15bf6455954
+      - 6dada38e-0548-79bc-33e9-1bee28f0fbc3
+      - 6b0bc790-cddd-60d1-586b-4126697dd1ea
+      - 76314520-f7aa-1e78-bef2-53686e895f4c
+      - 619a802a-c4db-20fe-da88-845f536083ed
+      - 2d12bce3-f2f1-b3e8-ac77-034b53fec86b
+      - 005f678a-b89e-5b77-f461-c991e380682c
+      - e07d8997-6c16-0ab3-f8fa-195b461f4e45
+      - 8d45407e-ae0c-10db-0e94-ea35b18ddef0
+      - fe816138-14ed-e832-5407-f08aca59a293
+      - 301e5c59-8a98-d715-6117-ce0d36787067
+      - b57a0752-7277-8e3e-113a-5f7c96614e51
+      - c26ca8c7-fd8c-aedc-4ba9-9dd64525b2dc
+      - b1dbfebe-62aa-1e0c-9c17-553ba392d9f4
+      - bb055f38-1850-4134-a44d-6ef39d97f7a5
+      - 97c967f4-b9af-71f6-aaee-28ad29b24825
+      - 2df087f7-b321-7bc3-29bb-1c5e7a05f163
+      - 9a24bf79-ffdf-3402-a407-841dd96e739f
+      - 4750b332-fd01-6996-7e80-85fd42414556
+      - 72282dc1-dba5-78f0-bddf-9c12d4e940cb
+      - 13b9cc4a-7411-cc1e-54bd-be57a6ac5ca6
+      - ee159e33-1c3c-d9d7-b1c5-f5d3b895488f
+      - af340289-f379-d250-7ce1-88e8f9b82e8e
+      - ddca6697-a4a6-70cf-1a67-4f8e783288d7
+      - a3eeda08-18bf-cde8-60ea-7a1d49a47873
+      - e2c4822c-0c4b-a1e5-2d11-2acb5f9e040e
+      - f683dd2d-a6ac-cdfd-47d0-dd242162cb2a
+      - 7ff29aba-db64-fc42-2208-22f74f53ca8c
+      - e286810b-9ad9-bacd-2691-79e2f790c71c
+      - 14defc92-6286-3d0f-588a-18c1d6e2fadc
+      - 038a1468-9bb6-c244-bbaf-557ca68d3971
+      - dd6983fa-8e6e-5ba7-7414-135e7d50fc2a
+      - 1f418b08-fc29-d885-ce2a-187508a2055d
+      - f155d08f-dc0e-2101-7ee0-7bdae36b9a5c
+      - 49b8041e-fc04-a2e0-fe57-04582c298443
+      - 96c40a55-c5a0-fec4-a2c6-df16894e2e4a
+      - bfd929ad-9db0-341d-0fbc-2b2380b2f042
+      - e7cf6254-d14d-5eb2-c4b3-b34c831948d5
+      - b7dbf0ae-b23e-b633-449a-d891a58fdd12
+      - f2b1278f-e696-7548-8cf7-c589e11871e3
+      - 23964a7e-ec44-d661-1719-4f7b616a23e1
+      - 3f160670-b970-d9bd-9bbe-7485ea2a578b
+      - 628994a6-ec44-a9cc-6b74-f3ec764dcf68
+      - 011e2912-f2ef-59ef-43fe-2097e8b6a68d
+      - 54e76504-3f1a-c882-cc84-6484e3e0c98a
+      - 85dd3a94-2a6e-28c9-df95-5457714076de
+      - 34b135e3-cbc4-40f5-3c7e-0dfe6b5aa4a8
+      - 65c859c0-0fdc-8267-03c9-ce67d558f6be
+      - c92800b7-9961-6df1-299d-b08dad75f864
+      - f836f41b-8504-a3e5-34db-9ad0ab095a78
+      - 2e1f7ad1-7fa8-5ef5-69f8-416083ba6fc9
+      - 809401ae-54c6-0942-f941-49b91a4c2e6f
+      - 160ff73d-be90-73f2-cf54-b623e52c5571
+      - 355c0a65-b1ad-161c-c8ae-6f7681793121
+      - 19b4ecc7-d10d-136f-9c24-3894fe1edabf
+      - f32fc6cf-a5c1-8b11-daf9-4de24e7cf156
+      - 679dc3de-0942-c9b4-2fa7-c6c7cc065fe1
+      - 04392922-ecc9-dd6a-3327-c9586b68fb63
+      - 723dc78d-da77-e2c3-ede3-2f298bac681a
+      - b709f6b8-9a3c-8691-0f3a-958f16a1849c
+      - 05f9e86f-2fa7-445e-3116-57087324b38d
+      - fc91a8a8-0fa6-22d8-8bd7-f026682a0ca6
+      - 94b36e6d-a3cf-f4b0-6387-295e026916a9
+      - 99a12625-a28b-5111-ada2-2401403b98e0
+      - 53cc3bc5-92ad-0f88-0fc2-8bbaa85cd564
+      - 9112f411-7f8f-c344-0cfe-732242d40724
+      - 0189f558-2cd1-8ab7-6390-271fe73e1f33
+      - 4adba980-1574-eafa-7498-9f1d226d4049
+      - 9b7a5ea0-87b8-425b-a151-3d7052c06760
+      - c699340a-79de-eb77-f6d4-edd147975855
+      - e831c05d-bc1c-dd9d-d652-d226e24fae66
+      - 73953264-1f77-00c0-27c0-560aabad772c
+      - 8195e2ac-3bba-cad8-5d62-e72d7fafb428
+      - ffababca-d10e-2b6a-1602-8e1a2936e1e0
+      - 4e61d0fc-36d5-e40c-366b-f5902ede0868
+      - aad7c116-af89-84aa-2c2b-262a96e1d145
+      - 741cbe97-78cc-36a3-28ab-a02b13f0a049
+      - 36d02ee4-6cfd-19a7-e6b2-4e6d5447cd3c
+      - bba6ff80-3e49-095f-ef08-a6cc075fbb7d
+      - 8496f24f-49d8-fbd7-1b1e-2a6e69a52477
+      - 55925fa9-478b-7e17-6d17-6f5e4de9f7eb
+      - 4825c26c-ca5b-6c2a-fd25-49d08b6ae473
+      - 09e8b8cb-74bc-de93-3525-5865fd47f303
+      - 76ee64f7-9dc8-bfad-c7e4-e0deb732ecc6
+      - f95f8e93-2f93-b1be-55b3-5498d65bf338
+      - 4d63df06-27f5-3991-b0c3-a354cce1bcef
+      - 5e547d95-17a6-6d25-cfc6-9f4328aaa3dc
+      - 0197637a-555a-d781-2347-8a107abfeca3
+      - 5ab549ee-19d7-1502-4e7f-0eb4b1ebe883
+      - a5f2ed70-14a0-0ad2-2b32-a1414221123e
+      - 84a02110-72d3-a2e0-52cc-a7a49e1ad871
+      - c455423f-fea3-4233-186c-474afb74ded3
+      - ba755f09-89ae-0e6b-b291-3bf68c250564
+      - 6ae567b3-8084-cc91-61b2-71d7578fa4fe
+      - 6cf82006-4151-887e-a68f-809ea141655f
+      - 0728bdd8-f879-c536-7392-848bab5490e3
+      - 0a379c29-88af-5982-bf05-fc30e5bc4218
+      - 893057ec-ad73-f361-6f21-5bc1468e0f29
+      - e3c5567f-5e19-f4e5-216a-15e028d6471b
+      - 6bf3b420-e44b-5f47-030c-f47616c80caa
+      - 63043236-f0b8-ca0e-560e-43f694ba64a9
+      - 4bd61150-5984-a0bf-6594-2907ecab9295
+      - 75c92a15-dea9-02e5-fa3c-ffb54382e21d
+      - 3265fff4-96ab-1d98-3d11-cd3f21cccd86
+      - 33b1fd76-4ad3-bad3-32b2-4a2a9d504800
+      - ed137f2f-6046-9fea-99e7-25a623cea88a
+      - dfd6bc40-f9c7-0f5d-b705-2e9fa1220775
+      - 5a356a63-2cf2-36e3-2104-3640324afe76
+      - a20f2205-e0b8-bf40-ca53-d164bfa13c34
+      - 2b1bf106-2c1b-32f2-258f-fb2461df11f5
+      - 890159ca-5588-8e70-d151-e0367b8ed87d
+      - 00a1b0e0-06bf-60d1-7b16-157327f95016
+      - 2059499c-9899-3643-0fc5-3a16123a0006
+      - 0e16f6e8-45fd-6141-e0e9-24d8a8f22af3
+      - 373cf9c9-aded-d882-3fd9-81b4aaff8d7f
+      - 8054621f-4151-71b2-09ea-b32f28716488
+      - 550b6b50-ad8e-cbca-b642-e84472a230e8
+      - bc905e8a-f2ca-e38c-adcc-f2141d35dd99
+      - 6ca0e1be-9923-79c0-dc75-a84a1572f81c
+      - a9987890-0557-507a-3bce-4873fb05e0b7
+      - 387720b3-c60e-3389-2ec8-c1e6841cb67b
+      - 0e845a55-3cff-5d75-99d5-dedc166f0e27
+      - cc1e9688-4175-8c16-84df-9d17cea6c1cf
+      - 1ab55f9d-7365-b793-aa92-78180480b644
+      - 37f169b9-6e34-f0ec-5c25-43eda2fab29c
+      - ded1291c-4dc0-c5a6-c9e9-98aae4492d8e
+      - 0457585b-24e0-e9d0-ae6c-d181827e586a
+      - 6eccd141-75df-306a-188e-175e9ed2d0bb
+      - 05d81f2c-9748-2c47-7894-169425f09ec8
+      - 03fe42e1-91e2-5edf-d6dd-66f0b52636cc
+      - 5400c417-7d7f-bc98-3169-01ca919320be
+      - b53c29ce-6b80-8f84-1248-6ae75c693357
+      - 1aab6f10-79a1-3b70-c3ff-3ef113a6bbad
+      - 855e2bba-dc51-0001-158e-69f1008325d7
+      - 90e1115b-0ad8-5435-b901-f2802c937c6b
+      - 9f558567-3e30-53a5-f1bf-464a3afcc031
+      - c61a25ab-8339-071e-ad43-fb89a930faf0
+      - 63b596b5-1112-e35c-674e-f2ec431caac1
+      - 12d33d14-977a-51dd-63c2-9af98db87ab3
+      - ae5af6b4-5707-2a8a-e3c3-7aa778bd08bc
+      - 97bec3fa-842b-1344-95fd-e48971ddf3a5
+      - 634382c4-9084-4809-cfca-fb173cff965f
+      - ec4d6208-6c0b-9026-b2f0-1b8b94848fa8
+      - 0195935b-2ac5-38d5-f5a7-ad5578bd2313
+      - d8d519eb-7c98-9be6-3f7a-2f6a30567752
+      - 53534a5e-2f23-6be8-d7cd-eb537a80bf04
+      - b03380bd-d275-9f8c-bdf7-f81ebf8a886a
+      - e4749522-d498-10ab-c852-3b6c6763fc7c
+      - 31f7b3b7-5fe0-73b2-036d-052a074a488d
+      - b8e0ff76-a799-6c0b-b9be-a57d89b251af
+      - beda0e1b-ade8-d1c7-3fe5-446b5239fbbe
+      - fb0b8b71-b73d-98f0-66a2-65959d00aabd
+      - 9cbc254e-fb30-8220-7089-d6260a1876d8
+      - a4742e46-e17a-fd6b-f6b3-716d31c1184b
+      - f480d235-00d3-6c87-15a2-483862e652e1
+      - a70213c8-e9f3-165a-265d-3bd9804ec75b
+      - f74090de-0be2-ce2a-8882-73d3180f628e
+      - 50caae16-c97b-2987-41e9-c5a7b43c10fe
+      - b5ac0f98-debc-17b7-cbd9-11387973de2d
+      - 23c9e496-18fc-291b-a7b2-6c508cb45306
+      - fbebc5fc-d68a-1c7f-9777-6f4217b0a740
+      - 9a354528-6baa-ee33-e843-0a3be982196b
+      - cd22ad70-adb4-22cf-946b-2723e172fac4
+      - 4e70ba3f-abe3-f4ee-362a-d184d0514d39
+      - aa1a66aa-52f7-bb3e-d190-4826ddd1977f
+      - d8d5ad9a-1860-4895-24d5-e6b5f1943c26
+      - 461ec80c-6f04-c2be-707b-5239cbd9a46d
+      - 3087598d-9f8e-5a41-7d8f-264104e39660
+      - 48b95627-0a5a-fee8-5967-9429e3a449f7
+      - b5d0b907-7557-92a1-d1d2-85226c89c93c
+      - 37ae7830-86c4-96ce-278b-7431ea9c55e7
+      - a9e515b1-90bf-b6ba-3ea5-c7430dbccc76
+      - f618b3fe-501e-962f-413b-aeb80c333473
+      - 5e549d8e-10f8-af5a-d85d-db1810bc5357
+      - 20ff06c9-f85a-185b-b03f-03267b65e1a3
+      - a2242cda-8678-de47-c12d-1df21edbd283
+      - 4297a299-c133-e47c-9f51-0be2fc1e718a
+      - 9c3b1f36-2d45-71af-339b-8999c3f23a8f
+      - 84f0f2d5-47ca-730f-6ad9-b9807c76ae9c
+      - 2c663e6e-7866-a452-0efc-e59f15a8c76b
+      - 9a627863-4bbc-5c09-9f4c-75ce626f5dc1
+      - 3fc34e11-857e-35b7-7dc9-2d2e8a1cb3d2
+      - 28f83dbd-39e5-9cc0-ff37-ed36f13bc5c5
+      - 3fb2dabc-8e83-0bb4-5051-5cba439d58b9
+      - 5e3b8939-0a98-0c59-ea42-3daba28fb378
+      - 88dc816c-a2fe-b26d-80a6-5440500969c1
+      - 213ecb4f-2ab2-9f79-8d35-adce1bd6be8b
+      - 2ee7fb41-6f74-0e16-944d-cf483c88f272
+      - 4778e49d-2ab5-ca44-722d-c94b3a10d062
+      - 0dd9d593-3981-fc33-4e96-58a0d19e5f30
+      - 0cc238e7-ba9a-2f0d-3f89-c0d178d56bd2
+      - d6c5e813-1fba-11ce-d997-f8cfb1c6911c
+      - 1e164c9e-7285-74d2-c7e9-ee9507b10d49
+      - c7fa9594-ff2d-bf81-0f48-51f64276cfb8
+      - 0700d85a-e305-b78f-3138-22980ebb318d
+      - edc7c598-4d1b-8a3b-6d3a-90ab794d3f2c
+      - f06a70c3-be87-8ac4-621b-4a5c6f3a0113
+      - 38e5cefb-144c-784e-09a3-18c049ea1a37
+      - 6106a130-6372-8251-7e1b-d2806605d9c9
+      - ba72860d-c7c1-a29b-4b84-42700a324029
+      - 6be6c7ee-372a-596e-6b45-66307e6a6e18
+      - 334c454a-7fcc-d52b-ea76-7ac2c798e598
+      - 31a3bc8d-cc6d-a600-315b-74d30668c9a9
+      - b66e82d9-e05e-8053-4d74-621b36154205
+      - 142882aa-2e3c-9621-f7fa-fbf559eaf863
+      - c1654263-f7ac-40a6-84d7-2677eab1c013
+      deadMobs:
+      - 9cbc254e-fb30-8220-7089-d6260a1876d8
+      - a4742e46-e17a-fd6b-f6b3-716d31c1184b
+      - 0700d85a-e305-b78f-3138-22980ebb318d
+      - beda0e1b-ade8-d1c7-3fe5-446b5239fbbe
+      - c7fa9594-ff2d-bf81-0f48-51f64276cfb8
+      - d6c5e813-1fba-11ce-d997-f8cfb1c6911c
+      - 8c857566-1c89-8300-ad52-35e39a590ec9
+      - 14192254-51b3-2a7b-ee13-68e4c55b7c4b
+      - fb0b8b71-b73d-98f0-66a2-65959d00aabd
+      - 31f7b3b7-5fe0-73b2-036d-052a074a488d
+      - aa1a66aa-52f7-bb3e-d190-4826ddd1977f
+      - 1e164c9e-7285-74d2-c7e9-ee9507b10d49
+      - 2336ae14-14ca-82ff-3e9e-396a632d4e02
+      - b5d0b907-7557-92a1-d1d2-85226c89c93c
+      - 461ec80c-6f04-c2be-707b-5239cbd9a46d
+      - a9e515b1-90bf-b6ba-3ea5-c7430dbccc76
+      - 37ae7830-86c4-96ce-278b-7431ea9c55e7
+      - 3087598d-9f8e-5a41-7d8f-264104e39660
+      - 64316b66-72af-e896-068b-401cf4f9b080
+      - 48b95627-0a5a-fee8-5967-9429e3a449f7
+      - f3f13956-92da-cd78-5483-ed27dc493f51
+      - b03380bd-d275-9f8c-bdf7-f81ebf8a886a
+      - 2457245c-2a53-9fff-535a-cbc8ac1f1ab6
+      - b5685fcc-29f4-0660-d6ec-d827e60d4c86
+      - d8d5ad9a-1860-4895-24d5-e6b5f1943c26
+      - 6a9c35b6-c875-30b3-580d-a482fd35031d
+      - d8e2d82a-c71e-d617-99e6-c577ce4f7791
+      - b1dbfebe-62aa-1e0c-9c17-553ba392d9f4
+      - 9c2fd0e5-a880-4399-9eb4-64ea87973b5f
+      - b8e0ff76-a799-6c0b-b9be-a57d89b251af
+      - dd6983fa-8e6e-5ba7-7414-135e7d50fc2a
+      allMobsCount: 30
+      allDungeonMobsCount: 30
+      isBossKilled: 1
+  playerInventory:
+    playerStorage:
+      raftUid: 
+      storagesData: []
   crossGameData:
     soulsCount: 0

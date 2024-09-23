@@ -137,9 +137,11 @@ namespace Content.Scripts.BoatGame.UI
         private SaveDataObject saveDataObject;
         private ScenesService scenesService;
         private UIMessageBoxManager messageBoxManager;
+        private UIStoragesCounter resourcesCounter;
 
         public void Init(UIStoragesCounter resourcesCounter, PlayerAuthService authService, ISaveServiceBase saveService, CloudService cloudService, ScenesService scenesService, UIMessageBoxManager messageBoxManager, SaveDataObject saveDataObject)
         {
+            this.resourcesCounter = resourcesCounter;
             this.messageBoxManager = messageBoxManager;
             this.saveDataObject = saveDataObject;
             this.scenesService = scenesService;
@@ -148,6 +150,7 @@ namespace Content.Scripts.BoatGame.UI
             this.authService = authService;
             window.gameObject.SetActive(false);
             resourcesCounter.OnCounterStateChange += UpdateButtonPos;
+            saveDataObject.CrossGame.OnSoulsChanged.AddListener(UpdateButtonPosDelegate);
             UpdateButtonPos(resourcesCounter.IsVisible);
 
             authButton.Init(authService);
@@ -167,6 +170,11 @@ namespace Content.Scripts.BoatGame.UI
             }
 
             uiToolTip.Init(authorizeTipObject);
+        }
+
+        private void UpdateButtonPosDelegate()
+        {
+            UpdateButtonPos(resourcesCounter.IsVisible);
         }
 
         public void Logout()

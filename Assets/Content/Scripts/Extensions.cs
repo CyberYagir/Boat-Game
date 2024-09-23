@@ -770,6 +770,11 @@ namespace Content.Scripts
         }
         #endregion
 
+        public static string RemoveSpecialCharacters(this string str)
+        {
+            return Regex.Replace(str, "[^a-zA-Z0-9_.]+", "", RegexOptions.Compiled);
+        }
+        
         public static Quaternion ToRotation(this Vector3 normal, Transform transform)
         {
             return Quaternion.FromToRotation(transform.up, normal) * transform.rotation;
@@ -795,7 +800,12 @@ namespace Content.Scripts
         
         public static List<string> LinesToList(this TextAsset asset)
         {
-            return asset.text.Split("\n").ToList();
+            var list = asset.text.Split("\n").ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                list[i] = list[i].RemoveSpecialCharacters();
+            }
+            return list;
         }
         
         

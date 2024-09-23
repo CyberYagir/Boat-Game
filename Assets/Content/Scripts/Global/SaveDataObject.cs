@@ -11,6 +11,7 @@ using Content.Scripts.Boot;
 using Content.Scripts.IslandGame;
 using Content.Scripts.IslandGame.Scriptable;
 using Content.Scripts.IslandGame.Sources;
+using Content.Scripts.ItemsSystem;
 using Content.Scripts.Map;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -116,8 +117,42 @@ namespace Content.Scripts.Global
                 }
 
                 public List<StorageItemData> StoragesData => storagesData;
+
+                public void AddToStorage(List<RaftStorage.StorageItem> items)
+                {
+                    for (int i = 0; i < items.Count; i++)
+                    {
+                        var it = storagesData.Find(x => x.ItemID == items[i].Item.ID);
+                        if (it != null)
+                        {
+                            it.Add(it.Count);
+                        }
+                        else
+                        {
+                            storagesData.Add(new StorageItemData(items[i].Item.ID, items[i].Count));
+                        }
+                    }
+                }
+
+                public bool RemoveFromStorage(RaftStorage.StorageItem item)
+                {
+                    var it = storagesData.Find(x => x.ItemID == item.Item.ID);
+                    if (it != null)
+                    {
+                        it.Add(-item.Count);
+
+                        if (it.Count <= 0)
+                        {
+                            storagesData.Remove(it);
+                        }
+
+                        return true;
+                    }
+
+                    return false;
+                }
             }
-            
+
             [Serializable]
             public class RaftCraft : RaftAdditionalData
             {
@@ -183,7 +218,6 @@ namespace Content.Scripts.Global
                 public RaftStorageData.StorageItemData SmeltItem => smeltItem;
             }
             
-            
             [Serializable]
             public class RaftWaterSource : RaftAdditionalData
             {
@@ -208,6 +242,7 @@ namespace Content.Scripts.Global
             [SerializeField] private List<RaftFurnace> furnaces = new List<RaftFurnace>();
             [SerializeField] private List<RaftWaterSource> waterSources = new List<RaftWaterSource>();
             [SerializeField] private List<RaftCraft> raftsInBuild = new List<RaftCraft>();
+
 
             public List<RaftCraft> RaftsInBuild => raftsInBuild;
 
@@ -293,7 +328,6 @@ namespace Content.Scripts.Global
                     storages.Add(new RaftStorageData(spawnedRaft.Uid, raftStorages));
                 }
             }
-
         }
 
         [Serializable]
@@ -1105,6 +1139,66 @@ namespace Content.Scripts.Global
             {
                 return (CrossGameData) MemberwiseClone();
             }
+
+            public void RemoveSouls(int containerSoulsCount)
+            {
+                soulsCount -= containerSoulsCount;
+                OnSoulsChanged.Invoke();
+            }
+        }
+
+        [Serializable]
+        public class PlayerInventoryData
+        {
+            [SerializeField] private RaftsData.RaftStorageData playerStorage = new RaftsData.RaftStorageData(String.Empty, new List<RaftsData.RaftStorageData.StorageItemData>());
+
+            [NonSerialized] public UnityEvent OnChangePlayerStorage = new UnityEvent();
+            
+            public List<RaftsData.RaftStorageData.StorageItemData> PlayerStorageItems => playerStorage.StoragesData;
+
+            public void AddItemsToPlayerStorage(List<RaftStorage.StorageItem> items)
+            {
+                playerStorage.AddToStorage(items);
+                hasChanged = true;
+                OnChangePlayerStorage?.Invoke();
+            }
+
+            public void SetItemsToPlayerStorage(List<RaftsData.RaftStorageData.StorageItemData> items)
+            {
+                playerStorage = new RaftsData.RaftStorageData(string.Empty, items);
+                hasChanged = true;
+                OnChangePlayerStorage?.Invoke();
+            }
+
+
+            private bool hasChanged = true;
+            private List<RaftStorage.StorageItem> tmpStorage = new List<RaftStorage.StorageItem>(10);
+            
+            public List<RaftStorage.StorageItem> GetStorage(GameDataObject gameDataObject)
+            {
+                if (!hasChanged) return tmpStorage;
+                tmpStorage.Clear();
+
+                for (int i = 0; i < playerStorage.StoragesData.Count; i++)
+                {
+                    var data = playerStorage.StoragesData[i];
+                    var item = gameDataObject.GetItem(data.ItemID);
+                    if (item)
+                    {
+                        tmpStorage.Add(new RaftStorage.StorageItem(item, data.Count));
+                    }
+                }
+                hasChanged = false;
+                return tmpStorage;
+            }
+
+            public bool RemoveItem(RaftStorage.StorageItem item)
+            {
+                hasChanged = true;
+                var state = playerStorage.RemoveFromStorage(item);
+                OnChangePlayerStorage?.Invoke();
+                return state;
+            }
         }
 
         [SerializeField] private CharactersData charactersData = new CharactersData();
@@ -1113,6 +1207,7 @@ namespace Content.Scripts.Global
         [SerializeField] private GlobalData globalData = new GlobalData();
         [SerializeField] private TutorialsData tutorialsData = new TutorialsData();
         [SerializeField] private DungeonsData dungeonsData = new DungeonsData();
+        [SerializeField] private PlayerInventoryData playerInventory = new PlayerInventoryData();
         [SerializeField] private CrossGameData crossGameData = new CrossGameData();
 
         public CharactersData Characters => charactersData;
@@ -1128,6 +1223,8 @@ namespace Content.Scripts.Global
         public DungeonsData Dungeons => dungeonsData;
 
         public CrossGameData CrossGame => crossGameData;
+
+        public PlayerInventoryData PlayerInventory => playerInventory;
 
 
         public override void InstallBindings()
@@ -1166,7 +1263,7 @@ namespace Content.Scripts.Global
                 json = JsonUtility.ToJson(this);
                 File.WriteAllText(GetFilePath(), json, Encoding.Unicode);
                 #if UNITY_EDITOR
-                    File.WriteAllText(GetPathFolder() + @"\backup" + DateTime.Now.ToString("yyyy-M-d dddd-HH-mm-ss") + ".dat", json, Encoding.Unicode);
+                    File.WriteAllText(GetPathFolder() + @"\Backups\backup" + DateTime.Now.ToString("yyyy-M-d dddd-HH-mm-ss") + ".dat", json, Encoding.Unicode);
                 #endif
             }
             else

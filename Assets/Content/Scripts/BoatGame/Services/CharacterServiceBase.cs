@@ -45,7 +45,11 @@ namespace Content.Scripts.BoatGame.Services
 
         protected void AddSoul(Character obj)
         {
-            saveData.CrossGame.AddSoul();
+            if (obj.SkillData.Level >= 3)
+            {
+                saveData.CrossGame.AddSoul();
+            }
+
             saveData.SaveFile();
         }
     }

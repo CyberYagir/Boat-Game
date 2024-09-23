@@ -17,5 +17,9 @@ namespace Content.Scripts.BoatGame.Services
         bool AddToAnyStorage(ItemObject item);
 
         bool TrySwapItems(RaftStorage.StorageItem newItem, RaftStorage.StorageItem oldItem);
+
+        bool GetGlobalEmptySpace(RaftStorage.StorageItem storageItem, int offcet = 0);
+
+        int GetEmptySpace();
     }
 }

@@ -102,6 +102,14 @@ namespace Content.Scripts.BoatGame.Characters.States
 
                 if (!waitForMoveFromRaft && isOnRaftGraph)
                 {
+                    var navMesh = Machine.AIMoveManager.NavMesh;
+    
+                    var terrainPoint = navMesh.GetNavMeshByID(0).GetNearest(targetPoint, NNConstraint.Walkable).position;
+                    var raftPoint =  navMesh.GetNavMeshByID(1).GetNearest(targetPoint, NNConstraint.Walkable).position;
+
+                    if (Vector3.Distance(targetPoint, terrainPoint) > Vector3.Distance(targetPoint, raftPoint)) return false;
+                    
+                    
                     if (Machine.BuildService.RaftEndPoint != null)
                     {
                         if (IsPlayerNotOnTerrain(out RaycastHit hit))

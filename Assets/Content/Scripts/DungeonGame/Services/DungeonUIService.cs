@@ -25,7 +25,8 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private UIDungeonMobsCounter mobsCounter;
         [SerializeField] private UIDungeonMobsCompass dungeonCompass;
         [SerializeField] private UIGetScrollWindow getScrollWindow;
-        
+        [SerializeField] private UIBossHealthDisplay bossHealthDisplay;
+        [SerializeField] private UISoulsCounter soulsCounter;
         private DungeonSelectionService selectionService;
         private SaveDataObject saveDataObject;
         private ScenesService scenesService;
@@ -70,6 +71,8 @@ namespace Content.Scripts.DungeonGame.Services
             optionsHolder.Init(storagesCounter, authService, this.saveService, cloudService, scenesService, messageBoxManager, saveDataObject);
             dungeonCompass.Init(enemiesService, charactersService);
             getScrollWindow.Init(gameData, dungeonResourcesService);
+            bossHealthDisplay.Init(enemiesService);
+            soulsCounter.Init(saveDataObject);
             
             
             endRoom.OnEnter += OnEnterBoss;
