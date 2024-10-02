@@ -45,8 +45,22 @@ namespace Content.Scripts.DungeonGame.Services
             var rnd = new System.Random(dungeonService.Seed);
 
 
-            spawnedEnd = SpawnRoom(worldGridService, roomEnd, new Vector3(maxDistance - roomStart.Size.x - 1, 0, maxDistance - roomStart.Size.y - 1));
-            spawnedStart = SpawnRoom(worldGridService, roomStart, new Vector3(0 + roomStart.Size.x, 0, 0 + roomStart.Size.y));
+            Vector3 rpos = Vector3.zero;
+            do
+            {
+                rpos = Vector3Int.CeilToInt(new Vector3(rnd.NextFloat(-maxDistance, maxDistance), 0, rnd.NextFloat(-maxDistance, maxDistance)));
+                
+            } while (worldGridService.IsHavePoints(roomEnd.GetPointsInGlobalSpace(rpos)) || !InBounds(roomEnd.GetPointsInGlobalSpace(rpos)));
+            spawnedEnd = SpawnRoom(worldGridService, roomEnd, rpos);
+            
+            
+            do
+            {
+                rpos = Vector3Int.CeilToInt(new Vector3(rnd.NextFloat(-maxDistance, maxDistance), 0, rnd.NextFloat(-maxDistance, maxDistance)));
+                
+            } while (worldGridService.IsHavePoints(roomStart.GetPointsInGlobalSpace(rpos)) || !InBounds(roomStart.GetPointsInGlobalSpace(rpos)));
+            
+            spawnedStart = SpawnRoom(worldGridService, roomStart, rpos);
 
 
             for (int i = 0; i < roomsCount; i++)

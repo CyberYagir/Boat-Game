@@ -6,6 +6,7 @@ using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.IslandGame.Scriptable;
+using Content.Scripts.IslandGame.Services;
 using Content.Scripts.Map;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -77,7 +78,7 @@ namespace Content.Scripts.IslandGame
         public List<TerrainObject> SpawnedTerrainObjects => spawnedTerrainObjects;
         public SaveDataObject SaveData => saveDataObject;
         public GameDataObject GameData => gameDataObject;
-
+        public IslandMobsService IslandMobSpawnService => islandMobsService;
 
 
         [Inject]
@@ -88,8 +89,10 @@ namespace Content.Scripts.IslandGame
             PrefabSpawnerFabric prefabSpawnerFabric,
             RaftBuildService raftBuildService,
             INavMeshProvider navMeshProvider,
-            TickService tickService)
+            TickService tickService,
+            IslandMobsService islandMobsService)
         {
+            this.islandMobsService = islandMobsService;
             this.tickService = tickService;
             this.navMeshProvider = navMeshProvider;
             this.prefabSpawnerFabric = prefabSpawnerFabric;
@@ -154,7 +157,7 @@ namespace Content.Scripts.IslandGame
             TargetTerrain.Terrain.terrainData.SetTreeInstances(TreesInstances.ToArray(), true);
             currentIslandData = TargetTerrain;
 
-            CurrentIslandData.Init(gameDataObject, prefabSpawnerFabric, TargetBiome);
+            currentIslandData.Init(gameDataObject, prefabSpawnerFabric, TargetBiome, islandMobsService);
         }
 
         private void PlaceAll(IslandData terr, TerrainBiomeSO biome, Random rnd, int islandLevel)
@@ -451,6 +454,8 @@ namespace Content.Scripts.IslandGame
 
 
         List<int> ids = new List<int>(100);
+        private IslandMobsService islandMobsService;
+
         public void ClearObjectsInBounds(Bounds bounds)
         {
             ids.Clear();

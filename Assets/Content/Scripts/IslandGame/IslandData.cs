@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.IslandGame.Mobs;
+using Content.Scripts.IslandGame.Services;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -51,12 +52,12 @@ namespace Content.Scripts.IslandGame
             botsSpawnerManager = GetComponentInChildren<BotSpawnersManager>();
         }
 
-        public void Init(GameDataObject gameData, PrefabSpawnerFabric prefabSpawner, TerrainBiomeSO biome)
+        public void Init(GameDataObject gameData, PrefabSpawnerFabric prefabSpawner, TerrainBiomeSO biome, IslandMobsService islandMobsService)
         {
             this.biome = biome;
             if (botsSpawnerManager)
             {
-                botsSpawnerManager.Init(gameData, prefabSpawner, biome);
+                botsSpawnerManager.Init(gameData, prefabSpawner, biome, islandMobsService);
             }
         }
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Content.Scripts.BoatGame.PlayerActions;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using Content.Scripts.IslandGame.Services;
 using Content.Scripts.Map;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -45,6 +46,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
         private SaveDataObject saveDataObject;
         private GameDataObject gameDataObject;
         private IslandSeedData islandData;
+        private IslandMobsService islandMobsService;
 
         public List<RoadBuilder> HousePoints => roadsGenerator.Ends;
         public string Uid => uid;
@@ -57,9 +59,11 @@ namespace Content.Scripts.IslandGame.WorldStructures
             PrefabSpawnerFabric spawnerFabric,
             SaveDataObject saveDataObject,
             GameDataObject gameDataObject,
-            IslandSeedData islandData
+            IslandSeedData islandData,
+            IslandMobsService islandMobsService
         )
         {
+            this.islandMobsService = islandMobsService;
             this.islandData = islandData;
             this.gameDataObject = gameDataObject;
             this.saveDataObject = saveDataObject;
@@ -88,7 +92,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
                     dataCollector.Init(structuresData, bounds, uid, islandData, saveDataObject);
                 }
 
-                population.Init(structuresData, rnd, saveDataObject, gameDataObject.NativesListData, spawnerFabric, uid, bounds);
+                population.Init(structuresData, rnd, saveDataObject, gameDataObject.NativesListData, spawnerFabric, uid, bounds, islandMobsService);
             }
         }
 

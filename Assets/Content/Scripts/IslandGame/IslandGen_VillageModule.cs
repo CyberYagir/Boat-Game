@@ -10,6 +10,8 @@ namespace Content.Scripts.IslandGame
     {
         [SerializeField] private IslandNativesData islandNativesData;
         private PrefabSpawnerFabric spawnerFabricService;
+
+        public bool IsSpawned => islandNativesData.Data.IsSpawned;
         
         [Inject]
         private void Construct(PrefabSpawnerFabric spawnerFabricService)
@@ -24,18 +26,7 @@ namespace Content.Scripts.IslandGame
 
         private void SpawnVillage()
         {
-            islandNativesData.Init(
-                islandGenerator.Seed,
-                islandGenerator.TargetRandom,
-                islandGenerator.TargetBiome,
-                spawnerFabricService,
-                islandGenerator.TargetTerrain,
-                islandGenerator,
-                islandGenerator.TargetIslandData,
-                islandGenerator.SaveData,
-                islandGenerator.GameData);
-
-            
+            islandNativesData.Init(islandGenerator.TargetRandom, spawnerFabricService, islandGenerator);
             
             if (islandNativesData.Data.IsSpawned)
             {

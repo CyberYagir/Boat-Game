@@ -1,18 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using Content.Scripts.IslandGame.Services;
 using Content.Scripts.IslandGame.WorldStructures;
 using Content.Scripts.Map;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = System.Random;
 
 namespace Content.Scripts.IslandGame
 {
-    [System.Serializable]
+    [Serializable]
     public class IslandNativesData : GenerateObjectCalculator
     {
-        [System.Serializable]
+        [Serializable]
         public class VillageData
         {
             [SerializeField] private bool isSpawned;
@@ -30,7 +33,7 @@ namespace Content.Scripts.IslandGame
             public bool IsSpawned => isSpawned;
         }
         
-        [System.Serializable]
+        [Serializable]
         public class Villages
         {
             [SerializeField] private TerrainBiomeSO[] biomes;
@@ -52,30 +55,29 @@ namespace Content.Scripts.IslandGame
         private SaveDataObject saveData;
         private GameDataObject gameDataObject;
         private IslandSeedData islandData;
+        private IslandMobsService islandMobsService;
 
         public VillageData Data => villageData;
 
 
-        public void Init(int seed,
+        public void Init(
             Random rnd,
-            TerrainBiomeSO biome,
             PrefabSpawnerFabric spawner,
-            IslandData targetTerrain,
-            IslandGenerator islandGenerator, 
-            IslandSeedData islandData,
-            SaveDataObject saveDataObject,
-            GameDataObject gameDataObject)
+            IslandGenerator islandGenerator)
         {
-            this.saveData = saveDataObject;
-            this.islandData = islandData;
             this.islandGenerator = islandGenerator;
-            this.targetTerrain = targetTerrain;
+            
+            islandMobsService = islandGenerator.IslandMobSpawnService;
+            saveData = islandGenerator.SaveData;
+            islandData = islandGenerator.TargetIslandData;
+            targetTerrain = islandGenerator.TargetTerrain;
+            
 
             var targetChance = islandLevelChance.Evaluate(islandData.Level);
 
             if (rnd.NextDouble() < targetChance)
             {
-                SpawnVillage(biome, rnd, seed, spawner, gameDataObject);
+                SpawnVillage(islandGenerator.TargetBiome, rnd, islandGenerator.Seed, spawner, islandGenerator.GameData);
             }
             else
             {
@@ -92,7 +94,7 @@ namespace Content.Scripts.IslandGame
             
             var village = Object.Instantiate(holder.Structures.GetRandomItem(rnd));
             village.transform.SetYPosition(0);
-            village.Init(biome, rnd, seed, spawner, saveData, gameData, islandData);
+            village.Init(biome, rnd, seed, spawner, saveData, gameData, islandData, islandMobsService);
             var startSize = new Vector3(targetTerrain.Terrain.terrainData.size.x, 0, targetTerrain.Terrain.terrainData.size.z);
 
             villageData = new VillageData(false, new Bounds());

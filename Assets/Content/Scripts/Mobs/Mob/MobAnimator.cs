@@ -129,5 +129,10 @@ namespace Content.Scripts.Mobs.Mob
             animator.ResetTrigger(TG_Cast);
             animator.SetTrigger(TG_Cast);
         }
+
+        public void Disable()
+        {
+            animator.enabled = false;
+        }
     }
 }

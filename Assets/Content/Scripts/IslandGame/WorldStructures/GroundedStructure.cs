@@ -11,6 +11,12 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
         private void Awake()
         {
+            Place();
+        }
+        
+        public void Place()
+        {
+            
             if (Physics.Raycast(transform.position + Vector3.up * 100, Vector3.down, out RaycastHit hit, Mathf.Infinity, mask, QueryTriggerInteraction.Ignore))
             {
                 transform.position = hit.point;

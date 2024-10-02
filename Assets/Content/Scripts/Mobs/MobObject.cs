@@ -24,5 +24,10 @@ namespace Content.Scripts.Mobs
 
         public SpawnedMob Prefab => prefabVariants.GetRandomItem();
         public EMobType Type => type;
+
+        public SpawnedMob PrefabBySeed(System.Random rnd)
+        {
+            return prefabVariants.GetRandomItem(rnd);
+        }
     }
 }

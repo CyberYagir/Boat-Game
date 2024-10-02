@@ -7,23 +7,19 @@ namespace Content.Scripts.Mobs.Natives
 {
     public class NativeActionBase : StateAction<SpawnedMob>
     {
-        private Vector3 targetPoint;
         private NativeController nativeController;
         protected INavAgentProvider Agent => Controller.AIManager.NavMeshAgent;
-
         public NativeController Controller => nativeController;
 
         public override void StartState()
         {
             base.StartState();
-            nativeController = Machine as NativeController;
+            nativeController = Machine.GetComponent<NativeController>();
             nativeController.AIManager.NavMeshAgent.SetStopped(false);
         }
 
         protected bool MoveToPoint(Vector3 point)
         {
-            targetPoint = point;
-
             if (Agent.TryBuildPath(point, out Vector3 newPoint))
             {
                 Agent.SetDestination(newPoint);

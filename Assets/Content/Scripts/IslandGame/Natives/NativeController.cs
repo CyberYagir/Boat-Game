@@ -23,6 +23,8 @@ namespace Content.Scripts.IslandGame.Natives
         Cook,
         Mage
     }
+
+
     public class NativeController : SpawnedMob
     {
         [System.Serializable]
@@ -56,6 +58,11 @@ namespace Content.Scripts.IslandGame.Natives
             public bool IsAvailablePoint(Vector3 pos)
             {
                 return navMesh.IsAvailablePoint(pos);
+            }
+
+            public void MoveToPoint(Vector3 attackedTransformPosition)
+            {
+                
             }
         }
         [SerializeField] private ENativeType type;

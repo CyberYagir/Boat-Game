@@ -3,6 +3,7 @@ using System.Text;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using Content.Scripts.IslandGame.Services;
 using Content.Scripts.ItemsSystem;
 using Content.Scripts.Mobs;
 using Content.Scripts.Mobs.Mob;
@@ -25,34 +26,36 @@ namespace Content.Scripts.IslandGame.Mobs
         private PrefabSpawnerFabric spawner;
         private GameDataObject gameData;
         private TerrainBiomeSO biome;
-        
-        public void Init(GameDataObject gameData, PrefabSpawnerFabric spawner, TerrainBiomeSO biome)
+
+        public void Init(GameDataObject gameData, PrefabSpawnerFabric spawner, TerrainBiomeSO biome, IslandMobsService islandMobsService)
         {
+            this.islandMobsService = islandMobsService;
             this.biome = biome;
             this.spawner = spawner;
             this.gameData = gameData;
             RespawnMob();
         }
 
-
 #if UNITY_EDITOR
         private List<Vector3> gizmosPoints = new List<Vector3>();
         private Vector3 lastPos;
         private float lastRadius;
+        private IslandMobsService islandMobsService;
 
         private void OnDrawGizmos()
         {
             Gizmos.DrawIcon(transform.position, mobType.ToString().ToLower() + "Icon.png", false);
             Gizmos.DrawWireSphere(transform.position, radius);
         }
+
         private void OnDrawGizmosSelected()
         {
-            if (lastPos != transform.position || lastRadius != radius) 
+            if (lastPos != transform.position || lastRadius != radius)
             {
                 gizmosPoints.Clear();
-                for (float x = -radius; x < radius; x+=3)
+                for (float x = -radius; x < radius; x += 3)
                 {
-                    for (float y = -radius; y < radius; y+=3)
+                    for (float y = -radius; y < radius; y += 3)
                     {
                         if (Physics.Raycast(transform.position + new Vector3(x, radius / 2f, y), Vector3.down, out RaycastHit hit, radius, ~0, QueryTriggerInteraction.Ignore))
                         {
@@ -63,6 +66,7 @@ namespace Content.Scripts.IslandGame.Mobs
                         }
                     }
                 }
+
                 lastPos = transform.position;
                 lastRadius = radius;
             }
@@ -74,6 +78,7 @@ namespace Content.Scripts.IslandGame.Mobs
             }
         }
 #endif
+
         public Vector3 GetRandomPointInRange()
         {
             var point = Random.insideUnitSphere * radius;
@@ -84,40 +89,26 @@ namespace Content.Scripts.IslandGame.Mobs
             {
                 return GetRandomPointInRange();
             }
-            
+
             if (Physics.Raycast(transform.position + point, Vector3.down, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Terrain")))
             {
-                
+
                 return hit.point;
             }
 
             return transform.position;
         }
-
-        public void SpawnItem(ItemObject item)
-        {
-            if (item != null)
-            {
-
-                spawner.SpawnItemOnGround(
-                        item.GetDropPrefab(gameData),
-                        spawnedMob.transform.position + Random.insideUnitSphere,
-                        Quaternion.Euler(Random.insideUnitSphere))
-                    .With(x => x.SetItem(item));
-            }
-        }
-
+        
         public void RespawnByCooldown()
         {
             DOVirtual.DelayedCall(respawnCooldown.RandomWithin(), RespawnMob).SetLink(gameObject);
         }
-        
+
         public void RespawnMob()
         {
             if (biomes.Contains(biome))
             {
-                var mob = gameData.GetMob(mobType);
-                spawnedMob = spawner.SpawnItemOnGround(mob.Prefab, GetRandomPointInRange(), Quaternion.identity, transform, LayerMask.GetMask("Default", "Terrain"), 0);
+                spawnedMob = islandMobsService.AddMob(gameData.GetMob(mobType), GetRandomPointInRange(), transform);
                 spawnedMob.Init(this);
             }
         }

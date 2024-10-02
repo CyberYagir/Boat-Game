@@ -13,5 +13,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
         {
             isNotEmpty = state;
         }
+
+
     }
 }

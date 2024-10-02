@@ -1,4 +1,5 @@
-﻿using Content.Scripts.BoatGame;
+﻿using System;
+using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.IslandGame.Mobs;
 using Content.Scripts.Mobs.MobCrab;
@@ -19,7 +20,9 @@ namespace Content.Scripts.Mobs.Mob
         
         
         [SerializeField, FoldoutGroup("Data")] protected float speed;
-        
+
+        private bool isMomentalDeath = false;
+        public event Action<SpawnedMob> OnSpawnDrop;
         
         protected Quaternion targetQuaternion;
 
@@ -34,6 +37,8 @@ namespace Content.Scripts.Mobs.Mob
         public DropTableObject MobDropTable => dropTable;
 
         public MobStateMachine StateMachine => stateMachine;
+
+        public bool IsMomentalDeath => isMomentalDeath;
 
 
         public virtual void Init(BotSpawner botSpawner, bool initStateMachine = true)
@@ -51,6 +56,8 @@ namespace Content.Scripts.Mobs.Mob
             OnDamage += OnOnDamage;
             OnDeath += OnOnDeath;
         }
+
+        public void SetIsMomentalDeath(bool state) => isMomentalDeath = state;
 
         public virtual void OnOnAttackedEnd()
         {
@@ -73,23 +80,26 @@ namespace Content.Scripts.Mobs.Mob
             Animations.TriggerDeath();
             collider.enabled = false;
 
-            
-            DOVirtual.DelayedCall(2f, delegate
+            if (!isMomentalDeath)
             {
-                if (spawner)
+                DOVirtual.DelayedCall(2f, delegate
                 {
-                    var item = MobDropTable.GetItem();
-                    spawner.SpawnItem(item);
-                    spawner.RespawnByCooldown();
-                    gameObject.SetActive(false);
-                    deadPoofParticles.transform.parent = null;
-                    deadPoofParticles.Play(true);
-                    Destroy(deadPoofParticles.gameObject, 2f);
-                }
-            }).SetLink(gameObject).onComplete += delegate
+                    OnSpawnDrop?.Invoke(this);
+                    if (spawner)
+                    {
+                        spawner.RespawnByCooldown();
+                        gameObject.SetActive(false);
+                        deadPoofParticles.transform.parent = null;
+                        deadPoofParticles.Play(true);
+                        Destroy(deadPoofParticles.gameObject, 2f);
+                    }
+                }).SetLink(gameObject).onComplete += delegate { Destroy(gameObject, 2f); };
+            }
+            else
             {
-                Destroy(gameObject, 2f);
-            };
+                OnSpawnDrop?.Invoke(this);
+                Destroy(gameObject);
+            }
         }
 
         public void ChangeStateTo(EMobsState pointsMove)

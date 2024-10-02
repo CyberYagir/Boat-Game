@@ -37,3 +37,38 @@ MonoBehaviour:
   slavesOnIslandCount:
     min: 2
     max: 5
+  pillagersCalculator:
+    pillagerByLevels:
+    - level: 5
+      pillagers:
+      - {fileID: 11400000, guid: f9f991709d86ccc44b61e88f5e956399, type: 2}
+    - level: 10
+      pillagers:
+      - {fileID: 11400000, guid: c3ccaca18557bc14b8201e11d6611cb2, type: 2}
+    modify:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0.0036525936
+        outSlope: 0.0036525936
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.31111115
+      - serializedVersion: 3
+        time: 10
+        value: 2
+        inSlope: 0.004905163
+        outSlope: 0.004905163
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.38611108
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    count:
+      min: 1
+      max: 3

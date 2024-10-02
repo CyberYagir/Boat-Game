@@ -10,6 +10,7 @@ namespace Content.Scripts.BoatGame
         public void InstallIslandGame()
         {
             BindService<CameraMovingService>();
+            BindService<IslandMobsService>();
             BindService<IslandGenerator>();
             BindService<IslandTransferRaftService>();
         }

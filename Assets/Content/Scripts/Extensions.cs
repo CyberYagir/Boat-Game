@@ -772,7 +772,7 @@ namespace Content.Scripts
 
         public static string RemoveSpecialCharacters(this string str)
         {
-            return Regex.Replace(str, "[^a-zA-Z0-9_.]+", "", RegexOptions.Compiled);
+            return Regex.Replace(str, "[^a-zA-Z0-9_. ]+", "", RegexOptions.Compiled);
         }
         
         public static Quaternion ToRotation(this Vector3 normal, Transform transform)

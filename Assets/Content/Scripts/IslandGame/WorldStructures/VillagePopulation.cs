@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.IslandGame.Natives;
+using Content.Scripts.IslandGame.Services;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = System.Random;
@@ -26,13 +27,14 @@ namespace Content.Scripts.IslandGame.WorldStructures
             NativesListSO nativesList, 
             PrefabSpawnerFabric prefabSpawnerFabric, 
             string villageID,
-            Bounds bounds)
+            Bounds bounds,
+            IslandMobsService islandMobsService)
         {
             GenerateVillagersIds(structuresData, rnd);
-            GenerateVillagesBySeeds(saveDataObject, nativesList, prefabSpawnerFabric, villageID, bounds);
+            GenerateVillagesBySeeds(saveDataObject, nativesList, prefabSpawnerFabric, villageID, bounds, islandMobsService);
         }
 
-        private void GenerateVillagesBySeeds(SaveDataObject saveDataObject, NativesListSO nativesList, PrefabSpawnerFabric spawnerFabric, string villageID, Bounds bounds)
+        private void GenerateVillagesBySeeds(SaveDataObject saveDataObject, NativesListSO nativesList, PrefabSpawnerFabric spawnerFabric, string villageID, Bounds bounds, IslandMobsService islandMobsService)
         {
             var island = saveDataObject.GetTargetIsland();
             var village = island.GetVillage(villageID);
@@ -49,22 +51,22 @@ namespace Content.Scripts.IslandGame.WorldStructures
                         if (villager == null)
                         {
                             village.AddVillager(uid);
-                            SpawnCharacter(nativesList, spawnerFabric, charRnd, types[i], item.Key, bounds);
+                            SpawnCharacter(nativesList, spawnerFabric, charRnd, types[i], item.Key, islandMobsService);
                         }
                         else if (!villager.IsDead)
                         {
-                            SpawnCharacter(nativesList, spawnerFabric, charRnd, types[i], item.Key, bounds);
+                            SpawnCharacter(nativesList, spawnerFabric, charRnd, types[i], item.Key, islandMobsService);
                         }
                     }
                 }
             }
         }
 
-        private void SpawnCharacter(NativesListSO nativesList, PrefabSpawnerFabric spawnerFabric, Random charRnd, ENativeType type, StructureDataBase structure, Bounds bounds)
+        private void SpawnCharacter(NativesListSO nativesList, PrefabSpawnerFabric spawnerFabric, Random charRnd, ENativeType type, StructureDataBase structure, IslandMobsService islandMobsService)
         {
             var prefab = nativesList.GetByType(type, charRnd);
-            var enemy = spawnerFabric.SpawnItemOnGround(prefab, structure.transform.position, default, structure.transform, LayerMask.GetMask("Terrain"), 0);
-            
+
+            var enemy = islandMobsService.AddMob(prefab, structure.transform.position, LayerMask.GetMask("Terrain"), structure.transform);
             enemy.Init(null);
             SpawnedNatives.Add(enemy);
         }
