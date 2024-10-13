@@ -465,6 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   window: {fileID: 5071370883755338713}
+  canShowOnlySingle: 0
   itemPrefab: {fileID: 1928040503663397024}
   craftsItems: []
 --- !u!1 &5625801671768064563
@@ -595,7 +596,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 58
     m_Bottom: 100
   m_ChildAlignment: 0
   m_StartCorner: 0
@@ -630,6 +631,7 @@ GameObject:
   - component: {fileID: 4621747619264262010}
   - component: {fileID: 6197795577745653322}
   - component: {fileID: 5119897389964856104}
+  - component: {fileID: 115044641548900571}
   m_Layer: 0
   m_Name: Scroll View
   m_TagString: Untagged
@@ -655,8 +657,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -100, y: -100}
+  m_AnchoredPosition: {x: 0, y: 21.476788}
+  m_SizeDelta: {x: -100, y: -57.0464}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4621747619264262010
 CanvasRenderer:
@@ -726,6 +728,18 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &115044641548900571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6508111663671282963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec142251f6cb6c14984db70e0a4ce0f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6934376040959350767
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,8 +776,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 10, y: -7.4473877}
-  m_SizeDelta: {x: 20, y: -14.8948}
+  m_AnchoredPosition: {x: 10, y: -45.988487}
+  m_SizeDelta: {x: 20, y: -91.977}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &1130394588496587286
 CanvasRenderer:
@@ -846,7 +860,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1635428979516014617}
   m_HandleRect: {fileID: 2606378536030207532}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -920,7 +934,7 @@ MonoBehaviour:
   m_text: Remove Rafts
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
-  m_sharedMaterial: {fileID: -5980896900257070458, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
+  m_sharedMaterial: {fileID: -6973945126334197975, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

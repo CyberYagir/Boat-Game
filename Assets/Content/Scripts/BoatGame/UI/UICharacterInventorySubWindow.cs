@@ -9,7 +9,7 @@ namespace Content.Scripts.BoatGame.UI
     public class UICharacterInventorySubWindow : DragAreaWindow
     {
         [SerializeField] private UIInventoryItem item;
-        
+        [SerializeField] private GameObject itemsNotFoundText;
         private List<UIInventoryItem> items = new List<UIInventoryItem>();
         private IRaftBuildService raftBuildService;
 
@@ -29,6 +29,7 @@ namespace Content.Scripts.BoatGame.UI
 
             items.Clear();
             item.gameObject.SetActive(true);
+            int count = 0;
             foreach (var raftStorage in raftBuildService.Storages)
             {
                 var other = raftStorage.GetItem(EResourceTypes.Other);
@@ -42,10 +43,13 @@ namespace Content.Scripts.BoatGame.UI
                             Instantiate(item, item.transform.parent)
                                 .With(x => x.Init(otherItemObject.Item, this))
                                 .With(x => items.Add(x));
+                            count++;
                         }
                     }
                 }
             }
+
+            itemsNotFoundText.gameObject.SetActive(count == 0);
             item.gameObject.SetActive(false);
         }
     }

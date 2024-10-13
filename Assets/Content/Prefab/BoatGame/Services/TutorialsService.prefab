@@ -240,12 +240,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &1617341742722333261
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,8 +511,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Click on object to start actions!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e10673a0b5876fe418fd5cc56443384a, type: 2}
-  m_sharedMaterial: {fileID: -6813785189910365409, guid: e10673a0b5876fe418fd5cc56443384a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
+  m_sharedMaterial: {fileID: -6973945126334197975, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -814,7 +814,7 @@ MonoBehaviour:
   m_text: OK
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
-  m_sharedMaterial: {fileID: -5980896900257070458, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
+  m_sharedMaterial: {fileID: -6973945126334197975, guid: 7f540e6a8db032d4da88ee68f20e42f1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -927,6 +927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ccfe0a4ab09e5440ac21fc4b78a0cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiService: {fileID: 0}
   tutorialsDisplay: {fileID: 4685635240086809517}
   actionsTutorial: {fileID: 11400000, guid: 5d0e1f2522d9be44a96b3e39fff8699a, type: 2}
   eatTutorial: {fileID: 11400000, guid: c6358e7025f25384a80b2167ec91604c, type: 2}

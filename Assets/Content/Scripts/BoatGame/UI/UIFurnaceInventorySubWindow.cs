@@ -10,7 +10,8 @@ namespace Content.Scripts.BoatGame.UI
     public class UIFurnaceInventorySubWindow : DragAreaWindow
     {
         [SerializeField] private UIInventoryItem item;
-
+        [SerializeField] private GameObject itemsNotFoundText;
+        
         private Dictionary<ItemObject, int> stackedItems = new Dictionary<ItemObject, int>(50);
         private List<UIInventoryItem> items = new List<UIInventoryItem>();
         private RaftBuildService raftBuildService;
@@ -196,6 +197,8 @@ namespace Content.Scripts.BoatGame.UI
             UpdateStackText();
 
             item.gameObject.SetActive(false);
+            
+            itemsNotFoundText.gameObject.SetActive(count == 0);
         }
 
         private void CalculateItemToStack(RaftStorage.StorageItem item)
