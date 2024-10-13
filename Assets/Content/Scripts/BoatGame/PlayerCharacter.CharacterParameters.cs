@@ -4,6 +4,7 @@ using Content.Scripts.BoatGame.Scriptable;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
+using Content.Scripts.SkillsSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -22,18 +23,26 @@ namespace Content.Scripts.BoatGame
             }
             
             [SerializeField] private float baseDamage = 15;
+            [SerializeField] private float startSpeed = 2;
             [SerializeField, ReadOnly] private List<PotionLogicBaseSO> activeEffects = new List<PotionLogicBaseSO>();
-
+            [SerializeField] private SkillObject movingSkill;
+            [SerializeField] private SkillObject strengthSkill;
 
             private Dictionary<EffectBonusValueType, float> effectsBonuses = new Dictionary<EffectBonusValueType, float>();
             private Character selfCharacter;
             private GameDataObject gameData;
             private PlayerCharacter playerCharacter;
-            
-            
-            
+            private Character character;
+
+
             public float Defence => CalculateDefencePercent();
             public float Damage => CalculateDamage();
+            public float Speed => CalcualteSpeed();
+            
+            private float CalcualteSpeed()
+            {
+                return startSpeed + (character.GetSkillMultiplyAdd(movingSkill.SkillID));
+            }
 
             private float CalculateDamage()
             {
@@ -43,12 +52,13 @@ namespace Content.Scripts.BoatGame
                 {
                     damage = targetCharacterWeapon.ParametersData.Damage;
                 }
-                return damage * GetEffectMult(EffectBonusValueType.Attack);
+                return (damage * GetEffectMult(EffectBonusValueType.Attack)) + ((1f -character.GetSkillMultiply(strengthSkill.SkillID)) * damage);
             }
 
             public void Init(Character selfCharacter, GameDataObject gameData, PlayerCharacter playerCharacter)
             {
-                this.playerCharacter = playerCharacter;
+                this.character = selfCharacter;
+                this.playerCharacter = playerCharacter; 
                 this.gameData = gameData;
                 this.selfCharacter = selfCharacter;
 

@@ -9,9 +9,22 @@ namespace Content.Scripts.Global
         [Serializable]
         public class CrossGameData
         {
-            [SerializeField] private int soulsCount;
+            [System.Serializable]
+            public class PlayerStatistics
+            {
+                [SerializeField] private int countBuildRafts;
 
+                public int CountBuildRafts => countBuildRafts;
+
+                public void AddBuildRaft() => countBuildRafts++;
+            }
+            
+            [SerializeField] private int soulsCount;
+            [SerializeField] private PlayerStatistics statistics;
+            
             public int SoulsCount => soulsCount;
+
+            public PlayerStatistics Statistics => statistics;
 
             [System.NonSerialized] public UnityEvent OnSoulsChanged = new UnityEvent();
             

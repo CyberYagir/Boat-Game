@@ -45,21 +45,24 @@ namespace Content.Scripts.BoatGame.UI
                 if (i < enemiesService.MobsCount)
                 {
                     arrows[i].gameObject.SetActive(true);
-                    var character = characterService.GetSpawnedCharacters()[0];
+                    if (characterService.GetSpawnedCharacters().Count > 0)
+                    {
+                        var character = characterService.GetSpawnedCharacters()[0];
 
-                    var pos = (character.transform.position - enemiesService.GetMobByID(i).position);
+                        var pos = (character.transform.position - enemiesService.GetMobByID(i).position);
 
-                    var ang = new Vector2(pos.z, pos.x).ToAngle() + angle;
+                        var ang = new Vector2(pos.z, pos.x).ToAngle() + angle;
 
-                    var distance = pos.sqrMagnitude;
+                        var distance = pos.sqrMagnitude;
 
-                    var scale = scaleCurve.Evaluate(Mathf.Clamp(distance, 0, 300f));
+                        var scale = scaleCurve.Evaluate(Mathf.Clamp(distance, 0, 300f));
 
 
-                    arrows[i].transform.localScale = Vector3.one * scale;
-                    
-                    
-                    arrows[i].transform.SetZLocalEulerAngles(ang);
+                        arrows[i].transform.localScale = Vector3.one * scale;
+
+
+                        arrows[i].transform.SetZLocalEulerAngles(ang);
+                    }
                 }
                 else
                 {

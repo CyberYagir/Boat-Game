@@ -307,6 +307,7 @@ namespace Content.Scripts.BoatGame.Services
             {
                 var type = rafts.Find(x => x.CraftObject != null && x.CraftObject.Uid == craft.Uid);
                 var raft = type.Raft;
+                saveData.CrossGame.Statistics.AddBuildRaft();
                 return SpawnRaftPrefab(cords, type.Type, raft);
             }
 

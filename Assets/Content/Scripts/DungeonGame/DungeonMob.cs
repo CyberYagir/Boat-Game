@@ -161,7 +161,7 @@ namespace Content.Scripts.DungeonGame
                 return;
             }
 
-            SetHealth(MaxHealth * characterService.SpawnedCharacters.Count);
+            SetHealth(MaxHealth * characterService.SpawnedCharacters.Count * dungeonService.TargetConfig.HealthModify);
             aiModule = new AIModule()
                 .With(x => x.Init(transform));
             aggressionModule.Init(characterService, transform);
@@ -255,6 +255,11 @@ namespace Content.Scripts.DungeonGame
         public void UnAgr()
         {
             aggressionModule.DisableUpdate();
+        }
+
+        public float GetDamageModify()
+        {
+            return dungeonService.TargetConfig.DamageModify;
         }
     }
 }

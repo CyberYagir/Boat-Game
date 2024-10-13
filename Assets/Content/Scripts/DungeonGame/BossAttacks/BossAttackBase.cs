@@ -21,9 +21,10 @@ namespace Content.Scripts.DungeonGame.BossAttacks
         public event Action OnEnded;
 
         [Inject]
-        private void Construct(DungeonCharactersService dungeonCharactersService)
+        private void Construct(DungeonCharactersService dungeonCharactersService, DungeonService dungeonService)
         {
             this.dungeonCharactersService = dungeonCharactersService;
+            damage *= dungeonService.TargetConfig.DamageModify;
         }
         
         public void Init(DungeonMob dungeonMob)

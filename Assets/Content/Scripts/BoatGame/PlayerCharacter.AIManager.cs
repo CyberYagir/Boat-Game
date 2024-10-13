@@ -25,36 +25,33 @@ namespace Content.Scripts.BoatGame
             public INavAgentProvider NavMeshAgent => agent;
             public INavMeshProvider NavMesh => navMeshProvider;
 
-
-            private float startSpeed;
-
-            public void Init(RaftBuildService raftBuildService, INavMeshProvider navMeshProvider, Character character)
+            public void Init(RaftBuildService raftBuildService, INavMeshProvider navMeshProvider, Character character, CharacterParameters parameters)
             {
+                this.parameters = parameters;
                 this.character = character;
                 this.navMeshProvider = navMeshProvider;
                 this.raftBuildService = raftBuildService;
                 this.resourcesService = raftBuildService.ResourcesService;
                 agent = navMeshAgent.GetComponent<INavAgentProvider>();
-
-                startSpeed = agent.MaxSpeed;
+                agent.SetMovingSpeed(parameters.Speed);
                 character.OnSkillUpgraded += CharacterOnOnSkillUpgraded;
                 CharacterOnOnSkillUpgraded();
             }
             
-            public void Init(INavMeshProvider navMeshProvider, Character character)
+            public void Init(INavMeshProvider navMeshProvider, Character character, CharacterParameters parameters)
             {
+                this.parameters = parameters;
                 this.character = character;
                 this.navMeshProvider = navMeshProvider;
                 agent = navMeshAgent.GetComponent<INavAgentProvider>();
-
-                startSpeed = agent.MaxSpeed;
+                agent.SetMovingSpeed(parameters.Speed);
                 character.OnSkillUpgraded += CharacterOnOnSkillUpgraded;
                 CharacterOnOnSkillUpgraded();
             }
 
             private void CharacterOnOnSkillUpgraded()
             {
-                agent.SetMovingSpeed(startSpeed + (character.GetSkillMultiplyAdd(moveSkill.SkillID)));
+                agent.SetMovingSpeed(parameters.Speed);
             }
 
 
@@ -79,6 +76,7 @@ namespace Content.Scripts.BoatGame
 
             private RaycastHit[] raycastResults = new RaycastHit[4];
             private Character character;
+            private CharacterParameters parameters;
 
             public bool IsOnGround()
             {

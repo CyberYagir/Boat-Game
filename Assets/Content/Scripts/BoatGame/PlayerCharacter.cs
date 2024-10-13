@@ -86,10 +86,11 @@ namespace Content.Scripts.BoatGame
             if (onlyVisuals) return;
 
             characterGrounder.Init(transform);
-            aiManager.Init(raftBuildService, navMeshProvider, character);
+            parametersCalculator.Init(character, gameData, this);
+            
+            aiManager.Init(raftBuildService, navMeshProvider, character, parametersCalculator);
             
             animationsManager.Init(weatherService, appearanceManager);
-            parametersCalculator.Init(character, this.GameData, this);
             needsManager.Init(character, weatherService, this.selectionService, gameData);
             actionsHolder.Construct(selectionService, gameData);
 
@@ -131,11 +132,11 @@ namespace Content.Scripts.BoatGame
             this.prefabSpawnerFabric = prefabSpawnerFabric;
             
 
-            appearanceManager.Init(character, gameData);
-            aiManager.Init(navMeshProvider, this.character);
+            appearanceManager.Init(character, gameData);            
+            parametersCalculator.Init(character, gameData, this);
+            aiManager.Init(navMeshProvider, this.character, parametersCalculator);
             characterGrounder.Init(transform);
             animationsManager.Init(null, appearanceManager);
-            parametersCalculator.Init(character, this.GameData, this);
             needsManager.Init(character, null, null, gameData);
             needsManager.OnDeath += Death;
             
@@ -217,7 +218,7 @@ namespace Content.Scripts.BoatGame
 
         private void NeedsManagerTick(float delta)
         {
-            if (saveDataObject.Global.TotalSecondsInGame + TimeService.PlayedTime >= GameData.ConfigData.StartNeedsActiveTime)
+            if (saveDataObject.Global.TotalSecondsInGame + TimeService.PlayedTime >= GameData.ConfigData.StartNeedsActiveTime || saveDataObject.CrossGame.Statistics.CountBuildRafts >= 1)
             {
                 needsManager.OnTick(delta);
             }

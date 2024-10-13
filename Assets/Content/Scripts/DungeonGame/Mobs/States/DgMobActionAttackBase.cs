@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Content.Scripts.DungeonGame.Mobs.States
 {
@@ -9,5 +10,11 @@ namespace Content.Scripts.DungeonGame.Mobs.States
         [SerializeField] protected float attackCooldown;
         [SerializeField] protected float attackDelay;
         protected bool isCooldown;
+
+
+        private void Awake()
+        {
+            attackDamage *= Machine.GetDamageModify();
+        }
     }
 }

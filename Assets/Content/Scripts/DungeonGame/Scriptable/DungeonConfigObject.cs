@@ -26,15 +26,21 @@ namespace Content.Scripts.DungeonGame.Scriptable
         [SerializeField] private List<DungeonMobObject> mobs = new List<DungeonMobObject>();
         [SerializeField] private List<RoomGrid> rooms = new List<RoomGrid>();
         [SerializeField] private List<DungeonMobObject> bosses = new List<DungeonMobObject>();
-
+        [SerializeField] private float damageModify;
+        [SerializeField] private float healthModify;
+        
         public NoneTile NoneTile => noneTile;
 
         public DungeonTile MainTile => mainTile;
 
         public DungeonSize Size => dungeonSize;
         public List<RoomGrid> Rooms => rooms;
-        
-        
+
+        public float DamageModify => damageModify;
+
+        public float HealthModify => healthModify;
+
+
         public DungeonMobObject GetMob(DungeonMobObject.EMobDifficult difficult, System.Random rnd)
         {
             if (difficult != DungeonMobObject.EMobDifficult.Boss)

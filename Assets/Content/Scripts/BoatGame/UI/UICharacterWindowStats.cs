@@ -20,14 +20,17 @@ namespace Content.Scripts.BoatGame.UI
 
         [SerializeField] private StatRow attackRow;
         [SerializeField] private StatRow defenceRow;
+        [SerializeField] private StatRow speedRow;
 
 
         public void Redraw(PlayerCharacter character)
         {
             var dmg = character.ParametersCalculator.Damage;
             var dfc = 1f - character.ParametersCalculator.Defence;
+            var speed = character.ParametersCalculator.Speed;
             attackRow.Set(dmg.ToString("F1"), dmg >= 5);
             defenceRow.Set((dfc * 100f).ToString("F1") + "%", dfc >= 0.01f);
+            speedRow.Set((speed).ToString("F1") + " u/s", speed >= 2f);
         }
     }
 }

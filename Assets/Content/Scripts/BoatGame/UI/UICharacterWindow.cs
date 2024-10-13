@@ -81,7 +81,12 @@ namespace Content.Scripts.BoatGame.UI
             Redraw();
 
             tickService.OnTick += UpdateWindow;
-            
+            selectedCharacter.Character.OnSkillUpgraded += RedrawStats;
+        }
+
+        private void RedrawStats()
+        {
+            statsTray.Redraw(selectedCharacter);
         }
 
         private void UpdateWindow(float time)
@@ -120,6 +125,7 @@ namespace Content.Scripts.BoatGame.UI
 
             if (selectedCharacter != null)
             {
+                selectedCharacter.Character.OnSkillUpgraded -= RedrawStats;
                 selectedCharacter.NeedManager.OnDeath -= OnDeath;
             }
         }
