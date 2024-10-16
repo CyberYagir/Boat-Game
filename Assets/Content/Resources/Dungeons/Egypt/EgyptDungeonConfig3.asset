@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09e6d73a3633ade42975138fcd7aef36, type: 3}
-  m_Name: DungeonConfig1
+  m_Name: EgyptDungeonConfig3
   m_EditorClassIdentifier: 
   dungeonSize:
-    maxDistance: 15
-    roomsCount: 12
-  mainTile: {fileID: 2966195419188349229, guid: ed4f14830d213db469ec6a7ad5c09519, type: 3}
+    maxDistance: 50
+    roomsCount: 40
+  mainTile: {fileID: 4707851333584373882, guid: 93ce7f10d3ca9e644b438be654e8face, type: 3}
   noneTile: {fileID: 4547236487971233911, guid: dc462d37be7b29e4cb378ef2319fa6db, type: 3}
+  lightning: {fileID: 11400000, guid: 4884ac1cdce013640b922c723ec06fee, type: 2}
   mobs:
   - {fileID: 11400000, guid: 99d9a89a4492dfe47a8a7e0db7ef8d50, type: 2}
   - {fileID: 11400000, guid: 2e757d1b26e56304d898e761f2a60ac1, type: 2}
@@ -60,5 +61,5 @@ MonoBehaviour:
   - {fileID: 9199605404774101772, guid: a81e7288d8552744a8c7a7b6bacd4896, type: 3}
   bosses:
   - {fileID: 11400000, guid: c45d53a024db0a14db11d5284ee8ce75, type: 2}
-  damageModify: 1
-  healthModify: 1
+  damageModify: 2
+  healthModify: 2

@@ -79,7 +79,16 @@ namespace Content.Scripts.DungeonGame.Services
                 {
                     pos = Vector3Int.CeilToInt(new Vector3(rnd.NextFloat(-maxDistance, maxDistance), 0, rnd.NextFloat(-maxDistance, maxDistance)));
                     trys++;
-                } while (trys < 50 || worldGridService.IsHavePoints(item.GetPointsInGlobalSpace(pos)) || !InBounds(item.GetPointsInGlobalSpace(pos)));
+                    if (trys >= 50)
+                    {
+                        break;
+                    }
+                } while (worldGridService.IsHavePoints(item.GetPointsInGlobalSpace(pos)) || !InBounds(item.GetPointsInGlobalSpace(pos)));
+
+                if (trys >= 50)
+                {
+                    continue;
+                }
 
                 SpawnRoom(worldGridService, item, pos);
             }

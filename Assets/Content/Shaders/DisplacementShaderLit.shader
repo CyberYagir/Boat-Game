@@ -11,9 +11,7 @@ Shader "Custom/DisplacementShaderLit"
     {
         Tags { 
             "RenderPipeline" = "UniversalPipeline" 
-            "IgnoreProjector" = "True" 
-            "Queue" = "Transparent" 
-            "RenderType" = "Transparent"
+            "IgnoreProjector" = "True"
         }
         LOD 100
         Blend SrcAlpha OneMinusSrcAlpha
@@ -22,7 +20,7 @@ Shader "Custom/DisplacementShaderLit"
         {
             Name "ForwardLit"
             Tags { "LightMode" = "UniversalForward" }
-
+ 
 
             HLSLPROGRAM
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
@@ -36,11 +34,14 @@ Shader "Custom/DisplacementShaderLit"
             #pragma multi_compile _ LIGHTMAP_ON
 
             #pragma multi_compile_instancing
+            #pragma multi_compile_fog
+            
             #pragma vertex vert
             #pragma fragment frag
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl" 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderVariablesFunctions.hlsl"
 
             struct appdata
             {
@@ -56,25 +57,20 @@ Shader "Custom/DisplacementShaderLit"
                 float3 worldPos : TEXCOORD1;
             };
 
-            // v2f vert (appdata v)
-            // {
-            //     v2f o;
-            //     o.vertex = TransformObjectToHClip(v.vertex);
-            //     o.worldPos = TransformObjectToWorld(v.vertex);
-            //     o.normal = v.normal;
-            //     return o;
-            // }
 
             float4 _Color;
             float _Power;
             float _Offset;
             
             sampler2D _MainTex;
+            
 
+            
             float hash( float n )
 			{
 			    return frac(sin(n)*43758.5453);
 			}
+            
 
 			float noise( float3 x )
 			{
@@ -98,7 +94,6 @@ Shader "Custom/DisplacementShaderLit"
                 float NdotL = saturate(dot(normal, lightDir));
                 return lightColor * NdotL;
             }
-
             float4 frag (v2f i) : SV_Target
             {
                 float4 color = _Color;
@@ -114,7 +109,19 @@ Shader "Custom/DisplacementShaderLit"
                 }
 
                 color.rgb += lightCol;
-                return color * _Color;
+
+                float3 positionWS = TransformObjectToWorld(i.vertex.xyz);
+				float3 normalWS = TransformObjectToWorldNormal(i.normal);
+
+                
+                float3 lightDirectionWS = normalize(lightPos - positionWS);
+                
+                float4 positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
+                
+				// Computes fog factor per-vertex
+				float fogFactor = ComputeFogFactor(positionCS.z);
+
+                return float4(MixFog(color, fogFactor).xyz, 1);
             }
 
              void vert (inout appdata v) {

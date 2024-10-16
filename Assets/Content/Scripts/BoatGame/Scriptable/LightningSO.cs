@@ -9,10 +9,10 @@ namespace Content.Scripts.BoatGame.Scriptable
     {
         [SerializeField] private Color lightColor;
         [SerializeField] private float lightIntensity;
-        [SerializeField, ColorUsage(true, true)] private Color groundColor;
-        [SerializeField, ColorUsage(true, true)] private Color horizontalColor;
-        [SerializeField, ColorUsage(true, true)] private Color skyColor;
         [SerializeField, ColorUsage(true, true)] private Color shadowColor;
+        [SerializeField, ColorUsage(true, true)] private Color skyColor;
+        [SerializeField, ColorUsage(true, true)] private Color horizontalColor;
+        [SerializeField, ColorUsage(true, true)] private Color groundColor;
         [SerializeField] private bool haveFog;
         [SerializeField, ShowIf("@haveFog")] private FogMode fogMode;
         [SerializeField, ShowIf("@haveFog")] private Color fogColor;
