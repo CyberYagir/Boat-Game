@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Content.Scripts.BoatGame.Scriptable;
 using Content.Scripts.DungeonGame.Mobs;
 using DG.DemiLib;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace Content.Scripts.DungeonGame.Scriptable
         [SerializeField] private DungeonSize dungeonSize;
         [SerializeField] private DungeonTile mainTile;
         [SerializeField] private NoneTile noneTile;
-
+        [SerializeField] private LightningSO lightning;
         [SerializeField] private List<DungeonMobObject> mobs = new List<DungeonMobObject>();
         [SerializeField] private List<RoomGrid> rooms = new List<RoomGrid>();
         [SerializeField] private List<DungeonMobObject> bosses = new List<DungeonMobObject>();
@@ -39,6 +40,8 @@ namespace Content.Scripts.DungeonGame.Scriptable
         public float DamageModify => damageModify;
 
         public float HealthModify => healthModify;
+
+        public LightningSO Lightning => lightning;
 
 
         public DungeonMobObject GetMob(DungeonMobObject.EMobDifficult difficult, System.Random rnd)
