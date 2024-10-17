@@ -38,6 +38,7 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private RoomGrid roomGrid;
         [SerializeField] private List<Transform> items;
         [SerializeField] private List<TransformsInCells> itemsInCell;
+        [SerializeField] private PropsSelector[] propsSelectors;
         private List<Vector3> points;
         private WorldGridServiceTyped worldGridService;
 
@@ -70,6 +71,8 @@ namespace Content.Scripts.DungeonGame
                     }
                 }
             }
+
+            propsSelectors = GetComponentsInChildren<PropsSelector>();
         }
 
         public bool IsInBounds(Transform p, Vector3 pos)

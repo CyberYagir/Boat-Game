@@ -9,7 +9,6 @@ namespace Content.Scripts.DungeonGame.Services
 {
     public class RoomsPlacerService : MonoBehaviour
     {
-        [SerializeField] private RoomGrid roomStart, roomEnd;
         [SerializeField] private Transform bossPoint;
         [SerializeField] private Transform bossSpawner;
         
@@ -22,6 +21,8 @@ namespace Content.Scripts.DungeonGame.Services
         private List<Vector3> centers = new List<Vector3>();
 
         
+        private RoomGrid roomStart => dungeonService.TargetConfig.RoomStart;
+        private RoomGrid roomEnd => dungeonService.TargetConfig.RoomEnd;
         private float maxDistance => dungeonService.TargetConfig.Size.MaxDistance;
         private int roomsCount => dungeonService.TargetConfig.Size.RoomsCount;
         private List<RoomGrid> roomPrefabs => dungeonService.TargetConfig.Rooms;

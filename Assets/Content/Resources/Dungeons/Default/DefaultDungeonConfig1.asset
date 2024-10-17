@@ -12,20 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e6d73a3633ade42975138fcd7aef36, type: 3}
   m_Name: DefaultDungeonConfig1
   m_EditorClassIdentifier: 
-  dungeonSize:
-    maxDistance: 15
-    roomsCount: 12
   mainTile: {fileID: 2966195419188349229, guid: ed4f14830d213db469ec6a7ad5c09519, type: 3}
   noneTile: {fileID: 4547236487971233911, guid: dc462d37be7b29e4cb378ef2319fa6db, type: 3}
-  lightning: {fileID: 11400000, guid: cd5ee1e6219769b4b899d6291447fb44, type: 2}
-  mobs:
-  - {fileID: 11400000, guid: 99d9a89a4492dfe47a8a7e0db7ef8d50, type: 2}
-  - {fileID: 11400000, guid: 2e757d1b26e56304d898e761f2a60ac1, type: 2}
-  - {fileID: 11400000, guid: e8f3b29e82456374db46c905048cffc1, type: 2}
-  - {fileID: 11400000, guid: 0849653b3ca274c46a269296d2d6fc62, type: 2}
-  - {fileID: 11400000, guid: c8fe47201b58c6d4490aec1a92fe7788, type: 2}
-  - {fileID: 11400000, guid: b62c0602a4fcb804cb9d2b270ef1230e, type: 2}
-  - {fileID: 11400000, guid: 702346c1205fd824e9cd340ccc2603ec, type: 2}
+  roomStart: {fileID: 866915450564986027, guid: c8ea7de244e5f9e4488113b171d9d2f0, type: 3}
+  roomEnd: {fileID: 8759098344389977274, guid: 5e5c86383f5d6874980d2308311cafd3, type: 3}
   rooms:
   - {fileID: 2220813418755383885, guid: e88bc054e0de2b8449b1c722eb1dd770, type: 3}
   - {fileID: 6912688892787498427, guid: 3efed22f498d99d408436dc6ad5feb68, type: 3}
@@ -59,6 +49,18 @@ MonoBehaviour:
   - {fileID: 4021267404686833993, guid: a431fb00393fa1040bc5145ac88ae357, type: 3}
   - {fileID: 4408447523857311970, guid: a9663c0b60c1e9a478e27680bc7b3c9b, type: 3}
   - {fileID: 9199605404774101772, guid: a81e7288d8552744a8c7a7b6bacd4896, type: 3}
+  lightning: {fileID: 11400000, guid: cd5ee1e6219769b4b899d6291447fb44, type: 2}
+  dungeonSize:
+    maxDistance: 15
+    roomsCount: 12
+  mobs:
+  - {fileID: 11400000, guid: 99d9a89a4492dfe47a8a7e0db7ef8d50, type: 2}
+  - {fileID: 11400000, guid: 2e757d1b26e56304d898e761f2a60ac1, type: 2}
+  - {fileID: 11400000, guid: e8f3b29e82456374db46c905048cffc1, type: 2}
+  - {fileID: 11400000, guid: 0849653b3ca274c46a269296d2d6fc62, type: 2}
+  - {fileID: 11400000, guid: c8fe47201b58c6d4490aec1a92fe7788, type: 2}
+  - {fileID: 11400000, guid: b62c0602a4fcb804cb9d2b270ef1230e, type: 2}
+  - {fileID: 11400000, guid: 702346c1205fd824e9cd340ccc2603ec, type: 2}
   bosses:
   - {fileID: 11400000, guid: c45d53a024db0a14db11d5284ee8ce75, type: 2}
   damageModify: 1

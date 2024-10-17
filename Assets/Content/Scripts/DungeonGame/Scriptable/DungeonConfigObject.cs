@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Content.Scripts.BoatGame.Scriptable;
 using Content.Scripts.DungeonGame.Mobs;
 using DG.DemiLib;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Content.Scripts.DungeonGame.Scriptable
@@ -20,12 +21,13 @@ namespace Content.Scripts.DungeonGame.Scriptable
             public float MaxDistance => maxDistance;
         }
 
+        [SerializeField, FoldoutGroup("Visuals")] private DungeonTile mainTile;
+        [SerializeField, FoldoutGroup("Visuals")] private NoneTile noneTile;
+        [SerializeField, FoldoutGroup("Visuals")] private RoomGrid roomStart, roomEnd;
+        [SerializeField, FoldoutGroup("Visuals")] private List<RoomGrid> rooms = new List<RoomGrid>();
+        [SerializeField, FoldoutGroup("Visuals")] private LightningSO lightning;
         [SerializeField] private DungeonSize dungeonSize;
-        [SerializeField] private DungeonTile mainTile;
-        [SerializeField] private NoneTile noneTile;
-        [SerializeField] private LightningSO lightning;
         [SerializeField] private List<DungeonMobObject> mobs = new List<DungeonMobObject>();
-        [SerializeField] private List<RoomGrid> rooms = new List<RoomGrid>();
         [SerializeField] private List<DungeonMobObject> bosses = new List<DungeonMobObject>();
         [SerializeField] private float damageModify;
         [SerializeField] private float healthModify;
@@ -42,6 +44,10 @@ namespace Content.Scripts.DungeonGame.Scriptable
         public float HealthModify => healthModify;
 
         public LightningSO Lightning => lightning;
+
+        public RoomGrid RoomStart => roomStart;
+
+        public RoomGrid RoomEnd => roomEnd;
 
 
         public DungeonMobObject GetMob(DungeonMobObject.EMobDifficult difficult, System.Random rnd)
