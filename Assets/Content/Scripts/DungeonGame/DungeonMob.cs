@@ -9,6 +9,7 @@ using Content.Scripts.DungeonGame.Services;
 using Content.Scripts.Mobs;
 using Content.Scripts.Mobs.Mob;
 using Content.Scripts.Mobs.MobCrab;
+using EPOOutline;
 using Pathfinding;
 using Pathfinding.RVO;
 using Sirenix.OdinInspector;
@@ -201,6 +202,12 @@ namespace Content.Scripts.DungeonGame
             if (rvoController != null)
             {
                 rvoController.enabled = false;
+            }
+
+            var outline = GetComponentInChildren<Outlinable>();
+            if (outline)
+            {
+                outline.enabled = false;
             }
 
             enemiesService.RemoveMob(this);
