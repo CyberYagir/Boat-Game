@@ -40,7 +40,10 @@ namespace Content.Scripts.IslandGame.Natives
                 for (int i = 0; i < count; i++)
                 {
                     var available = pillagerByLevels.FindAll(x => x.Level <= level);
-                    list.Add(available.GetRandomItem(rnd).Pillagers.GetRandomItem(rnd));
+                    if (available.Count != 0)
+                    {
+                        list.Add(available.GetRandomItem(rnd).Pillagers.GetRandomItem(rnd));
+                    }
                 }
 
                 return list;
