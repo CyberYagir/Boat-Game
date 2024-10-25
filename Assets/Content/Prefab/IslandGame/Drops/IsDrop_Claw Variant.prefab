@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2408246270153592487}
   - component: {fileID: 8090910843803872987}
   - component: {fileID: 9017380373868535193}
+  - component: {fileID: 2439507211868836864}
   m_Layer: 13
   m_Name: Claws
   m_TagString: Untagged
@@ -83,6 +84,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2439507211868836864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7365568645695189818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034bc47afcbf5e141a58d5c20b7808e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3529249095330739816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161,7 +174,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7097879755234075192, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
       propertyPath: m_Name
-      value: Claw Variant
+      value: IsDrop_Claw Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].CullMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].renderer
+      value: 
+      objectReference: {fileID: 9017380373868535193}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].IsVisible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].CutoutMask
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].CutoutThreshold
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].edgeDilateAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].Bounds.m_Extent.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].Bounds.m_Extent.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].Bounds.m_Extent.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].backEdgeDilateAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].frontEdgeDilateAmount
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

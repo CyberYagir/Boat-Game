@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6438132977738424867}
   - component: {fileID: 1873566397053687709}
   - component: {fileID: 4073447419323004241}
+  - component: {fileID: 5744146060476860968}
   m_Layer: 13
   m_Name: Rig
   m_TagString: Untagged
@@ -83,6 +84,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5744146060476860968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2950441857866082770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034bc47afcbf5e141a58d5c20b7808e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2059515668822466598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161,11 +174,59 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7097879755234075192, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
       propertyPath: m_Name
-      value: Plank Variant
+      value: IsDrop_Plank Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7097879755234075192, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].CullMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].renderer
+      value: 
+      objectReference: {fileID: 4073447419323004241}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].IsVisible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].CutoutMask
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].CutoutThreshold
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].edgeDilateAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].Bounds.m_Extent.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].Bounds.m_Extent.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].Bounds.m_Extent.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].backEdgeDilateAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].frontEdgeDilateAmount
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

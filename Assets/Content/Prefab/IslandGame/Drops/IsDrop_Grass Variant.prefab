@@ -86,11 +86,59 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7097879755234075192, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
       propertyPath: m_Name
-      value: Grass Variant
+      value: IsDrop_Grass Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7097879755234075192, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].CullMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].renderer
+      value: 
+      objectReference: {fileID: 2279325395320086466}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].IsVisible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].CutoutMask
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].CutoutThreshold
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].edgeDilateAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].Bounds.m_Extent.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].Bounds.m_Extent.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].Bounds.m_Extent.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].backEdgeDilateAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].frontEdgeDilateAmount
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -172,10 +220,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7806538820949892032, guid: 5f749670873143c418386c614a395b1a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4650659647224283258}
   m_SourcePrefab: {fileID: 100100000, guid: 5f749670873143c418386c614a395b1a, type: 3}
 --- !u!4 &605919920567830105 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5418747254902391992, guid: 5f749670873143c418386c614a395b1a, type: 3}
   m_PrefabInstance: {fileID: 4853729339349648097}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &2279325395320086466 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6699706156946251043, guid: 5f749670873143c418386c614a395b1a, type: 3}
+  m_PrefabInstance: {fileID: 4853729339349648097}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3390520766315370785 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7806538820949892032, guid: 5f749670873143c418386c614a395b1a, type: 3}
+  m_PrefabInstance: {fileID: 4853729339349648097}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4650659647224283258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3390520766315370785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034bc47afcbf5e141a58d5c20b7808e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

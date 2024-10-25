@@ -52,6 +52,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mob_Fishman_Boss Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7189898467137806273, guid: 7c46741fc2fcf8942a46fc362d58b4b1, type: 3}
+      propertyPath: outlineTargets.Array.data[0].renderer
+      value: 
+      objectReference: {fileID: 4353093067555852099}
+    - target: {fileID: 7189898467137806273, guid: 7c46741fc2fcf8942a46fc362d58b4b1, type: 3}
+      propertyPath: outlineTargets.Array.data[1].renderer
+      value: 
+      objectReference: {fileID: 6654209821155188191}
     - target: {fileID: 7745582483429693997, guid: 7c46741fc2fcf8942a46fc362d58b4b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -23.2
@@ -1092,12 +1100,57 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eac36f1100f74cf99dbcb5d73ff4dfaa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1486595453996820302}
+    - targetCorrespondingSourceObject: {fileID: 683964340711229555, guid: eac36f1100f74cf99dbcb5d73ff4dfaa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5927660147698524652}
+    - targetCorrespondingSourceObject: {fileID: -1583286369859232659, guid: eac36f1100f74cf99dbcb5d73ff4dfaa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1843626741794705592}
   m_SourcePrefab: {fileID: 100100000, guid: eac36f1100f74cf99dbcb5d73ff4dfaa, type: 3}
 --- !u!95 &759286179323683889 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: eac36f1100f74cf99dbcb5d73ff4dfaa, type: 3}
   m_PrefabInstance: {fileID: 6621157215144450464}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3595027021129942477 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1583286369859232659, guid: eac36f1100f74cf99dbcb5d73ff4dfaa, type: 3}
+  m_PrefabInstance: {fileID: 6621157215144450464}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1843626741794705592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3595027021129942477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034bc47afcbf5e141a58d5c20b7808e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!137 &4353093067555852099 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1762499010547755293, guid: eac36f1100f74cf99dbcb5d73ff4dfaa, type: 3}
+  m_PrefabInstance: {fileID: 6621157215144450464}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5953475692889084371 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 683964340711229555, guid: eac36f1100f74cf99dbcb5d73ff4dfaa, type: 3}
+  m_PrefabInstance: {fileID: 6621157215144450464}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5927660147698524652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953475692889084371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034bc47afcbf5e141a58d5c20b7808e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6278715768829781233 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eac36f1100f74cf99dbcb5d73ff4dfaa, type: 3}
@@ -1128,6 +1181,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   castParticles: {fileID: 2936137451631807976}
+--- !u!23 &6654209821155188191 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8666170349409418113, guid: eac36f1100f74cf99dbcb5d73ff4dfaa, type: 3}
+  m_PrefabInstance: {fileID: 6621157215144450464}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6659040532759477835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: eac36f1100f74cf99dbcb5d73ff4dfaa, type: 3}

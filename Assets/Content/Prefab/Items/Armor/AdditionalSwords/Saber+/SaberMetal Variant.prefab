@@ -60,6 +60,58 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 8552134717624371188, guid: bcd0e15633e23d84799fc1476cedd2e4, type: 3}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.data[1].CullMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.data[1].renderer
+      value: 
+      objectReference: {fileID: 3073836311060466427}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.data[1].IsVisible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.data[1].CutoutMask
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.data[1].SubmeshIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.data[1].CutoutThreshold
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.data[1].edgeDilateAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.data[1].Bounds.m_Extent.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.data[1].Bounds.m_Extent.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.data[1].Bounds.m_Extent.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.data[1].backEdgeDilateAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672408654898718010, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+      propertyPath: outlineTargets.Array.data[1].frontEdgeDilateAmount
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6031156760984196915, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -105,3 +157,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+--- !u!23 &3073836311060466427 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1328311250376833284, guid: 35feab5b76f60c24d8d1909f103b723a, type: 3}
+  m_PrefabInstance: {fileID: 4091355187345191935}
+  m_PrefabAsset: {fileID: 0}

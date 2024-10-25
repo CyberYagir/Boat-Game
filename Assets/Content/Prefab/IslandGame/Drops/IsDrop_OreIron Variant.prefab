@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2276783628296980897}
   - component: {fileID: 8305869753686538495}
   - component: {fileID: 176138275944569146}
+  - component: {fileID: 3041460832466878589}
   m_Layer: 0
   m_Name: Stone_1
   m_TagString: Untagged
@@ -83,6 +84,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3041460832466878589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8576226102219181968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034bc47afcbf5e141a58d5c20b7808e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8761467966790451519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -149,11 +162,59 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7097879755234075192, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
       propertyPath: m_Name
-      value: IronOre Variant
+      value: IsDrop_OreIron Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7097879755234075192, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].CullMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].renderer
+      value: 
+      objectReference: {fileID: 176138275944569146}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].IsVisible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].CutoutMask
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].CutoutThreshold
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].edgeDilateAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].Bounds.m_Extent.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].Bounds.m_Extent.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].Bounds.m_Extent.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].backEdgeDilateAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125491644765000532, guid: 03ac5a37959541b4bb8de6ecd97fdf92, type: 3}
+      propertyPath: outlineTargets.Array.data[0].frontEdgeDilateAmount
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
