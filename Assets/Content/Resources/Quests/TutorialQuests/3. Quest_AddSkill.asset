@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ca1c133ddeb0c46b1f6b1fe039abb5, type: 3}
+  m_Name: 3. Quest_AddSkill
+  m_EditorClassIdentifier: 
+  uid: 4e0be313-9de7-46a2-8b53-6dd3baf6151b
+  questName: Upgrade Skill
+  icon: {fileID: -901568784, guid: 8e87fa800e2f4964f839bfaa91666b12, type: 3}
+  isOneTimeQuest: 1
+  description: 'For each action, the character gains experience. When the player
+    levels up the character, a skill point is added.
+
+    Click on the character
+    to open the menu and upgrade the skill.'
+  maxValue: 1
+  nextQuest: {fileID: 11400000, guid: 6b2f221d044ac884a9a7f843530fad27, type: 2}
+  reward: {fileID: 11400000, guid: 0f87bfe64c8033b40a34ea210e973e5f, type: 2}
+  questClass: Content.Scripts.QuestsSystem.QuestUpgradeLevel

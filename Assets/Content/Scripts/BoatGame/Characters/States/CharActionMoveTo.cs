@@ -35,7 +35,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         {
             base.EndState();
 
-            Agent.SetStopped(true);
+            // Agent.SetStopped(true);
         }
     }
 }

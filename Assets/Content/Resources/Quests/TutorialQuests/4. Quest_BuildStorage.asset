@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ca1c133ddeb0c46b1f6b1fe039abb5, type: 3}
+  m_Name: 4. Quest_BuildStorage
+  m_EditorClassIdentifier: 
+  uid: 0aa78486-45be-43fa-b74e-6ab2150203c6
+  questName: Build a Storage
+  icon: {fileID: 1685638340, guid: a1bef9985b15bb8489fae37491568c2e, type: 3}
+  isOneTimeQuest: 1
+  description: Click on the character and build a storage.
+  maxValue: 1
+  nextQuest: {fileID: 11400000, guid: dea7af07a72ab284b834170ec764f9db, type: 2}
+  reward: {fileID: 11400000, guid: ee07e60a49f175a418ce1b8498cab35f, type: 2}
+  questClass: Content.Scripts.QuestsSystem.QuestBuildStorage

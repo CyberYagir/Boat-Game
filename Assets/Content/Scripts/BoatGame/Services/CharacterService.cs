@@ -25,14 +25,14 @@ namespace Content.Scripts.BoatGame.Services
         [Inject]
         private void Construct(
             SaveDataObject saveData,
-            RaftBuildService raftBuildService,
+            IRaftBuildService raftBuildService,
             GameDataObject gameDataObject,
             TickService tickService,
             WeatherService weatherService,
             SelectionService selectionService,
             PrefabSpawnerFabric prefabSpawnerFabric,
             INavMeshProvider navMeshProvider,
-            ResourcesService resourcesService
+            IResourcesService resourcesService
         )
         {
             this.navMeshProvider = navMeshProvider;

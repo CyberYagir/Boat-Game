@@ -2,6 +2,7 @@ using System;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.ItemsSystem;
+using Content.Scripts.QuestsSystem;
 using Content.Scripts.SkillsSystem;
 using UnityEngine;
 
@@ -131,6 +132,7 @@ namespace Content.Scripts.BoatGame.Characters.States
                 }
 
 
+                QuestsEventBus.CallOnCraftEnd(targetCraftingTable.CurrentCraft.FinalItem.ResourceName, targetCraftingTable.CurrentCraft.FinalItem.Count);
                 EndState();
             }
             else
@@ -138,6 +140,7 @@ namespace Content.Scripts.BoatGame.Characters.States
                 WorldPopupService.StaticSpawnCantPopup(transform.position);
                 EndState();
             }
+            
         }
 
         protected override void OnMoveEnded()

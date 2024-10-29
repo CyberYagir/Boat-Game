@@ -29,6 +29,12 @@ namespace Content.Scripts.BoatGame.UI
             tooltip.gameObject.SetActive(false);
         }
         
+        public void Init(string str)
+        {
+            tooltipData = ScriptableObject.CreateInstance<TooltipDataObject>().SetText(str);
+            tooltip.gameObject.SetActive(false);
+        }
+        
 
         public void OnHover()
         {

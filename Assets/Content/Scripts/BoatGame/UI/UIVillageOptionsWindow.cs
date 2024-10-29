@@ -25,11 +25,11 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIVillageFightsSubWindow fightsSubWindow;
 
 
-        private RaftBuildService raftBuildService;
+        private IRaftBuildService raftBuildService;
         private SaveDataObject saveDataObject;
         private SaveDataObject.MapData.IslandData.VillageData villageData;
         private GameDataObject gameDataObject;
-        private ResourcesService resourcesService;
+        private IResourcesService resourcesService;
         private PlayerCharacter targetPlayer;
         private TickService tickService;
         private UIService uiService;
@@ -39,10 +39,10 @@ namespace Content.Scripts.BoatGame.UI
 
         public void Init(
             SelectionService selectionService,
-            RaftBuildService raftBuildService,
+            IRaftBuildService raftBuildService,
             SaveDataObject saveDataObject,
             GameDataObject gameDataObject,
-            ResourcesService resourcesService,
+            IResourcesService resourcesService,
             TickService tickService,
             UIService uiService,
             UIMessageBoxManager messageBoxManager,

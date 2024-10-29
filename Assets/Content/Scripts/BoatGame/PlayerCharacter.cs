@@ -33,7 +33,7 @@ namespace Content.Scripts.BoatGame
         protected CharacterGrounder characterGrounder = new CharacterGrounder();
         private SelectionService selectionService;
         private TickService tickService;
-        private RaftBuildService raftBuildService;
+        private IRaftBuildService raftBuildService;
         protected PrefabSpawnerFabric prefabSpawnerFabric;
         protected GameDataObject gameData;
 
@@ -51,7 +51,7 @@ namespace Content.Scripts.BoatGame
 
         public PrefabSpawnerFabric SpawnerFabric => prefabSpawnerFabric;
 
-        public RaftBuildService BuildService => raftBuildService;
+        public IRaftBuildService BuildService => raftBuildService;
 
         public CharacterParameters ParametersCalculator => parametersCalculator;
 
@@ -64,7 +64,7 @@ namespace Content.Scripts.BoatGame
         public void Init(
             Character character,
             GameDataObject gameData,
-            RaftBuildService raftBuildService,
+            IRaftBuildService raftBuildService,
             WeatherService weatherService,
             TickService tickService,
             SelectionService selectionService,
@@ -288,7 +288,7 @@ namespace Content.Scripts.BoatGame
                 tickService.OnTick -= OnTick;
             }
 
-            if (BuildService)
+            if (BuildService != null)
             {
                 BuildService.OnChangeRaft -= CheckGround;
             }

@@ -49,9 +49,9 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UICustomButton button;
         private TradeOfferObject tradeOfferObject;
         private UIVillageOptionsWindow window;
-        private ResourcesService resourcesService;
+        private IResourcesService resourcesService;
 
-        public void Init(TradeOfferObject tradeOfferObject, UIVillageOptionsWindow window, ResourcesService resourcesService)
+        public void Init(TradeOfferObject tradeOfferObject, UIVillageOptionsWindow window, IResourcesService resourcesService)
         {
             this.resourcesService = resourcesService;
             this.window = window;

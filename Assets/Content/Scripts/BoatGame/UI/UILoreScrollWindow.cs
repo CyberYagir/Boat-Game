@@ -13,11 +13,11 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private TMP_Text text;
         [SerializeField] private float minScrollScale = 150;
         [SerializeField] private float maxScrollScale = 800;
-        private ResourcesService resourcesService;
+        private IResourcesService resourcesService;
         private SaveDataObject saveDataObject;
         private GameDataObject gameDataObject;
 
-        public void Init(SelectionService selectionService, SaveDataObject saveDataObject, GameDataObject gameDataObject, ResourcesService resourcesService)
+        public void Init(SelectionService selectionService, SaveDataObject saveDataObject, GameDataObject gameDataObject, IResourcesService resourcesService)
         {
             this.gameDataObject = gameDataObject;
             this.saveDataObject = saveDataObject;

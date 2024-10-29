@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.DungeonGame.Services;
 using Content.Scripts.Global;
 using Content.Scripts.Mobs;
@@ -38,7 +39,7 @@ namespace Content.Scripts.DungeonGame
         public float ActivationDistance => minDistance;
         public int DropsCount => dropIterations;
         private DungeonService dungeonService;
-        private DungeonResourcesService dungeonResourcesService;
+        private IResourcesService dungeonResourcesService;
         private GameDataObject gameDataObject;
         public DropTableObject DropTable => dropTable.Find(x=>x.Range.IsInRange(dungeonService.Level)).DropTable;
 
@@ -63,7 +64,7 @@ namespace Content.Scripts.DungeonGame
         }
 
         [Inject]
-        private void Construct(UrnCollectionService urnCollectionService, DungeonService dungeonService, DungeonResourcesService dungeonResourcesService, GameDataObject gameDataObject)
+        private void Construct(UrnCollectionService urnCollectionService, DungeonService dungeonService, IResourcesService dungeonResourcesService, GameDataObject gameDataObject)
         {
             this.gameDataObject = gameDataObject;
             this.dungeonResourcesService = dungeonResourcesService;

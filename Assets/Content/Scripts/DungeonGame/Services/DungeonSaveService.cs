@@ -15,7 +15,7 @@ namespace Content.Scripts.DungeonGame.Services
         private void Construct(
             SaveDataObject saveDataObject,
             DungeonCharactersService characterService,
-            VirtualRaftsService raftBuildService
+            IRaftBuildService raftBuildService
         )
         {
             this.raftBuildService = raftBuildService;

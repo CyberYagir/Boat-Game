@@ -21,7 +21,7 @@ namespace Content.Scripts.BoatGame.UI
         private SlaveCreatedCharacterInfo selectedCharacter;
         private GameDataObject gameDataObject;
         private TickService tickService;
-        private ResourcesService resourcesService;
+        private IResourcesService resourcesService;
         private SaveDataObject saveData;
         private UIVillageOptionsWindow window;
         private UIMessageBoxManager messageBoxManager;
@@ -32,7 +32,7 @@ namespace Content.Scripts.BoatGame.UI
             SaveDataObject.MapData.IslandData.VillageData villageData,
             GameDataObject gameDataObject,
             TickService tickService,
-            ResourcesService resourcesService,
+            IResourcesService resourcesService,
             SaveDataObject saveData,
             UIVillageOptionsWindow window,
             UIMessageBoxManager messageBoxManager

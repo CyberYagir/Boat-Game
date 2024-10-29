@@ -18,7 +18,7 @@ namespace Content.Scripts.BoatGame.Services
         private void Construct(
             SaveDataObject saveDataObject,
             CharacterService characterService,
-            RaftBuildService raftBuildService,
+            IRaftBuildService raftBuildService,
             RaftDamagerService damagerService,
             WeatherService weatherService,
             CloudService cloudService

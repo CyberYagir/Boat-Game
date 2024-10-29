@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using Content.Scripts.CraftsSystem;
 using Content.Scripts.ItemsSystem;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.Services
 {
-    public abstract class ResourcesServiceBase : MonoBehaviour
+    public abstract class ResourcesServiceBase : MonoBehaviour, IResourcesService
     {
         [SerializeField] protected Dictionary<ItemObject, int> allItemsList = new Dictionary<ItemObject, int>(20);
         private bool isAnyRaftBeenChanged = false;
         public virtual event Action OnChangeResources;
         public event Action<ItemObject> OnAddItemToRaft; 
+        public event Action<ItemObject, int> OnAddStorageItem; 
         public Dictionary<ItemObject, int> AllItemsList => allItemsList;
 
         protected void OnAnyStorageChange()
@@ -98,6 +100,8 @@ namespace Content.Scripts.BoatGame.Services
                     
                     oldItem.Add(-empty);
                 }
+                OnAddStorageItem?.Invoke(oldItem.Item, oldItem.Count);
+                OnAddItemToRaft?.Invoke(oldItem.Item);
             }
             else
             {
@@ -105,9 +109,10 @@ namespace Content.Scripts.BoatGame.Services
                 {
                     var randomStorage = storages.GetRandomItem();
                     randomStorage.AddToStorage(oldItem.Item, oldItem.Count, spawnPopup);
+                    OnAddStorageItem?.Invoke(oldItem.Item, oldItem.Count);
+                    OnAddItemToRaft?.Invoke(oldItem.Item);
                 }
             }
-            OnAddItemToRaft?.Invoke(oldItem.Item);
         }
         
         public bool GetGlobalEmptySpace(RaftStorage.StorageItem storageItem, int offcet = 0)
@@ -127,7 +132,42 @@ namespace Content.Scripts.BoatGame.Services
 
             return emptySpace;
         }
-        
+
+        public int GetItemsValue(ItemObject resourceName)
+        {
+            if (allItemsList.ContainsKey(resourceName))
+            {
+                return allItemsList[resourceName];
+            }
+            
+            return 0;
+        }
+
+        public bool TrySwapItemsWithDrop(RaftStorage.StorageItem newItem, RaftStorage.StorageItem oldItem)
+        {
+            var calculateSpace = GetEmptySpace() + oldItem.Count;
+            var maxItemsCount = 0;
+            var storages = GetRafts();
+            for (int i = 0; i < storages.Count; i++)
+            {
+                maxItemsCount += storages[i].MaxItemsCount;
+            }
+
+            if (calculateSpace <= maxItemsCount)
+            {
+                AddItemsToAnyRafts(oldItem);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool IsCanTradeItem(RaftStorage.StorageItem sellItem, RaftStorage.StorageItem resultItem)
+        {
+            var isCan = IsHaveItem(sellItem) && GetEmptySpace() + sellItem.Space >= resultItem.Space;
+            return isCan;
+        }
+
         public bool TrySwapItems(RaftStorage.StorageItem newItem, RaftStorage.StorageItem oldItem)
         {
             var calculateSpace = GetEmptySpace() - newItem.Count + oldItem.Count;
@@ -172,7 +212,7 @@ namespace Content.Scripts.BoatGame.Services
                 }
             }
         }
-        
+
         public virtual bool AddToAnyStorage(ItemObject item)
         {
             var storages = GetRafts();
@@ -181,6 +221,7 @@ namespace Content.Scripts.BoatGame.Services
             {
                 storage.AddToStorage(item, 1);
                 OnAddItemToRaft?.Invoke(item);
+                OnAddStorageItem?.Invoke(item, 1);
                 return true;
             }
             else
@@ -191,6 +232,7 @@ namespace Content.Scripts.BoatGame.Services
                     {
                         raftStorage.AddToStorage(item, 1);
                         OnAddItemToRaft?.Invoke(item);
+                        OnAddStorageItem?.Invoke(item, 1);
                         return true;
                     }
                 }
@@ -211,6 +253,42 @@ namespace Content.Scripts.BoatGame.Services
         public bool IsHaveItem(ItemObject item, int count)
         {
             return IsHaveItem(new RaftStorage.StorageItem(item, count));
+        }
+        
+        private List<RaftStorage> emptyStoragesArray = new List<RaftStorage>(10);
+        
+        public List<RaftStorage> FindEmptyStorages(ItemObject item, int value)
+        {
+            emptyStoragesArray.Clear();
+            var storages = GetRafts();
+            foreach (var raftStorage in storages)
+            {
+                if (raftStorage.IsEmptyStorage(item, value))
+                {
+                    emptyStoragesArray.Add(raftStorage);
+                }
+            }
+            return emptyStoragesArray;
+        }
+        
+        public RaftStorage FindStorageByResource(EResourceTypes type)
+        {
+            return GetRafts().Find(x => x.GetResourceByType(type) > 0);
+        }
+
+
+
+        public bool HaveMaterialsForCrafting(List<CraftObject.CraftItem> currentCraftIngredients)
+        {
+            foreach (var currentCraftIngredient in currentCraftIngredients)
+            {
+                if (allItemsList[currentCraftIngredient.ResourceName] < currentCraftIngredient.Count)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

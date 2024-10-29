@@ -16,7 +16,7 @@ namespace Content.Scripts.IslandGame.Services
 
         private DirectionalTrigger enterRaftTrigger, exitRaftTrigger;
 
-        private RaftBuildService raftBuildService;
+        private IRaftBuildService raftBuildService;
         private PrefabSpawnerFabric prefabSpawnerFabric;
         
         public event Action OnRaftTransferingEnding;
@@ -32,7 +32,7 @@ namespace Content.Scripts.IslandGame.Services
         [Inject]
         public void Construct(
             IslandGenerator islandGenerator, 
-            RaftBuildService raftBuildService, 
+            IRaftBuildService raftBuildService, 
             CameraMovingService cameraMovingService, 
             PrefabSpawnerFabric prefabSpawnerFabric, 
             CharacterService characterService)

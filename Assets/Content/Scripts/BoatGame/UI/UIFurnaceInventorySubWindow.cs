@@ -14,11 +14,11 @@ namespace Content.Scripts.BoatGame.UI
         
         private Dictionary<ItemObject, int> stackedItems = new Dictionary<ItemObject, int>(50);
         private List<UIInventoryItem> items = new List<UIInventoryItem>();
-        private RaftBuildService raftBuildService;
+        private IRaftBuildService raftBuildService;
         private UIFurnaceWindow furnaceWindow;
-        private ResourcesService resourcesService;
+        private IResourcesService resourcesService;
 
-        public void Init(RaftBuildService raftBuildService, UIFurnaceWindow furnaceWindow, ResourcesService resourcesService)
+        public void Init(IRaftBuildService raftBuildService, UIFurnaceWindow furnaceWindow, IResourcesService resourcesService)
         {
             this.resourcesService = resourcesService;
             this.furnaceWindow = furnaceWindow;

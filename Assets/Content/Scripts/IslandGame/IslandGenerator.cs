@@ -87,7 +87,7 @@ namespace Content.Scripts.IslandGame
             SelectionService selectionService,
             GameDataObject gameDataObject,
             PrefabSpawnerFabric prefabSpawnerFabric,
-            RaftBuildService raftBuildService,
+            IRaftBuildService raftBuildService,
             INavMeshProvider navMeshProvider,
             TickService tickService,
             IslandMobsService islandMobsService)
@@ -104,6 +104,10 @@ namespace Content.Scripts.IslandGame
             Init(saveDataObject.Global.IslandSeed);
 
             raftBuildService.OnChangeRaft += BuildNavMesh;
+            if (raftBuildService.SpawnedRafts.Count != 0)
+            {
+                BuildNavMesh();
+            }
         }
 
         public void BuildNavMesh()
@@ -117,6 +121,7 @@ namespace Content.Scripts.IslandGame
             {
                 navMeshProvider.BuildNavMeshAsync();
             }
+            print("Build Nav Mesh");
         }
 
 

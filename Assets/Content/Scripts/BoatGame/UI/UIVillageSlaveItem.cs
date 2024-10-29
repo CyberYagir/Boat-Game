@@ -16,13 +16,13 @@ namespace Content.Scripts.BoatGame.UI
         
         
         private DisplayCharacter displayCharacter;
-        private ResourcesService resourcesService;
+        private IResourcesService resourcesService;
         private ItemObject moneyItem;
         private UIVillageSlavesSubWindow window;
         private SlaveCreatedCharacterInfo info;
 
 
-        public void Init(DisplayCharacter displayCharacter, SlaveCreatedCharacterInfo info, ResourcesService resourcesService, ItemObject moneyItem, UIVillageSlavesSubWindow window)
+        public void Init(DisplayCharacter displayCharacter, SlaveCreatedCharacterInfo info, IResourcesService resourcesService, ItemObject moneyItem, UIVillageSlavesSubWindow window)
         {
             this.info = info;
             this.window = window;

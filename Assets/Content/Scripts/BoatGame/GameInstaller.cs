@@ -2,6 +2,7 @@
 using Content.Scripts.Game;
 using Content.Scripts.IslandGame;
 using Content.Scripts.IslandGame.Services;
+using Content.Scripts.QuestsSystem;
 
 namespace Content.Scripts.BoatGame
 {
@@ -24,11 +25,13 @@ namespace Content.Scripts.BoatGame
             BindService<INavMeshProvider>();
             BindService<WorldGridService>();
             BindService<WeatherService>();
-            BindService<RaftBuildService>();
+            BindService<IRaftBuildService>();
             BindService<RaftDamagerService>();
-            BindService<ResourcesService>();
+            BindService<IResourcesService>();
             BindService<SelectionService>();
             BindService<CharacterService>();
+            Container.Bind<QuestBuilder>().AsSingle().NonLazy();
+            BindService<QuestService>();
             BindService<SaveService>();
         }
     }

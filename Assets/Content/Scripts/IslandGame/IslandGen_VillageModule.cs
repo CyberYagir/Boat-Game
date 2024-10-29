@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.QuestsSystem;
 using UnityEngine;
 using Zenject;
 
@@ -31,6 +33,16 @@ namespace Content.Scripts.IslandGame
             if (islandNativesData.Data.IsSpawned)
             {
                 islandGenerator.ClearObjectsInBounds(islandNativesData.Data.Bounds);
+                StartCoroutine(SkipFrameAndFindVillage());
+            }
+        }
+
+        IEnumerator SkipFrameAndFindVillage()
+        {
+            while (true)
+            {
+                yield return null;
+                QuestsEventBus.CallFindVillage();
             }
         }
 

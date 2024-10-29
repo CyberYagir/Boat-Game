@@ -22,16 +22,16 @@ namespace Content.Scripts.BoatGame.UI
         private SelectionService selectionService;
         private Dictionary<EFurnaceSlotsType, UIFurnaceDestination> slotsMap;
         private TickService tickService;
-        private ResourcesService resourceService;
-        private RaftBuildService raftBuildService;
+        private IResourcesService resourceService;
+        private IRaftBuildService raftBuildService;
 
         public Furnace TargetFurnace => targetFurnace;
 
         public void Init(
             SelectionService selectionService,
-            RaftBuildService raftBuildService,
+            IRaftBuildService raftBuildService,
             TickService tickService,
-            ResourcesService resourceService
+            IResourcesService resourceService
         )
         {
             this.raftBuildService = raftBuildService;

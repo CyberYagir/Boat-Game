@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ca1c133ddeb0c46b1f6b1fe039abb5, type: 3}
+  m_Name: 1. Quest_HookItems
+  m_EditorClassIdentifier: 
+  uid: 8a606ec1-f283-48b0-ba16-5b516ef1ca8c
+  questName: Hook items
+  icon: {fileID: -1894010151, guid: 8e87fa800e2f4964f839bfaa91666b12, type: 3}
+  isOneTimeQuest: 1
+  description: Click on item and hook it
+  additionalQuestItems: []
+  maxValue: 4
+  nextQuest: {fileID: 11400000, guid: 49baf37b3e4c0bf4eb86548fbb73c419, type: 2}
+  reward: {fileID: 11400000, guid: 0f87bfe64c8033b40a34ea210e973e5f, type: 2}
+  questClass: Content.Scripts.QuestsSystem.QuestHookItems

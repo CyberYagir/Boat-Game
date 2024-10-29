@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ca1c133ddeb0c46b1f6b1fe039abb5, type: 3}
+  m_Name: 12. Quest_GetMoney
+  m_EditorClassIdentifier: 
+  uid: 73c5a8d6-ef95-4380-8b79-f5985b3ef7b8
+  questName: Get first money
+  icon: {fileID: 269527531, guid: 8e87fa800e2f4964f839bfaa91666b12, type: 3}
+  isOneTimeQuest: 1
+  description: 'Find different villages and trade with them. Different villages have
+    different prices for different resources.
+
+    Trading between islands you can
+    easily earn money.'
+  additionalQuestItems:
+  - key: Item
+    data: {fileID: 11400000, guid: b2a1e04d027096049a7faff13978ab86, type: 2}
+  maxValue: 50
+  nextQuest: {fileID: 11400000, guid: 281b19d5f2ce0614fa61ff1f651e1b61, type: 2}
+  reward: {fileID: 11400000, guid: c363c906d9293c2448791c5ea4df3215, type: 2}
+  questClass: Content.Scripts.QuestsSystem.QuestGetScroll

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ca1c133ddeb0c46b1f6b1fe039abb5, type: 3}
+  m_Name: 2. Quest_CatchFish
+  m_EditorClassIdentifier: 
+  uid: e9ce5fa1-072b-436c-b03d-9c690a1df17f
+  questName: Catch a fish!
+  icon: {fileID: -1251682010, guid: 8e87fa800e2f4964f839bfaa91666b12, type: 3}
+  isOneTimeQuest: 1
+  description: Click on the fish and catch it!
+  additionalQuestItems: []
+  maxValue: 1
+  nextQuest: {fileID: 11400000, guid: b788f3f892a7e914f9d85806bc1dc468, type: 2}
+  reward: {fileID: 11400000, guid: 0f87bfe64c8033b40a34ea210e973e5f, type: 2}
+  questClass: Content.Scripts.QuestsSystem.QuestCatchFish

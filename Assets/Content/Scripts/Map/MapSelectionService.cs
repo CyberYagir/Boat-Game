@@ -4,6 +4,7 @@ using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Boot;
 using Content.Scripts.Global;
+using Content.Scripts.QuestsSystem;
 using UnityEngine;
 using Zenject;
 
@@ -90,11 +91,8 @@ namespace Content.Scripts.Map
 
         void Update()
         {
-            
-            
             if (Input.GetKeyUp(KeyCode.Mouse0))
             {
-                
                 if (!isCanSelect) return;
                 if (selectionService.IsUIBlocked) return;
                 overUIChecker.CheckUILogic();
@@ -118,6 +116,7 @@ namespace Content.Scripts.Map
         {
             if (selectedIsland != null)
             {
+                QuestsEventBus.CallOnLandIsland();
                 TimeService.SetTimeRate(1f);
                 saveDataObject.Global.SetIslandSeed(selectedIsland.Seed);
                 scenesService.FadeScene(ESceneName.IslandGame);

@@ -16,7 +16,7 @@ namespace Content.Scripts.BoatGame.UI
             private List<UIVillageTradeOfferItem> spawned = new List<UIVillageTradeOfferItem>();
             private UIVillageOptionsWindow window;
 
-            public void Init(List<TradeOfferObject> items, UIVillageOptionsWindow window, ResourcesService resourcesService)
+            public void Init(List<TradeOfferObject> items, UIVillageOptionsWindow window, IResourcesService resourcesService)
             {
                 this.window = window;
                 offersList = items;
@@ -57,7 +57,7 @@ namespace Content.Scripts.BoatGame.UI
             List<TradeOfferObject> sellOffers,
             List<TradeOfferObject> buyOffers,
             UIVillageOptionsWindow window,
-            ResourcesService resourcesService
+            IResourcesService resourcesService
         )
         {
             sellItemsDrawer.Init(sellOffers, window, resourcesService);

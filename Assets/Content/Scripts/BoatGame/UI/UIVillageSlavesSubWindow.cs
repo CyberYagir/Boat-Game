@@ -14,7 +14,7 @@ namespace Content.Scripts.BoatGame.UI
         
         [SerializeField] private List<UIVillageSlaveItem> spawnedItems = new List<UIVillageSlaveItem>();
         private GameDataObject gameData;
-        private ResourcesService resourcesService;
+        private IResourcesService resourcesService;
         private UIVillageOptionsWindow baseWindow;
         private SaveDataObject saveData;
 
@@ -26,7 +26,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public void Init(
             GameDataObject gameData,
-            ResourcesService resourcesService,
+            IResourcesService resourcesService,
             UIVillageSlavesGenerator generator,
             UIVillageOptionsWindow window)
         {

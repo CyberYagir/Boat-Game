@@ -8,5 +8,11 @@ namespace Content.Scripts.Global
         [SerializeField, TextArea] private string text;
 
         public string Text => text;
+
+        public TooltipDataObject SetText(string str)
+        {
+            text = str;
+            return this;
+        }
     }
 }

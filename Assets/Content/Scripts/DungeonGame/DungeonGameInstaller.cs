@@ -1,6 +1,7 @@
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.DungeonGame.Services;
 using Content.Scripts.Game;
+using Content.Scripts.QuestsSystem;
 
 namespace Content.Scripts.DungeonGame
 {
@@ -23,11 +24,13 @@ namespace Content.Scripts.DungeonGame
             BindService<UrnCollectionService>();
             BindService<DungeonSelectionService>();
             BindService<DungeonCameraMoveService>();
-            BindService<VirtualRaftsService>();
-            BindService<DungeonResourcesService>();
+            BindService<IRaftBuildService>();
+            BindService<IResourcesService>();
             BindService<MobsSpawnService>();
             BindService<DungeonEnemiesService>();
             BindService<DungeonSaveService>();
+            Container.Bind<QuestBuilder>().AsSingle().NonLazy();
+            BindService<QuestService>();
         }
     }
 }

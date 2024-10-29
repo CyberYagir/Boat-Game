@@ -43,6 +43,7 @@ namespace Content.Scripts.DungeonGame.Services
         {
             seed = saveDataObject.Global.DungeonSeed;
             dungeonData = new DungeonData(seed);
+            level = dungeonData.Level;
             targetConfig = configs.Find(x=>x.LevelsRange.IsInRange(level)).Cfg.GetRandomItem(dungeonData.Random);
             targetConfig.Lightning.Apply();
             dungeonSaveData = saveDataObject.Dungeons.RegisterDungeon(seed);

@@ -13,11 +13,11 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private Transform spawnPoint;
         private GameDataObject gameDataObject;
         private ChestDestroyable chest;
-        private DungeonResourcesService resourcesService;
+        private IResourcesService resourcesService;
         private PrefabSpawnerFabric prefabSpawnerFabric;
 
         [Inject]
-        private void Construct(DungeonService dungeonService, PrefabSpawnerFabric prefabSpawnerFabric, DungeonEnemiesService enemiesService, GameDataObject gameDataObject, DungeonResourcesService resourcesService)
+        private void Construct(DungeonService dungeonService, PrefabSpawnerFabric prefabSpawnerFabric, DungeonEnemiesService enemiesService, GameDataObject gameDataObject, IResourcesService resourcesService)
         {
             this.prefabSpawnerFabric = prefabSpawnerFabric;
             this.resourcesService = resourcesService;

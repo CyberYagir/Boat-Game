@@ -18,15 +18,15 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UITooltip tooltip;
         
         protected List<UICraftSubItem> subItems = new List<UICraftSubItem>(10);
-        protected ResourcesService resourcesService;
+        protected IResourcesService resourcesService;
         protected CraftObject item;
         protected UIService uiService;
-        protected RaftBuildService raftBuildService;
+        protected IRaftBuildService raftBuildService;
 
         public CraftObject Item => item;
 
 
-        public void Init(CraftObject item, ResourcesService resourcesService, UIService uiService, RaftBuildService raftBuildService)
+        public void Init(CraftObject item, IResourcesService resourcesService, UIService uiService, IRaftBuildService raftBuildService)
         {
             this.raftBuildService = raftBuildService;
             this.uiService = uiService;

@@ -67,5 +67,10 @@ namespace Content.Scripts.BoatGame
             }
             uid = id;
         }
+
+        public void ChangeType(RaftBuildService.RaftItem.ERaftType raftRaftType)
+        {
+            raftType = raftRaftType;
+        }
     }
 }

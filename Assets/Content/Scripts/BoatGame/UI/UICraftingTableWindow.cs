@@ -15,10 +15,10 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UICraftingTableItem itemPrefab;
         [SerializeField, ReadOnly] private List<UICraftsItem> craftsItems = new List<UICraftsItem>();
 
-        private ResourcesService resourcesService;
+        private IResourcesService resourcesService;
         private List<CraftObject> crafts;
         private UIService uiService;
-        private RaftBuildService raftBuildService;
+        private IRaftBuildService raftBuildService;
 
         private List<CraftObject.ECraftSubList> actualToDraw = new List<CraftObject.ECraftSubList>();
         private CraftObject.ECraftTable targetTable;
@@ -30,9 +30,9 @@ namespace Content.Scripts.BoatGame.UI
         public void Init(
             SelectionService selectionService,
             GameDataObject gameDataObject,
-            ResourcesService resourcesService,
+            IResourcesService resourcesService,
             UIService uiService,
-            RaftBuildService raftBuildService
+            IRaftBuildService raftBuildService
         )
         {
             this.raftBuildService = raftBuildService;

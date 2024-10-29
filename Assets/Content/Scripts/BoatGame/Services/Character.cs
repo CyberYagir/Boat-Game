@@ -4,6 +4,7 @@ using Content.Scripts.BoatGame.UI.UIEquipment;
 using Content.Scripts.Global;
 using Content.Scripts.IslandGame.Natives;
 using Content.Scripts.ItemsSystem;
+using Content.Scripts.QuestsSystem;
 using UnityEngine;
 using Random = System.Random;
 
@@ -31,6 +32,7 @@ namespace Content.Scripts.BoatGame.Services
             public void Add(int i)
             {
                 value += i;
+                QuestsEventBus.CallUpgradeSkill();
             }
         }
         [System.Serializable]

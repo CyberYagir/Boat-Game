@@ -20,6 +20,7 @@ namespace Content.Scripts.Global
         [SerializeField] private TutorialsData tutorialsData = new TutorialsData();
         [SerializeField] private DungeonsData dungeonsData = new DungeonsData();
         [SerializeField] private PlayerInventoryData playerInventory = new PlayerInventoryData();
+        [SerializeField] private PlayerQuestsData questsData = new PlayerQuestsData();
         [SerializeField] private CrossGameData crossGameData = new CrossGameData();
 
         public CharactersData Characters => charactersData;
@@ -37,6 +38,8 @@ namespace Content.Scripts.Global
         public CrossGameData CrossGame => crossGameData;
 
         public PlayerInventoryData PlayerInventory => playerInventory;
+
+        public PlayerQuestsData QuestsData => questsData;
 
 
         public override void InstallBindings()

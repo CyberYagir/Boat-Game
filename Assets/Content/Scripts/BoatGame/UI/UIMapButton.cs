@@ -6,11 +6,11 @@ namespace Content.Scripts.BoatGame.UI
 {
     public class UIMapButton : MonoBehaviour
     {
-        private RaftBuildService raftBuildService;
+        private IRaftBuildService raftBuildService;
         private ScenesService scenesService;
         private SaveService saveService;
 
-        public void Init(RaftBuildService raftBuildService, ScenesService scenesService, SaveService saveService)
+        public void Init(IRaftBuildService raftBuildService, ScenesService scenesService, SaveService saveService)
         {
             this.saveService = saveService;
             this.scenesService = scenesService;

@@ -52,7 +52,7 @@ namespace Content.Scripts.IslandGame.Services
             CharacterService characterService, 
             TickService tickService, 
             IslandTransferRaftService raftTransferService, 
-            RaftBuildService raftBuildService,
+            IRaftBuildService raftBuildService,
             INavMeshProvider navMeshProvider)
         {
             this.navMeshProvider = navMeshProvider;

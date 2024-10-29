@@ -6,6 +6,7 @@ using Content.Scripts.CraftsSystem;
 using Content.Scripts.Global;
 using Content.Scripts.IslandGame.Sources;
 using Content.Scripts.ItemsSystem;
+using Content.Scripts.QuestsSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -45,7 +46,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private RaftTapToBuild tapToBuildRaftPrefab;
         [SerializeField] private RaftTapToBuild tapToRemoveRaftPrefab;
         [SerializeField] private RaftNodesChecker raftNodeSystem;
-        [SerializeField] private ResourcesService resourcesService;
+        [SerializeField] private IResourcesService resourcesService;
         
         [SerializeField, ReadOnly] private List<RaftStorage> storages = new List<RaftStorage>();
         [SerializeField, ReadOnly] private Transform raftEndPoint;
@@ -68,7 +69,8 @@ namespace Content.Scripts.BoatGame.Services
 
         public Transform RaftEndPoint => raftEndPoint;
 
-        public ResourcesService ResourcesService => resourcesService;
+        public IResourcesService ResourcesService => resourcesService;
+        
 
         [Inject]
         private void Construct(
@@ -79,7 +81,7 @@ namespace Content.Scripts.BoatGame.Services
             GameDataObject gamedata,
             INavMeshProvider navMeshProvider,
             PrefabSpawnerFabric prefabSpawnerFabric,
-            ResourcesService resourcesService
+            IResourcesService resourcesService
         )
         {
             this.resourcesService = resourcesService;
@@ -308,6 +310,7 @@ namespace Content.Scripts.BoatGame.Services
                 var type = rafts.Find(x => x.CraftObject != null && x.CraftObject.Uid == craft.Uid);
                 var raft = type.Raft;
                 saveData.CrossGame.Statistics.AddBuildRaft();
+                QuestsEventBus.CallRaftBuild(type.Type);
                 return SpawnRaftPrefab(cords, type.Type, raft);
             }
 

@@ -1,6 +1,7 @@
     using System;
 using Content.Scripts.BoatGame.Ropes;
     using Content.Scripts.BoatGame.Services;
+    using Content.Scripts.QuestsSystem;
     using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
@@ -172,6 +173,7 @@ namespace Content.Scripts.BoatGame.Characters.States
                     storage.AddToStorage(resourceData.Item, resourceData.Value);
                     Machine.AnimationManager.TriggerHoldFishAnimation(false);
                     Machine.AddExp(1);
+                    QuestsEventBus.CallHookedItem();
                     Destroy(selectedItem.gameObject);
                 }
                 

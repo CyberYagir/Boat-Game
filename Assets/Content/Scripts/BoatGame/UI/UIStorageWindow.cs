@@ -14,7 +14,7 @@ namespace Content.Scripts.BoatGame.UI
 
         protected IResourcesService resourcesService;
 
-        public void Init(ResourcesService resourcesService)
+        public void Init(IResourcesService resourcesService)
         {
             this.resourcesService = resourcesService;
         }

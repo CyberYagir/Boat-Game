@@ -2,6 +2,7 @@ using Content.Scripts.BoatGame.Characters.Items;
 using Content.Scripts.BoatGame.Ropes;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.ItemsSystem;
+using Content.Scripts.QuestsSystem;
 using Content.Scripts.SkillsSystem;
 using DG.Tweening;
 using Sirenix.OdinInspector;
@@ -111,6 +112,7 @@ namespace Content.Scripts.BoatGame.Characters.States
                 {
                     storage.AddToStorage(fishItem, 1);
                     Machine.AnimationManager.TriggerHoldFishAnimation(false);
+                    QuestsEventBus.CallCatchFish();
                     Destroy(spawnedFish.gameObject);
                     Machine.AddExp(1);
                 }

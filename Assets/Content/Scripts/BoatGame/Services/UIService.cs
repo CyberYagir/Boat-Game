@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Characters.States;
@@ -62,11 +61,12 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIGetScrollWindow getScrollWindow;
         [SerializeField] private UISoulsShopWindow soulsShopWindow;
         [SerializeField] private UIPlayerInventoryWindow playerInventoryWindow;
+        [SerializeField] private UIQuestsOverlay questOverlay;
         
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
         
         private PlayerCharacter targetCharacter;
-        private ResourcesService resourcesService;
+        private IResourcesService resourcesService;
         private GameStateService gameState;
 
         public WindowsManager WindowManager => windowsManager;
@@ -75,18 +75,19 @@ namespace Content.Scripts.BoatGame.Services
         private void Construct(
             SelectionService selectionService,
             TickService tickService,
-            ResourcesService resourcesService,
+            IResourcesService resourcesService,
             GameDataObject gameDataObject,
             GameStateService gameState,
             GameStateService gameStateService,
             CharacterService characterService,
-            RaftBuildService raftBuildService, 
+            IRaftBuildService raftBuildService, 
             SaveDataObject saveDataObject,
             ScenesService scenesService,
             SaveService saveService,
             PrefabSpawnerFabric spawnerFabric, 
             PlayerAuthService authService,
-            CloudService cloudService
+            CloudService cloudService,
+            QuestService questService
         )
         {
             this.gameState = gameState;
@@ -115,6 +116,8 @@ namespace Content.Scripts.BoatGame.Services
             playerInventoryWindow
                 .With(x => x.Init(resourcesService))
                 .With(x => x.SetPlayerStorage(saveDataObject, gameDataObject));
+
+            questOverlay.Init(questService);
             
             if (saveDataObject.Global.isOnIsland)
             {

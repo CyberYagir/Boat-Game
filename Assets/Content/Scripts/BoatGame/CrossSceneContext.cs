@@ -9,12 +9,12 @@ namespace Content.Scripts.BoatGame
         private static CrossSceneContext Instance;
         private CharacterService characterService;
         private SaveService saveService;
-        private ResourcesService resourcesService;
+        private IResourcesService resourcesService;
         private RaftDamagerService raftDamagerService;
         private SelectionService selectionService;
 
         [Inject]
-        private void Construct(CharacterService characterService, SaveService saveService, ResourcesService resourcesService, RaftDamagerService raftDamagerService, SelectionService selectionService)
+        private void Construct(CharacterService characterService, SaveService saveService, IResourcesService resourcesService, RaftDamagerService raftDamagerService, SelectionService selectionService)
         {
             this.selectionService = selectionService;
             this.raftDamagerService = raftDamagerService;
@@ -26,7 +26,7 @@ namespace Content.Scripts.BoatGame
 
         public static CharacterService GetCharactersService() => Instance.characterService;
         public static SaveService GetSaveService() => Instance.saveService;
-        public static ResourcesService GetResourcesService() => Instance.resourcesService;
+        public static IResourcesService GetResourcesService() => Instance.resourcesService;
         public static RaftDamagerService GetDamagerService() => Instance.raftDamagerService;
         public static SelectionService GetSelectionService() => Instance.selectionService;
 

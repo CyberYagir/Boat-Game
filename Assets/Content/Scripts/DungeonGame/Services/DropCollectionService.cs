@@ -16,10 +16,10 @@ namespace Content.Scripts.DungeonGame.Services
         private PrefabSpawnerFabric spawnerFabric;
         private List<DroppedItemBase> dropListTmp = new List<DroppedItemBase>(5);
         private DungeonCharactersService charactersService;
-        private DungeonResourcesService dungeonResourcesService;
+        private IResourcesService dungeonResourcesService;
 
         [Inject]
-        private void Construct(GameDataObject gameDataObject, PrefabSpawnerFabric spawnerFabric, DungeonCharactersService charactersService, DungeonResourcesService dungeonResourcesService)
+        private void Construct(GameDataObject gameDataObject, PrefabSpawnerFabric spawnerFabric, DungeonCharactersService charactersService, IResourcesService dungeonResourcesService)
         {
             this.dungeonResourcesService = dungeonResourcesService;
             this.charactersService = charactersService;

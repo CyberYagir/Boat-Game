@@ -16,19 +16,19 @@ namespace Content.Scripts.BoatGame.UI
 
 
         private GameDataObject gameDataObject;
-        private ResourcesService resourcesService;
+        private IResourcesService resourcesService;
         private UIService uiService;
-        private RaftBuildService raftBuildService;
+        private IRaftBuildService raftBuildService;
         private List<CraftObject> crafts = new List<CraftObject>();
 
 
         public void Init(
             SelectionService selectionService,
             GameDataObject gameDataObject,
-            ResourcesService resourcesService,
+            IResourcesService resourcesService,
             UIService uiService,
             GameStateService gameStateService,
-            RaftBuildService raftBuildService
+            IRaftBuildService raftBuildService
         )
         {
             this.raftBuildService = raftBuildService;

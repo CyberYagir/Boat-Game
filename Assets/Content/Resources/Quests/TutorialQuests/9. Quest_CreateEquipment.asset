@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ca1c133ddeb0c46b1f6b1fe039abb5, type: 3}
+  m_Name: 9. Quest_CreateEquipment
+  m_EditorClassIdentifier: 
+  uid: 9c05605a-b62c-4508-8124-692e53824ee4
+  questName: Craft Armor
+  icon: {fileID: 1235350760, guid: a1bef9985b15bb8489fae37491568c2e, type: 3}
+  isOneTimeQuest: 1
+  description: Equipment increases armor and damage, which makes the character stronger.
+  additionalQuestItems: []
+  maxValue: 1
+  nextQuest: {fileID: 11400000, guid: 75f50a95f3e445741a2c05bfff8bb5b7, type: 2}
+  reward: {fileID: 11400000, guid: c363c906d9293c2448791c5ea4df3215, type: 2}
+  questClass: Content.Scripts.QuestsSystem.QuestCraftEquipment

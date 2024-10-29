@@ -20,7 +20,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField, ReadOnly] private int currentTicks;
 
 
-        private RaftBuildService raftBuildService;
+        private IRaftBuildService raftBuildService;
         private WorldGridService worldGridService;
         private SelectionService selectionService;
         private bool isDamagerStarted;
@@ -32,7 +32,7 @@ namespace Content.Scripts.BoatGame.Services
         [Inject]
         private void Construct(
             TickService tickService,
-            RaftBuildService raftBuildService,
+            IRaftBuildService raftBuildService,
             WorldGridService worldGridService,
             SaveDataObject saveDataObject,
             SelectionService selectionService,

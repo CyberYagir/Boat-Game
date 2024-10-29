@@ -16,8 +16,8 @@ namespace Content.Scripts.BoatGame
         {
             [SerializeField] private MonoBehaviour navMeshAgent;
             [SerializeField] private SkillObject moveSkill;
-            private RaftBuildService raftBuildService;
-            private ResourcesService resourcesService;
+            private IRaftBuildService raftBuildService;
+            private IResourcesService resourcesService;
 
             private INavAgentProvider agent;
             private INavMeshProvider navMeshProvider;
@@ -25,7 +25,7 @@ namespace Content.Scripts.BoatGame
             public INavAgentProvider NavMeshAgent => agent;
             public INavMeshProvider NavMesh => navMeshProvider;
 
-            public void Init(RaftBuildService raftBuildService, INavMeshProvider navMeshProvider, Character character, CharacterParameters parameters)
+            public void Init(IRaftBuildService raftBuildService, INavMeshProvider navMeshProvider, Character character, CharacterParameters parameters)
             {
                 this.parameters = parameters;
                 this.character = character;

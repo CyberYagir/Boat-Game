@@ -21,7 +21,7 @@ namespace Content.Scripts.BoatGame.Services
         private GameDataObject gameDataObject;
         private SaveDataObject saveData;
         private PlayerCharacter playerCharacter;
-        private RaftBuildService raftBuildService;
+        private IRaftBuildService raftBuildService;
 
         [Inject]
         private void Construct(
@@ -29,7 +29,7 @@ namespace Content.Scripts.BoatGame.Services
             GameDataObject gameDataObject, 
             SaveDataObject saveData, 
             CharacterService characterService, 
-            RaftBuildService raftBuildService)
+            IRaftBuildService raftBuildService)
         {
             this.characterService = characterService;
             this.raftBuildService = raftBuildService;

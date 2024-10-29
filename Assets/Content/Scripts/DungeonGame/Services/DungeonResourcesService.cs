@@ -9,13 +9,13 @@ using Zenject;
 
 namespace Content.Scripts.DungeonGame.Services
 {
-    public class DungeonResourcesService : ResourcesServiceBase, IResourcesService
+    public class DungeonResourcesService : ResourcesServiceBase
     {
-        private VirtualRaftsService virtualRaftsService;
+        private IRaftBuildService virtualRaftsService;
 
 
         [Inject]
-        private void Construct(SaveDataObject saveData, GameDataObject gameData, VirtualRaftsService virtualRaftsService)
+        private void Construct(SaveDataObject saveData, GameDataObject gameData, IRaftBuildService virtualRaftsService)
         {
             this.virtualRaftsService = virtualRaftsService;
             foreach (var spawnedRaft in virtualRaftsService.Storages)

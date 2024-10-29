@@ -17,7 +17,7 @@ namespace Content.Scripts.DungeonGame.Services
         private DungeonCharactersService charactersService;
         private System.Random rnd;
         private List<IDestroyable> urnsListDemolishedTmp = new List<IDestroyable>(5);
-        private DungeonResourcesService dungeonResourcesService;
+        private IResourcesService dungeonResourcesService;
         private DropCollectionService dropService;
         private DungeonService dungeonService;
         
@@ -25,7 +25,7 @@ namespace Content.Scripts.DungeonGame.Services
         [Inject]
         private void Construct(
             DungeonCharactersService charactersService,
-            DungeonResourcesService dungeonResourcesService,
+            IResourcesService dungeonResourcesService,
             GameDataObject gameDataObject,
             DropCollectionService dropService,
             DungeonService dungeonService

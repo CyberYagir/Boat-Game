@@ -27,6 +27,7 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private UIGetScrollWindow getScrollWindow;
         [SerializeField] private UIBossHealthDisplay bossHealthDisplay;
         [SerializeField] private UISoulsCounter soulsCounter;
+        [SerializeField] private UIQuestsOverlay questsOverlay;
         private DungeonSelectionService selectionService;
         private SaveDataObject saveDataObject;
         private ScenesService scenesService;
@@ -37,8 +38,8 @@ namespace Content.Scripts.DungeonGame.Services
             DungeonCharactersService charactersService, 
             DungeonCameraMoveService cameraMoveService, 
             DungeonSelectionService selectionService, 
-            DungeonResourcesService dungeonResourcesService,
-            VirtualRaftsService raftsService,
+            IResourcesService dungeonResourcesService,
+            IRaftBuildService raftsService,
             GameDataObject gameData,
             TickService tickService,
             PrefabSpawnerFabric fabric,
@@ -49,7 +50,8 @@ namespace Content.Scripts.DungeonGame.Services
             DungeonService dungeonService,
             RoomsPlacerService roomsPlacerService,
             PlayerAuthService authService,
-            CloudService cloudService
+            CloudService cloudService,
+            QuestService questService
         )
         {
             this.saveService = saveService;
@@ -73,7 +75,7 @@ namespace Content.Scripts.DungeonGame.Services
             getScrollWindow.Init(gameData, dungeonResourcesService);
             bossHealthDisplay.Init(enemiesService);
             soulsCounter.Init(saveDataObject);
-            
+            questsOverlay.Init(questService);
             
             endRoom.OnEnter += OnEnterBoss;
             
