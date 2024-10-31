@@ -26,7 +26,7 @@ namespace Content.Scripts.BoatGame.UI
         public CraftObject Item => item;
 
 
-        public void Init(CraftObject item, IResourcesService resourcesService, UIService uiService, IRaftBuildService raftBuildService)
+        public virtual void Init(CraftObject item, IResourcesService resourcesService, UIService uiService, IRaftBuildService raftBuildService)
         {
             this.raftBuildService = raftBuildService;
             this.uiService = uiService;

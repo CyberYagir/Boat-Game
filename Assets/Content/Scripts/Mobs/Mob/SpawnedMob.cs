@@ -1,6 +1,7 @@
 ﻿using System;
 using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.IslandGame;
 using Content.Scripts.IslandGame.Mobs;
 using Content.Scripts.Mobs.MobCrab;
 using DG.Tweening;
@@ -19,10 +20,11 @@ namespace Content.Scripts.Mobs.Mob
         [SerializeField, FoldoutGroup("References")] private ParticleSystem deadPoofParticles;
         
         
-        [SerializeField, FoldoutGroup("Data")] protected float speed;
+        [SerializeField, FoldoutGroup("Data"), ShowIf("@transform.GetComponent(typeof(AIPath)) == null")] protected float speed;
 
         private bool isMomentalDeath = false;
         public event Action<SpawnedMob> OnSpawnDrop;
+        public event Action<DroppedItemBase> OnDropCreated;
         
         protected Quaternion targetQuaternion;
 
@@ -125,6 +127,12 @@ namespace Content.Scripts.Mobs.Mob
             pos.y = hit.point.y;
 
             transform.position = pos;
+        }
+
+        public void OnDropSpawned(DroppedItemBase drop)
+        {
+            OnDropCreated?.Invoke(drop);
+            print("DropCreated");
         }
     }
 }

@@ -419,6 +419,11 @@ namespace Content.Scripts.BoatGame.Services
             lastSelectedCraftItem = item;
         }
 
+        public RaftBase GetRaftPrefabByCraft(CraftObject item)
+        {
+            return rafts.Find(x => x.CraftObject == item).Raft;
+        }
+
         private List<RaftStorage.StorageItem> itemsToSave = new List<RaftStorage.StorageItem>(5);
         public void RemoveRaft(Vector3Int vector3Int)
         {

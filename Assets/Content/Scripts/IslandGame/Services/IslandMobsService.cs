@@ -14,6 +14,7 @@ namespace Content.Scripts.IslandGame.Services
     public class IslandMobsService : MonoBehaviour
     {
         [SerializeField, ReadOnly] private List<SpawnedMob> mobs = new List<SpawnedMob>();
+        
         private PrefabSpawnerFabric prefabSpawnerFabric;
         private GameDataObject gameDataObject;
 
@@ -57,13 +58,15 @@ namespace Content.Scripts.IslandGame.Services
             var mob = obj as SpawnedMob;
             var item = mob.MobDropTable.GetItem();
 
-            if (!mob.IsMomentalDeath)
+            if (!mob.IsMomentalDeath && item != null)
             {
-                prefabSpawnerFabric.SpawnItemOnGround(
+                var drop = prefabSpawnerFabric.SpawnItemOnGround(
                         item.GetDropPrefab(gameDataObject),
                         obj.transform.position + Random.insideUnitSphere,
                         Quaternion.Euler(Random.insideUnitSphere))
                     .With(x => x.SetItem(item));
+
+                mob.OnDropSpawned(drop);
             }
 
             mobs.Remove(mob);

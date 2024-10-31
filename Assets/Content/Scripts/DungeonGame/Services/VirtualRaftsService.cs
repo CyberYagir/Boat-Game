@@ -82,5 +82,10 @@ namespace Content.Scripts.DungeonGame.Services
         {
             throw new NotImplementedException();
         }
+
+        public RaftBase GetRaftPrefabByCraft(CraftObject item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

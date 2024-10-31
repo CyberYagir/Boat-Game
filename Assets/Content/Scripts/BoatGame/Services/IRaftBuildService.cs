@@ -20,5 +20,6 @@ namespace Content.Scripts.BoatGame.Services
         void SetEndRaftPoint(Transform spawnPointLadderPoint);
         bool IsCanMoored();
         void SetTargetCraft(CraftObject item);
+        RaftBase GetRaftPrefabByCraft(CraftObject item);
     }
 }

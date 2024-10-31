@@ -1,5 +1,7 @@
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.IslandGame;
 using Content.Scripts.ItemsSystem;
+using Content.Scripts.Mobs.Mob;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.Characters.States
@@ -42,11 +44,26 @@ namespace Content.Scripts.BoatGame.Characters.States
                 characterHips = Machine.AppearanceDataManager.GetBone(PlayerCharacter.AppearanceManager.EBones.Hips);
                 attackObject.AttackStart();
                 MoveToPoint(attackObject.AttackPoint.position);
+                if ((attackObject is SpawnedMob k))
+                {
+                    k.OnDropCreated += TakeDrop;
+                    print("add event");
+                }
             }
             else
             {
                 WorldPopupService.StaticSpawnCantPopup(Machine.transform.position);
                 EndState();
+            }
+        }
+
+        private void TakeDrop(DroppedItemBase droppedItemBase)
+        {
+            print(Machine.CurrentState);
+            if (Machine.CurrentState == EStateType.Idle)
+            {
+                Machine.GetCharacterAction<CharActionPickup>().SetCachedItem(droppedItemBase);
+                Machine.ActiveAction(EStateType.PickupItem);
             }
         }
 
@@ -115,6 +132,10 @@ namespace Content.Scripts.BoatGame.Characters.States
                 if (!attackObject.IsDead)
                 {
                     attackObject.AttackStop();
+                    if ((attackObject is SpawnedMob k))
+                    {
+                        k.OnDropCreated -= TakeDrop;
+                    }
                 }
             }
 

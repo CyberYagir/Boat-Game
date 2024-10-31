@@ -1,4 +1,5 @@
 ﻿using System;
+using Content.Scripts.IslandGame;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
