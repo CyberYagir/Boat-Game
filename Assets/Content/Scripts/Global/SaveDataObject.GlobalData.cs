@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.RaftDamagers;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.CraftsSystem;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Content.Scripts.Global
 {
@@ -71,8 +73,33 @@ namespace Content.Scripts.Global
 
                 public float TickCount => tickCount;
             }
-            
-            
+
+            [Serializable]
+            public class CraftPinData
+            {
+                [SerializeField] private string craftID;
+                [NonSerialized] private UnityEvent<string> _onCraftPinChanged = new UnityEvent<string>();
+
+                public UnityEvent<string> OnCraftPinChanged => _onCraftPinChanged;
+
+                public string CraftID => craftID;
+
+
+                public void ChangeCraftID(CraftObject craftItem)
+                {
+                    if (craftItem == null)
+                    {
+                        craftID = null;
+                    }
+                    else
+                    {
+                        craftID = craftItem.Uid;
+                    }
+
+                    OnCraftPinChanged?.Invoke(CraftID);
+                }
+            }
+
             [SerializeField] private float totalSecondsInGame;
             [SerializeField] private float totalSecondsOnRaft;
             [SerializeField] private int islandSeed = 0;
@@ -80,7 +107,7 @@ namespace Content.Scripts.Global
             [SerializeField] private bool shopEventCreated;
             [SerializeField] private RaftDamagerData damagersData = new RaftDamagerData(0,0, new List<RaftDamagerData.SpawnedItem>());
             [SerializeField] private WeatherData weathersData = new WeatherData(0, -1, WeatherService.EWeatherType.Сalm);
-
+            [SerializeField] private CraftPinData craftPinData = new CraftPinData();
             public bool isOnIsland => IslandSeed != 0;
             public bool isInDungeon => DungeonSeed != 0;
             
@@ -97,6 +124,8 @@ namespace Content.Scripts.Global
             public int DungeonSeed => dungeonSeed;
 
             public bool ShopEventCreated => shopEventCreated;
+
+            public CraftPinData CraftPin => craftPinData;
 
             public void CreateShopEvent()
             {

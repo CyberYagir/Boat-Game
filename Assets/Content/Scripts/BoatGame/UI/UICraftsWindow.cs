@@ -20,6 +20,7 @@ namespace Content.Scripts.BoatGame.UI
         private UIService uiService;
         private IRaftBuildService raftBuildService;
         private List<CraftObject> crafts = new List<CraftObject>();
+        private SaveDataObject saveDataObject;
 
 
         public void Init(
@@ -28,9 +29,11 @@ namespace Content.Scripts.BoatGame.UI
             IResourcesService resourcesService,
             UIService uiService,
             GameStateService gameStateService,
-            IRaftBuildService raftBuildService
+            IRaftBuildService raftBuildService,
+            SaveDataObject saveDataObject
         )
         {
+            this.saveDataObject = saveDataObject;
             this.raftBuildService = raftBuildService;
             this.uiService = uiService;
             this.resourcesService = resourcesService;
@@ -86,7 +89,7 @@ namespace Content.Scripts.BoatGame.UI
             foreach (var craftObject in crafts)
             {
                 Instantiate(itemPrefab, itemPrefab.transform.parent)
-                    .With(x => x.Init(craftObject, resourcesService, uiService, raftBuildService))
+                    .With(x => x.Init(craftObject, resourcesService, uiService, raftBuildService, saveDataObject))
                     .With(x => craftsItems.Add(x));
             }
 

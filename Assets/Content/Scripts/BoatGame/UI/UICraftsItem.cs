@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
+using Content.Scripts.Global;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UICraftSubItem subItem;
         [SerializeField] protected UICustomButton button;
         [SerializeField] private UITooltip tooltip;
+        [SerializeField] private GameObject pinButton;
         
         protected List<UICraftSubItem> subItems = new List<UICraftSubItem>(10);
         protected IResourcesService resourcesService;
@@ -26,7 +28,7 @@ namespace Content.Scripts.BoatGame.UI
         public CraftObject Item => item;
 
 
-        public virtual void Init(CraftObject item, IResourcesService resourcesService, UIService uiService, IRaftBuildService raftBuildService)
+        public virtual void Init(CraftObject item, IResourcesService resourcesService, UIService uiService, IRaftBuildService raftBuildService, SaveDataObject saveDataObject)
         {
             this.raftBuildService = raftBuildService;
             this.uiService = uiService;
@@ -58,7 +60,11 @@ namespace Content.Scripts.BoatGame.UI
             }
 
             subItem.gameObject.SetActive(false);
-            
+
+            if (!string.IsNullOrEmpty(saveDataObject.Global.CraftPin.CraftID))
+            {
+                
+            }
             
             UpdateItem();
         }

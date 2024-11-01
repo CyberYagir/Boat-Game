@@ -62,7 +62,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UISoulsShopWindow soulsShopWindow;
         [SerializeField] private UIPlayerInventoryWindow playerInventoryWindow;
         [SerializeField] private UIQuestsOverlay questOverlay;
-        
+        [SerializeField] private UICraftPinWidget craftPinWidget;
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
         
         private PlayerCharacter targetCharacter;
@@ -104,8 +104,8 @@ namespace Content.Scripts.BoatGame.Services
             playerStorageButton.Init(saveDataObject);
             optionsHolder.Init(storagesCounter, authService, saveService, cloudService, scenesService, messageBoxManager, saveDataObject);
             chestShow.Init(gameDataObject, selectionService);
-            craftsWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService);
-            craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, raftBuildService);
+            craftsWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService, saveDataObject);
+            craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, raftBuildService, saveDataObject);
             characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager, spawnerFabric, resourcesService);
             furnaceWindow.Init(selectionService, raftBuildService, tickService, resourcesService);
             renameIslandWindow.Init(saveDataObject);
@@ -117,6 +117,7 @@ namespace Content.Scripts.BoatGame.Services
                 .With(x => x.Init(resourcesService))
                 .With(x => x.SetPlayerStorage(saveDataObject, gameDataObject));
 
+            craftPinWidget.Init(saveDataObject, gameDataObject, this.resourcesService);
             questOverlay.Init(questService, scenesService);
             
             if (saveDataObject.Global.isOnIsland)

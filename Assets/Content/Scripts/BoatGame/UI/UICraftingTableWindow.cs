@@ -22,6 +22,7 @@ namespace Content.Scripts.BoatGame.UI
 
         private List<CraftObject.ECraftSubList> actualToDraw = new List<CraftObject.ECraftSubList>();
         private CraftObject.ECraftTable targetTable;
+        private SaveDataObject saveDataObject;
 
         public event Action<int> OnTabChanged;
 
@@ -32,9 +33,11 @@ namespace Content.Scripts.BoatGame.UI
             GameDataObject gameDataObject,
             IResourcesService resourcesService,
             UIService uiService,
-            IRaftBuildService raftBuildService
+            IRaftBuildService raftBuildService, 
+            SaveDataObject saveDataObject
         )
         {
+            this.saveDataObject = saveDataObject;
             this.raftBuildService = raftBuildService;
             this.uiService = uiService;
             this.resourcesService = resourcesService;
@@ -64,7 +67,7 @@ namespace Content.Scripts.BoatGame.UI
             foreach (var craftObject in crafts)
             {
                 Instantiate(itemPrefab, itemPrefab.transform.parent)
-                    .With(x => x.Init(craftObject, resourcesService, uiService, raftBuildService))
+                    .With(x => x.Init(craftObject, resourcesService, uiService, raftBuildService, saveDataObject))
                     .With(x => craftsItems.Add(x));
             }
 

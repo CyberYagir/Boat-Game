@@ -1,5 +1,6 @@
 ﻿using Content.Scripts.BoatGame.Services;
 using Content.Scripts.CraftsSystem;
+using Content.Scripts.Global;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -13,9 +14,9 @@ namespace Content.Scripts.BoatGame.UI
 
         private float heartBeatCooldown;
         
-        public override void Init(CraftObject item, IResourcesService resourcesService, UIService uiService, IRaftBuildService raftBuildService)
+        public override void Init(CraftObject item, IResourcesService resourcesService, UIService uiService, IRaftBuildService raftBuildService, SaveDataObject saveDataObject)
         {
-            base.Init(item, resourcesService, uiService, raftBuildService);
+            base.Init(item, resourcesService, uiService, raftBuildService, saveDataObject);
 
             healthText.text = raftBuildService.GetRaftPrefabByCraft(item).MaxHealth.ToString("F0");
 
