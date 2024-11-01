@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Content.Scripts.BoatGame.Characters;
+using Content.Scripts.BoatGame.Characters.States;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.Global;
 using Content.Scripts.IslandGame.Sources;
@@ -277,7 +279,8 @@ namespace Content.Scripts.BoatGame.Services
         private void OnTapOnBuildingRaft(RaftTapToBuild targetRaft)
         {
             var raft = AddRaft(targetRaft.Coords, RaftItem.ERaftType.Building);
-            raft.GetComponent<RaftBuild>().SetCraft(lastSelectedCraftItem, selectionService, this, gamedata);
+            var raftBuild = raft.GetComponent<RaftBuild>();
+            raftBuild.SetCraft(lastSelectedCraftItem, selectionService, this, gamedata);
             gameStateService.ChangeGameState(GameStateService.EGameState.Normal);
 
             foreach (var ing in lastSelectedCraftItem.Ingredients)
@@ -289,6 +292,12 @@ namespace Content.Scripts.BoatGame.Services
                         raftStorage.RemoveFromStorage(ing.ResourceName);
                     }
                 }
+            }
+
+            if (selectionService.SelectedCharacter != null)
+            {
+                selectionService.SelectedCharacter.GetCharacterAction<CharActionBuilding>().SetTargetRaft(raftBuild);
+                selectionService.SelectedCharacter.ActiveAction(EStateType.Building);
             }
         }
 

@@ -75,7 +75,7 @@ namespace Content.Scripts.DungeonGame.Services
             getScrollWindow.Init(gameData, dungeonResourcesService);
             bossHealthDisplay.Init(enemiesService);
             soulsCounter.Init(saveDataObject);
-            questsOverlay.Init(questService);
+            questsOverlay.Init(questService, scenesService);
             
             endRoom.OnEnter += OnEnterBoss;
             

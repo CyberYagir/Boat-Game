@@ -7,13 +7,13 @@ namespace Content.Scripts.BoatGame.Characters.States
 {
     public class CharActionBuilding : CharActionBase
     {
-        
+
         public enum EState
         {
             MoveToTarget,
             Building
         }
-        
+
         public Action OnShowBuildWindow;
 
         [SerializeField] private GameObject hammerItem;
@@ -44,10 +44,19 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         }
 
+
+        public void SetTargetRaft(RaftBuild raftBuild)
+        {
+            targetBuildRaft = raftBuild;
+        }
+
         public virtual void GetTargetAndStart()
         {
             Agent.SetStopped(false);
-            targetBuildRaft = SelectionService.SelectedObject.Transform.GetComponent<RaftBuild>();
+            if (targetBuildRaft == null)
+            {
+                targetBuildRaft = SelectionService.SelectedObject.Transform.GetComponent<RaftBuild>();
+            }
 
             if (targetBuildRaft == null)
             {
@@ -105,6 +114,8 @@ namespace Content.Scripts.BoatGame.Characters.States
             {
                 Destroy(spawnedHammer.gameObject);
             }
+
+            targetBuildRaft = null;
             
             ToIdleAnimation();
         }
