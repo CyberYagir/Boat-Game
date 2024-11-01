@@ -17,7 +17,7 @@ MonoBehaviour:
     - name: Roger
       uid: c20fe2c9-e410-4a7e-8727-12fe13da06aa
       skillsData:
-        xp: 7
+        xp: 21
         scores: 0
         level: 4
         skills:
@@ -33,8 +33,8 @@ MonoBehaviour:
           value: 1
       parametersData:
         health: 100
-        hunger: 58.85623
-        thirsty: 96.192825
+        hunger: 82.61835
+        thirsty: 69.959076
       equipmentData:
         helmetID: b09574fc-706e-41da-9eca-320bd1f4638d
         armorID: 
@@ -77,20 +77,86 @@ MonoBehaviour:
       pos: {x: 1, y: 0, z: -1}
       health: 100
       raftType: 4
+    - uid: c9920598-6909-4159-b31c-2a671ec1795c
+      pos: {x: 2, y: 0, z: -1}
+      health: 300
+      raftType: 0
+    - uid: 07c47589-e2d6-4f3a-b8f6-ccb5fe9dcb8b
+      pos: {x: 2, y: 0, z: 0}
+      health: 80
+      raftType: 1
     storages:
     - raftUid: 326bc604-aebc-4a78-8395-2de5c924808b
       storagesData:
       - itemID: 48073d7b-ae86-4ef7-a7ed-1010499cf756
-        count: 2
+        count: 101
       - itemID: 9d3428e6-2598-47e2-b86f-7ed3818ec54f
-        count: 1
+        count: 101
       - itemID: 47b167db-86da-4574-92e5-c52823934ba0
-        count: 4
+        count: 104
       - itemID: 8ed50794-6763-4fad-b113-35d51650b12d
-        count: 1
+        count: 96
       - itemID: 176e78e5-a918-4a3c-83f1-3ab859de1d14
-        count: 1
+        count: 101
+      - itemID: 5a8bb6d3-0d4d-447e-a9ef-7457a7227caf
+        count: 100
+      - itemID: dfc3d1a9-a26f-4dd9-8e78-bdd940d75b95
+        count: 100
+      - itemID: 5916f48b-6716-4816-96b9-607e4d24df80
+        count: 100
+      - itemID: a6466df9-4c13-4531-9d61-e35e15368c82
+        count: 100
+      - itemID: 1ae2d837-d9c6-42ce-9d33-3242c5c7da18
+        count: 100
+      - itemID: f3f80d00-0faf-4c3d-ae03-fd9c32c01d36
+        count: 100
+      - itemID: 05085f78-c61f-4059-a126-fa396d6dcf68
+        count: 100
+      - itemID: 6ef783b5-3589-4844-8988-66fe6ff1c911
+        count: 100
+      - itemID: 4fae55f1-5bdd-4b87-8480-d3c850f436ee
+        count: 100
+      - itemID: 3faaa745-6ca4-4db3-9df8-92330e6f39b4
+        count: 100
+      - itemID: 04c9cfc6-1433-479d-97fb-2f5b4b3b83ea
+        count: 100
+      - itemID: c2172014-85c2-4806-91be-1da61df0581c
+        count: 100
+      - itemID: 67dd6094-d10c-438d-a180-17db87422e08
+        count: 100
+      - itemID: 888a5ec7-32ce-4d65-b197-dfa33f05292d
+        count: 100
+      - itemID: 798526c3-0af4-41a2-9a06-3ee9a9ef4f38
+        count: 100
+      - itemID: 51072831-93b5-40da-abae-eaf9c231aea8
+        count: 100
+      - itemID: 9f0e50bf-fade-4bb8-ace4-66d40143554e
+        count: 100
+      - itemID: e86a8926-37ac-4ee1-97ef-677896eeaf2f
+        count: 100
+      - itemID: 54cee4ed-0dc9-4418-9af8-124365a0e87b
+        count: 100
+      - itemID: 162a21b5-c6b7-4dd2-9ecd-6433957a1ee4
+        count: 100
+      - itemID: d324a3c6-23b0-4dd5-8418-4d2c983a206e
+        count: 95
+      - itemID: 0f07c793-6e34-46a7-a5a7-ce5c1bdaac55
+        count: 100
+      - itemID: 2d53373e-7568-4eb4-9046-d4ba410de85a
+        count: 100
+      - itemID: bbe50293-d95e-4373-a8b8-fde525b26c7a
+        count: 100
+      - itemID: 37aa6662-d114-434e-bb3e-0333e250d477
+        count: 100
+      - itemID: e096795e-ba1e-43ae-b25f-cd3842a6868d
+        count: 100
+      - itemID: 9c8f5708-4a51-44c2-b5e8-ffdd814ceb38
+        count: 100
+      - itemID: c8f9092a-7e7d-4282-ac70-9038a9d2657f
+        count: 99
     - raftUid: 5646bbc7-27c3-4179-a104-8b90373d9639
+      storagesData: []
+    - raftUid: 07c47589-e2d6-4f3a-b8f6-ccb5fe9dcb8b
       storagesData: []
     furnaces: []
     waterSources: []
@@ -443,26 +509,32 @@ MonoBehaviour:
       plotRowNumber: 7
       isCollected: 0
   globalData:
-    totalSecondsInGame: 1700.8939
-    totalSecondsOnRaft: 3142.5427
-    islandSeed: -902999189
-    dungeonSeed: 2125792852
-    shopEventCreated: 0
+    totalSecondsInGame: 2001.4038
+    totalSecondsOnRaft: 3225.5579
+    islandSeed: 0
+    dungeonSeed: 0
+    shopEventCreated: 1
     damagersData:
-      tickCount: 3473
-      maxTickCount: 5292
+      tickCount: 1204
+      maxTickCount: 5079.6
       spawnedItems: []
     weathersData:
-      tickCount: 1475
-      maxTickCount: 2003
-      currentWeather: 0
+      tickCount: 786
+      maxTickCount: 1347
+      currentWeather: 1
   tutorialsData:
     clickTutorial: 1
     eatTutorial: 1
     storageTutorial: 1
     levelUpTutorial: 1
   dungeonsData:
-    dungeons: []
+    dungeons:
+    - seed: 2125792852
+      destroyedUrns: []
+      deadMobs: []
+      allMobsCount: 4
+      allDungeonMobsCount: 4
+      isBossKilled: 0
   playerInventory:
     playerStorage:
       raftUid: 
@@ -490,6 +562,6 @@ MonoBehaviour:
     - 30fef68f-bb45-4738-985c-39e1d53b5868
     - 9c05605a-b62c-4508-8124-692e53824ee4
   crossGameData:
-    soulsCount: 0
+    soulsCount: 1
     statistics:
-      countBuildRafts: 4
+      countBuildRafts: 6
