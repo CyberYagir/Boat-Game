@@ -117,7 +117,7 @@ namespace Content.Scripts.BoatGame.Services
                 .With(x => x.Init(resourcesService))
                 .With(x => x.SetPlayerStorage(saveDataObject, gameDataObject));
 
-            craftPinWidget.Init(saveDataObject, gameDataObject, this.resourcesService);
+            craftPinWidget.Init(saveDataObject, gameDataObject, this.resourcesService, scenesService);
             questOverlay.Init(questService, scenesService);
             
             if (saveDataObject.Global.isOnIsland)

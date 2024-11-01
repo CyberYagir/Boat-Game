@@ -860,7 +860,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1635428979516014617}
   m_HandleRect: {fileID: 2606378536030207532}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1465,6 +1465,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7940464991392566010}
     m_Modifications:
+    - target: {fileID: 722504210547328730, guid: 8a9cc80fa5b4bfe409aba275fa056104, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8138429230650705474}
+    - target: {fileID: 722504210547328730, guid: 8a9cc80fa5b4bfe409aba275fa056104, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PinCraft
+      objectReference: {fileID: 0}
     - target: {fileID: 1334247723509356056, guid: 8a9cc80fa5b4bfe409aba275fa056104, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1665,6 +1673,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2093664008052622552 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4585632981357735094, guid: 8a9cc80fa5b4bfe409aba275fa056104, type: 3}
+  m_PrefabInstance: {fileID: 2498724510280968302}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5658237808829090925 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7794422514451129347, guid: 8a9cc80fa5b4bfe409aba275fa056104, type: 3}
@@ -1744,5 +1757,6 @@ MonoBehaviour:
   subItem: {fileID: 1087355613602753927}
   button: {fileID: 5997397064551430194}
   tooltip: {fileID: 5658237808829090925}
+  pinButton: {fileID: 2093664008052622552}
   heart: {fileID: 5728508749983394464}
   healthText: {fileID: 6890317866184362559}

@@ -6,11 +6,12 @@ using Content.Scripts.Global;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Content.Scripts.BoatGame.UI
 {
-    public class UICraftsItem : MonoBehaviour
+    public class UICraftsItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text text;
@@ -24,12 +25,14 @@ namespace Content.Scripts.BoatGame.UI
         protected CraftObject item;
         protected UIService uiService;
         protected IRaftBuildService raftBuildService;
+        private SaveDataObject saveDataObject;
 
         public CraftObject Item => item;
 
 
         public virtual void Init(CraftObject item, IResourcesService resourcesService, UIService uiService, IRaftBuildService raftBuildService, SaveDataObject saveDataObject)
         {
+            this.saveDataObject = saveDataObject;
             this.raftBuildService = raftBuildService;
             this.uiService = uiService;
             this.item = item;
@@ -61,10 +64,7 @@ namespace Content.Scripts.BoatGame.UI
 
             subItem.gameObject.SetActive(false);
 
-            if (!string.IsNullOrEmpty(saveDataObject.Global.CraftPin.CraftID))
-            {
-                
-            }
+            saveDataObject.Global.CraftPin.OnCraftPinChanged.AddListener(delegate(string n) { UpdatePin(); });
             
             UpdateItem();
         }
@@ -88,14 +88,71 @@ namespace Content.Scripts.BoatGame.UI
             }
 
             button.SetInteractable(canCraft);
-
+            pinButton.gameObject.SetActive(saveDataObject.Global.CraftPin.CraftID == item.Uid);
+            UpdatePin();
             return canCraft;
+        }
+
+        private bool isOver;
+        private void UpdatePin()
+        {
+            var image = pinButton.GetComponent<Image>();
+            image.DOKill();
+            if (saveDataObject.Global.CraftPin.CraftID != item.Uid)
+            {
+                image.DOColor(Color.white, 0.25f);
+                if (isOver)
+                {
+                    if (!pinButton.gameObject.activeSelf)
+                    {
+                        image.SetAlpha(0);
+                    }
+                    pinButton.gameObject.SetActive(true);
+                    image.DOFade(1, 0.25f);
+                }
+                else
+                {
+                    image.DOFade(0, 0.25f).onComplete += delegate
+                    {
+                        pinButton.gameObject.SetActive(false);
+                    };
+                }
+            }
+            else
+            {
+                image.DOColor(Color.red, 0.25f);
+            }
         }
 
         public virtual void Build()
         {
             raftBuildService.SetTargetCraft(Item);
             uiService.ChangeGameStateToBuild();
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            isOver = true;
+            UpdatePin();
+            
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            isOver = false;
+            UpdatePin();
+        }
+
+        public void PinCraft()
+        {
+            if (saveDataObject.Global.CraftPin.CraftID != item.Uid)
+            {
+                saveDataObject.Global.CraftPin.ChangeCraftID(item);
+            }
+            else
+            {
+                saveDataObject.Global.CraftPin.ChangeCraftID(null);
+            }
         }
     }
 }
