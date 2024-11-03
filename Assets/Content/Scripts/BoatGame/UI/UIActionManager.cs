@@ -69,8 +69,7 @@ namespace Content.Scripts.BoatGame.UI
             UpdateButtons(true);
 
             holder.transform.position = GetWorldToScreenPoint();
-
-            print(selectable.TransformOrCustomTransform);
+            
             clickedItem = selectable.TransformOrCustomTransform;
             localPositionClick = clickedItem.InverseTransformPoint(selectionService.LastWorldClick);
         }
