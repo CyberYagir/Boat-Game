@@ -32,14 +32,12 @@ namespace Content.Scripts.QuestsSystem
 
         public virtual void AddValue()
         {
-            if (this.value  > QuestData.MaxValue) return;
             value++;
             OnQuestChanged?.Invoke(this);
         }
         
         public virtual void AddValue(int value)
         {
-            if (this.value + value  > QuestData.MaxValue) return;
             this.value += value;
             OnQuestChanged?.Invoke(this);
         }

@@ -47,7 +47,7 @@ namespace Content.Scripts.BoatGame.UI
 
         private void UpdateItem(QuestBase data)
         {
-            bar.UpdateBar(data.Value);
+            bar.UpdateBar(Mathf.Clamp(data.Value, 0, data.QuestData.MaxValue));
 
             if (data.IsCompleted)
             {
