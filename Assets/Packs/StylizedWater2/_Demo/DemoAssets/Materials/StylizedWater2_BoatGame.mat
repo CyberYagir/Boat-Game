@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ENVIRONMENTREFLECTIONS_OFF
+  - _FOAM
   - _NORMALMAP
   - _RECEIVE_SHADOWS_OFF
   - _REFRACTION
@@ -46,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMapLarge:
-        m_Texture: {fileID: 2800000, guid: 6a4aa5aa1ed7b9e4e9204a95f56f4d29, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMapSlope:
@@ -167,7 +168,7 @@ Material:
     - _FoamBaseAmount: 0
     - _FoamClipping: 0
     - _FoamDistortion: 0.1
-    - _FoamOn: 0
+    - _FoamOn: 1
     - _FoamOpacity: 1
     - _FoamSize: 0.359
     - _FoamSpeed: 0.09999999
@@ -185,16 +186,16 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _HorizonDistance: 2.6
-    - _IntersectionClipping: 0.583
-    - _IntersectionFalloff: 1
-    - _IntersectionLength: 1.09
+    - _IntersectionClipping: 0.826
+    - _IntersectionFalloff: 0.01
+    - _IntersectionLength: 1.17
     - _IntersectionRippleDist: 20
     - _IntersectionRippleStrength: 0.494
     - _IntersectionSize: 0.944
     - _IntersectionSource: 0
     - _IntersectionSpeed: 0.2
     - _IntersectionStyle: 1
-    - _IntersectionTiling: 0.26999995
+    - _IntersectionTiling: 0.5
     - _IntersectionWaveDist: 33.28
     - _LightingMode: 2
     - _LightingOn: 1
