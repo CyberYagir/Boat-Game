@@ -38,7 +38,7 @@ namespace Content.Scripts.BoatGame.UI
             rendererPart.gameObject.SetActive(true);
             canvas.gameObject.SetActive(true);
 
-            tickService.ChangeTimeScale(1);
+            tickService.NormalTime();// .ChangeTimeScale(1);
             
             text.text = "";
             canvasGroup.alpha = 0;

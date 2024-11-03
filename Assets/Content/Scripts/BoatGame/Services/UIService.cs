@@ -30,7 +30,7 @@ namespace Content.Scripts.BoatGame.Services
                         windows[i].OnOpen += delegate(AnimatedWindow window)
                         {
                             openedWindows.Add(window);
-                            tickService.ChangeTimeScale(1);
+                            tickService.NormalTime();
                         };
                         windows[i].OnClose += delegate(AnimatedWindow window) { openedWindows.Remove(window); };
 

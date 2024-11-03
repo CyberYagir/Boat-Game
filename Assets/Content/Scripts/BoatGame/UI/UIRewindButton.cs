@@ -59,13 +59,14 @@ namespace Content.Scripts.BoatGame.UI
         public override void OnButtonDown()
         {
             base.OnButtonDown();
-            tickService.ChangeTimeScale(10);
+            tickService.SpeedUpTime();//.ChangeTimeScale(10);
         }
 
         public override void OnButtonUp()
         {
             base.OnButtonUp();
-            tickService.ChangeTimeScale(1);
+            tickService.NormalTime();
+            // tickService.ChangeTimeScale(1);
         }
     }
 }

@@ -34,6 +34,16 @@ namespace Content.Scripts.BoatGame.Services
             }
         }
 
+        public void SpeedUpTime()
+        {
+            ChangeTimeScale(10);
+        }
+
+        public void NormalTime()
+        {
+            ChangeTimeScale(1);
+        }
+
         public void ChangeTimeScale(int value)
         {
             TimeService.ChangeTimeScale(value);

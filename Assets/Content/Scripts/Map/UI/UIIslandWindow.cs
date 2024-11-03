@@ -1,4 +1,5 @@
 using System;
+using Content.Scripts.BoatGame;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI;
 using Content.Scripts.Global;
@@ -32,7 +33,7 @@ namespace Content.Scripts.Map.UI
         {
             gameObject.SetActive(true);
             base.ShowWindow();
-            
+            CrossSceneContext.GetTickService().NormalTime();
             TimeService.SetTimeRate(0);
             
             iconAnimator.Play("Start");
@@ -42,6 +43,7 @@ namespace Content.Scripts.Map.UI
         {
             base.OnClosed();
             mapSelectionService.enabled = true;
+            CrossSceneContext.GetTickService().NormalTime();
             TimeService.SetTimeRate(1f);
         }
 
