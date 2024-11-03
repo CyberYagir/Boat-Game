@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Content.Scripts.ItemsSystem;
+using TMPro;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.UI
@@ -6,9 +7,18 @@ namespace Content.Scripts.BoatGame.UI
     public class UICraftingTableItem : UICraftsItem
     {
         [SerializeField] private TMP_Text count;
-
+        [SerializeField] private UICharacterWindowStats stats;
         public override bool UpdateItem()
         {
+            if (item.FinalItem.ResourceName.ItemType == EItemType.Armor)
+            {
+                stats.gameObject.SetActive(true);
+                stats.Redraw(item.FinalItem.ResourceName);
+            }
+            else
+            {
+                stats.gameObject.SetActive(false);
+            }
             if (Item.FinalItem.Count > 1)
             {
                 count.text = "x" + Item.FinalItem.Count;

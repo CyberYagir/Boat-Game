@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.Boot;
+using Content.Scripts.Mobs.Mob;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -163,6 +164,7 @@ namespace Content.Scripts.BoatGame.Services
                 if (worldClickDouble.ToDistance(worldClickFirst) < 1)
                 {
                     OnDoubleClick?.Invoke();
+                    ClearSelectedObject();
                 }
 
                 isDoubleClick = false;
@@ -224,7 +226,27 @@ namespace Content.Scripts.BoatGame.Services
                         }
 
                         OnChangeSelectObject?.Invoke(selectedObject);
+
+                        DeselectMobOnDeathEvent();
                     }
+                }
+            }
+        }
+
+        private void DeselectMobOnDeathEvent()
+        {
+            if (selectedObject != null)
+            {
+                var mob = selectedObject.Transform.GetComponent<SpawnedMob>();
+                if (mob)
+                {
+                    mob.OnDeath += delegate(DamageObject o)
+                    {
+                        if (selectedObject != null && selectedObject.Transform == o.transform)
+                        {
+                            ClearSelectedObject();
+                        }
+                    };
                 }
             }
         }

@@ -19,7 +19,7 @@ namespace Content.Scripts.BoatGame.UI
             ToTop();
         }
 
-        private void ToTop()
+        public void ToTop()
         {
             rect.content.anchoredPosition = Vector2.zero;
         }
