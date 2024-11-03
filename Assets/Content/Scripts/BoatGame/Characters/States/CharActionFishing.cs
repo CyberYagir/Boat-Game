@@ -31,6 +31,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         [SerializeField] private ParticleSystem poofParticle;
         [SerializeField] private SkillObject fishingSkill;
         [SerializeField] private ItemObject fishItem;
+        [SerializeField] private bool goToStorage = true;
         public EState CurrentState => state;
 
 
@@ -192,9 +193,15 @@ namespace Content.Scripts.BoatGame.Characters.States
 
             if (storage != null)
             {
-                Machine.AIMoveManager.NavMeshAgent.SetStopped(false);
-                MoveToPoint(storage.transform.position);
-
+                if (goToStorage)
+                {
+                    Machine.AIMoveManager.NavMeshAgent.SetStopped(false);
+                    MoveToPoint(storage.transform.position);
+                }
+                else
+                {
+                    state = EState.FishToStorage;
+                }
             }
             else
             {

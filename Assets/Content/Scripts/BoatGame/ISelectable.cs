@@ -8,5 +8,8 @@ namespace Content.Scripts.BoatGame
     {
         public List<PlayerAction> PlayerActions { get; }
         Transform Transform { get; }
+        Transform TransformOrCustomTransform { get; }
+        ISelectable Transfered { get; }
+        
     }
 }

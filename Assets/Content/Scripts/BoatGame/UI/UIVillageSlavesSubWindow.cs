@@ -13,6 +13,7 @@ namespace Content.Scripts.BoatGame.UI
         
         
         [SerializeField] private List<UIVillageSlaveItem> spawnedItems = new List<UIVillageSlaveItem>();
+        [SerializeField] private GameObject manageIndicator;
         private GameDataObject gameData;
         private IResourcesService resourcesService;
         private UIVillageOptionsWindow baseWindow;
@@ -108,6 +109,10 @@ namespace Content.Scripts.BoatGame.UI
         {
             if (baseWindow.BuySlave(info))
             {
+                if (manageIndicator != null)
+                {
+                    manageIndicator.gameObject.SetActive(true);
+                }
                 UpdateItems();
             }
         }

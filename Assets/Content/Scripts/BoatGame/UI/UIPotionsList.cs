@@ -16,6 +16,8 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIPotionItem item;
         [SerializeField] private Transform holder;
         [SerializeField] private Image draggedItem;
+        [SerializeField] private bool drawEat;
+
         private List<UIPotionItem> items = new List<UIPotionItem>();
         private IResourcesService resourcesService;
         private ISelectionService selectionService;
@@ -33,16 +35,18 @@ namespace Content.Scripts.BoatGame.UI
             resourcesService.OnChangeResources += ResourceManagerOnOnChangeResources;
             ResourceManagerOnOnChangeResources();
             draggedItem.gameObject.SetActive(false);
-            
-            
+
+
             scenesService.OnChangeActiveScene += OnChangeScene;
             scenesService.OnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
             scenesService.OnUnLoadOtherScene += ScenesServiceOnOnUnLoadOtherScene;
         }
+
         private void OnChangeScene(ESceneName scene)
         {
             ResourceManagerOnOnChangeResources();
         }
+
         private void ScenesServiceOnOnLoadOtherScene(ESceneName obj)
         {
             RemoveEvents();
@@ -63,14 +67,27 @@ namespace Content.Scripts.BoatGame.UI
             scenesService.OnUnLoadOtherScene -= ScenesServiceOnOnUnLoadOtherScene;
         }
 
+        private static readonly List<EResourceTypes> PotionsList = new List<EResourceTypes>() {EResourceTypes.Potions};
+        private static readonly List<EResourceTypes> PotionsAndEatList = new List<EResourceTypes>() {EResourceTypes.Eat, EResourceTypes.Potions};
+
         private void ResourceManagerOnOnChangeResources()
         {
-            var potions = resourcesService.GetItemsByType(EResourceTypes.Potions);
+
+            List<RaftStorage.StorageItem> potions = null;
+            if (drawEat)
+            {
+                potions = resourcesService.GetItemsByTypes(PotionsAndEatList);
+            }
+            else
+            {
+                potions = resourcesService.GetItemsByTypes(PotionsList);
+            }
+
             gameObject.SetActive(potions.Count != 0 && scenesService.GetActiveScene() != ESceneName.Map);
 
             if (potions.Count != 0)
             {
-                for (int i = items.Count; i < potions.Count+1; i++)
+                for (int i = items.Count; i < potions.Count + 1; i++)
                 {
                     Instantiate(item, holder)
                         .With(x => items.Add(x));
@@ -95,7 +112,7 @@ namespace Content.Scripts.BoatGame.UI
             draggedItem.transform.DOScale(1, 0.2f);
             draggedItem.sprite = storageItem.Item.ItemIcon;
             draggedItem.gameObject.SetActive(true);
-            
+
             StartCoroutine(DragProcess(storageItem.Item));
         }
 
@@ -106,7 +123,8 @@ namespace Content.Scripts.BoatGame.UI
                 yield return null;
                 draggedItem.transform.position = InputService.MousePosition;
             }
-            draggedItem.transform.DOKill();            
+
+            draggedItem.transform.DOKill();
             draggedItem.transform.DOScale(0, 0.2f).onComplete += delegate { draggedItem.gameObject.SetActive(false); };
 
             DropItem(storageItem);
@@ -142,11 +160,16 @@ namespace Content.Scripts.BoatGame.UI
 
         private void AddPotionEffect(ItemObject storageItem, ICharacter character)
         {
-            if (storageItem.PotionLogic.PotionType == PotionLogicBaseSO.EPotionType.Moment)
+            var storageItemPotionLogic = storageItem.PotionLogic;
+
+
+            if (storageItem.Type == EResourceTypes.Eat || storageItemPotionLogic.PotionType == PotionLogicBaseSO.EPotionType.Moment)
             {
                 character.ActivatePotion(storageItem);
-            }else{
-                var ch = characterService.GetSpawnedCharacters().Find(x=>!x.IsHaveEffect(storageItem.PotionLogic.GetPotionBonusValue()));
+            }
+            else
+            {
+                var ch = characterService.GetSpawnedCharacters().Find(x => !x.IsHaveEffect(storageItemPotionLogic.GetPotionBonusValue()));
                 if (ch)
                 {
                     ch.ActivatePotion(storageItem);

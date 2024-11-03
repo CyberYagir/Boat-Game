@@ -174,8 +174,16 @@ namespace Content.Scripts.BoatGame.Services
                     var selectable = hit.transform.GetComponent<ISelectable>();
                     if (selectable != null)
                     {
-                        selectedObject = selectable;
-                        OnChangeSelectObject?.Invoke(selectable);
+                        if (selectable.Transfered != null)
+                        {
+                            selectedObject = selectable.Transfered;
+                        }
+                        else
+                        {
+                            selectedObject = selectable;
+                        }
+
+                        OnChangeSelectObject?.Invoke(selectedObject);
                     }
                 }
             }

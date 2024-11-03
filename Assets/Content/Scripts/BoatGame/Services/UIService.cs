@@ -21,13 +21,17 @@ namespace Content.Scripts.BoatGame.Services
             [SerializeField, ReadOnly] private List<AnimatedWindow> openedWindows = new List<AnimatedWindow>(2);
             public bool isAnyWindowOpened => openedWindows.Count != 0;
 
-            public void Init(UIService uiService, params AnimatedWindow[] windows)
+            public void Init(UIService uiService, TickService tickService , params AnimatedWindow[] windows)
             {
                 for (int i = 0; i < windows.Length; i++)
                 {
                     if (windows[i] != null)
                     {
-                        windows[i].OnOpen += delegate(AnimatedWindow window) { openedWindows.Add(window); };
+                        windows[i].OnOpen += delegate(AnimatedWindow window)
+                        {
+                            openedWindows.Add(window);
+                            tickService.ChangeTimeScale(1);
+                        };
                         windows[i].OnClose += delegate(AnimatedWindow window) { openedWindows.Remove(window); };
 
                         windows[i].InitWindow(uiService);
@@ -68,6 +72,7 @@ namespace Content.Scripts.BoatGame.Services
         private PlayerCharacter targetCharacter;
         private IResourcesService resourcesService;
         private GameStateService gameState;
+        private TickService tickService;
 
         public WindowsManager WindowManager => windowsManager;
 
@@ -90,6 +95,7 @@ namespace Content.Scripts.BoatGame.Services
             QuestService questService
         )
         {
+            this.tickService = tickService;
             this.gameState = gameState;
             this.resourcesService = resourcesService;
 
@@ -148,7 +154,7 @@ namespace Content.Scripts.BoatGame.Services
 
             potionsList.Init(resourcesService, selectionService, characterService, charactersList, scenesService);
 
-            windowsManager.Init(this, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow, soulsShopWindow, playerInventoryWindow);
+            windowsManager.Init(this,tickService, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow, soulsShopWindow, playerInventoryWindow);
             
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
             resourcesService.OnChangeResources += OnChangeResources;

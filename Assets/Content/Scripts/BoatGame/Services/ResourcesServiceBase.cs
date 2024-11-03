@@ -80,6 +80,23 @@ namespace Content.Scripts.BoatGame.Services
             return tmpSearchList;
         }
         
+        public List<RaftStorage.StorageItem> GetItemsByTypes(List<EResourceTypes> types)
+        {
+            tmpSearchList.Clear();
+            foreach (var val in allItemsList)
+            {
+                if (types.Contains(val.Key.Type))
+                {
+                    if (val.Value > 0)
+                    {
+                        tmpSearchList.Add(new RaftStorage.StorageItem(val.Key, val.Value));
+                    }
+                }
+            }
+
+            return tmpSearchList;
+        }
+        
         public  void AddItemsToAnyRafts(RaftStorage.StorageItem oldItem, bool spawnPopup = true)
         {
             var storages = GetRafts();

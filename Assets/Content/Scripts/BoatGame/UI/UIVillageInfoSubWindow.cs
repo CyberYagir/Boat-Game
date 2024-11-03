@@ -58,8 +58,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private Button killSlaveButton;
         [SerializeField] private Button makeHumanSlaveButton;
         [SerializeField] private Button openStorageSlaveButton;
-        [SerializeField] private Button hireSlaveButton;
-        
+
         [SerializeField] private List<TooltipInit> tooltips;
         [SerializeField] private List<UIVillageActionItem> actionItems;
         
@@ -143,10 +142,10 @@ namespace Content.Scripts.BoatGame.UI
             workToggleButton.SetState(SlaveData.IsWorking);
 
 
-            killSlaveButton.interactable = makeHumanSlaveButton.interactable = !SlaveData.IsWorking;
+            killSlaveButton.interactable = !SlaveData.IsWorking;
+            makeHumanSlaveButton.interactable = !SlaveData.IsWorking && saveDataObject.Characters.Count < 4;
             feedSlaveButton.interactable = !SlaveData.IsWorking && SlaveData.TargetStamina < 100;
             openStorageSlaveButton.interactable = !SlaveData.IsWorking && slaveDataCalculator.GetItemsCount() != 0;
-            hireSlaveButton.interactable = saveDataObject.Characters.Count < 4;
             
             openStorageText.text = $"Open Storage ({slaveDataCalculator.GetItemsCount()})";
             

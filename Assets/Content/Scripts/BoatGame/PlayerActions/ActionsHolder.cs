@@ -11,7 +11,11 @@ namespace Content.Scripts.BoatGame.PlayerActions
     {
         public List<PlayerAction> PlayerActions => playerActions;
         public Transform Transform => transform;
+        public Transform TransformOrCustomTransform => customTransformPoint != null ? customTransformPoint : Transform;
+        public ISelectable Transfered => null;
 
+        private Transform customTransformPoint;
+        
         [SerializeField] private List<PlayerAction> playerActions = new List<PlayerAction>();
         private SelectionService selectionService;
 
@@ -24,11 +28,6 @@ namespace Content.Scripts.BoatGame.PlayerActions
             {
                 ac.Init(selectionService, gameDataObject);
             }
-        }
-        
-        [Inject]
-        public void Construct(GameDataObject gameDataObject)
-        {
         }
 
         private void OnDestroy()
@@ -43,7 +42,13 @@ namespace Content.Scripts.BoatGame.PlayerActions
             if ((ActionsHolder) selectionService.SelectedObject == this)
             {
                 selectionService.ClearSelectedObject();
+                customTransformPoint = null;
             }
+        }
+
+        public void RegisterCustomTransformPoint(Transform transferedTransform)
+        {
+            customTransformPoint = transferedTransform;
         }
     }
 }

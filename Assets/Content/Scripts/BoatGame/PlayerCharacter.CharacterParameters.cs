@@ -24,6 +24,7 @@ namespace Content.Scripts.BoatGame
             
             [SerializeField] private float baseDamage = 15;
             [SerializeField] private float startSpeed = 2;
+            [SerializeField] private EatHealingSO eatHealingLogic;
             [SerializeField, ReadOnly] private List<PotionLogicBaseSO> activeEffects = new List<PotionLogicBaseSO>();
             [SerializeField] private SkillObject movingSkill;
             [SerializeField] private SkillObject strengthSkill;
@@ -166,7 +167,15 @@ namespace Content.Scripts.BoatGame
 
             public PotionLogicBaseSO ApplyEffect(ItemObject item)
             {
-                PotionLogicBaseSO logic = Instantiate(item.PotionLogic);
+                var so = item.PotionLogic;
+
+                if (item.Type == EResourceTypes.Eat)
+                {
+                    so = eatHealingLogic;
+                }
+                
+                
+                PotionLogicBaseSO logic = Instantiate(so);
 
                 if (logic.PotionType == PotionLogicBaseSO.EPotionType.Moment)
                 {

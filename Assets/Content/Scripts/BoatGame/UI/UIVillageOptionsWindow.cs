@@ -198,13 +198,16 @@ namespace Content.Scripts.BoatGame.UI
             var item = new RaftStorage.StorageItem(gameDataObject.ConfigData.MoneyItem, info.Cost);
             if (resourcesService.IsHaveItem(item))
             {
-                var createdSlave = villageData.AddSlave(info.Character, new TransferData(info.Seed, info.IslandLevel));
-                info.SetSlaveData(createdSlave);
-                villageData.AddSocialRating(info.Cost);
-                resourcesService.RemoveItemsFromAnyRaft(item);
-                saveDataObject.SaveFile();
-                Redraw();
-                return true;
+                if (!villageData.IsHaveSlave(info.Character.Uid))
+                {
+                    var createdSlave = villageData.AddSlave(info.Character, new TransferData(info.Seed, info.IslandLevel));
+                    info.SetSlaveData(createdSlave);
+                    villageData.AddSocialRating(info.Cost);
+                    resourcesService.RemoveItemsFromAnyRaft(item);
+                    saveDataObject.SaveFile();
+                    Redraw();
+                    return true;
+                }
             }
 
             return false;
