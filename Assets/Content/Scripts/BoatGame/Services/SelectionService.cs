@@ -73,6 +73,7 @@ namespace Content.Scripts.BoatGame.Services
         private ScenesService scenesService;
 
         public event Action<ISelectable> OnChangeSelectObject;
+        public event Action OnDoubleClick;
         public event Action<PlayerCharacter> OnChangeSelectCharacter;
         public event Action<RaftTapToBuild> OnTapOnBuildingRaft;
 
@@ -95,7 +96,9 @@ namespace Content.Scripts.BoatGame.Services
             
             overUIChecker = new OverUIChecker(uiService.transform.parent.gameObject);
 
-            scenesService.OnChangeActiveScene += ScenesServiceOnOnChangeActiveScene;  
+            scenesService.OnChangeActiveScene += ScenesServiceOnOnChangeActiveScene;
+
+            lastClickTime = Time.time;
         }
 
         private void ScenesServiceOnOnChangeActiveScene(ESceneName obj)
@@ -109,6 +112,10 @@ namespace Content.Scripts.BoatGame.Services
         }
 
 
+        private float lastClickTime;
+        private Vector3 worldClickDouble;
+        private Vector3 worldClickFirst;
+        private bool isDoubleClick;
         public void Update()
         {
             if (InputService.IsLMBDown)
@@ -116,6 +123,26 @@ namespace Content.Scripts.BoatGame.Services
                 if (scenesService.GetActiveScene() == ESceneName.Map) return;
                 
                 if (IsUIBlocked) return;
+
+                if (Time.time - lastClickTime < 0.35f && !isDoubleClick)
+                {
+                    var hit = GetClickHit(out var isHitted);
+                    if (isHitted)
+                    {
+                        worldClickDouble = hit.point;
+                        isDoubleClick = true;
+                    }
+                }
+                else
+                {
+                    var hit = GetClickHit(out var isHitted);
+                    if (isHitted)
+                    {
+                        worldClickFirst = hit.point;
+                    }
+                }
+
+                lastClickTime = Time.time;
                 
                 switch (gameStateService.GameState)
                 {
@@ -126,6 +153,19 @@ namespace Content.Scripts.BoatGame.Services
                         BuildingStateSelectionLogic();
                         break;
                 }
+            }
+        }
+
+        public void LateUpdate()
+        {
+            if (isDoubleClick)
+            {
+                if (worldClickDouble.ToDistance(worldClickFirst) < 1)
+                {
+                    OnDoubleClick?.Invoke();
+                }
+
+                isDoubleClick = false;
             }
         }
 

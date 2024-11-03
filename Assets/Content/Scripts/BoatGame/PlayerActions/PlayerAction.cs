@@ -8,6 +8,7 @@ namespace Content.Scripts.BoatGame.PlayerActions
     
     public class PlayerAction : MonoBehaviour
     {
+        [SerializeField] private float priority;
         [SerializeField] private EStateType state;
         
         
@@ -23,12 +24,19 @@ namespace Content.Scripts.BoatGame.PlayerActions
         
         public SelectionService SelectionService => selectionService;
 
+        public float Priority => priority + PriorityAdd();
+
         public void Init(SelectionService selectionService, GameDataObject gameDataObject)
         {
             icon = gameDataObject.ActionsData.GetActionIcon(state);
             this.selectionService = selectionService;
         }
 
+        public virtual int PriorityAdd()
+        {
+            return 0;
+        }
+        
         public virtual bool IsCanShow()
         {
             if (SelectionService.SelectedCharacter == null)

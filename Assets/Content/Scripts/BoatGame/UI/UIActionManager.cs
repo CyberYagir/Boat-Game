@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Services;
 using DG.Tweening;
@@ -44,14 +45,45 @@ namespace Content.Scripts.BoatGame.UI
             this.selectionService = selectionService;
             selectionService.OnChangeSelectObject += OnChangeSelectObject;
             selectionService.OnChangeSelectCharacter += OnChangeSelectCharacter;
-
+            selectionService.OnDoubleClick += OnActionDoubleClick;
             
             for (int i = 0; i < buttons.Count; i++)
             {
                 localButtonsPoses.Add(buttons[i].Transform.localPosition);
             }
         }
-        
+
+        private void OnActionDoubleClick()
+        {
+            if (selectable != null)
+            {
+                var ordered = selectable.PlayerActions.OrderBy(x => x.Priority).Reverse();
+
+                foreach (var action in ordered)
+                {
+                    print(action.State + " " + action.Priority);
+                }
+
+                foreach (var action in ordered)
+                {
+                    if (!action.IsSelectedCharacterOnThisAction())
+                    {
+                        var canShow = action.IsCanShow() && selectionService.SelectedCharacter.GetCurrentAction().IsCanCancel();
+                        if (canShow)
+                        {
+                            action.Action();
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        action.BreakAction();
+                        break;
+                    }
+                }
+            }
+        }
+
 
         private void OnChangeSelectCharacter(PlayerCharacter obj)
         {
