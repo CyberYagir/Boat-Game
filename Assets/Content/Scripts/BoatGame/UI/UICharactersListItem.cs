@@ -29,6 +29,7 @@ namespace Content.Scripts.BoatGame.UI
         private TickService tickService;
         private CharacterService characterService;
         private Camera camera;
+        private PlayerCharacter character;
 
         public PlayerCharacter TargetCharacter => targetCharacter;
 
@@ -36,6 +37,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public void Init(PlayerCharacter character, TickService tickService, SelectionService selectionService, CharacterService characterService, Camera camera)
         {
+            this.character = character;
             this.camera = camera;
             this.characterService = characterService;
             this.tickService = tickService;
@@ -45,6 +47,7 @@ namespace Content.Scripts.BoatGame.UI
             {
                 renderTexture = new RenderTexture(128, 128, 8, GraphicsFormat.R8G8B8A8_UNorm);
                 rawImage.texture = renderTexture;
+                character.SaveCharacterPreviewRenderTexture(renderTexture);
             }
             
             healthBar.Init("Health", character.NeedManager.Health, 100f);

@@ -13,7 +13,6 @@ namespace Content.Scripts.IslandGame
         [SerializeField] private Transform part;
         [SerializeField] private Transform point;
         [SerializeField] private GraphicRaycaster canvas;
-        private Transform lerpPoint;
         private Camera mainCamera;
         private SelectionService selectionService;
 
@@ -25,16 +24,12 @@ namespace Content.Scripts.IslandGame
             
             selectionService.AddRaycaster(canvas);
 
-            lerpPoint = new GameObject("LerpPoint").transform;
-
-            lerpPoint.transform.position = point.transform.position;
         }
         
 
-        private void LateUpdate()
+        private void Update()
         {
-            lerpPoint.transform.position = Vector3.Lerp(lerpPoint.transform.position, point.transform.position, 10f * Time.deltaTime);
-            transform.position = mainCamera.WorldToScreenPoint(lerpPoint.transform.position);
+            transform.position = Vector3.Lerp(transform.position, mainCamera.WorldToScreenPoint(point.transform.position), 200 * Time.deltaTime);
             
             
             if (selectionService.SelectedCharacter != null && selectionService.SelectedCharacter.CurrentState == EStateType.VillageViewInfo)

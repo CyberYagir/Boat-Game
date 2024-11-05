@@ -12,6 +12,7 @@ namespace Content.Scripts.BoatGame.Characters
         public Vector3 Velocity { get; }
         public Vector3 Destination { get; }
         public Vector3 TargetPoint { get; }
+        public Vector3 ArrivePoint { get; }
         public float MaxSpeed { get; }
         
         public void SetDestination(Vector3 target);
@@ -31,5 +32,6 @@ namespace Content.Scripts.BoatGame.Characters
 
         public void SetMovingSpeed(float value);
         bool HasPath();
+        void SetArrivePoint(Vector3 point);
     }
 }

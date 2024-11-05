@@ -45,11 +45,24 @@ namespace Content.Scripts.IslandGame.Services
         }
 
         private Vector2 lastMouseVel;
-        
+        private bool isMoving;
         private void LateUpdate()
         {
             if (zoomWait) return;
-            if (selectionService.IsUIBlocked && (selectionService.LastUIBlockedTransform == null || selectionService.LastUIBlockedTransform.GetComponentInParent<UIActionManager>() == null)) return;
+            // if ((selectionService.LastUIBlockedTransform == null || selectionService.LastUIBlockedTransform.GetComponentInParent<UIActionManager>() == null)) return;
+            
+            if (InputService.IsRMBUp)
+            {
+                isMoving = false;
+            }
+            
+            if (InputService.IsRMBDown && !isMoving)
+            {
+                if (!selectionService.IsUIBlocked)
+                {
+                    isMoving = true;
+                }
+            }
             
             if (CameraMove()) return;
             CameraZoom();
@@ -75,7 +88,7 @@ namespace Content.Scripts.IslandGame.Services
 
         private bool CameraMove()
         {
-            if (InputService.IsRMBPressed || lastMouseVel.magnitude != 0)
+            if ((InputService.IsRMBPressed || lastMouseVel.magnitude != 0))
             {
                 if (!InputService.IsRMBPressed)
                 {
@@ -91,7 +104,7 @@ namespace Content.Scripts.IslandGame.Services
 
                 MoveCamera(lastMouseVel);
             }
-            else if (InputService.MoveAxis.magnitude != 0)
+            else if (InputService.MoveAxis.magnitude != 0 && isMoving)
             {
                 MoveCamera(InputService.MoveAxis);
             }

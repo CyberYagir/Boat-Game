@@ -7,6 +7,8 @@ namespace Content.Scripts.BoatGame.Services
         public static bool IsLMBDown => Input.GetKeyDown(KeyCode.Mouse0);
         public static bool IsLMBPressed => Input.GetKey(KeyCode.Mouse0);
         public static bool IsRMBPressed => Input.GetKey(KeyCode.Mouse1);
+        public static bool IsRMBDown=> Input.GetKeyDown(KeyCode.Mouse1);
+        public static bool IsRMBUp => Input.GetKeyUp(KeyCode.Mouse1);
 
         public static Vector2 MoveAxis => new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         

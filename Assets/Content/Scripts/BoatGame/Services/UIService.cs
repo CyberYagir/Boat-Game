@@ -67,6 +67,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIPlayerInventoryWindow playerInventoryWindow;
         [SerializeField] private UIQuestsOverlay questOverlay;
         [SerializeField] private UICraftPinWidget craftPinWidget;
+        [SerializeField] private UIActionsIndicators actionsIndicators;
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
         
         private PlayerCharacter targetCharacter;
@@ -125,7 +126,10 @@ namespace Content.Scripts.BoatGame.Services
 
             craftPinWidget.Init(saveDataObject, gameDataObject, this.resourcesService, scenesService);
             questOverlay.Init(questService, scenesService);
-            
+            if (actionsIndicators)
+            {
+                actionsIndicators.Init(characterService, selectionService);
+            }
             if (saveDataObject.Global.isOnIsland)
             {
                 if (saveDataObject.GetTargetIsland().HasVillage())

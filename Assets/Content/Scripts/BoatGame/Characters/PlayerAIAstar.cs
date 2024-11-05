@@ -12,6 +12,7 @@ namespace Content.Scripts.BoatGame.Characters
         [SerializeField] private AIPath aiPath;
         [SerializeField] private Seeker seeker;
         [SerializeField] private Vector3 targetPoint;
+        [SerializeField] private Vector3 arrivePoint;
         public Transform Transform => transform;
         public bool IsStopped => aiPath.isStopped;
         public bool IsOnNavMesh => true;
@@ -19,6 +20,7 @@ namespace Content.Scripts.BoatGame.Characters
         public Vector3 Velocity => GetVelocity();
         public Vector3 Destination => aiPath.destination;
         public Vector3 TargetPoint => targetPoint;
+        public Vector3 ArrivePoint => arrivePoint;
         public float MaxSpeed => aiPath.maxSpeed;
 
         public void SetDestination(Vector3 target)
@@ -121,6 +123,11 @@ namespace Content.Scripts.BoatGame.Characters
         public bool HasPath()
         {
             return aiPath.hasPath;
+        }
+
+        public void SetArrivePoint(Vector3 point)
+        {
+            arrivePoint = point;
         }
 
         private void OnDrawGizmosSelected()

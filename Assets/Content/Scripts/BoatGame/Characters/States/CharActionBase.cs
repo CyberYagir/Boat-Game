@@ -62,6 +62,7 @@ namespace Content.Scripts.BoatGame.Characters.States
         protected bool MoveToPoint(Vector3 point)
         {
             targetPoint = point;
+            Agent.SetArrivePoint(point);
 
             if (AddMoveFromRaftSubPath()) return true;
             

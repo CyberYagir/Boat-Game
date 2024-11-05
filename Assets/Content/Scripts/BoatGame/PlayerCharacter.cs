@@ -57,8 +57,11 @@ namespace Content.Scripts.BoatGame
 
         public GameDataObject GameData => gameData;
 
+        public RenderTexture CharacterPreview => characterPreview;
+
         public Action OnChangeState;
         protected SaveDataObject saveDataObject;
+        private RenderTexture characterPreview;
 
 
         public void Init(
@@ -339,6 +342,11 @@ namespace Content.Scripts.BoatGame
         public bool IsHaveEffect(CharacterParameters.EffectBonusValueType type)
         {
             return parametersCalculator.IsHaveEffect(type);
+        }
+
+        public void SaveCharacterPreviewRenderTexture(RenderTexture renderTexture)
+        {
+            this.characterPreview = renderTexture;
         }
     }
 }

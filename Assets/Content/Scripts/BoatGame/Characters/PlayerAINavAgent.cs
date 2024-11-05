@@ -15,6 +15,7 @@ namespace Content.Scripts.BoatGame.Characters
         public Vector3 Velocity => navMeshAgent.velocity;
         public Vector3 Destination => navMeshAgent.destination;
         public Vector3 TargetPoint { get; }
+        public Vector3 ArrivePoint { get; }
         public float MaxSpeed { get; }
 
         public void SetDestination(Vector3 target)
@@ -83,6 +84,11 @@ namespace Content.Scripts.BoatGame.Characters
         }
 
         public bool HasPath()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetArrivePoint(Vector3 point)
         {
             throw new System.NotImplementedException();
         }
