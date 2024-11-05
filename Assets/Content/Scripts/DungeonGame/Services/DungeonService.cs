@@ -21,13 +21,13 @@ namespace Content.Scripts.DungeonGame.Services
 
             public List<DungeonConfigObject> Cfg => cfg;
         }
-
-        [SerializeField] private List<ConfigsHolder> configs = new List<ConfigsHolder>();
-
-        private DungeonData dungeonData;
         [SerializeField] private int seed;
         [SerializeField] private int level;
+        [SerializeField] private DungeonsListObject dungeonsListObject;
         [SerializeField, ReadOnly] private DungeonConfigObject targetConfig;
+        
+        
+        private DungeonData dungeonData;
         private SaveDataObject.DungeonsData.DungeonData dungeonSaveData;
 
         // public Random TargetRnd => dungeonData.Random;
@@ -45,7 +45,7 @@ namespace Content.Scripts.DungeonGame.Services
             dungeonData = new DungeonData(seed);
             level = dungeonData.Level;
             print(level);
-            targetConfig = configs.Find(x=>x.LevelsRange.IsInRange(level)).Cfg.GetRandomItem(dungeonData.Random);
+            targetConfig = dungeonsListObject.GetConfigs().Find(x=>x.LevelsRange.IsInRange(level)).Cfg.GetRandomItem(dungeonData.Random);
             targetConfig.Lightning.Apply();
             dungeonSaveData = saveDataObject.Dungeons.RegisterDungeon(seed);
         }

@@ -55,6 +55,11 @@ namespace Content.Scripts.BoatGame.Services
             isUIBlocked = false;
             return false;
         }
+
+        public void AddRaycaster(GraphicRaycaster canvas)
+        {
+            raycasters.Add(canvas);
+        }
     }
     public class SelectionService : MonoBehaviour, ISelectionService
     {
@@ -214,21 +219,7 @@ namespace Content.Scripts.BoatGame.Services
                 if (character == null)
                 {
                     var selectable = hit.transform.GetComponent<ISelectable>();
-                    if (selectable != null)
-                    {
-                        if (selectable.Transfered != null)
-                        {
-                            selectedObject = selectable.Transfered;
-                        }
-                        else
-                        {
-                            selectedObject = selectable;
-                        }
-
-                        OnChangeSelectObject?.Invoke(selectedObject);
-
-                        DeselectMobOnDeathEvent();
-                    }
+                    SelectObject(selectable);
                 }
             }
         }
@@ -285,6 +276,32 @@ namespace Content.Scripts.BoatGame.Services
             var hit = GetClickHit(out bool isHit);
             isNotEmpty = isHit;
             return hit.point;
+        }
+
+        public void SelectObject(ISelectable selectable, bool triggerEvent = true)
+        {
+            if (selectable != null)
+            {
+                if (selectable.Transfered != null)
+                {
+                    selectedObject = selectable.Transfered;
+                }
+                else
+                {
+                    selectedObject = selectable;
+                }
+
+                if (triggerEvent)
+                {
+                    OnChangeSelectObject?.Invoke(selectedObject);
+                    DeselectMobOnDeathEvent();
+                }
+            }
+        }
+
+        public void AddRaycaster(GraphicRaycaster canvas)
+        {
+            overUIChecker.AddRaycaster(canvas);
         }
     }
 }
