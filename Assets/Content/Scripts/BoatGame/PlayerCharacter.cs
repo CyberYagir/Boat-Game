@@ -59,6 +59,8 @@ namespace Content.Scripts.BoatGame
 
         public RenderTexture CharacterPreview => characterPreview;
 
+        public SaveDataObject SaveData => saveDataObject;
+
         public Action OnChangeState;
         protected SaveDataObject saveDataObject;
         private RenderTexture characterPreview;
@@ -221,7 +223,7 @@ namespace Content.Scripts.BoatGame
 
         private void NeedsManagerTick(float delta)
         {
-            if (saveDataObject.Global.TotalSecondsInGame + TimeService.PlayedTime >= GameData.ConfigData.StartNeedsActiveTime || saveDataObject.CrossGame.Statistics.CountBuildRafts >= 1)
+            if (SaveData.Global.TotalSecondsInGame + TimeService.PlayedTime >= GameData.ConfigData.StartNeedsActiveTime || SaveData.CrossGame.Statistics.CountBuildRafts >= 1)
             {
                 needsManager.OnTick(delta);
             }

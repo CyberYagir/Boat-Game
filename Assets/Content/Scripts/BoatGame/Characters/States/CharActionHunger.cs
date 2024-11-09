@@ -56,6 +56,8 @@ namespace Content.Scripts.BoatGame.Characters.States
             {
                 StartEat();
             }
+            
+            Machine.AIMoveManager.NavMeshAgent.SetArrivePoint(transform.position);
         }
 
         public override void ProcessState()

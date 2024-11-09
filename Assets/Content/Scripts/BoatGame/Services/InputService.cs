@@ -18,5 +18,6 @@ namespace Content.Scripts.BoatGame.Services
         public static Vector3 MousePosition => Input.mousePosition;
         public static bool SpaceHold => Input.GetKey(KeyCode.Space);
         public static bool SpaceDown => Input.GetKeyDown(KeyCode.Space);
+        public static bool EscapeDown => Input.GetKeyDown(KeyCode.Escape);
     }
 }

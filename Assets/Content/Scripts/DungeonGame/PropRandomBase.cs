@@ -13,6 +13,12 @@ namespace Content.Scripts.DungeonGame
             [SerializeField] private GameObject prefab;
             [SerializeField] private float weight;
 
+            public WeightedProp(GameObject chGameObject)
+            {
+                prefab = chGameObject;
+                weight = 5;
+            }
+
             public float Weight => weight;
 
             public GameObject Prefab => prefab;

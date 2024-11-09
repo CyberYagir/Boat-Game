@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Content.Scripts.Global;
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Content.Scripts.BoatGame
@@ -16,16 +18,28 @@ namespace Content.Scripts.BoatGame
         [SerializeField] private bool drawGizmo = true;
         
         private List<GameObject> spawnedFishes = new List<GameObject>();
+        private SaveDataObject saveDataObject;
 
-        private void Awake()
+
+        [Inject]
+        private void Construct(SaveDataObject saveDataObject)
         {
-            StartCoroutine(Loop());
+            this.saveDataObject = saveDataObject;
+            if (gameObject.activeSelf)
+            {
+                StartCoroutine(Loop());
+            }
         }
 
         IEnumerator Loop()
         {
             while (true)
             {
+                if (saveDataObject.CrossGame.Statistics.CountFishCatched == 0)
+                {
+                    yield return null;
+                    continue;
+                }
                 if (spawnedFishes.Count < spawnedFishesLimit)
                 {
                     var points = pointsHolders.GetRandomItem();

@@ -2139,6 +2139,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2402274731047253088, guid: 466a3a702862e6747999cf3d5b7fec83, type: 3}
   m_PrefabInstance: {fileID: 1330012194}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &322756598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 322756600}
+  - component: {fileID: 322756599}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &322756599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322756598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 43fad41240dc24641a435b40fa15fb5e, type: 2}
+--- !u!4 &322756600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322756598}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 65.860085, y: -47.123325, z: -47.33202}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &326973491 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2402274731047253088, guid: 466a3a702862e6747999cf3d5b7fec83, type: 3}
@@ -10081,6 +10130,8 @@ MonoBehaviour:
   bossHealthDisplay: {fileID: 1930050683}
   soulsCounter: {fileID: 843461400}
   questsOverlay: {fileID: 131593018}
+  windowsManager:
+    openedWindows: []
 --- !u!4 &1565056048 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2402274731047253088, guid: 466a3a702862e6747999cf3d5b7fec83, type: 3}
@@ -10319,7 +10370,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -10387,7 +10438,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2147680247
+    m_Bits: 2147942391
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -12497,6 +12548,10 @@ PrefabInstance:
       propertyPath: characterPreview
       value: 
       objectReference: {fileID: 1973868527}
+    - target: {fileID: 7780721790148075924, guid: 8ed9b469210e7aa41b076837e610de96, type: 3}
+      propertyPath: canShowOnlySingle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8558690965372409772, guid: 8ed9b469210e7aa41b076837e610de96, type: 3}
       propertyPath: m_Color.b
       value: 0.10980393
@@ -15051,3 +15106,4 @@ SceneRoots:
   - {fileID: 297931785}
   - {fileID: 1048526762}
   - {fileID: 671510254}
+  - {fileID: 322756600}

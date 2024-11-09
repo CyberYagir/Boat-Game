@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Content.Scripts.BoatGame.Characters;
 using Content.Scripts.BoatGame.Characters.States;
 using Content.Scripts.BoatGame.UI;
@@ -13,15 +14,20 @@ using Zenject;
 
 namespace Content.Scripts.BoatGame.Services
 {
-    public class UIService : MonoBehaviour
+    public interface IUIService
+    {
+        public UIService.WindowsManager WindowManager { get; }
+    }
+    public class UIService : MonoBehaviour, IUIService
     {
         [System.Serializable]
         public class WindowsManager
         {
             [SerializeField, ReadOnly] private List<AnimatedWindow> openedWindows = new List<AnimatedWindow>(2);
+
             public bool isAnyWindowOpened => openedWindows.Count != 0;
 
-            public void Init(UIService uiService, TickService tickService , params AnimatedWindow[] windows)
+            public void Init(IUIService uiService, TickService tickService , params AnimatedWindow[] windows)
             {
                 for (int i = 0; i < windows.Length; i++)
                 {
@@ -31,12 +37,33 @@ namespace Content.Scripts.BoatGame.Services
                         {
                             openedWindows.Add(window);
                             tickService.NormalTime();
+                            print("Show");
                         };
-                        windows[i].OnClose += delegate(AnimatedWindow window) { openedWindows.Remove(window); };
+                        windows[i].OnClose += delegate(AnimatedWindow window)
+                        {
+                            openedWindows.Remove(window); 
+                            
+                            print("Close");
+                        };
 
                         windows[i].InitWindow(uiService);
                     }
                 }
+            }
+
+            public bool CloseLast()
+            {
+                if (openedWindows.Count != 0)
+                {
+                    var last = openedWindows.Last();
+                    if (last != null)
+                    {
+                        last.CloseWindow();
+                        return true;
+                    }
+                }
+
+                return false;
             }
         }
 
@@ -158,7 +185,7 @@ namespace Content.Scripts.BoatGame.Services
 
             potionsList.Init(resourcesService, selectionService, characterService, charactersList, scenesService);
 
-            windowsManager.Init(this,tickService, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow, soulsShopWindow, playerInventoryWindow);
+            windowsManager.Init(this,tickService, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow, soulsShopWindow, playerInventoryWindow, optionsHolder.Window);
             
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
             resourcesService.OnChangeResources += OnChangeResources;
@@ -202,20 +229,20 @@ namespace Content.Scripts.BoatGame.Services
         {
             actionManager.UpdateButtons(false);
         }
-
-        // private void OnChangeResources(EResourceTypes name, RaftStorage.StorageItem data)
-        // {
-        //     var count = counter.Find(x => x.ResourceTypes == name);
-        //     if (count != null)
-        //     {
-        //         count.UpdateCounter(data.Count, data.MaxCount);
-        //     }
-        // }
+        
 
         private void LateUpdate()
         {
             actionManager.Update();
             chestShow.Update();
+
+            if (InputService.EscapeDown)
+            {
+                if (!windowsManager.CloseLast())
+                {
+                    optionsHolder.OpenWindow();
+                }
+            }
         }
 
         public void ChangeGameStateToBuild()

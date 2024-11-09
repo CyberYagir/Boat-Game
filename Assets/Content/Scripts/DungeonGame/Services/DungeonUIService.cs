@@ -9,8 +9,9 @@ using Zenject;
 
 namespace Content.Scripts.DungeonGame.Services
 {
-    public class DungeonUIService : MonoBehaviour
+    public class DungeonUIService : MonoBehaviour, IUIService
     {
+        
         [SerializeField] private UIHealthbars healthbars;
         [SerializeField] private UIPotionsList potionsList;
         [SerializeField] private UIResourcesCounter resourcesCounter;
@@ -28,10 +29,15 @@ namespace Content.Scripts.DungeonGame.Services
         [SerializeField] private UIBossHealthDisplay bossHealthDisplay;
         [SerializeField] private UISoulsCounter soulsCounter;
         [SerializeField] private UIQuestsOverlay questsOverlay;
+        
+        
+        [Space, SerializeField] private UIService.WindowsManager windowsManager = new UIService.WindowsManager();
+        
         private DungeonSelectionService selectionService;
         private SaveDataObject saveDataObject;
         private ScenesService scenesService;
         private DungeonSaveService saveService;
+        public UIService.WindowsManager WindowManager => windowsManager;
 
         [Inject]
         private void Construct(
@@ -80,6 +86,9 @@ namespace Content.Scripts.DungeonGame.Services
             endRoom.OnEnter += OnEnterBoss;
             
             characterWindow.OnClose += DeselectCharacter;
+            
+            
+            windowsManager.Init(this, tickService, optionsHolder.Window, characterPreviews, characterWindow);
         }
 
         private void OnEnterBoss(DungeonRoomEnd obj)
@@ -89,6 +98,7 @@ namespace Content.Scripts.DungeonGame.Services
                 obj.EnterBoss();
             });
         }
+        
 
 
         private void DeselectCharacter(AnimatedWindow obj)
@@ -100,6 +110,14 @@ namespace Content.Scripts.DungeonGame.Services
         private void LateUpdate()
         {
             healthbars.UpdateBars();
+            
+            if (InputService.EscapeDown)
+            {
+                if (!windowsManager.CloseLast())
+                {
+                    optionsHolder.OpenWindow();
+                }
+            }
         }
 
         public void OpenCharactersPreview()
@@ -120,5 +138,6 @@ namespace Content.Scripts.DungeonGame.Services
             
             scenesService.FadeScene(ESceneName.Loading);
         }
+
     }
 }

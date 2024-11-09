@@ -139,6 +139,8 @@ namespace Content.Scripts.BoatGame.UI
         private UIMessageBoxManager messageBoxManager;
         private UIStoragesCounter resourcesCounter;
 
+        public AnimatedWindow Window => window;
+
         public void Init(UIStoragesCounter resourcesCounter, PlayerAuthService authService, ISaveServiceBase saveService, CloudService cloudService, ScenesService scenesService, UIMessageBoxManager messageBoxManager, SaveDataObject saveDataObject)
         {
             this.resourcesCounter = resourcesCounter;
@@ -148,7 +150,7 @@ namespace Content.Scripts.BoatGame.UI
             this.cloudService = cloudService;
             this.saveService = saveService;
             this.authService = authService;
-            window.gameObject.SetActive(false);
+            Window.gameObject.SetActive(false);
             resourcesCounter.OnCounterStateChange += UpdateButtonPos;
             saveDataObject.CrossGame.OnSoulsChanged.AddListener(UpdateButtonPosDelegate);
             UpdateButtonPos(resourcesCounter.IsVisible);
@@ -257,12 +259,12 @@ namespace Content.Scripts.BoatGame.UI
 
         public void OpenWindow()
         {
-            window.ShowWindow();
+            Window.ShowWindow();
         }
 
         public void HideWindow()
         {
-            window.CloseWindow();
+            Window.CloseWindow();
         }
 
         private void UpdateButtonPos(bool storageVisible)

@@ -114,6 +114,7 @@ namespace Content.Scripts.BoatGame.Characters.States
                     storage.AddToStorage(fishItem, 1);
                     Machine.AnimationManager.TriggerHoldFishAnimation(false);
                     QuestsEventBus.CallCatchFish();
+                    Machine.SaveData.CrossGame.Statistics.AddCatchedFish();
                     Destroy(spawnedFish.gameObject);
                     Machine.AddExp(1);
                 }

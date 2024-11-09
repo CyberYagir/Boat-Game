@@ -805,6 +805,7 @@ namespace Content.Scripts
             {
                 list[i] = list[i].RemoveSpecialCharacters();
             }
+            
             return list;
         }
         

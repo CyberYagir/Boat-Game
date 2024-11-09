@@ -14,7 +14,7 @@ namespace Content.Scripts.BoatGame.UI
 
         protected IResourcesService resourcesService;
 
-        public void Init(IResourcesService resourcesService)
+        public virtual void Init(IResourcesService resourcesService)
         {
             this.resourcesService = resourcesService;
         }
@@ -57,13 +57,14 @@ namespace Content.Scripts.BoatGame.UI
         }
         
         
-        public void GetItemFromStorage(ItemObject itemObject)
+        public void GetItemFromStorage(ItemObject itemObject, bool one)
         {
+            print(one);
             var item = GetStorage().Find(x => x.Item == itemObject);
 
             if (item != null)
             {
-                if (resourcesService.GetGlobalEmptySpace(item))
+                if (resourcesService.GetGlobalEmptySpace(item) && !one)
                 {
                     if (RemoveItemFromStorage(item))
                     {
@@ -80,6 +81,11 @@ namespace Content.Scripts.BoatGame.UI
                 if (empty > item.Count)
                 {
                     empty = item.Count;
+                }
+
+                if (one)
+                {
+                    empty = 1;
                 }
 
                 var availableItem = new RaftStorage.StorageItem(item.Item, empty);
@@ -101,7 +107,7 @@ namespace Content.Scripts.BoatGame.UI
             var items = GetStorage();
             while (items.Count != 0 && resourcesService.GetEmptySpace() != 0)
             {
-                GetItemFromStorage(items[0].Item);
+                GetItemFromStorage(items[0].Item, true);
             }
             if (items.Count == 0){
                 CloseWindow();

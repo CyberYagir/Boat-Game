@@ -13,10 +13,15 @@ namespace Content.Scripts.Global
             public class PlayerStatistics
             {
                 [SerializeField] private int countBuildRafts;
+                [SerializeField] private int countFishCatched;
 
                 public int CountBuildRafts => countBuildRafts;
 
-                public void AddBuildRaft() => countBuildRafts++;
+                public int CountFishCatched => countFishCatched;
+
+                public void AddBuildRaft() => countBuildRafts++;                
+                public void AddCatchedFish() => countFishCatched = CountFishCatched + 1;
+
             }
             
             [SerializeField] private int soulsCount;
