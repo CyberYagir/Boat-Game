@@ -33,7 +33,7 @@ namespace Content.Scripts.DungeonGame.Mobs.States
                 attackCounter = 0;
             }
             if (Machine.AttackedPlayer == null) return;
-            if (Machine.AttackedPlayer.CurrentState != EStateType.Roll)
+            if (!Machine.AttackedPlayer.GetComponent<DungeonCharacter>().IsInRoll())
             {
                 if (IsCanAttack(attackDistance))
                 {

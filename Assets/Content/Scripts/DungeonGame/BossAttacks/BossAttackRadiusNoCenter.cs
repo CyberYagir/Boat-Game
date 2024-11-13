@@ -18,23 +18,29 @@ namespace Content.Scripts.DungeonGame.BossAttacks
 
             foreach (var chars in dungeonCharactersService.SpawnedCharacters)
             {
-                if (Vector3.Distance(center.transform.position, chars.PlayerCharacter.transform.position) < notDamageRadius1)
+                if (!chars.IsInRoll())
                 {
-                    continue;
-                }
-                if (Vector3.Distance(center.transform.position, chars.PlayerCharacter.transform.position) < damageRadius2)
-                {
-                    chars.PlayerCharacter.Damage(damage, dungeonMob.gameObject);
-                    continue;
-                }
-                if (Vector3.Distance(center.transform.position, chars.PlayerCharacter.transform.position) < notDamageRadius3)
-                {
-                    continue;
-                }
-                if (Vector3.Distance(center.transform.position, chars.PlayerCharacter.transform.position) < damageRadius4)
-                {
-                    chars.PlayerCharacter.Damage(damage, dungeonMob.gameObject);
-                    continue;
+                    if (Vector3.Distance(center.transform.position, chars.PlayerCharacter.transform.position) < notDamageRadius1)
+                    {
+                        continue;
+                    }
+
+                    if (Vector3.Distance(center.transform.position, chars.PlayerCharacter.transform.position) < damageRadius2)
+                    {
+                        chars.PlayerCharacter.Damage(damage, dungeonMob.gameObject);
+                        continue;
+                    }
+
+                    if (Vector3.Distance(center.transform.position, chars.PlayerCharacter.transform.position) < notDamageRadius3)
+                    {
+                        continue;
+                    }
+
+                    if (Vector3.Distance(center.transform.position, chars.PlayerCharacter.transform.position) < damageRadius4)
+                    {
+                        chars.PlayerCharacter.Damage(damage, dungeonMob.gameObject);
+                        continue;
+                    }
                 }
             }
         }

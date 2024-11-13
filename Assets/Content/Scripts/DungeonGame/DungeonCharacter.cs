@@ -150,5 +150,7 @@ namespace Content.Scripts.DungeonGame
                 StartRoll();
             }
         }
+
+        public bool IsInRoll() => playerCharacter.CurrentState == EStateType.Roll;
     }
 }

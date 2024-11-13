@@ -8,7 +8,10 @@ namespace Content.Scripts.DungeonGame
     public class RoomGrid : MonoBehaviour
     {
         [SerializeField] private Vector2Int size;
+        [SerializeField] private WorldGridServiceTyped.ECellType type = WorldGridServiceTyped.ECellType.Room;
         public Vector2Int Size => size;
+
+        public WorldGridServiceTyped.ECellType PlaceType => type;
 
         private void OnDrawGizmos()
         {

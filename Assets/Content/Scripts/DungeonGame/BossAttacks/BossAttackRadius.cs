@@ -17,7 +17,10 @@ namespace Content.Scripts.DungeonGame.BossAttacks
                 {
                     if (Vector3.Distance(chars.transform.position, points[i].position) <= radius)
                     {
-                        chars.PlayerCharacter.Damage(damage, dungeonMob.gameObject);
+                        if (!chars.IsInRoll())
+                        {
+                            chars.PlayerCharacter.Damage(damage, dungeonMob.gameObject);
+                        }
                     }
                 }
             }

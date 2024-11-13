@@ -103,7 +103,7 @@ namespace Content.Scripts.DungeonGame.Services
                     .With(x => x.transform.position = pos)
                     .With(x => SpawnedRooms.Add(x));
                 RoomsCenters.Add(spawned.GetCenter());
-                worldGridService.AddPoints(item.GetPointsInGlobalSpace(pos), WorldGridServiceTyped.ECellType.Room);
+                worldGridService.AddPoints(item.GetPointsInGlobalSpace(pos), item.PlaceType);
 
                 return spawned;
             }

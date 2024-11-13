@@ -12,10 +12,12 @@ namespace Content.Scripts.DungeonGame.BossAttacks
 
             foreach (var chars in dungeonCharactersService.SpawnedCharacters)
             {
-                
                 if (IsInside(boxCollider, chars.PlayerCharacter.transform.position))
                 {
-                    chars.PlayerCharacter.Damage(damage, dungeonMob.gameObject);
+                    if (!chars.IsInRoll())
+                    {
+                        chars.PlayerCharacter.Damage(damage, dungeonMob.gameObject);
+                    }
                 }
             }
         }

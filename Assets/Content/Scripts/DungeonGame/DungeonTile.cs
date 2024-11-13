@@ -33,6 +33,7 @@ namespace Content.Scripts.DungeonGame
         [SerializeField] private PropsSelector[] propSelectors;
         [SerializeField] private PropsSelector[] propsForAll;
         [SerializeField] private PropSpawner[] propSpawners;
+        [SerializeField] private PropsSelectorDirections[] propSpawnersDirs;
         private Vector3Int coords;
         private WorldGridServiceTyped.ECellType targetCellType;
         private Random rnd;
@@ -67,6 +68,11 @@ namespace Content.Scripts.DungeonGame
                     {
                         spawner.Init(rnd);
                     }
+                }
+                
+                for (int i = 0; i < propSpawnersDirs.Length; i++)
+                {
+                    propSpawnersDirs[i].Init(rnd);   
                 }
             }
             else
@@ -104,6 +110,11 @@ namespace Content.Scripts.DungeonGame
                 {
                     walls[i].SetActive(true);
                 }
+            }
+
+            for (int i = 0; i < propSpawnersDirs.Length; i++)
+            {
+                propSpawnersDirs[i].SetDirs(disabledDirections);   
             }
         }
 

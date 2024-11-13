@@ -74,6 +74,7 @@ namespace Content.Scripts.DungeonGame.Services
         private void OnDeath(Character obj)
         {
             spawnedCharacters.RemoveAll(x => x.PlayerCharacter.Character == obj);
+            saveData.Characters.RemoveCharacter(obj.Uid);
             OnCharactersChange?.Invoke();
         }
 
