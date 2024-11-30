@@ -95,6 +95,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIQuestsOverlay questOverlay;
         [SerializeField] private UICraftPinWidget craftPinWidget;
         [SerializeField] private UIActionsIndicators actionsIndicators;
+        [SerializeField] private UIEnterDungeon enterDungeon;
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
         
         private PlayerCharacter targetCharacter;
@@ -173,6 +174,9 @@ namespace Content.Scripts.BoatGame.Services
                         scenesService,
                         saveService);
                 }
+                
+                
+                enterDungeon.Init(selectionService, this);
 
                 if (saveDataObject.Map.IsHavePlotOnIsland(saveDataObject.GetTargetIsland().IslandSeed))
                 {
@@ -185,7 +189,8 @@ namespace Content.Scripts.BoatGame.Services
 
             potionsList.Init(resourcesService, selectionService, characterService, charactersList, scenesService);
 
-            windowsManager.Init(this,tickService, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow, soulsShopWindow, playerInventoryWindow, optionsHolder.Window);
+            
+            windowsManager.Init(this,tickService, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow, soulsShopWindow, playerInventoryWindow, optionsHolder.Window, enterDungeon);
             
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
             resourcesService.OnChangeResources += OnChangeResources;
@@ -264,6 +269,11 @@ namespace Content.Scripts.BoatGame.Services
         public void SetResourcesCounterSorting(int i)
         {
             resourcesList.SetOverrideSorting(i);
+        }
+        
+        public void EnterDungeon(int id)
+        {
+            villageWindow.EnterDungeon(id);
         }
     }
 }

@@ -9,6 +9,7 @@ using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using Content.Scripts.Mobs.MobSnake;
 using DG.Tweening;
+using Pathfinding;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -111,6 +112,8 @@ namespace Content.Scripts.BoatGame
 
             Select(false);
         }
+
+        
 
         public void InitDummy(
             Character character,
@@ -217,8 +220,8 @@ namespace Content.Scripts.BoatGame
         private void OnTick(float delta)
         {
             if (onlyVisuals) return;
-
             NeedsManagerTick(delta);
+            
         }
 
         private void NeedsManagerTick(float delta)

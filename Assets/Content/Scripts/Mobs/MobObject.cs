@@ -16,7 +16,12 @@ namespace Content.Scripts.Mobs
             GoldenEagle,
             Peacock,
             Pronghorn,
-            Gaur
+            Gaur,
+            
+            Dungeon_Specter,
+            Dungeon_Skeleton,
+            Dungeon_Golem,
+            Dungeon_Rat
         }
 
         [SerializeField] private EMobType type;

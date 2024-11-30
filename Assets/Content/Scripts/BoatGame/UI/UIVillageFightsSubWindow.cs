@@ -1,32 +1,13 @@
 using System.Collections.Generic;
-using Content.Scripts.DungeonGame.Services;
 using Content.Scripts.Global;
+using Content.Scripts.IslandGame;
 using UnityEngine;
 
 namespace Content.Scripts.BoatGame.UI
 {
     public class UIVillageFightsSubWindow : MonoBehaviour
     {
-        [System.Serializable]
-        public class DungeonDataHolder
-        {
-            [SerializeField] private int seed;
-            [SerializeField] private string name;
-            [SerializeField] private int level;
-
-            public DungeonDataHolder(int seed, string name, int level)
-            {
-                this.seed = seed;
-                this.name = name;
-                this.level = level;
-            }
-
-            public int Level => level;
-
-            public string Name => name;
-
-            public int Seed => seed;
-        }
+        
 
         [SerializeField] private TextAsset dungeonNames;
         [SerializeField] private List<DungeonDataHolder> dungeons = new List<DungeonDataHolder>();
@@ -51,24 +32,10 @@ namespace Content.Scripts.BoatGame.UI
             this.messageBoxManager = messageBoxManager;
             if (lastID == villageData.Uid) return;
 
-            var names = dungeonNames.LinesToList();
-            var rnd = villageData.GetRandom();
+            dungeons = DungeonDataHolder.GenerateDungeons(villageData, dungeonNames, gameDataObject, level);
 
-            var dungeonsCount = gameDataObject.ConfigData.GetDungeonsCount(rnd);
-
-
-            for (int i = 0; i < dungeonsCount; i++)
-            {
-                var dungeon = new DungeonData(rnd.Next(int.MinValue, int.MaxValue));
-                while (dungeon.Level < level - gameDataObject.ConfigData.DungeonsLevelsOffset || dungeon.Level > level + gameDataObject.ConfigData.DungeonsLevelsOffset || dungeon.Seed == 0)
-                {
-                    dungeon = new DungeonData(rnd.Next(int.MinValue, int.MaxValue));
-                }
-
-                dungeons.Add(new DungeonDataHolder(dungeon.Seed, names.GetRandomItem(rnd), dungeon.Level));
-            }
-
-            DrawItems(dungeonsCount);
+            
+            DrawItems(dungeons.Count);
 
             lastID = villageData.Uid;
         }
@@ -99,7 +66,7 @@ namespace Content.Scripts.BoatGame.UI
         {
             messageBoxManager.ShowMessageBox("Are you sure you want to enter the dungeon?", delegate
             {
-                uiVillageOptionsWindow.EnterDungeon(data);
+                uiVillageOptionsWindow.EnterDungeon(data.Seed);
             });
         }
     }

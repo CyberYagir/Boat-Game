@@ -236,10 +236,10 @@ namespace Content.Scripts.BoatGame.UI
             scenesService.FadeScene(ESceneName.ManCreator);
         }
 
-        public void EnterDungeon(UIVillageFightsSubWindow.DungeonDataHolder data)
+        public void EnterDungeon(int id)
         {
             saveService.SaveWorld();
-            saveDataObject.Global.EnterInDungeon(data.Seed);
+            saveDataObject.Global.EnterInDungeon(id);
             saveDataObject.SaveFile();
             scenesService.FadeScene(ESceneName.Loading);
         }

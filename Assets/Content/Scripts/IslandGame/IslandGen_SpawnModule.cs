@@ -56,11 +56,18 @@ namespace Content.Scripts.IslandGame
                         break;
                     }
 
+                    if (islandGenerator.PointInsideOfStructureBounds(spawned.Points[i]))
+                    {
+                        isAllOk = false;
+                        break;
+                    }
+
                     if (point != default)
                     {
                         points.Add(point);
                     }
                 }
+                
 
                 if (isAllOk)
                 {
@@ -81,16 +88,11 @@ namespace Content.Scripts.IslandGame
             spawnedBounds.Expand(Vector3.up * 100);
             spawnedBounds.Expand(2f);
             islandGenerator.ClearObjectsInBounds(spawnedBounds);
+            islandGenerator.AddStructureBounds(spawnedBounds);
             spawned.transform.SetYEulerAngles(islandGenerator.TargetRandom.Next(0, 360));
             spawned.gameObject.SetActive(true);
             
             return spawned;
-        }
-        
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = new Color(1f, 1f, 1f, 0.25f);
-            Gizmos.DrawCube(spawnedBounds.center, spawnedBounds.size);
         }
     }
 }

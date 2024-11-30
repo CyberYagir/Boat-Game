@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Content.Scripts.BoatGame.Services;
+using Content.Scripts.IslandGame.WorldStructures;
 using Content.Scripts.QuestsSystem;
 using UnityEngine;
 using Zenject;
@@ -14,6 +15,7 @@ namespace Content.Scripts.IslandGame
         private PrefabSpawnerFabric spawnerFabricService;
 
         public bool IsSpawned => islandNativesData.Data.IsSpawned;
+        public VillageGenerator VillageGenerator => islandNativesData.Village;
         
         [Inject]
         private void Construct(PrefabSpawnerFabric spawnerFabricService)
@@ -33,6 +35,7 @@ namespace Content.Scripts.IslandGame
             if (islandNativesData.Data.IsSpawned)
             {
                 islandGenerator.ClearObjectsInBounds(islandNativesData.Data.Bounds);
+                islandGenerator.AddStructureBounds(islandNativesData.Data.Bounds);
                 StartCoroutine(SkipFrameAndFindVillage());
             }
         }

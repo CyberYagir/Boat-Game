@@ -862,7 +862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379296135657365597, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1379296136396144207, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_Size
@@ -3326,6 +3326,7 @@ GameObject:
   - component: {fileID: 1737859045}
   - component: {fileID: 1737859046}
   - component: {fileID: 1737859047}
+  - component: {fileID: 1737859048}
   m_Layer: 0
   m_Name: IsalndGeneratorService
   m_TagString: Untagged
@@ -3366,6 +3367,7 @@ MonoBehaviour:
   - {fileID: 1737859045}
   - {fileID: 1737859046}
   - {fileID: 1737859047}
+  - {fileID: 1737859048}
   minGrassHeight: 1
   islandData:
     level: 0
@@ -3529,6 +3531,41 @@ MonoBehaviour:
   pillagersSpotsCount:
     min: 1
     max: 6
+--- !u!114 &1737859048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737859040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85e5a2e283b717f4b8200e2e23a4c218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateObjectCalculator:
+    accuracy: 50
+    maxGap: 5
+    maxAngle: 15
+    minY: 1
+    terrainBorder: 0.1
+  allowedLayers:
+  - {fileID: 8574412962073106934, guid: b288854cd1f9db945804e2a3c005fa02, type: 2}
+  - {fileID: 8574412962073106934, guid: 022cdb4905f3c1743999e4e0ad6bbf5e, type: 2}
+  - {fileID: 8574412962073106934, guid: a28af33e7a12c224f94e34c4dee01cba, type: 2}
+  - {fileID: 8574412962073106934, guid: 9900121e85ffe6844b406557758d03bc, type: 2}
+  - {fileID: 8574412962073106934, guid: b0cd482d281c10a489f8ae32c6a7ffab, type: 2}
+  - {fileID: 8574412962073106934, guid: 60f92a00750767b4cbcab5ac916a57b0, type: 2}
+  - {fileID: 8574412962073106934, guid: c3c581171dd08754ba772ff1a336e549, type: 2}
+  - {fileID: 8574412962073106934, guid: c5f8f21a44cb6ef4eb76b421e19eec15, type: 2}
+  - {fileID: 8574412962073106934, guid: 34e0bb1e605ca8b458854eaba6cdd227, type: 2}
+  prefab: {fileID: 0}
+  prefabs:
+  - {fileID: 4720330383868305810, guid: a747e599650d5fb4eb525edc6fae1299, type: 3}
+  - {fileID: 6619533359466904971, guid: 5604149330cb8d64d8809a8c15bf37ed, type: 3}
+  - {fileID: 5061182430633680281, guid: 3265f8b88cea09544b700262c61e09d5, type: 3}
+  dungeonNames: {fileID: 4900000, guid: bdd142a66cf3f0d4580874b1e96f5243, type: 3}
+  villageModule: {fileID: 1737859044}
 --- !u!1 &1787757237
 GameObject:
   m_ObjectHideFlags: 0

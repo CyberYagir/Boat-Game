@@ -152,7 +152,7 @@ namespace Content.Scripts.BoatGame.RaftDamagers
         {
             return new List<RaftDamagerDataKey>()
             {
-                new RaftDamagerDataKey("hp", damageObject.Health.ToString())
+                new("hp", damageObject.Health.ToString())
             };
         }
         public override void SetKeysData(List<RaftDamagerDataKey> data)

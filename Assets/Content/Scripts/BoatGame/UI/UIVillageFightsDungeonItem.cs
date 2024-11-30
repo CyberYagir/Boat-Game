@@ -1,5 +1,6 @@
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
+using Content.Scripts.IslandGame;
 using Content.Scripts.Map.UI;
 using TMPro;
 using UnityEngine;
@@ -14,10 +15,10 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private GameObject bossRemain;
         [SerializeField] private GameObject completedText;
 
-        private UIVillageFightsSubWindow.DungeonDataHolder data;
+        private DungeonDataHolder data;
         private UIVillageFightsSubWindow fightsWindow;
 
-        public void Init(UIVillageFightsSubWindow.DungeonDataHolder data, UIVillageFightsSubWindow fightsWindow, SaveDataObject saveDataObject)
+        public void Init(DungeonDataHolder data, UIVillageFightsSubWindow fightsWindow, SaveDataObject saveDataObject)
         {
             this.fightsWindow = fightsWindow;
             this.data = data;

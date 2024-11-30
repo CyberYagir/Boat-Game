@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
@@ -9,22 +10,35 @@ namespace Content.Scripts.BoatGame.UI
 {
     public class UITutorialsDisplay : MonoBehaviour
     {
+        [System.Serializable]
+        public class CharactersByType
+        {
+            [SerializeField] private TutorialDialogObject.ECharacter character;
+            [SerializeField] private GameObject worldObject;
+
+            public GameObject WorldObject => worldObject;
+
+            public TutorialDialogObject.ECharacter Character => character;
+        }
+        
+        
         [SerializeField] private GameObject rendererPart;
         [SerializeField] private GameObject canvas;
         [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private CharactersByType[] characters;
         
         [SerializeField] private TMP_Text text;
         [SerializeField] private string highlightColor;
 
+        
         private bool isTextDisplayed = false;
-        
         private bool nextPhraseFlag = false;
-        
         private TutorialDialogObject textObject;
         private TickService tickService;
 
         public bool IsTextDisplayed => isTextDisplayed;
 
+        public event Action OnDialogueEnded; 
         
         public void Init(TickService tickService)
         {
@@ -42,6 +56,12 @@ namespace Content.Scripts.BoatGame.UI
             
             text.text = "";
             canvasGroup.alpha = 0;
+
+            foreach (var character in characters)
+            {
+                character.WorldObject.SetActive(character.Character == textObject.Character);
+            }
+            
             canvasGroup.DOFade(1f, 0.25f).onComplete += delegate
             {
                 StartCoroutine(DrawPhrases());
@@ -64,6 +84,7 @@ namespace Content.Scripts.BoatGame.UI
                 nextPhraseFlag = false;
             }
             
+            OnDialogueEnded?.Invoke();
             canvasGroup.DOFade(0, 0.25f).onComplete += delegate
             {
                 rendererPart.gameObject.SetActive(false);

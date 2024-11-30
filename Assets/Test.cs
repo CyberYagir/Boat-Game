@@ -12,6 +12,7 @@ public class Test : MonoBehaviour
 
     IEnumerator Start()
     {
+        AstarPath.active.Scan();
         while (true)
         {
             yield return null;

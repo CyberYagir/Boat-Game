@@ -12,6 +12,7 @@ namespace Content.Scripts.Global
             [SerializeField] private bool eatTutorial;
             [SerializeField] private bool storageTutorial;
             [SerializeField] private bool levelUpTutorial;
+            [SerializeField] private bool villageDialogTutorial;
 
             public bool StorageTutorial => storageTutorial;
 
@@ -20,6 +21,8 @@ namespace Content.Scripts.Global
             public bool ClickTutorial => clickTutorial;
 
             public bool LevelUpTutorial => levelUpTutorial;
+
+            public bool VillageDialogTutorial => villageDialogTutorial;
 
 
             public void ClickTutorialSet()
@@ -44,6 +47,12 @@ namespace Content.Scripts.Global
             public void LevelUpTutorialSet()
             {
                 levelUpTutorial = true;
+                Debug.Log("Complete LevelUp Tutorial");
+            }
+            
+            public void VillageDialogTutorialSet()
+            {
+                villageDialogTutorial = true;
                 Debug.Log("Complete LevelUp Tutorial");
             }
         }

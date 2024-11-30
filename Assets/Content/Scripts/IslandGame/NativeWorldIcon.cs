@@ -13,6 +13,7 @@ namespace Content.Scripts.IslandGame
         [SerializeField] private Transform part;
         [SerializeField] private Transform point;
         [SerializeField] private GraphicRaycaster canvas;
+        [SerializeField] private EStateType stateType = EStateType.VillageViewInfo;
         private Camera mainCamera;
         private SelectionService selectionService;
 
@@ -27,18 +28,18 @@ namespace Content.Scripts.IslandGame
         }
         
 
-        private void Update()
+        private void LateUpdate()
         {
-            transform.position = Vector3.Lerp(transform.position, mainCamera.WorldToScreenPoint(point.transform.position), 200 * Time.deltaTime);
+            transform.position = mainCamera.WorldToScreenPoint(point.transform.position);
             
             
-            if (selectionService.SelectedCharacter != null && selectionService.SelectedCharacter.CurrentState == EStateType.VillageViewInfo)
+            if (selectionService.SelectedCharacter != null && selectionService.SelectedCharacter.CurrentState == stateType)
             {
-                transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.deltaTime * 5f);
+                transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.unscaledDeltaTime * 5f);
             }
             else
             {
-                transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, Time.deltaTime * 5);
+                transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, Time.unscaledDeltaTime * 5f);
             }
         }
 

@@ -112,5 +112,10 @@ namespace Content.Scripts.IslandGame.Mobs
                 spawnedMob.Init(this);
             }
         }
+
+        public void SetMobType(MobObject.EMobType dungeonGolem)
+        {
+            mobType = dungeonGolem;
+        }
     }
 }

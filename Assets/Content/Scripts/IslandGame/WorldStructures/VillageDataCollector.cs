@@ -23,8 +23,6 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
         public IslandSeedData IslandData => islandData;
 
-        public SaveDataObject.MapData.IslandData.VillageData VillageData => villageData;
-
 
         public void Init(
             List<StructureDataBase> spawnedActiveStructures,

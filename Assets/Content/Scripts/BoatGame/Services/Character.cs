@@ -23,6 +23,10 @@ namespace Content.Scripts.BoatGame.Services
             {
                 this.skillID = skillID;
                 this.value = value;
+                if (value == 1)
+                {
+                    QuestsEventBus.CallUpgradeSkill();
+                }
             }
 
             public int Value => value;

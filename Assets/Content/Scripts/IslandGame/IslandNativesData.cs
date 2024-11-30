@@ -56,8 +56,11 @@ namespace Content.Scripts.IslandGame
         private GameDataObject gameDataObject;
         private IslandSeedData islandData;
         private IslandMobsService islandMobsService;
+        private VillageGenerator village;
 
         public VillageData Data => villageData;
+
+        public VillageGenerator Village => village;
 
 
         public void Init(
@@ -92,7 +95,7 @@ namespace Content.Scripts.IslandGame
             if (holder == null) return;
             
             
-            var village = Object.Instantiate(holder.Structures.GetRandomItem(rnd));
+            village = Object.Instantiate(holder.Structures.GetRandomItem(rnd));
             village.transform.SetYPosition(0);
             village.Init(biome, rnd, seed, spawner, saveData, gameData, islandData, islandMobsService);
             var startSize = new Vector3(targetTerrain.Terrain.terrainData.size.x, 0, targetTerrain.Terrain.terrainData.size.z);

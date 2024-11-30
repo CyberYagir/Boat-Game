@@ -1,7 +1,10 @@
 using System;
 using System.Linq;
+using Content.Scripts.BoatGame.Characters;
+using Content.Scripts.BoatGame.Characters.States;
 using Content.Scripts.BoatGame.UI;
 using Content.Scripts.Global;
+using Content.Scripts.IslandGame.Natives;
 using UnityEngine;
 using Zenject;
 
@@ -15,6 +18,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private TutorialDialogObject eatTutorial;
         [SerializeField] private TutorialDialogObject storageTutorial;
         [SerializeField] private TutorialDialogObject levelupTutorial;
+        [SerializeField] private TutorialDialogObject villageTutorial;
         
         
         private float time;
@@ -22,6 +26,12 @@ namespace Content.Scripts.BoatGame.Services
         private SaveDataObject saveData;
         private PlayerCharacter playerCharacter;
         private IRaftBuildService raftBuildService;
+        
+        private bool waitForDisplayStorageTutorial = false;
+        private bool waitForVillageViewTutorial = false;
+        private CharacterService characterService;
+        private NativeController villageShaman;
+        
 
         [Inject]
         private void Construct(
@@ -55,8 +65,20 @@ namespace Content.Scripts.BoatGame.Services
                 {
                     playerCharacter.Character.SkillData.OnLevelUp += SkillDataOnOnLevelUp;
                 }
+                
+                if (!saveData.Tutorials.VillageDialogTutorial && saveData.Global.isOnIsland && characterService.SpawnedCharacters.Count == 1)
+                {
+                    playerCharacter.GetCharacterAction<CharActionViewVillage>().OnFirstOpenWindow += OnFistOpenVillage;
+                }
             }
            
+        }
+
+        private void OnFistOpenVillage(NativeController villageShaman)
+        {
+            this.villageShaman = villageShaman;
+            waitForVillageViewTutorial = true;
+            playerCharacter.GetCharacterAction<CharActionViewVillage>().OnFirstOpenWindow -= OnFistOpenVillage;
         }
 
         private bool waitForDisplayLevelUp = false;
@@ -83,8 +105,7 @@ namespace Content.Scripts.BoatGame.Services
             }
         }
 
-        private bool waitForDisplayStorageTutorial = false;
-        private CharacterService characterService;
+
 
         private void OnStorageUpdate()
         {
@@ -113,6 +134,30 @@ namespace Content.Scripts.BoatGame.Services
             EatingTutorial();
             StorageTutorial();
             LevelUpTutorial();
+            VillageTutorial();
+        }
+
+        private void VillageTutorial()
+        {
+            if (waitForVillageViewTutorial)
+            {
+                if (tutorialsDisplay.IsTextDisplayed) return;
+
+                if (!saveData.Tutorials.VillageDialogTutorial)
+                {
+                    tutorialsDisplay.OnDialogueEnded += OnVillageDialogueEnd;
+                    tutorialsDisplay.DrawDialogue(villageTutorial);
+                    saveData.Tutorials.VillageDialogTutorialSet();
+                    waitForVillageViewTutorial = false;
+                }
+            }
+        }
+
+        private void OnVillageDialogueEnd()
+        {
+            tutorialsDisplay.OnDialogueEnded -= OnVillageDialogueEnd;
+            playerCharacter.GetCharacterAction<CharActionViewVillage>().ApplyShaman(villageShaman);
+            playerCharacter.ActiveAction(EStateType.VillageViewInfo);
         }
 
         private void LevelUpTutorial()

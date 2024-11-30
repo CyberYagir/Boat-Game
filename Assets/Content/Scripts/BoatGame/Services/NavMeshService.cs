@@ -59,6 +59,7 @@ namespace Content.Scripts.BoatGame.Services
             {
                 isInProgress = true;
                 yield return null;
+                yield return null;
                 foreach (Progress progress in navMesh.ScanAsync())
                 {
                     yield return null;

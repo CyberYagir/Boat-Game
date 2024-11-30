@@ -25,13 +25,13 @@ namespace Content.Scripts.Map.UI
             nameText.text = islandName;
         }
         
-        public void Init(int level)
+        public void Init(int level, string nametext = "")
         {
             levelText.text = level.ToString();
 
             background.color = backgroundColor[level - 1];
             middle.color = middleColor[level - 1];
-            nameText.text = string.Empty;
+            nameText.text = nametext;
         }
     }
 }

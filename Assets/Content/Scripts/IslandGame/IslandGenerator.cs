@@ -53,6 +53,7 @@ namespace Content.Scripts.IslandGame
         private PrefabSpawnerFabric prefabSpawnerFabric;
         private INavMeshProvider navMeshProvider;
         private TickService tickService;
+        private List<Bounds> structuresBounds = new List<Bounds>();
 
 
         private Range TemperaturesRange => islandGeneration.IslandTemperatureRange;
@@ -79,6 +80,8 @@ namespace Content.Scripts.IslandGame
         public SaveDataObject SaveData => saveDataObject;
         public GameDataObject GameData => gameDataObject;
         public IslandMobsService IslandMobSpawnService => islandMobsService;
+
+        public List<Bounds> StructuresBounds => structuresBounds;
 
 
         [Inject]
@@ -500,6 +503,34 @@ namespace Content.Scripts.IslandGame
                 {
                     spawnedTerrainObjects[i].ChangeInstanceID(i);
                 }
+            }
+        }
+
+        public void AddStructureBounds(Bounds bounds)
+        {
+            structuresBounds.Add(bounds);
+            print("Add structure bounds");
+        }
+
+        public bool PointInsideOfStructureBounds(Transform spawnedPoint)
+        {
+            for (int i = 0; i < structuresBounds.Count; i++)
+            {
+                if (structuresBounds[i].Contains(spawnedPoint.position))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = new Color(1f, 1f, 1f, 0.25f);
+            for (int i = 0; i < structuresBounds.Count; i++)
+            {
+                Gizmos.DrawCube(structuresBounds[i].center, structuresBounds[i].size);
             }
         }
     }

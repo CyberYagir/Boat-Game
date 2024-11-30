@@ -9,22 +9,32 @@ namespace Content.Scripts.BoatGame.Characters.States
     {
         private NativeController selectedShaman;
         public event Action<string, int> OnOpenWindow;
+        public event Action<NativeController> OnFirstOpenWindow;
 
         public override void StartState()
         {
             base.StartState();
-            
 
-            selectedShaman = SelectionService.SelectedObject.Transform.GetComponent<NativeController>();
+
+            if (selectedShaman == null)
+            {
+                selectedShaman = SelectionService.SelectedObject.Transform.GetComponent<NativeController>();
+            }
+
             if (selectedShaman == null)
             {
                 EndState();
                 return;
             }
 
+            MoveTo();
+        }
+
+        private void MoveTo()
+        {
             if (Vector3.Distance(selectedShaman.transform.position, Machine.transform.position) < 3)
             {
-                OnOpenWindow?.Invoke(selectedShaman.VillageData.VillageID, selectedShaman.VillageData.IslandData.Level);
+                OpenWindow();
                 EndState();
             }
             else
@@ -36,8 +46,21 @@ namespace Content.Scripts.BoatGame.Characters.States
 
         protected override void OnMoveEnded()
         {
-            OnOpenWindow?.Invoke(selectedShaman.VillageData.VillageID, selectedShaman.VillageData.IslandData.Level);
+            OpenWindow();
+
             base.OnMoveEnded();
+        }
+
+        private void OpenWindow()
+        {
+            if (Machine.SaveData.Tutorials.VillageDialogTutorial)
+            {
+                OnOpenWindow?.Invoke(selectedShaman.VillageData.VillageID, selectedShaman.VillageData.IslandData.Level);
+            }
+            else
+            {
+                OnFirstOpenWindow?.Invoke(selectedShaman);
+            }
         }
 
         public override void EndState()
@@ -47,7 +70,14 @@ namespace Content.Scripts.BoatGame.Characters.States
             if (selectedShaman)
             {
                 selectedShaman.ChangeStateTo(EMobsState.Idle);
+                selectedShaman = null;
             }
+        }
+
+        public void ApplyShaman(NativeController villageShaman)
+        {
+            selectedShaman = villageShaman;
+            MoveTo();
         }
     }
 }

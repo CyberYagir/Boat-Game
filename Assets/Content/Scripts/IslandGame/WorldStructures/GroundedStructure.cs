@@ -13,7 +13,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
         {
             Place();
         }
-        
+        [Button]
         public void Place()
         {
             
