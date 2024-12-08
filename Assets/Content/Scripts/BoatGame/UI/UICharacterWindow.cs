@@ -18,6 +18,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UICharacterInventorySubWindow inventorySubWindow;
         [SerializeField] private UITabManager uiTabManager;
         [SerializeField] private UICharacterWindowStats statsTray;
+        [SerializeField] private UICharacterWindowStrength strengthDisplay;
         [SerializeField] private List<UIEquipmentDestination> equipmentBases;
 
         private PlayerCharacter selectedCharacter;
@@ -34,7 +35,8 @@ namespace Content.Scripts.BoatGame.UI
             IRaftBuildService raftBuildService,
             UIMessageBoxManager uiMessageBoxManager,
             PrefabSpawnerFabric spawnerFabric,
-            IResourcesService resourcesService)
+            IResourcesService resourcesService,
+            IUIService uiService)
         {
             this.resourcesService = resourcesService;
             this.raftBuildService = raftBuildService;
@@ -45,7 +47,7 @@ namespace Content.Scripts.BoatGame.UI
             spawnerFabric.InjectComponent(characterPreview);
             
             skillsSubWindow.Init(gameDataObject, selectionService, uiMessageBoxManager);
-            inventorySubWindow.Init(raftBuildService);
+            inventorySubWindow.Init(raftBuildService, uiService);
             
             
             selectionService.OnChangeSelectCharacter += OnChangeSelectCharacter;
@@ -87,6 +89,7 @@ namespace Content.Scripts.BoatGame.UI
         private void RedrawStats()
         {
             statsTray.Redraw(selectedCharacter);
+            strengthDisplay.Redraw(selectedCharacter);
         }
 
         private void UpdateWindow(float time)
@@ -113,7 +116,7 @@ namespace Content.Scripts.BoatGame.UI
                 equipmentBases[i].Init(selectedCharacter.Character, gameDataObject, this, inventorySubWindow);
             }
 
-            statsTray.Redraw(selectedCharacter);
+            RedrawStats();
         }
 
 

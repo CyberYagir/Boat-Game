@@ -7,9 +7,11 @@ using Content.Scripts.Boot;
 using Content.Scripts.CraftsSystem;
 using Content.Scripts.DungeonGame.UI;
 using Content.Scripts.Global;
+using Content.Scripts.ItemsSystem;
 using Content.Scripts.ManCreator;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 using Zenject;
 
 namespace Content.Scripts.BoatGame.Services
@@ -17,6 +19,7 @@ namespace Content.Scripts.BoatGame.Services
     public interface IUIService
     {
         public UIService.WindowsManager WindowManager { get; }
+        void PreviewItem(ItemObject item);
     }
     public class UIService : MonoBehaviour, IUIService
     {
@@ -96,6 +99,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UICraftPinWidget craftPinWidget;
         [SerializeField] private UIActionsIndicators actionsIndicators;
         [SerializeField] private UIEnterDungeon enterDungeon;
+        [SerializeField] private UIIItemView itemView;
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
         
         private PlayerCharacter targetCharacter;
@@ -141,7 +145,7 @@ namespace Content.Scripts.BoatGame.Services
             chestShow.Init(gameDataObject, selectionService);
             craftsWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService, saveDataObject);
             craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, raftBuildService, saveDataObject);
-            characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager, spawnerFabric, resourcesService);
+            characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager, spawnerFabric, resourcesService, this);
             furnaceWindow.Init(selectionService, raftBuildService, tickService, resourcesService);
             renameIslandWindow.Init(saveDataObject);
             getScrollWindow.Init(gameDataObject, resourcesService);
@@ -190,7 +194,7 @@ namespace Content.Scripts.BoatGame.Services
             potionsList.Init(resourcesService, selectionService, characterService, charactersList, scenesService);
 
             
-            windowsManager.Init(this,tickService, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow, soulsShopWindow, playerInventoryWindow, optionsHolder.Window, enterDungeon);
+            windowsManager.Init(this,tickService, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow, soulsShopWindow, playerInventoryWindow, optionsHolder.Window, enterDungeon, itemView);
             
             selectionService.OnChangeSelectCharacter += ChangeCharacter;
             resourcesService.OnChangeResources += OnChangeResources;
@@ -200,7 +204,12 @@ namespace Content.Scripts.BoatGame.Services
             
         }
 
-
+        public void PreviewItem(ItemObject item)
+        {
+            itemView.ShowItem(item);
+        }
+        
+        
         [Button]
         public void OpenSoulsWindow()
         {

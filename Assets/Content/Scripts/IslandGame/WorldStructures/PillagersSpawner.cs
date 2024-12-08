@@ -17,6 +17,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
         [SerializeField] private PrimitiveVillageStructureData structure;
         [SerializeField] private List<Transform> spawnPoints;
         [SerializeField] private List<SpawnedMob> pillagers = new List<SpawnedMob>();
+        [SerializeField] private GroundedStructure groundStructure;
         private GameDataObject gameDataObject;
         private IslandMobsService islandMobsService;
 
@@ -29,6 +30,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
         public void Init(System.Random rnd, int level)
         {
+            groundStructure.Place();
             structure.Init(rnd);
             for (var i = 0; i < structure.NativeSits.Count; i++)
             {

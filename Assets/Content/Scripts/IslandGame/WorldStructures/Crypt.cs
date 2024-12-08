@@ -26,6 +26,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
         public int Seed => seed;
         public BotSpawner MobSpawner => botSpawner;
+        public bool IsCompleted => dungeon == null ? false : dungeon.IsBossDead;
 
         public void Init(int seed, int level, string name, SaveDataObject saveDataObject)
         {

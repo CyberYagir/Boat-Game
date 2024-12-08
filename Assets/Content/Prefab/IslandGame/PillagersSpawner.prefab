@@ -45,6 +45,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2649834955477882352}
   - component: {fileID: 282134879001469398}
+  - component: {fileID: 686997751343086001}
   m_Layer: 0
   m_Name: PillagersSpawner
   m_TagString: Untagged
@@ -96,6 +97,24 @@ MonoBehaviour:
   - {fileID: 3199477907589302494}
   - {fileID: 3774463373458123994}
   pillagers: []
+  groundStructure: {fileID: 686997751343086001}
+--- !u!114 &686997751343086001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2431028032077778782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5bf24b4a084302af9492be0f02d60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 32768
+  keepRotation: 1
+  rotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &3796953787801970371
 GameObject:
   m_ObjectHideFlags: 0

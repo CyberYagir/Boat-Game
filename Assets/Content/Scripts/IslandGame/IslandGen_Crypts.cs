@@ -36,7 +36,10 @@ namespace Content.Scripts.IslandGame
                                     islandGenerator.SaveData);
 
                                 obj.GetComponent<GroundedStructure>().Place();
-                                islandGenerator.TargetTerrain.BotsSpawnerManager.AddMobSpawner(obj.MobSpawner);
+                                if (!obj.IsCompleted)
+                                {
+                                    islandGenerator.TargetTerrain.BotsSpawnerManager.AddMobSpawner(obj.MobSpawner);
+                                }
                             }
                         }
                     }

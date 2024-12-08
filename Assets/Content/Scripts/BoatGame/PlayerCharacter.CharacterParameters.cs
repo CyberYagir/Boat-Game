@@ -39,7 +39,8 @@ namespace Content.Scripts.BoatGame
             public float Defence => CalculateDefencePercent();
             public float Damage => CalculateDamage();
             public float Speed => CalcualteSpeed();
-            
+            public float BaseDamage => baseDamage;
+
             private float CalcualteSpeed()
             {
                 return startSpeed + (character.GetSkillMultiplyAdd(movingSkill.SkillID));

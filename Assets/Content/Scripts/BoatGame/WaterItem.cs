@@ -5,6 +5,7 @@ using Content.Scripts.Boot;
 using Content.Scripts.Global;
 using Content.Scripts.ItemsSystem;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using StylizedWater2;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,8 +46,13 @@ namespace Content.Scripts.BoatGame
 
         private bool isStaticInited = false;
 
-        public void Init(Vector3 dir, int maxDistance, float itemSpeed)
+        [SerializeField, ReadOnly] private bool isBeVisible;
+        private Camera camera;
+
+
+        public void Init(Vector3 dir, int maxDistance, float itemSpeed, Camera camera)
         {
+            this.camera = camera;
             this.maxDistance = maxDistance;
             startVelocity = dir.normalized * itemSpeed;
             rb.AddForce(startVelocity, ForceMode.VelocityChange);
@@ -57,10 +63,36 @@ namespace Content.Scripts.BoatGame
 
         IEnumerator Loop()
         {
+            float notVisibleTimer = 0;
             while (transform.position.magnitude < maxDistance)
             {
                 yield return null;
-
+                
+                
+                if (!isBeVisible)
+                {
+                    if (Extensions.ObjectIsVisible(camera, transform.position, out var n, 0))
+                    {
+                        isBeVisible = true;
+                    }
+                    else
+                    {
+                        notVisibleTimer += Time.deltaTime;
+                        if (notVisibleTimer >= 15)
+                        {
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!Extensions.ObjectIsVisible(camera, transform.position, out var n, -0.05f))
+                    {
+                        break;
+                    }
+                }
+                
+                
                 if (!IsStopped)
                 {
                     if (rb.velocity.magnitude <= 0.2f)
@@ -126,6 +158,11 @@ namespace Content.Scripts.BoatGame
             
             
             rb.isKinematic = true;
+        }
+
+        public void CheckIsVisible()
+        {
+            
         }
     }
 }

@@ -1,3 +1,4 @@
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.ItemsSystem;
 using DG.Tweening;
 using TMPro;
@@ -7,15 +8,16 @@ using UnityEngine.UI;
 
 namespace Content.Scripts.BoatGame.UI
 {
-    public class UIInventoryItem : MonoBehaviour, IDragHandler, IBeginDragHandler
+    public class UIInventoryItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image image;
         [SerializeField] private TMP_Text text;
         [SerializeField] private ItemObject item;
-        
+        [SerializeField] private GameObject inspectButton;
         
         private DragAreaWindow window;
-        
+        private IUIService uiService;
+
         public ItemObject Item => item;
 
 
@@ -80,5 +82,32 @@ namespace Content.Scripts.BoatGame.UI
         }
 
 
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (inspectButton != null)
+            {
+                inspectButton.SetActive(true);
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (inspectButton != null)
+            {
+                inspectButton.SetActive(false);
+            }
+        }
+
+        public void InitInfo(IUIService uiService)
+        {
+            if (inspectButton != null)
+            {
+                this.uiService = uiService;
+                var button = inspectButton.GetComponent<Button>();
+                button.onClick.RemoveAllListeners();
+                button.onClick = new Button.ButtonClickedEvent();
+                button.onClick.AddListener(delegate { uiService.PreviewItem(item); });
+            }
+        }
     }
 }

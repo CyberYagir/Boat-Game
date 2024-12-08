@@ -648,7 +648,6 @@ namespace Content.Scripts
         public static bool ObjectIsVisible(Camera camera, Vector3 target, out Vector3 screenPoint, float border = 0)
         {
             screenPoint = camera.WorldToViewportPoint(target);
-
             return screenPoint.z > 0 &&
                    screenPoint.x > 0 + border &&
                    screenPoint.x < 1 - border &&

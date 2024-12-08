@@ -41,7 +41,8 @@ namespace Content.Scripts.IslandGame
             spawned.gameObject.SetActive(false);
             var bounds = islandGenerator.TargetTerrain.GetBounds();
             var points = new List<Vector3>(5);
-            for (int lenX = 0; lenX < generateObjectCalculator.Accuracy; lenX++)
+            int lenX = 0;
+            for (lenX = 0; lenX < generateObjectCalculator.Accuracy; lenX++)
             {
                 generateObjectCalculator.RandomPos(islandGenerator.TargetRandom, spawned.transform, bounds);
 
@@ -82,9 +83,17 @@ namespace Content.Scripts.IslandGame
                 }
             }
 
+            if (lenX >= generateObjectCalculator.Accuracy)
+            {
+                spawned.gameObject.SetActive(false);
+
+                return null;
+            }
+            
 
 
-            spawnedBounds = spawned.GetComponentInChildren<MeshRenderer>().bounds;
+
+            spawnedBounds = spawned.GetComponentInChildren<MeshRenderer>(true).bounds;
             spawnedBounds.Expand(Vector3.up * 100);
             spawnedBounds.Expand(2f);
             islandGenerator.ClearObjectsInBounds(spawnedBounds);

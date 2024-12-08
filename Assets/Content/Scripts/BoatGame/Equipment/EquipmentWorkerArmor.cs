@@ -25,6 +25,23 @@ namespace Content.Scripts.BoatGame.Equipment
             SetEpaulet(bracersRight, appearanceManager.GetBone(EBones.RightForeArm));
         }
 
+
+        public void Clear()
+        {
+            if (epauletLeft)
+                Destroy(epauletLeft.gameObject);
+            if (epauletRight)
+                Destroy(epauletRight.gameObject);
+            if (kneePadLeft)
+                Destroy(kneePadLeft.gameObject);
+            if (kneePadRight)
+                Destroy(kneePadRight.gameObject);
+            if (bracersLeft)
+                Destroy(bracersLeft.gameObject);
+            if (bracersRight)
+                Destroy(bracersRight.gameObject);
+        }
+
         public void SetEpaulet(GameObject obj, Transform bone)
         {
             if (obj != null)

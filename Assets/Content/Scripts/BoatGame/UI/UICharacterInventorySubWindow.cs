@@ -12,10 +12,12 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private GameObject itemsNotFoundText;
         private List<UIInventoryItem> items = new List<UIInventoryItem>();
         private IRaftBuildService raftBuildService;
+        private IUIService uiService;
 
 
-        public void Init(IRaftBuildService raftBuildService)
+        public void Init(IRaftBuildService raftBuildService, IUIService uiService)
         {
+            this.uiService = uiService;
             this.raftBuildService = raftBuildService;
             Redraw();
         }
@@ -42,7 +44,8 @@ namespace Content.Scripts.BoatGame.UI
                         {
                             Instantiate(item, item.transform.parent)
                                 .With(x => x.Init(otherItemObject.Item, this))
-                                .With(x => items.Add(x));
+                                .With(x => items.Add(x))
+                                .With(x=>x.InitInfo(uiService));
                             count++;
                         }
                     }

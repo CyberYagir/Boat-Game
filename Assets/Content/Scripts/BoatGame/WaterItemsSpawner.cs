@@ -22,6 +22,7 @@ namespace Content.Scripts.BoatGame
         private float time;
         private PrefabSpawnerFabric _prefabSpawnerFabric;
         private List<WaterItem> spawnedItems = new List<WaterItem>();
+        private SelectionService selectionService;
 
 
         [Inject]
@@ -32,6 +33,7 @@ namespace Content.Scripts.BoatGame
             GameDataObject gameDataObject, 
             PrefabSpawnerFabric prefabSpawnerFabric)
         {
+            this.selectionService = selectionService;
             this._prefabSpawnerFabric = prefabSpawnerFabric;
             
             if (!gameObject.activeInHierarchy) return;
@@ -49,6 +51,11 @@ namespace Content.Scripts.BoatGame
 
             spawnedItems.RemoveAll(x => x == null);
 
+            foreach (var item in spawnedItems)
+            {
+                item.CheckIsVisible();
+            }
+            
             time -= t;
         }
 
@@ -56,7 +63,7 @@ namespace Content.Scripts.BoatGame
         {
             var (start, end) = GetPoses(pointsHolders.GetRandomIndex());
             var spawned = _prefabSpawnerFabric.SpawnItem(itemsData.GetRandomItem(), start, Quaternion.identity, null)
-                .With(x => x.Init(end - start, maxDistance, itemSpeed.RandomWithin()));
+                .With(x => x.Init(end - start, maxDistance, itemSpeed.RandomWithin(), selectionService.Camera));
 
             spawnedItems.Add(spawned);
             time = cooldown;
