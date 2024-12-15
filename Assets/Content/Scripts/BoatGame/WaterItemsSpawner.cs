@@ -50,12 +50,6 @@ namespace Content.Scripts.BoatGame
             }
 
             spawnedItems.RemoveAll(x => x == null);
-
-            foreach (var item in spawnedItems)
-            {
-                item.CheckIsVisible();
-            }
-            
             time -= t;
         }
 

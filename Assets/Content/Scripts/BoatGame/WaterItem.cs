@@ -68,33 +68,33 @@ namespace Content.Scripts.BoatGame
             {
                 yield return null;
                 
-                
-                if (!isBeVisible)
+                if (!IsStopped)
                 {
-                    if (Extensions.ObjectIsVisible(camera, transform.position, out var n, 0))
+                    if (!isBeVisible)
                     {
-                        isBeVisible = true;
+                        if (Extensions.ObjectIsVisible(camera, transform.position, out var n, 0))
+                        {
+                            isBeVisible = true;
+                        }
+                        else
+                        {
+                            notVisibleTimer += Time.deltaTime;
+                            if (notVisibleTimer >= 15)
+                            {
+                                break;
+                            }
+                        }
                     }
                     else
                     {
-                        notVisibleTimer += Time.deltaTime;
-                        if (notVisibleTimer >= 15)
+                        if (!Extensions.ObjectIsVisible(camera, transform.position, out var n, -0.05f))
                         {
                             break;
                         }
                     }
-                }
-                else
-                {
-                    if (!Extensions.ObjectIsVisible(camera, transform.position, out var n, -0.05f))
-                    {
-                        break;
-                    }
-                }
-                
-                
-                if (!IsStopped)
-                {
+                    
+                    
+                    
                     if (rb.velocity.magnitude <= 0.2f)
                     {
                         stayTimer += TimeService.DeltaTime;
@@ -159,10 +159,6 @@ namespace Content.Scripts.BoatGame
             
             rb.isKinematic = true;
         }
-
-        public void CheckIsVisible()
-        {
-            
-        }
+        
     }
 }
