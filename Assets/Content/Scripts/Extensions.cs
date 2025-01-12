@@ -814,6 +814,37 @@ namespace Content.Scripts
         { 
             return (float)rnd.NextDouble() * (maximum - minimum) + minimum;
         }
+        
+        public static Texture2D ToTexture2D(this RenderTexture renderTexture)
+        {
+            // Сохраняем текущую активную RenderTexture
+            RenderTexture activeRT = RenderTexture.active;
+
+            // Делаем переданную RenderTexture активной
+            RenderTexture.active = renderTexture;
+
+            // Создаем Texture2D с учетом формата RenderTexture
+            Texture2D texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.ARGB32, false);
+            texture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+            texture.Apply();
+
+            // Восстанавливаем предыдущую активную RenderTexture
+            RenderTexture.active = activeRT;
+
+            // Применяем гамма-коррекцию, если проект использует линейное цветовое пространство
+            if (QualitySettings.activeColorSpace == ColorSpace.Linear)
+            {
+                Color[] pixels = texture.GetPixels();
+                for (int i = 0; i < pixels.Length; i++)
+                {
+                    pixels[i] = pixels[i].gamma; // Применяем гамма-коррекцию
+                }
+                texture.SetPixels(pixels);
+                texture.Apply();
+            }
+
+            return texture;
+        }
 
 
 #if UNITY_EDITOR

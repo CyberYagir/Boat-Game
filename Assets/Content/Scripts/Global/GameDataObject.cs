@@ -14,6 +14,7 @@ using Content.Scripts.Map;
 using Content.Scripts.Mobs;
 using Content.Scripts.SkillsSystem;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
 using Random = System.Random;
@@ -106,6 +107,38 @@ namespace Content.Scripts.Global
             Container.Bind<GameDataObject>().FromInstance(this).AsSingle();
 
             crafts = Resources.LoadAll<CraftObject>("Crafts").ToList();
+
+#if UNITY_EDITOR
+
+            var startItemsCount = buildableStructures.Count;
+            
+            buildableStructures.Clear();
+            
+            var assets = AssetDatabase.FindAssets("t:Prefab", new string[] {"Assets/Content/Prefab/IslandGame/"});
+
+            foreach (var asset in assets)
+            {
+                var o = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(asset));
+
+                if (o != null)
+                {
+                    var buildable = o.GetComponent<BuildableStructure>();
+                    if (buildable)
+                    {
+                        buildableStructures.Add(buildable);
+                    }
+                }
+            }
+
+
+            if (startItemsCount != buildableStructures.Count)
+            {
+                EditorUtility.SetDirty(this);
+            }
+#endif
+            
+            
+            
             var items = Resources.LoadAll<ItemObject>("Item").ToList();
 
 
@@ -130,6 +163,7 @@ namespace Content.Scripts.Global
         [SerializeField] private List<Material> skinColors;
         [SerializeField] private List<CraftObject> crafts;
         [SerializeField] private List<MobObject> mobs;
+        [SerializeField] private List<BuildableStructure> buildableStructures;
         [SerializeField] private List<int> levelXps;
         [SerializeField] private List<MapPathObject> mapPaths;
         [SerializeField] private List<RandomStructureMaterialsBase.MatsByBiome> structuresMaterials;
@@ -167,6 +201,8 @@ namespace Content.Scripts.Global
         public TextAsset PlotLines => plotLines;
 
         public List<SoulsResourceContainerSO> SoulsShopContainers => soulsShopContainers;
+
+        public List<BuildableStructure> BuildableStructures => buildableStructures;
 
 
         public ItemObject GetItem(string id)

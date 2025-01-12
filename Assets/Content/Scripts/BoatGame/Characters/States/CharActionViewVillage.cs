@@ -16,10 +16,15 @@ namespace Content.Scripts.BoatGame.Characters.States
             base.StartState();
 
 
+            
+
             if (selectedShaman == null)
             {
                 selectedShaman = SelectionService.SelectedObject.Transform.GetComponent<NativeController>();
             }
+            
+            
+            
 
             if (selectedShaman == null)
             {
@@ -27,6 +32,12 @@ namespace Content.Scripts.BoatGame.Characters.States
                 return;
             }
 
+#if  UNITY_EDITOR
+            
+            OnOpenWindow?.Invoke(selectedShaman.VillageData.VillageID, selectedShaman.VillageData.IslandData.Level);
+#endif
+            
+            
             MoveTo();
         }
 

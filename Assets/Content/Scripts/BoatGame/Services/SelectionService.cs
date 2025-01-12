@@ -82,6 +82,7 @@ namespace Content.Scripts.BoatGame.Services
         public event Action OnDoubleClick;
         public event Action<PlayerCharacter> OnChangeSelectCharacter;
         public event Action<RaftTapToBuild> OnTapOnBuildingRaft;
+        public event Action<Vector3> OnTapOnTerrain;
 
         public Camera Camera => camera;
 
@@ -122,6 +123,7 @@ namespace Content.Scripts.BoatGame.Services
         private Vector3 worldClickDouble;
         private Vector3 worldClickFirst;
         private bool isDoubleClick;
+        private bool isClicked;
         public void Update()
         {
             if (InputService.IsLMBDown)
@@ -149,7 +151,7 @@ namespace Content.Scripts.BoatGame.Services
                 }
 
                 lastClickTime = Time.time;
-                
+                isClicked = true;
                 switch (gameStateService.GameState)
                 {
                     case GameStateService.EGameState.Normal:
@@ -158,9 +160,25 @@ namespace Content.Scripts.BoatGame.Services
                     case GameStateService.EGameState.Building or GameStateService.EGameState.Removing:
                         BuildingStateSelectionLogic();
                         break;
+                    case GameStateService.EGameState.BuildingStructures:
+                        BuildingStateStructureSelectionLogic(InputService.MousePosition);
+                        break;
                 }
             }
+            else if (isClicked && InputService.IsLMBPressed)
+            {
+                if (gameStateService.GameState == GameStateService.EGameState.BuildingStructures)
+                {
+                    BuildingStateStructureSelectionLogic(InputService.MousePosition);
+                }
+            }
+            else
+            {
+                isClicked = false;
+            }
         }
+
+
 
         public void LateUpdate()
         {
@@ -191,6 +209,20 @@ namespace Content.Scripts.BoatGame.Services
                 if (build)
                 {
                     OnTapOnBuildingRaft?.Invoke(build);
+                }
+            }
+        }
+        
+        public void BuildingStateStructureSelectionLogic(Vector3 mousePos)
+        {
+            var hit = Camera.MouseRaycast(out bool isHit, mousePos, Mathf.Infinity, LayerMask.GetMask("Terrain"));
+
+            if (isHit)
+            {
+                var build = hit.transform.GetComponent<Terrain>();
+                if (build)
+                {
+                    OnTapOnTerrain?.Invoke(hit.point);
                 }
             }
         }

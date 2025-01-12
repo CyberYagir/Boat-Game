@@ -21,7 +21,9 @@ namespace Content.Scripts.IslandGame.Natives
         Shaman,
         Blacksmith,
         Cook,
-        Mage
+        Mage,
+        ShamanMedival,
+        Fabricator
     }
 
 

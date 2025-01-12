@@ -90,7 +90,7 @@ namespace Content.Scripts.IslandGame
 
         private void SpawnVillage(TerrainBiomeSO biome, Random rnd, int seed, PrefabSpawnerFabric spawner, GameDataObject gameData)
         {
-            var holder = structures.Find(x => x.Biomes.Contains(biome));
+            var holder = structures.FindAll(x => x.Biomes.Contains(biome)).GetRandomItem(rnd);
             
             if (holder == null) return;
             

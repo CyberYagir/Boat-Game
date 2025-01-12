@@ -13,13 +13,12 @@ namespace Content.Scripts.IslandGame.WorldStructures
         
         [SerializeField] private List<VillageGenerator.SubStructures> structures = new List<VillageGenerator.SubStructures>();
         [SerializeField] private List<GameObject> randomVisuals;
-
+        
         [SerializeField] private UnityEvent<TerrainBiomeSO> OnAfterInitBiome;
         private float spawnRandomItemChance = 0.75f;
-
+        
         public void Init(Random rnd, TerrainBiomeSO biome)
         {
-            
             foreach (var s in structures)
             {
                 for (int i = 0; i < s.Structures.Count; i++)
@@ -56,6 +55,14 @@ namespace Content.Scripts.IslandGame.WorldStructures
             }
 
             OnAfterInitBiome?.Invoke(biome);
+        }
+
+        public void DisableAllRandom()
+        {
+            for (int i = 0; i < randomVisuals.Count; i++)
+            {
+                randomVisuals[i].gameObject.SetActive(false);
+            }
         }
     }
 }

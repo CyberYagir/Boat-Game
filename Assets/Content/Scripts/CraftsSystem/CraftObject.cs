@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Content.Scripts.CraftsSystem
 {
+    [CreateAssetMenu(menuName = "Create CraftObject", fileName = "CraftObject", order = 0)] 
     public class CraftObject : ScriptableObject
     {
         [System.Serializable]
@@ -26,13 +27,15 @@ namespace Content.Scripts.CraftsSystem
         public enum ECraftType
         {
             Raft,
-            Item
+            Item,
+            House
         }
         
         public enum ECraftTable{
             CraftingTable,
             Forge,
-            AlchemistTable
+            AlchemistTable,
+            FabricatorTable,
         }
 
         public enum ECraftSubList
@@ -56,7 +59,7 @@ namespace Content.Scripts.CraftsSystem
         private CraftItem finalItem;
         
         public List<CraftItem> Ingredients => ingredients;
-        public Sprite Icon => icon != null ? icon : finalItem.ResourceName.ItemIcon;
+        public Sprite Icon => icon != null ? icon : ( finalItem.ResourceName != null ? finalItem.ResourceName.ItemIcon : null);
 
         public string Uid => uid;
 
@@ -82,7 +85,7 @@ namespace Content.Scripts.CraftsSystem
 
         public bool IsNotRaftItem()
         {
-            return type != ECraftType.Raft;
+            return type != ECraftType.Raft && type != ECraftType.House;
         }
     }
 }

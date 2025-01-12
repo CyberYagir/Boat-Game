@@ -862,7 +862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379296135657365597, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 1379296136396144207, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_Size
@@ -914,7 +914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1391805651093390375, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
+      value: 0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 1411455555483210321, guid: 386cfd6078ba36a408bbf9b7a87eaac5, type: 3}
       propertyPath: m_Value
@@ -3047,7 +3047,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 62673
+    m_Bits: 324817
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -3421,6 +3421,16 @@ MonoBehaviour:
       terrainLayers:
       - {fileID: 8574412962073106934, guid: a28af33e7a12c224f94e34c4dee01cba, type: 2}
       - {fileID: 8574412962073106934, guid: 60f92a00750767b4cbcab5ac916a57b0, type: 2}
+    - biomes:
+      - {fileID: 11400000, guid: d2e198e62bb93e940bd50a61de3f55dc, type: 2}
+      - {fileID: 11400000, guid: a7153a792b45e924090d277d33f05d5b, type: 2}
+      - {fileID: 11400000, guid: 53d2210f122b9da4cbb66b7bc9a3ff64, type: 2}
+      structures:
+      - {fileID: 2955313708883403547, guid: f3451db98ee011f4f9c6437760e0a057, type: 3}
+      terrainLayers:
+      - {fileID: 8574412962073106934, guid: 9900121e85ffe6844b406557758d03bc, type: 2}
+      - {fileID: 8574412962073106934, guid: c5f8f21a44cb6ef4eb76b421e19eec15, type: 2}
+      - {fileID: 8574412962073106934, guid: b288854cd1f9db945804e2a3c005fa02, type: 2}
     islandLevelChance:
       serializedVersion: 2
       m_Curve:

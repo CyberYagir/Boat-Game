@@ -18,10 +18,12 @@ namespace Content.Scripts.DungeonGame.UI
         [SerializeField] private Image image;
         [SerializeField, TextArea] private string desc;
         private GameDataObject gameDataObject;
+        private GameStateService gameStateService;
 
 
         public void Init(GameDataObject gameDataObject, IResourcesService dungeonResourcesService)
         {
+            this.gameStateService = gameStateService;
             this.gameDataObject = gameDataObject;
             nameText.text = gameDataObject.ConfigData.LoreItem.ItemName;
             image.sprite = gameDataObject.ConfigData.LoreItem.ItemIcon;

@@ -52,6 +52,8 @@ namespace Content.Scripts.BoatGame.UI
                 OnClosed();
             };
             isOpen = false;
+            
+            Debug.LogError("close window");
         }
 
         public virtual void OnClosed()

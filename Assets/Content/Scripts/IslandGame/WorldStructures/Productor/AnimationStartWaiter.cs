@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Content.Scripts.IslandGame.WorldStructures.Productor
 {
-    public class AnimationStartWaiter : MonoBehaviour
+    public class AnimationStartWaiter : MonoBehaviour, IVisualAnimation
     {
         [SerializeField] private Animator animation;
         [SerializeField] private float delay;

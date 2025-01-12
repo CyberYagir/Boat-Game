@@ -14,7 +14,7 @@ namespace Content.Scripts.BoatGame.UI
     public class UICraftsItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image icon;
-        [SerializeField] private TMP_Text text;
+        [SerializeField] protected TMP_Text text;
         [SerializeField] private UICraftSubItem subItem;
         [SerializeField] protected UICustomButton button;
         [SerializeField] private UITooltip tooltip;
@@ -37,9 +37,12 @@ namespace Content.Scripts.BoatGame.UI
             this.uiService = uiService;
             this.item = item;
             this.resourcesService = resourcesService;
-            
-            
-            icon.sprite = item.Icon;
+
+            if (icon)
+            {
+                icon.sprite = item.Icon;
+            }
+
             text.text = item.CraftName;
 
             if (tooltip != null)

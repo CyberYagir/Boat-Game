@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Content.Scripts.BoatGame.Scriptable;
 using Content.Scripts.BoatGame.Services;
 using Content.Scripts.BoatGame.UI.UIEquipment;
@@ -46,15 +48,18 @@ namespace Content.Scripts.ItemsSystem
 
     [System.Serializable]
     public class ItemFurnaceParameters
-    {        
+    {
         [SerializeField] private EItemFurnaceType furnaceFlags;
-        [SerializeField, ShowIf("@furnaceFlags.HasFlag(EItemFurnaceType.CanFuel)")] 
+
+        [SerializeField, ShowIf("@furnaceFlags.HasFlag(EItemFurnaceType.CanFuel)")]
         private float fuelSeconds;
-        [SerializeField, ShowIf("@furnaceFlags.HasFlag(EItemFurnaceType.CanSmelt)")] 
+
+        [SerializeField, ShowIf("@furnaceFlags.HasFlag(EItemFurnaceType.CanSmelt)")]
         private float smeltSeconds;
 
-        [SerializeField, ShowIf("@furnaceFlags.HasFlag(EItemFurnaceType.CanSmelt)")] 
+        [SerializeField, ShowIf("@furnaceFlags.HasFlag(EItemFurnaceType.CanSmelt)")]
         private ItemObject afterSmeltItem;
+
         public float FuelSeconds => fuelSeconds;
 
         public float SmeltSeconds => smeltSeconds;
@@ -63,8 +68,10 @@ namespace Content.Scripts.ItemsSystem
 
         public ItemObject AfterSmeltItem => afterSmeltItem;
     }
+
     public class ItemObject : ScriptableObject
     {
+        public static List<Texture2D> icons = new List<Texture2D>();
         [SerializeField, ReadOnly] private string id;
         [SerializeField] private string itemName;
         [SerializeField] private EResourceTypes type;
@@ -73,11 +80,22 @@ namespace Content.Scripts.ItemsSystem
         [SerializeField] private ItemsParameters parametersData;
         [SerializeField] private ItemFurnaceParameters furnaceData;
         [SerializeField] private bool hasSize = true;
-        [SerializeField, ShowIf("@itemType == EItemType.Item")] private DroppedItemBase dropPrefab;
-        [SerializeField, ShowIf("@type == EResourceTypes.Potions")] private PotionLogicBaseSO potionLogic;
-        [SerializeField, ShowIf("@itemType == EItemType.Armor")] private GameObject prefab;
-        [SerializeField, ShowIf("@itemType == EItemType.Armor")] private EEquipmentType equipment;
-        [SerializeField, ShowIf("@equipment == EEquipmentType.Weapon")] private EWeaponAnimationType animationType;
+
+        [SerializeField, ShowIf("@itemType == EItemType.Item")]
+        private DroppedItemBase dropPrefab;
+
+        [SerializeField, ShowIf("@type == EResourceTypes.Potions")]
+        private PotionLogicBaseSO potionLogic;
+
+        [SerializeField, ShowIf("@itemType == EItemType.Armor")]
+        private GameObject prefab;
+
+        [SerializeField, ShowIf("@itemType == EItemType.Armor")]
+        private EEquipmentType equipment;
+
+        [SerializeField, ShowIf("@equipment == EEquipmentType.Weapon")]
+        private EWeaponAnimationType animationType;
+
         public Sprite ItemIcon => itemIcon;
 
         public string ItemName => itemName;
@@ -102,7 +120,9 @@ namespace Content.Scripts.ItemsSystem
         public bool HasSize => hasSize;
 
         public PotionLogicBaseSO PotionLogic => potionLogic;
-
+        
+        
+        public Texture2D EditorSprite;
 
         public DroppedItemBase GetDropPrefab(GameDataObject gameDataObject)
         {

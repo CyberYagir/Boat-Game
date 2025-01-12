@@ -13,13 +13,15 @@ namespace Content.Scripts.IslandGame
     {
         [SerializeField] private IslandNativesData islandNativesData;
         private PrefabSpawnerFabric spawnerFabricService;
+        private StructuresService structuresService;
 
         public bool IsSpawned => islandNativesData.Data.IsSpawned;
         public VillageGenerator VillageGenerator => islandNativesData.Village;
         
         [Inject]
-        private void Construct(PrefabSpawnerFabric spawnerFabricService)
+        private void Construct(PrefabSpawnerFabric spawnerFabricService, StructuresService structuresService)
         {
+            this.structuresService = structuresService;
             this.spawnerFabricService = spawnerFabricService;
         }
         public override void Init(IslandGenerator islandGenerator)
@@ -36,6 +38,7 @@ namespace Content.Scripts.IslandGame
             {
                 islandGenerator.ClearObjectsInBounds(islandNativesData.Data.Bounds);
                 islandGenerator.AddStructureBounds(islandNativesData.Data.Bounds);
+                structuresService.AddVillageStructure(islandNativesData.Village);
                 StartCoroutine(SkipFrameAndFindVillage());
             }
         }

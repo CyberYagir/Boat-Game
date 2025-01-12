@@ -11,8 +11,8 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] protected Dictionary<ItemObject, int> allItemsList = new Dictionary<ItemObject, int>(20);
         private bool isAnyRaftBeenChanged = false;
         public virtual event Action OnChangeResources;
-        public event Action<ItemObject> OnAddItemToRaft; 
-        public event Action<ItemObject, int> OnAddStorageItem; 
+        public event Action<ItemObject> OnAddItemToRaft;
+        public event Action<ItemObject, int> OnAddStorageItem;
         public Dictionary<ItemObject, int> AllItemsList => allItemsList;
 
         protected void OnAnyStorageChange()
@@ -27,7 +27,7 @@ namespace Content.Scripts.BoatGame.Services
         public void PlayerItemsList()
         {
             if (!isAnyRaftBeenChanged) return;
-            
+
             allItemsList.Clear();
             var storages = GetRafts();
             foreach (var raftStorage in storages)
@@ -40,15 +40,15 @@ namespace Content.Scripts.BoatGame.Services
                     }
                     else
                     {
-                        
+
                         allItemsList.Add(raftStorage.Items[i].Item, raftStorage.Items[i].Count);
                     }
                 }
             }
-            
+
             isAnyRaftBeenChanged = false;
         }
-        
+
         public void RemoveItemFromAnyRaft(ItemObject itemObject)
         {
             if (itemObject == null) return;
@@ -60,9 +60,10 @@ namespace Content.Scripts.BoatGame.Services
                 storage.RemoveFromStorage(itemObject);
             }
         }
-        
-        
+
+
         private List<RaftStorage.StorageItem> tmpSearchList = new List<RaftStorage.StorageItem>(20);
+
         public List<RaftStorage.StorageItem> GetItemsByType(EResourceTypes Type)
         {
             tmpSearchList.Clear();
@@ -79,7 +80,7 @@ namespace Content.Scripts.BoatGame.Services
 
             return tmpSearchList;
         }
-        
+
         public List<RaftStorage.StorageItem> GetItemsByTypes(List<EResourceTypes> types)
         {
             tmpSearchList.Clear();
@@ -96,8 +97,8 @@ namespace Content.Scripts.BoatGame.Services
 
             return tmpSearchList;
         }
-        
-        public  void AddItemsToAnyRafts(RaftStorage.StorageItem oldItem, bool spawnPopup = true)
+
+        public void AddItemsToAnyRafts(RaftStorage.StorageItem oldItem, bool spawnPopup = true)
         {
             var storages = GetRafts();
             if (oldItem.Item.HasSize)
@@ -112,11 +113,12 @@ namespace Content.Scripts.BoatGame.Services
                     {
                         empty = oldItem.Count;
                     }
-                    
+
                     storages[j].AddToStorage(oldItem.Item, empty, spawnPopup);
-                    
+
                     oldItem.Add(-empty);
                 }
+
                 OnAddStorageItem?.Invoke(oldItem.Item, oldItem.Count);
                 OnAddItemToRaft?.Invoke(oldItem.Item);
             }
@@ -131,7 +133,7 @@ namespace Content.Scripts.BoatGame.Services
                 }
             }
         }
-        
+
         public bool GetGlobalEmptySpace(RaftStorage.StorageItem storageItem, int offcet = 0)
         {
             if (!storageItem.Item.HasSize) return true;
@@ -156,7 +158,7 @@ namespace Content.Scripts.BoatGame.Services
             {
                 return allItemsList[resourceName];
             }
-            
+
             return 0;
         }
 
@@ -204,7 +206,7 @@ namespace Content.Scripts.BoatGame.Services
 
             return false;
         }
-        
+
         public void RemoveItemsFromAnyRaft(RaftStorage.StorageItem storageItem)
         {
             var storages = GetRafts();
@@ -257,7 +259,7 @@ namespace Content.Scripts.BoatGame.Services
 
             return false;
         }
-        
+
         public bool IsHaveItem(RaftStorage.StorageItem sellItem)
         {
             if (allItemsList.ContainsKey(sellItem.Item))
@@ -267,13 +269,14 @@ namespace Content.Scripts.BoatGame.Services
 
             return false;
         }
+
         public bool IsHaveItem(ItemObject item, int count)
         {
             return IsHaveItem(new RaftStorage.StorageItem(item, count));
         }
-        
+
         private List<RaftStorage> emptyStoragesArray = new List<RaftStorage>(10);
-        
+
         public List<RaftStorage> FindEmptyStorages(ItemObject item, int value)
         {
             emptyStoragesArray.Clear();
@@ -285,9 +288,10 @@ namespace Content.Scripts.BoatGame.Services
                     emptyStoragesArray.Add(raftStorage);
                 }
             }
+
             return emptyStoragesArray;
         }
-        
+
         public RaftStorage FindStorageByResource(EResourceTypes type)
         {
             return GetRafts().Find(x => x.GetResourceByType(type) > 0);
@@ -306,6 +310,16 @@ namespace Content.Scripts.BoatGame.Services
             }
 
             return true;
+        }
+
+        public void RemoveItemsForCraft(CraftObject lastSelectedCraftItem)
+        {
+            foreach (var ing in lastSelectedCraftItem.Ingredients)
+            {
+                var it = ing.ToStorageItem();
+                if (IsHaveItem(it))
+                    RemoveItemsFromAnyRaft(it);
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace Content.Scripts.IslandGame.WorldStructures.Productor
 {
-    public class AnimationGears : MonoBehaviour
+    public class AnimationGears : MonoBehaviour, IVisualAnimation
     {
         [SerializeField] private Transform rotate;
         [SerializeField] private bool setSpeed;

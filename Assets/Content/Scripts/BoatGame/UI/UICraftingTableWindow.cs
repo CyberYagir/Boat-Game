@@ -23,6 +23,7 @@ namespace Content.Scripts.BoatGame.UI
         private List<CraftObject.ECraftSubList> actualToDraw = new List<CraftObject.ECraftSubList>();
         private CraftObject.ECraftTable targetTable;
         private SaveDataObject saveDataObject;
+        private GameStateService gameStateService;
 
         public event Action<int> OnTabChanged;
 
@@ -34,9 +35,11 @@ namespace Content.Scripts.BoatGame.UI
             IResourcesService resourcesService,
             UIService uiService,
             IRaftBuildService raftBuildService, 
-            SaveDataObject saveDataObject
+            SaveDataObject saveDataObject,
+            GameStateService gameStateService
         )
         {
+            this.gameStateService = gameStateService;
             this.saveDataObject = saveDataObject;
             this.raftBuildService = raftBuildService;
             this.uiService = uiService;
@@ -90,6 +93,7 @@ namespace Content.Scripts.BoatGame.UI
 
         private void ShowWindow(CraftObject.ECraftTable table)
         {
+            if (gameStateService.GameState != GameStateService.EGameState.Normal) return;
             targetTable = table;
             ShowWindow();
         }

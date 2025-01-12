@@ -371,12 +371,52 @@ namespace Content.Scripts.Global
                     }
                 }
 
+                [Serializable]
+                public class PlayerStructure
+                {
+                    [SerializeField] private string uid;
+                    [SerializeField] private string craftID;
+                    [SerializeField] private Vector3 pos;
+                    [SerializeField] private float rot;
+                    [SerializeField] private string startBuildDate;
+
+                    public PlayerStructure(string craftID, Vector3 pos, float rot)
+                    {
+                        uid = Guid.NewGuid().ToString();
+                        this.craftID = craftID;
+                        this.pos = pos;
+                        this.rot = rot;
+                        startBuildDate = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+                    }
+
+                    public string StartBuildDate => startBuildDate;
+
+                    public float Rot => rot;
+
+                    public Vector3 Pos => pos;
+
+                    public string CraftID => craftID;
+
+                    public string Uid => uid;
+
+                    public bool IsBuilded(float seconds)
+                    {
+                        var parce = DateTime.Parse(startBuildDate, CultureInfo.InvariantCulture);
+                        var end = parce.AddSeconds(seconds);
+
+
+                        return end < DateTime.Now;
+                    }
+                }
+                
+                
                 [SerializeField] private string islandName;
                 [SerializeField] private Vector2Int islandPos;
                 [SerializeField] private int islandSeed;
                 [SerializeField] private List<Vector2Int> removedTrees = new List<Vector2Int>();
                 [SerializeField] private List<DroppedItemData> droppedItems = new List<DroppedItemData>();
                 [SerializeField] private List<VillageData> villagesData = new List<VillageData>();
+                [SerializeField] private List<PlayerStructure> playerStructuresData = new List<PlayerStructure>();
                 [SerializeField] private List<string> pillagersKilled = new List<string>();
 
                 public IslandData(Vector2Int islandPos, int islandSeed)
@@ -395,6 +435,14 @@ namespace Content.Scripts.Global
 
                 public string IslandName => islandName;
 
+                public List<PlayerStructure> PlayerStructuresData => playerStructuresData;
+
+
+                public void AddPlayerStructure(PlayerStructure structure)
+                {
+                    playerStructuresData.Add(structure);
+                }
+                
 
                 public bool IsPillagerDead(string id)
                 {

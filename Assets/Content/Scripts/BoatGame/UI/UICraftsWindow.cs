@@ -40,7 +40,7 @@ namespace Content.Scripts.BoatGame.UI
             this.gameDataObject = gameDataObject;
 
             selectionService.OnChangeSelectCharacter += OnChangeSelectCharacter;
-            gameStateService.OnChangeState += GameStateServiceOnOnChangeState;
+            gameStateService.OnChangeEState += GameStateServiceOnOnChangeState;
             resourcesService.OnChangeResources += OnChangeResources;
 
             crafts = gameDataObject.Crafts.FindAll(x => x.CraftType == CraftObject.ECraftType.Raft);
@@ -58,9 +58,12 @@ namespace Content.Scripts.BoatGame.UI
             }
         }
 
-        private void GameStateServiceOnOnChangeState()
+        private void GameStateServiceOnOnChangeState(GameStateService.EGameState eGameState)
         {
-            CloseWindow();
+            if (eGameState != GameStateService.EGameState.Normal)
+            {
+                CloseWindow();
+            }
         }
 
         private void OnChangeSelectCharacter(PlayerCharacter obj)

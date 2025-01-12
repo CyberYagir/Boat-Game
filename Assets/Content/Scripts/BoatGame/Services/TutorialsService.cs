@@ -145,6 +145,15 @@ namespace Content.Scripts.BoatGame.Services
 
                 if (!saveData.Tutorials.VillageDialogTutorial)
                 {
+                    if (villageShaman.NativeType == ENativeType.Shaman)
+                    {
+                        villageTutorial.SetCharacter(TutorialDialogObject.ECharacter.Shaman);
+                    }
+                    else if (villageShaman.NativeType == ENativeType.ShamanMedival)
+                    {
+                        villageTutorial.SetCharacter(TutorialDialogObject.ECharacter.MedivalShaman);
+                    }
+
                     tutorialsDisplay.OnDialogueEnded += OnVillageDialogueEnd;
                     tutorialsDisplay.DrawDialogue(villageTutorial);
                     saveData.Tutorials.VillageDialogTutorialSet();

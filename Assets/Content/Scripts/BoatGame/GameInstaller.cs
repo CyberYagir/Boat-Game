@@ -26,11 +26,13 @@ namespace Content.Scripts.BoatGame
             BindService<WorldGridService>();
             BindService<WeatherService>();
             BindService<IRaftBuildService>();
+            BindService<StructuresBuildService>();
             BindService<RaftDamagerService>();
             BindService<IResourcesService>();
             BindService<SelectionService>();
             BindService<CharacterService>();
             Container.Bind<QuestBuilder>().AsSingle().NonLazy();
+            BindService<StructuresService>();
             BindService<QuestService>();
             BindService<SaveService>();
         }

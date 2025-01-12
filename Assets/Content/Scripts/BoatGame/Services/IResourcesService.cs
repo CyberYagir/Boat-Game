@@ -33,5 +33,6 @@ namespace Content.Scripts.BoatGame.Services
         List<RaftStorage> FindEmptyStorages(ItemObject itemObject, int value);
         RaftStorage FindStorageByResource(EResourceTypes type);
         bool HaveMaterialsForCrafting(List<CraftObject.CraftItem> currentCraftIngredients);
+        void RemoveItemsForCraft(CraftObject lastSelectedCraftItem);
     }
 }

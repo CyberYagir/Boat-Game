@@ -47,9 +47,15 @@ namespace Content.Scripts.IslandGame.WorldStructures
         private GameDataObject gameDataObject;
         private IslandSeedData islandData;
         private IslandMobsService islandMobsService;
+        private int seed;
 
         public List<RoadBuilder> HousePoints => roadsGenerator.Ends;
         public string Uid => uid;
+
+        public VillagePopulation Population => population;
+        public VillageDataCollector DataCollector => dataCollector;
+
+        public int Seed => seed;
 
 
         public void Init(
@@ -63,6 +69,7 @@ namespace Content.Scripts.IslandGame.WorldStructures
             IslandMobsService islandMobsService
         )
         {
+            this.seed = seed;
             this.islandMobsService = islandMobsService;
             this.islandData = islandData;
             this.gameDataObject = gameDataObject;
@@ -118,7 +125,8 @@ namespace Content.Scripts.IslandGame.WorldStructures
                 spawnPos = hit.point + Vector3.up * 0.2f;
             }
 
-            var spawned = Instantiate(structure.Structure, spawnPos, roadBuilder.transform.rotation, transform);
+            var spawned = Instantiate(structure.Structure, spawnPos, roadBuilder.transform.rotation);
+            spawned.transform.parent = transform;
             spawned.Init(rnd, biome);
             
             var actionsHolders = spawned.GetComponentsInChildren<ActionsHolder>();
@@ -156,5 +164,13 @@ namespace Content.Scripts.IslandGame.WorldStructures
 
             return b;
         }
+
+
+        public List<SubStructures.SubStructure> GetStructuresList()
+        {
+            return structures.Find(x => x.Biome == biome).Structures;
+        }
+
+        public TerrainBiomeSO GetBiome() => biome;
     }
 }

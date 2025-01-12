@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Content.Scripts.BoatGame.Characters;
@@ -40,13 +41,10 @@ namespace Content.Scripts.BoatGame.Services
                         {
                             openedWindows.Add(window);
                             tickService.NormalTime();
-                            print("Show");
                         };
                         windows[i].OnClose += delegate(AnimatedWindow window)
                         {
                             openedWindows.Remove(window); 
-                            
-                            print("Close");
                         };
 
                         windows[i].InitWindow(uiService);
@@ -67,6 +65,15 @@ namespace Content.Scripts.BoatGame.Services
                 }
 
                 return false;
+            }
+
+
+            public void CloseAll()
+            {
+                for (int i = 0; i < openedWindows.Count; i++)
+                {
+                    openedWindows[i].CloseWindow();
+                }
             }
         }
 
@@ -100,6 +107,7 @@ namespace Content.Scripts.BoatGame.Services
         [SerializeField] private UIActionsIndicators actionsIndicators;
         [SerializeField] private UIEnterDungeon enterDungeon;
         [SerializeField] private UIIItemView itemView;
+        [SerializeField] private UIPlaceBuildingOverlay placeBuildingOverlay;
         [Space, SerializeField] private WindowsManager windowsManager = new WindowsManager();
         
         private PlayerCharacter targetCharacter;
@@ -125,7 +133,9 @@ namespace Content.Scripts.BoatGame.Services
             PrefabSpawnerFabric spawnerFabric, 
             PlayerAuthService authService,
             CloudService cloudService,
-            QuestService questService
+            QuestService questService,
+            StructuresService structuresService,
+            StructuresBuildService structuresBuildService
         )
         {
             this.tickService = tickService;
@@ -137,21 +147,21 @@ namespace Content.Scripts.BoatGame.Services
             
             actionManager.Init(selectionService);
             rewindButton.Init(tickService, gameStateService, this);
-            mapButton.Init(raftBuildService, scenesService, saveService);
+            mapButton.Init(raftBuildService, scenesService, saveService, gameStateService);
             stopBuildButton.Init(tickService, gameStateService, this);
-            exitIslandButton.Init(messageBoxManager, saveService, scenesService);
-            playerStorageButton.Init(saveDataObject);
+            exitIslandButton.Init(messageBoxManager, saveService, scenesService, gameStateService);
+            playerStorageButton.Init(saveDataObject, gameStateService);
             optionsHolder.Init(storagesCounter, authService, saveService, cloudService, scenesService, messageBoxManager, saveDataObject);
             chestShow.Init(gameDataObject, selectionService);
             craftsWindow.Init(selectionService, gameDataObject, this.resourcesService, this, gameStateService, raftBuildService, saveDataObject);
-            craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, raftBuildService, saveDataObject);
+            craftingTableWindow.Init(selectionService, gameDataObject, this.resourcesService, this, raftBuildService, saveDataObject, gameStateService);
             characterWindow.Init(selectionService, gameDataObject, tickService, raftBuildService, messageBoxManager, spawnerFabric, resourcesService, this);
-            furnaceWindow.Init(selectionService, raftBuildService, tickService, resourcesService);
+            furnaceWindow.Init(selectionService, raftBuildService, tickService, resourcesService, gameStateService);
             renameIslandWindow.Init(saveDataObject);
             getScrollWindow.Init(gameDataObject, resourcesService);
             charactersList?.Init(characterService, tickService, selectionService);
             soulsCounter.Init(saveDataObject);
-            soulsShopWindow.Init(gameDataObject, saveDataObject, selectionService);
+            soulsShopWindow.Init(gameDataObject, saveDataObject, selectionService, gameStateService);
             playerInventoryWindow
                 .With(x => x.Init(resourcesService))
                 .With(x => x.SetPlayerStorage(saveDataObject, gameDataObject));
@@ -176,7 +186,10 @@ namespace Content.Scripts.BoatGame.Services
                         this,
                         messageBoxManager,
                         scenesService,
-                        saveService);
+                        saveService, 
+                        structuresService,
+                        structuresBuildService,
+                        gameStateService);
                 }
                 
                 
@@ -192,7 +205,19 @@ namespace Content.Scripts.BoatGame.Services
             storagesCounter.Init(raftBuildService);
 
             potionsList.Init(resourcesService, selectionService, characterService, charactersList, scenesService);
+            gameState.OnChangeEState += delegate(GameStateService.EGameState state)
+            {
+                if (state != GameStateService.EGameState.Normal)
+                {
+                    potionsList.gameObject.SetActive(false);
+                }
+                else
+                {
+                    potionsList.gameObject.SetActive(true);
+                }
+            };
 
+            placeBuildingOverlay.Init(structuresBuildService, selectionService, gameStateService);
             
             windowsManager.Init(this,tickService, craftsWindow, characterWindow, craftingTableWindow, furnaceWindow, villageWindow, loreScrollWindow, soulsShopWindow, playerInventoryWindow, optionsHolder.Window, enterDungeon, itemView);
             
@@ -283,6 +308,18 @@ namespace Content.Scripts.BoatGame.Services
         public void EnterDungeon(int id)
         {
             villageWindow.EnterDungeon(id);
+        }
+
+        public void ChangeGameStateToBuildStructures()
+        {
+            gameState.ChangeGameState(GameStateService.EGameState.BuildingStructures);
+        }
+
+        public void CloseAllWindows()
+        {
+
+            windowsManager.CloseAll();
+      
         }
     }
 }

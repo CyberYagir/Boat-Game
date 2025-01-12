@@ -10,7 +10,7 @@ namespace Content.Scripts.BoatGame.UI
         private ScenesService scenesService;
         private SaveService saveService;
 
-        public void Init(IRaftBuildService raftBuildService, ScenesService scenesService, SaveService saveService)
+        public void Init(IRaftBuildService raftBuildService, ScenesService scenesService, SaveService saveService, GameStateService gameStateService)
         {
             this.saveService = saveService;
             this.scenesService = scenesService;
@@ -18,6 +18,28 @@ namespace Content.Scripts.BoatGame.UI
             raftBuildService.OnChangeRaft += RaftBuildServiceOnOnChangeRaft;
 
             RaftBuildServiceOnOnChangeRaft();
+            
+            
+            gameStateService.OnChangeEState += GameStateServiceOnOnChangeEState;
+        }
+
+        private void GameStateServiceOnOnChangeEState(GameStateService.EGameState obj)
+        {
+            if (obj != GameStateService.EGameState.Normal || scenesService.GetActiveScene() == ESceneName.IslandGame)
+            {
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                if (raftBuildService.IsCanMoored())
+                {
+                    gameObject.SetActive(true);
+                }
+                else
+                {
+                    gameObject.SetActive(false);
+                }
+            }
         }
 
         private void RaftBuildServiceOnOnChangeRaft()

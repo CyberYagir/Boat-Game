@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
@@ -38,8 +39,6 @@ namespace Content.Scripts.BoatGame.UI
 
 
             scenesService.OnChangeActiveScene += OnChangeScene;
-            scenesService.OnLoadOtherScene += ScenesServiceOnOnLoadOtherScene;
-            scenesService.OnUnLoadOtherScene += ScenesServiceOnOnUnLoadOtherScene;
         }
 
         private void OnChangeScene(ESceneName scene)
@@ -47,25 +46,30 @@ namespace Content.Scripts.BoatGame.UI
             ResourceManagerOnOnChangeResources();
         }
 
-        private void ScenesServiceOnOnLoadOtherScene(ESceneName obj)
-        {
-            RemoveEvents();
-        }
-
-        private void ScenesServiceOnOnUnLoadOtherScene(ESceneName obj)
-        {
-            if (obj == ESceneName.Map)
-            {
-                RemoveEvents();
-            }
-        }
-
-        private void RemoveEvents()
+        private void OnDestroy()
         {
             scenesService.OnChangeActiveScene -= OnChangeScene;
-            scenesService.OnLoadOtherScene -= ScenesServiceOnOnUnLoadOtherScene;
-            scenesService.OnUnLoadOtherScene -= ScenesServiceOnOnUnLoadOtherScene;
         }
+
+        // private void ScenesServiceOnOnLoadOtherScene(ESceneName obj)
+        // {
+        //     RemoveEvents();
+        // }
+        //
+        // private void ScenesServiceOnOnUnLoadOtherScene(ESceneName obj)
+        // {
+        //     if (obj == ESceneName.Map)
+        //     {
+        //         RemoveEvents();
+        //     }
+        // }
+
+        // private void RemoveEvents()
+        // {
+        //     scenesService.OnChangeActiveScene -= OnChangeScene;
+        //     scenesService.OnLoadOtherScene -= ScenesServiceOnOnUnLoadOtherScene;
+        //     scenesService.OnUnLoadOtherScene -= ScenesServiceOnOnUnLoadOtherScene;
+        // }
 
         private static readonly List<EResourceTypes> PotionsList = new List<EResourceTypes>() {EResourceTypes.Potions};
         private static readonly List<EResourceTypes> PotionsAndEatList = new List<EResourceTypes>() {EResourceTypes.Eat, EResourceTypes.Potions};

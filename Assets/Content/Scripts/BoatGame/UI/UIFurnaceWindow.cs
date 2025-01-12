@@ -24,6 +24,7 @@ namespace Content.Scripts.BoatGame.UI
         private TickService tickService;
         private IResourcesService resourceService;
         private IRaftBuildService raftBuildService;
+        private GameStateService gameStateService;
 
         public Furnace TargetFurnace => targetFurnace;
 
@@ -31,9 +32,11 @@ namespace Content.Scripts.BoatGame.UI
             SelectionService selectionService,
             IRaftBuildService raftBuildService,
             TickService tickService,
-            IResourcesService resourceService
+            IResourcesService resourceService,
+            GameStateService gameStateService
         )
         {
+            this.gameStateService = gameStateService;
             this.raftBuildService = raftBuildService;
             this.resourceService = resourceService;
             this.tickService = tickService;
@@ -76,6 +79,9 @@ namespace Content.Scripts.BoatGame.UI
 
         public override void ShowWindow()
         {
+            if (gameStateService.GameState != GameStateService.EGameState.Normal) return;
+            
+            
             base.ShowWindow();
 
             targetFurnace = selectionService.SelectedObject.Transform.GetComponent<Furnace>();

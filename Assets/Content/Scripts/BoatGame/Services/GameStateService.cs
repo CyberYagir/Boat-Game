@@ -9,7 +9,8 @@ namespace Content.Scripts.BoatGame.Services
         {
             Normal,
             Building,
-            Removing
+            Removing,
+            BuildingStructures
         }
 
         [SerializeField] private EGameState gameState;

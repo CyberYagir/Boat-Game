@@ -17,7 +17,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public override void GameStateServiceOnOnChangeEState(GameStateService.EGameState mewState)
         {
-            if (mewState == GameStateService.EGameState.Building || mewState == GameStateService.EGameState.Removing)
+            if (mewState is GameStateService.EGameState.Building or GameStateService.EGameState.Removing or GameStateService.EGameState.BuildingStructures)
             {
                 gameObject.SetActive(true);
                 button.DOAnchorPos(startPosition, 0.2f);

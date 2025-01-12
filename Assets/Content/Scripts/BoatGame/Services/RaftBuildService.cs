@@ -283,16 +283,8 @@ namespace Content.Scripts.BoatGame.Services
             raftBuild.SetCraft(lastSelectedCraftItem, selectionService, this, gamedata);
             gameStateService.ChangeGameState(GameStateService.EGameState.Normal);
 
-            foreach (var ing in lastSelectedCraftItem.Ingredients)
-            {
-                for (int i = 0; i < ing.Count; i++)
-                {
-                    foreach (var raftStorage in Storages)
-                    {
-                        raftStorage.RemoveFromStorage(ing.ResourceName);
-                    }
-                }
-            }
+
+            resourcesService.RemoveItemsForCraft(lastSelectedCraftItem);
 
             if (selectionService.SelectedCharacter != null)
             {

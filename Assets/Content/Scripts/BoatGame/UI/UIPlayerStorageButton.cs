@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Scripts.BoatGame.Services;
 using Content.Scripts.Global;
 using DG.Tweening;
 using TMPro;
@@ -14,12 +15,20 @@ namespace Content.Scripts.BoatGame.UI
 
         
         
-        public void Init(SaveDataObject saveDataObject)
+        public void Init(SaveDataObject saveDataObject, GameStateService gameStateService)
         {
             this.saveDataObject = saveDataObject;
             saveDataObject.PlayerInventory.OnChangePlayerStorage.AddListener(UpdateButtonState);
             itemsCount = saveDataObject.PlayerInventory.PlayerStorageItems.Sum(x=>x.Count);
             UpdateButtonState();
+            
+            gameStateService.OnChangeEState += GameStateServiceOnOnChangeEState;
+            
+        }
+
+        private void GameStateServiceOnOnChangeEState(GameStateService.EGameState obj)
+        {
+            gameObject.SetActive(obj == GameStateService.EGameState.Normal);
         }
 
         private void UpdateButtonState()

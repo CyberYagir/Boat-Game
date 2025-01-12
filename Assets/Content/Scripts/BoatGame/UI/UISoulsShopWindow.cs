@@ -47,10 +47,12 @@ namespace Content.Scripts.BoatGame.UI
         private SaveDataObject saveDataObject;
 
         private bool isContainerOwned = false;
-        
-        
-        public void Init(GameDataObject gameDataObject, SaveDataObject saveDataObject, SelectionService selectionService)
+        private GameStateService gameStateService;
+
+
+        public void Init(GameDataObject gameDataObject, SaveDataObject saveDataObject, SelectionService selectionService, GameStateService gameStateService)
         {
+            this.gameStateService = gameStateService;
             this.saveDataObject = saveDataObject;
             this.gameDataObject = gameDataObject;
             
@@ -76,6 +78,7 @@ namespace Content.Scripts.BoatGame.UI
 
         public override void ShowWindow()
         {
+            if (gameStateService.GameState != GameStateService.EGameState.Normal) return;
             if (isContainerOwned) return;
             base.ShowWindow();
             

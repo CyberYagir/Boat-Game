@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Content.Scripts.IslandGame.Natives;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,7 +11,8 @@ namespace Content.Scripts.Global
         public enum ECharacter
         {
             Pirate,
-            Shaman
+            Shaman,
+            MedivalShaman
         }
 
         [SerializeField] private ECharacter character;
@@ -19,5 +21,10 @@ namespace Content.Scripts.Global
 
         public List<string> Phrases => phrases;
         public ECharacter Character => character;
+
+        public void SetCharacter(ECharacter shaman)
+        {
+            character = shaman;
+        }
     }
 }

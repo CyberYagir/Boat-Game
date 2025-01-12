@@ -93,7 +93,8 @@ namespace Content.Scripts.IslandGame
             IRaftBuildService raftBuildService,
             INavMeshProvider navMeshProvider,
             TickService tickService,
-            IslandMobsService islandMobsService)
+            IslandMobsService islandMobsService,
+            StructuresService structuresService)
         {
             this.islandMobsService = islandMobsService;
             this.tickService = tickService;
@@ -104,8 +105,10 @@ namespace Content.Scripts.IslandGame
             this.saveDataObject = saveDataObject;
 
             seed = saveDataObject.Global.IslandSeed;
+            structuresService.SetIsland(this);
             Init(saveDataObject.Global.IslandSeed);
-
+            
+            
             raftBuildService.OnChangeRaft += BuildNavMesh;
             if (raftBuildService.SpawnedRafts.Count != 0)
             {

@@ -23,7 +23,7 @@ namespace Content.Scripts.BoatGame.UI
         [SerializeField] private UIVillageStorageSubWindow storageSubWindow;
         [SerializeField] private UIVillageTransferSubWindow transferSubWindow;
         [SerializeField] private UIVillageFightsSubWindow fightsSubWindow;
-
+        [SerializeField] private UIVillageBuildSubWindow buildSubWindow;
 
         private IRaftBuildService raftBuildService;
         private SaveDataObject saveDataObject;
@@ -36,9 +36,11 @@ namespace Content.Scripts.BoatGame.UI
         private UIMessageBoxManager messageBoxManager;
         private ScenesService scenesService;
         private SaveService saveService;
+        private StructuresService structuresService;
+        private StructuresBuildService structureBuildService;
+        private GameStateService gameStateService;
 
-        public void Init(
-            SelectionService selectionService,
+        public void Init(SelectionService selectionService,
             IRaftBuildService raftBuildService,
             SaveDataObject saveDataObject,
             GameDataObject gameDataObject,
@@ -47,9 +49,14 @@ namespace Content.Scripts.BoatGame.UI
             UIService uiService,
             UIMessageBoxManager messageBoxManager,
             ScenesService scenesService,
-            SaveService saveService
-        )
+            SaveService saveService, 
+            StructuresService structuresService,
+            StructuresBuildService structureBuildService,
+            GameStateService gameStateService)
         {
+            this.gameStateService = gameStateService;
+            this.structureBuildService = structureBuildService;
+            this.structuresService = structuresService;
             this.saveService = saveService;
             this.scenesService = scenesService;
             this.messageBoxManager = messageBoxManager;
@@ -96,6 +103,8 @@ namespace Content.Scripts.BoatGame.UI
 
         public override void ShowWindow()
         {
+            if (gameStateService.GameState != GameStateService.EGameState.Normal) return;
+            
             base.ShowWindow();
 
             Redraw();
@@ -129,7 +138,7 @@ namespace Content.Scripts.BoatGame.UI
             slavesSubWindow.Init(gameDataObject, resourcesService, slavesGenerator, this);
             manageSubWindow.Init(slavesGenerator, villageData, gameDataObject, tickService, resourcesService, saveDataObject, this, messageBoxManager);
             fightsSubWindow.Init(villageData, gameDataObject, level, messageBoxManager, this, saveDataObject);
-            
+            buildSubWindow.Init(this, villageData, structuresService, resourcesService, uiService, saveDataObject, structureBuildService);
             
             ShowWindow();
         }

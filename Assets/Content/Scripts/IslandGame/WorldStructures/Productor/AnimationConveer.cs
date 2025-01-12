@@ -5,7 +5,11 @@ using UnityEngine;
 
 namespace Content.Scripts.IslandGame.WorldStructures.Productor
 {
-    public class AnimationConveer : MonoBehaviour
+    public interface IVisualAnimation
+    {
+    };
+    
+    public class AnimationConveer : MonoBehaviour, IVisualAnimation
     {
         [SerializeField] private ConveerItem item;
 

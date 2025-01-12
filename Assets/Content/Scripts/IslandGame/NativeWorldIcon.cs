@@ -16,10 +16,12 @@ namespace Content.Scripts.IslandGame
         [SerializeField] private EStateType stateType = EStateType.VillageViewInfo;
         private Camera mainCamera;
         private SelectionService selectionService;
+        private GameStateService gameStateService;
 
         [Inject]
-        private void Construct(SelectionService selectionService)
+        private void Construct(SelectionService selectionService, GameStateService gameStateService)
         {
+            this.gameStateService = gameStateService;
             this.selectionService = selectionService;
             mainCamera = selectionService.Camera;
             
@@ -33,7 +35,7 @@ namespace Content.Scripts.IslandGame
             transform.position = mainCamera.WorldToScreenPoint(point.transform.position);
             
             
-            if (selectionService.SelectedCharacter != null && selectionService.SelectedCharacter.CurrentState == stateType)
+            if (selectionService.SelectedCharacter != null && selectionService.SelectedCharacter.CurrentState == stateType || gameStateService.GameState != GameStateService.EGameState.Normal)
             {
                 transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.unscaledDeltaTime * 5f);
             }
@@ -45,6 +47,9 @@ namespace Content.Scripts.IslandGame
 
         public void ActiveAction()
         {
+            if (gameStateService.GameState != GameStateService.EGameState.Normal) return;
+            
+            
             var action = GetComponentInParent<ISelectable>();
             selectionService.SelectObject(action, false);
             action.PlayerActions[0].Action();
